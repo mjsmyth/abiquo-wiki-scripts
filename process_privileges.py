@@ -1,10 +1,10 @@
 #!/usr/bin/python3 -tt
 #
 # This script reads files from the input_files directory:
-# - UI labels file (get from /UI/app/lang/lang_en_US.json from the latest UI branch on github)
+# - UI labels file (get from /UI/app/lang/lang_en_US.json from current branch in your platform/ui repo
 # - database privileges information (run process_privileges.sql on the latest Abiquo DB to create process_privileges_sql.txt)
 # - an extra text file (process_privileges_extratext.txt)
-# It creates a wiki storage format table that can be pasted into Privileges page of the wiki
+# It creates wiki_privileges.txt - a wiki storage format table for pasting into Privileges page of the wiki
 #
 import sys
 import re
@@ -28,6 +28,7 @@ def main():
     rowing[18] = "<th class=\"info\" data-highlight-class=\"info\"><p>Outbound API</p></th>\n"
     rowing[19] = "<th><p>Info</p></th></tr>\n"
     extratext = {}
+    input_gitdir = '../platform/ui/app/lang'
     input_subdir = 'input_files'
     output_subdir = 'output_files'
     extfile = 'process_privileges_extratext.txt'
@@ -68,7 +69,7 @@ def main():
     
     labelmatch = {'MANAGE_FIREWALLS': 'VDC', 'MANAGE_FLOATINGIPS': 'VDC', 'WORKFLOW_OVERRIDE': 'VAPP', 'MANAGE_HARD_DISKS': 'VAPP', 'ASSIGN_FIREWALLS': 'VAPP', 'APPLIB_VM_COST_CODE': 'PRICING'}
 
-    json_data = open(os.path.join(input_subdir,'lang_en_US.json'))
+    json_data = open(os.path.join(input_gitdir,'lang_en_US.json'))
     data = simplejson.load(json_data)
     privlabels = {}
     privnames = {}
