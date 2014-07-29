@@ -290,17 +290,17 @@ END{
           if (indo == 1)
           {
             print "<tr><th class=\"warning\" colspan=\"9\" data-highlight-class=\"warning\"><p><strong>" gitPropNameCat[myLine] "</strong></p></th>" >> "output_files/wiki_properties.txt" ;
-            for (j=1;j<5;j++)
-               {
-                 print "<th class=\"warning\" data-highlight-class=\"warning\"><p><strong></strong></p></th><th class=\"warning\" data-highlight-class=\"warning\"><p><strong>" "</strong></p></th>" >> "output_files/wiki_properties.txt" ;
-               }
+ #           for (j=1;j<5;j++)
+ #              {
+ #                print "<th class=\"warning\" data-highlight-class=\"warning\"><p><strong></strong></p></th><th class=\"warning\" data-highlight-class=\"warning\"><p><strong>" "</strong></p></th>" >> "output_files/wiki_properties.txt" ;
+ #              }
             print "</tr>" >> "output_files/wiki_properties.txt";
             }
           
           if (indo > 1)
           {
             myPrevLine = propSort[(indo-1)];
-            if (gitPropNameCat[myLine] !~ gitPropNameCat[myPrevLine])
+            if (gitPropNameCat[myLine] != gitPropNameCat[myPrevLine])
             {
                print "<tr><th class=\"warning\" data-highlight-class=\"warning\"><p><strong>" gitPropNameCat[myLine] "</strong></p></th>" >> "output_files/wiki_properties.txt";
                for (j=1;j<5;j++)
