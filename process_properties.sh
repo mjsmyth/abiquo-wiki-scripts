@@ -29,6 +29,12 @@ cat $1 | gawk 'BEGIN{
   gitPropNameSplit[0] = "";
   gitPropNameCat[0] = "";
   headerProf[0] = "";
+  td = "2014-07-29"
+
+  fn_api = "properties_api_" td ".txt";
+  fn_rs =  "properties_rs_" td ".txt";
+  fn_v2v = "properties_v2v_" td ".txt";
+  fn_oa = "properties_oa_" td ".txt";
   
   gitPrintStars = "################################################################################";
   gitPrintIntro = "#### This is a sample abiquo.properties file for ";      
@@ -44,16 +50,16 @@ cat $1 | gawk 'BEGIN{
 
     
   linkNL   = "\n" ; 
-  linkAPIA = "<ac:link><ri:attachment ri:filename=\"properties_api.txt\" /><ac:link-body><ac:image ac:thumbnail=\"true\" ac:width=\"30\">";
+  linkAPIA = "<ac:link><ri:attachment ri:filename=\"" fn_api "\" /><ac:link-body><ac:image ac:thumbnail=\"true\" ac:width=\"30\">";
   linkAPIB = "<ri:attachment ri:filename=\"v26_symbol_api_transparent.png\" /></ac:image></ac:link-body></ac:link>";
   
-  linkRSA  = "<ac:link><ri:attachment ri:filename=\"properties_rs.txt\" /><ac:link-body><ac:image ac:thumbnail=\"true\" ac:width=\"30\">";
+  linkRSA  = "<ac:link><ri:attachment ri:filename=\"" fn_rs "\" /><ac:link-body><ac:image ac:thumbnail=\"true\" ac:width=\"30\">";
   linkRSB = "<ri:attachment ri:filename=\"v26_symbol_rs_transparent.png\" /></ac:image></ac:link-body></ac:link>";
   
-  linkV2VA = "<ac:link><ri:attachment ri:filename=\"properties_v2v.txt\" /><ac:link-body><ac:image ac:thumbnail=\"true\" ac:width=\"30\">";
+  linkV2VA = "<ac:link><ri:attachment ri:filename=\"" fn_v2v "\" /><ac:link-body><ac:image ac:thumbnail=\"true\" ac:width=\"30\">";
   linkV2VB = "<ri:attachment ri:filename=\"v26_symbol_v2v_transparent.png\" /></ac:image></ac:link-body></ac:link>";
   
-  linkOAA  = "<ac:link><ri:attachment ri:filename=\"properties_oa.txt\" /><ac:link-body><ac:image ac:thumbnail=\"true\" ac:width=\"30\">";
+  linkOAA  = "<ac:link><ri:attachment ri:filename=\"" fn_oa "\" /><ac:link-body><ac:image ac:thumbnail=\"true\" ac:width=\"30\">";
   linkOAB  = "<ri:attachment ri:filename=\"v26_symbol_oa_transparent.png\" /></ac:image></ac:link-body></ac:link>";
   
   print "<table>\n<tbody>\n<tr><th class=\"warning\" data-highlight-class=\"warning\">  <p>Property</p></th>" >> "output_files/wiki_properties.txt";
@@ -67,21 +73,21 @@ cat $1 | gawk 'BEGIN{
   print "<th class=\"warning\" colspan=\"1\" data-highlight-class=\"warning\">Info</th></tr>" >> "output_files/wiki_properties.txt";
   
   
-  print gitPrintStars > "output_files/properties_api.txt";
-  print gitPrintIntro "API / SERVER          " gitPrintEnd >> "output_files/properties_api.txt";
-  print gitPrintStars "\n\n" >> "output_files/properties_api.txt";              
+  print gitPrintStars > "output_files/" fn_api;
+  print gitPrintIntro "API / SERVER          " gitPrintEnd >> "output_files/" fn_api;
+  print gitPrintStars "\n\n" >> "output_files/" fn_api;              
               
-  print gitPrintStars > "output_files/properties_rs.txt";
-  print gitPrintIntro "REMOTE SERVICES       " gitPrintEnd >> "output_files/properties_rs.txt";
-  print gitPrintStars "\n\n" >> "output_files/properties_rs.txt";              
+  print gitPrintStars > "output_files/" fn_rs;
+  print gitPrintIntro "REMOTE SERVICES       " gitPrintEnd >> "output_files/" fn_rs;
+  print gitPrintStars "\n\n" >> "output_files/" fn_rs;              
               
-  print gitPrintStars > "output_files/properties_v2v.txt";
-  print gitPrintIntro "V2V (REMOTE SERVICES) " gitPrintEnd >> "output_files/properties_v2v.txt";
-  print gitPrintStars "\n\n" >> "output_files/properties_v2v.txt";              
+  print gitPrintStars > "output_files/" fn_v2v;
+  print gitPrintIntro "V2V (REMOTE SERVICES) " gitPrintEnd >> "output_files/" fn_v2v;
+  print gitPrintStars "\n\n" >> "output_files/" fn_v2v;              
               
-  print gitPrintStars > "output_files/properties_oa.txt";
-  print gitPrintIntro "OUTBOUND API          " gitPrintEnd >> "output_files/properties_oa.txt";
-  print gitPrintStars "\n\n" >> "output_files/properties_oa.txt";              
+  print gitPrintStars > "output_files/" fn_oa;
+  print gitPrintIntro "OUTBOUND API          " gitPrintEnd >> "output_files/" fn_oa;
+  print gitPrintStars "\n\n" >> "output_files/" fn_oa;              
 
 }
 {
@@ -139,26 +145,26 @@ cat $1 | gawk 'BEGIN{
          { 
             if (headerProf[1] != " ")
               {
-                print $0 >> "output_files/properties_api.txt";
-                print " " >> "output_files/properties_api.txt";
+                print $0 >> "output_files/" fn_api;
+                print " " >> "output_files/" fn_api;
               }
               
             if (headerProf[2] != " ")
               {
-                print $0 >> "output_files/properties_rs.txt"; 
-                print " " >> "output_files/properties_rs.txt";
+                print $0 >> "output_files/" fn_rs; 
+                print " " >> "output_files/" fn_rs;
               } 
               
             if (headerProf[3] != " ")
               {
-                print $0 >> "output_files/properties_v2v.txt";
-                print " " >> "output_files/properties_v2v.txt";
+                print $0 >> "output_files/" fn_v2v;
+                print " " >> "output_files/" fn_v2v;
               }
               
             if (headerProf[4] != " ")
               {
-                print $0 >> "output_files/properties_oa.txt"; 
-                print " " >> "output_files/properties_oa.txt";
+                print $0 >> "output_files/" fn_oa; 
+                print " " >> "output_files/" fn_oa;
               }   
 
             gitValuesLine = $NF;

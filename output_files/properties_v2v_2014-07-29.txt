@@ -31,6 +31,12 @@ abiquo.rabbitmq.username=guest
 # This property must be the same for all API and remote services servers
 #abiquo.security.encrypt=false
  
+# Address where KairosDb is located
+abiquo.kairosdb.host=localhost
+ 
+# Port where KairosDb is listening
+abiquo.kairosdb.port=8080
+ 
 # Identify the AMQP datacenter queues. The Datacenter ID is used for building
 # routing keys and queue names, so that they are unique for each datacenter. 
 # Warning: Do not change this property! This property is required and the
