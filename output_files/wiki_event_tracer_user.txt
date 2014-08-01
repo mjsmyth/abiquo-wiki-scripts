@@ -1,0 +1,355 @@
+|| Entity || Action || Severity || Tracer || API Error ||
+ || h6. Category || || || || || 
+|  | CREATE DELETE |  (i)  |  Removing category 'CATEGORY_NAME'. |   | 
+|  | CREATE   |  (i)  |  A new category has been created with the name 'name'. |   | 
+|  | CREATE MODIFY |  (i)  |  Category 'CATEGORY_OLD_NAME' updated. |   | 
+ || h6. Datacenter_repository || || || || || 
+|  | REFRESH  |  (-)  |  Cannot refresh datacenter repository 'repositoryLocation'. | AM-3  | 
+|  | REFRESH   |  (i)  |  Datacenter repository 'repositoryLocation' refresh started. |   | 
+ || h6. External_ip || || || || || 
+|  | CREATE   |  (i)  |  IP 'ip' of type 'EXTERNAL' has been created in network 'PUBLIC_NET_NAME' of datacenter 'DC_NAME'. |   | 
+ || h6. Firewall_policy || || || || || 
+|  | CREATE   |  (i)  |  The firewall policy 'name' has been created.\nIf your cloud provider creates default rules, synchronize rules using our firewall synchronization feature. |   | 
+|  | DELETE   |  (i)  |  The firewall policy 'POLICY_NAME' has been deleted. |   | 
+|  | MODIFY   |  (i)  |  The firewall policy 'POLICY_OLD_NAME' has been modified: name: 'name', description: 'description'. |   | 
+|  | RULES_MODIFY   |  (i)  |  The firewall policy 'POLICY_NAME' rules have changed. |   | 
+|  | RULES_MODIFY   |  (!)  |  An error occurred while adding new rules in the firewall policy 'POLICY_NAME'. It is possible that old rules have been removed. Please check them. |   | 
+ || h6. Hard_disk || || || || || 
+|  | CREATE   |  (i)  |  A new hard disk of HARD_DISK_SIZE MB has been created in virtual datacenter 'VDC_NAME'. |   | 
+|  | DELETE   |  (i)  |  The hard disk resource 'HARD_DISK_ID' of HARD_DISK_SIZE MB has been deleted from virtual datacenter 'VDC_NAME'. |   | 
+|  | MODIFY  |  (-)  |  The size of the hard disk cannot be reduced. | HD-8  | 
+|  | MODIFY   |  (i)  |  The hard disk on virtual machine 'VIRTUAL_MACHINE_NAME' with sequence 'HARD_DISK_OLD_SEQUENCE' has been modified. |   | 
+|  | RESIZE   |  (i)  |  The hard disk on virtual machine 'VIRTUAL_MACHINE_NAME' with sequence 'HARD_DISK_OLD_SEQUENCE' of HARD_DISK_OLD_SIZE bytes has been resized to HARD_DISK_SIZE bytes. |   | 
+ || h6. Health_check || || || || || 
+|  | CREATE   |  (i)  |  Added health check 'name' to load balancer 'LOAD_BALANCER_NAME' in 'DC_NAME' location for enterprise 'ENT_NAME': protocol 'protocol', path 'path'. |   | 
+|  | DELETE   |  (i)  |  Removed health check 'HEALTH_CHECK_NAME' from load balancer 'LOAD_BALANCER_NAME' in 'DC_NAME' location for enterprise 'ENT_NAME'. |   | 
+ || h6. Layer || || || || || 
+|  | CHECK_CAPACITY  |  (-)  |  The anti-affinity layer requires more machines than currently available in the datacenter. | AAFFINITY-0  | 
+|  | CHECK_CAPACITY  |  (-)  |  Anti-affinity for layer 'LAYER' in VApp 'VAPP_NAME' cannot be honored: 'NUM_POSSIBLE_MACHINES' were available in Datacenter 'DC_NAME', Rack 'RACK_NAME', but 'MIN_REQUIRED_MACHINES' machines were required. | AAFFINITY-1  | 
+ || h6. Load_balancer || || || || || 
+|  | CREATE   |  (i)  |  Added load balancer 'name'. |   | 
+|  | DELETE   |  (i)  |  Removed load balancer 'LOAD_BALANCER_NAME'. |   | 
+|  | MODIFY   |  (i)  |  Load balancer 'LOAD_BALANCER_OLD_NAME' has been updated. |   | 
+|  | SYNCH_CREATE   |  (i)  |  Added load balancer 'name' during refresh. |   | 
+|  | SYNCH_DELETE   |  (i)  |  Removed load balancer 'LOAD_BALANCER_NAME' during refresh. |   | 
+|  | SYNCH_MODIFY   |  (i)  |  Load balancer 'name' has been synchronized. |   | 
+|  | SYNCH_VIRTUAL_MACHINES DELETE |  (i)  |  Virtual machines removed from load balancer 'LOAD_BALANCER_NAME'. |   | 
+|  | SYNCH_VIRTUAL_MACHINES   |  (i)  |  Virtual machines of load balancer 'name' have been synchronized. |   | 
+|  | VIRTUAL_MACHINES  |  (-)  |  An error occurred while registering virtual machines for load balancer 'LOAD_BALANCER_NAME'. The current state of the load balancer or virtual machines could be inconsistent. Please synchronize the load balancer. |   | 
+|  | VIRTUAL_MACHINES   |  (i)  |  The virtual machines registered to the load balancer 'name' have been updated. |   | 
+ || h6. Private_ip || || || || || 
+|  | CREATE   |  (i)  |  Private IP 'ip' has been created in network 'PRIVATE_NET_NAME' of virtual datacenter 'VDC_NAME'. |   | 
+ || h6. Private_network || || || || || 
+|  | CREATE   |  (i)  |  A new private VLAN with name 'name' has been created in virtual datacenter 'VDC_NAME'. |   | 
+|  | DEFAULT   |  (i)  |  A virtual datacenter auto-created private VLAN will be the default in enterprise 'ENT_NAME'. |   | 
+|  | DELETE   |  (i)  |  The private VLAN with name 'PRIVATE_NET_NAME' in virtual datacenter 'VDC_NAME' has been deleted. |   | 
+|  | MODIFY   |  (i)  |  The private VLAN with name 'PRIVATE_NET_OLD_NAME' has been modified in virtual datacenter 'VDC_NAME'. |   | 
+ || h6. Public_ip || || || || || 
+|  | CREATE FLOATINGIP |  (i)  |  Floating IP 'ip' has been created in location 'DC_NAME' for enterprise 'ENT_NAME'. |   | 
+|  | CREATE IMPORT_FLOATINGIP |  (i)  |  Floating IP 'IP' has been imported in location 'DC_NAME' for enterprise 'ENT_NAME'. |   | 
+|  | CREATE IMPORT_UNAVAILABLE_FLOATINGIP |  (i)  |  Floating IP 'IP' has been imported into location 'DC_NAME' for enterprise 'ENT_NAME' but it is not available for use. It is probably already attached to a VM in the cloud provider. |   | 
+|  | CREATE   |  (i)  |  IP 'ip' of type 'PUBLIC' has been created in network 'PUBLIC_NET_NAME' of datacenter 'DC_NAME'. |   | 
+|  | PURCHASE   |  (i)  |  Public IP 'ip' has been purchased by virtual datacenter 'VDC_NAME'. |   | 
+|  | RELEASE FLOATINGIP |  (i)  |  Floating IP 'IP' has been released and deleted in location 'DC_NAME' for enterprise 'ENT_NAME'. |   | 
+|  | RELEASE IMPORT_FLOATINGIP |  (i)  |  Floating IP 'IP' has been released and deleted in location 'DC_NAME' for enterprise 'ENT_NAME'. |   | 
+|  | RELEASE   |  (i)  |  Public IP 'IP' has been released from virtual datacenter 'VDC_NAME'. |   | 
+ || h6. Routing_rule || || || || || 
+|  | CREATE   |  (i)  |  Added routing rule 'portIn' -> 'portOut' to load balancer 'LOAD_BALANCER_NAME'. |   | 
+|  | DELETE   |  (i)  |  Removed routing rule 'ROUTING_RULE_PORT_IN' -> 'ROUTING_RULE_PORT_OUT' from load balancer 'LOAD_BALANCER_NAME'. |   | 
+|  | MODIFY   |  (i)  |  Modified routing rule 'portIn' -> 'portOut' of load balancer 'LOAD_BALANCER_NAME'. |   | 
+ || h6. Scheduler || || || || || 
+|  | BEST_TARGET  |  (-)  |  No rack can be selected because all racks exceed the maximum allowed VLANs. | SCH-EXCEEDED-MAX-VLAN | 
+|  | DATASTORE  |  (-)  |  The target physical machine has no datastores. | SCH-NO-DATASTORES  | 
+|  | DATASTORE  |  (-)  |  The target physical machine has no datastores enabled with the required free space. | SCH-NO-DATASTORES-ENABLED  | 
+|  | FIRST_CANDIDATES  |  (-)  |  No machine can be selected on rack: 'RACK_NAME'. | SCH-NOK | 
+|  | FIRST_CANDIDATES  |  (-)  |  Not enough VLAN resources on rack ' RACK_NAME' to deploy the required virtual appliance. | SCH-NOT-ENOUGH-VLAN  | 
+|  | FREE_PORT  |  (-)  |  The maximum number of remote desktop ports has been reached. | SCH-VRDPORT  | 
+|  | FREE_VLAN  |  (-)  |  The maximum number of VLAN tags has been reached. | SCH-EXCEEDED-VLAN_TAG  | 
+|  | VIRTUAL_MACHINE  |  (-)  |  There are not enough resources to deploy the virtual machine. | SCH-NOT-ENOUGH-RESOURCES  | 
+|  | VIRTUAL_MACHINE  |  (-)  |  Scheduler cannot fulfil user request due to SchedulerException: 'ERROR_MESSAGE'. | SCH-VM | 
+ || h6. Session || || || || || 
+|  | LOGIN   |  (i)  |  User 'USER_NICK' logged in. |   | 
+|  | LOGOUT   |  (i)  |   User 'USER_NICK' logged out. |   | 
+ || h6. Task || || || || || 
+|  | DEPLOY_CANCEL  |  (-)  |  Deploy task 'taskId' (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME') workflow cancelation failed (custom message: 'CAUSE'). | WKF-02  | 
+|  | DEPLOY_CANCEL   |  (i)  |  Deploy task 'taskId'  (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME') workflow cancelation was successful (custom message: 'CAUSE'). |   | 
+|  | DEPLOY_CONTINUE  |  (-)  |  Deploy task 'taskId' (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME') workflow continuation failed (custom message: 'CAUSE'). | WKF-03  | 
+|  | DEPLOY_CONTINUE   |  (i)  |  Deploy task 'taskId'  (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME') workflow continuation was successful (custom message: 'CAUSE'). |   | 
+|  | RECONFIGURE_CANCEL  |  (-)  |  Reconfigure task 'taskId' (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME') workflow cancelation failed (custom message: 'CAUSE'). | WKF-02  | 
+|  | RECONFIGURE_CANCEL   |  (i)  |  Reconfigure task 'taskId'  (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME') workflow cancelation was successful (custom message: 'CAUSE'). |   | 
+|  | RECONFIGURE_CONTINUE  |  (-)  |  Reconfigure task 'taskId' (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME') workflow continuation failed (custom message: 'CAUSE'). | WKF-03  | 
+|  | RECONFIGURE_CONTINUE   |  (i)  |  Reconfigure task 'taskId'  (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME') workflow continuation was successful (custom message: 'CAUSE'). |   | 
+|  | UNDEPLOY_CANCEL  |  (-)  |  Undeploy task 'taskId' (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME') workflow cancelation failed (custom message: 'CAUSE'). | WKF-02  | 
+|  | UNDEPLOY_CANCEL   |  (i)  |  Undeploy task 'taskId' (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME')  workflow cancelation was successful (custom message: 'CAUSE'). |   | 
+|  | UNDEPLOY_CONTINUE  |  (-)  |  Undeploy task 'taskId' (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME') workflow continuation failed (custom message: 'CAUSE'). | WKF-03  | 
+|  | UNDEPLOY_CONTINUE   |  (i)  |  Undeploy task 'taskId' (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME')  workflow continuation was successful (custom message: 'CAUSE'). |   | 
+ || h6. User || || || || || 
+|  | CREATE   |  (i)  |  User 'name' has been created (Enterprise: 'enterprise.name' Name: 'name' Surname: 'surname' Role: 'role.name') |   | 
+|  | DELETE  |  (-)  |  User 'name' could not be deleted. Users with role 'role.name' can only be deleted by users with the same role. | USER-16  | 
+|  | DELETE   |  (i)  |  User 'USER_NAME' has been deleted (Enterprise: 'ENT_NAME' Name: 'USER_NAME' Surname: 'USER_SURNAME' Role: 'ROLE_NAME') |   | 
+|  | MODIFY  |  (-)  |  User 'name' could not be modified. Users with role 'role.name' can only be modified by users with the same role. | USER-22  | 
+|  | MODIFY   |  (i)  |  User 'USER_OLD_NAME' has been modified (Enterprise: 'enterprise.name' Name: 'name' Surname: 'surname' Role: 'role.name') |   | 
+ || h6. Virtual_appliance || || || || || 
+|  | COPY  |  (-)  |  Virtual appliance 'name' cannot be copied. The 'DISK_TYPE' template of this virtual machine is not compatible with the target hypervisor ('HYPERVISOR_TYPE') and no conversions are available. | VAPP-10 | 
+|  | COPY  |  (-)  |  Virtual appliance 'name', cannot be copied. The expected state was NOT_DEPLOYED but the actual state is 'state'. | VAPP-13 | 
+|  | COPY  |  (-)  |  Virtual appliance 'name' cannot be copied; the virtual datacenters (origin 'VDC_ORIGIN' and target 'VDC_DESTINATION') must belong to the same datacenter. | VAPP-7  | 
+|  | COPY  |  (-)  |  Virtual appliance 'name' cannot be copied. Virtual appliance contains captured virtual machine(s). | VAPP-9  | 
+|  | COPY   |  (i)  |  Virtual appliance 'VAPP_ORIGINAL_NAME' successfully copied from virtual datacenter 'VDC_ORIGIN' to virtual datacenter 'VDC_DESTINATION' with name 'VAPP_NAME'. |   | 
+|  | CREATE   |  (i)  |  Virtual appliance 'name' has been created. |   | 
+|  | DELETE   |  (i)  |  Delete of the virtual appliance 'VAPP_NAME' succeeded. |   | 
+|  | DEPLOY  |  (-)  |  The virtual appliance 'name' caused an error. Unexpected Error: 'MESSAGE'. Continuing to next virtual machine. | VAPP-3  | 
+|  | DEPLOY   |  (i)  |  Virtual appliance 'name' is being deployed. |   | 
+|  | LOCK_DELETE  |  (-)  |  Delete of the virtual appliance 'name' failed due to an invalid state. Should have been NOT_DEPLOYED but was 'state'. | VAPP-5  | 
+|  | MODIFY   |  (i)  |  Virtual appliance 'name' has been modified. |   | 
+|  | MOVE  |  (-)  |  Virtual appliance 'name' cannot be moved. The 'DISK_TYPE' template of this virtual machine is not compatible with the target hypervisor ('HYPERVISOR_TYPE') and no conversions are available. | VAPP-10 | 
+|  | MOVE  |  (-)  |  Virtual appliance 'name' cannot be moved; the virtual datacenters (origin 'VDC_ORIGIN' and target 'VDC_DESTINATION') must belong to the same datacenter. | VAPP-7  | 
+|  | MOVE  |  (-)  |  Virtual appliance 'name', cannot be moved. The expected state was NOT_DEPLOYED but the actual state is 'state'. | VAPP-8 | 
+|  | MOVE  |  (-)  |  Virtual appliance 'name' cannot be moved. Virtual appliance contains captured virtual machine(s). | VAPP-9  | 
+|  | MOVE   |  (i)  |  Virtual appliance 'VAPP_ORIGINAL_NAME' successfully moved from virtual datacenter 'VDC_ORIGIN' to virtual datacenter 'VDC_DESTINATION' with name 'VAPP_NAME'. |   | 
+|  | UNDEPLOY  |  (-)  |  The virtual machine 'VIRTUAL_MACHINE_NAME' caused an error. Unexpected Error: 'MESSAGE'. Continuing to next virtual machine. | VAPP-20  | 
+|  | UNDEPLOY   |  (i)  |  Virtual appliance 'name' is being undeployed. |   | 
+|  | WORKFLOW_DEPLOY_BATCH  |  (-)  |  Virtual appliance 'name' deploy workflow webhook request for task 'TASK_ID' failed. | WKF-01  | 
+|  | WORKFLOW_DEPLOY_BATCH   |  (i)  |  Virtual appliance 'name' deploy workflow webhook sent successfully. |   | 
+|  | WORKFLOW_UNDEPLOY_BATCH  |  (-)  |  Virtual appliance 'name' undeploy workflow webhook request for task 'TASK_ID' failed. | WKF-01  | 
+|  | WORKFLOW_UNDEPLOY_BATCH   |  (i)  |  Virtual appliance 'name' undeploy workflow webhook sent successfully. |   | 
+ || h6. Virtual_datacenter || || || || || 
+|  | CREATE   |  (i)  |  Virtual datacenter 'name' has been created. |   | 
+|  | DELETE   |  (i)  |  Virtual datacenter 'VDC_NAME' has been deleted. |   | 
+|  | MODIFY  |  (-)  | 'MESSAGE'. | VDC-8  | 
+|  | MODIFY   |  (i)  |  Virtual datacenter 'VDC_NAME' has been modified. |   | 
+|  | NETWORK_DEFAULT   |  (i)  |  'VLAN_TYPE' VLAN with name 'VLAN_NAME' has been configured as the default in virtual datacenter 'VDC_NAME'. |   | 
+ || h6. Virtual_image_conversion || || || || || 
+|  | AVAILABLE   |  (i)  |  Virtual machine template conversion at 'CONVERSION_TARGET_PATH' is available again. |   | 
+|  | CREATED_IN_REPO   |  (i)  |  New virtual machine template conversion at 'CONVERSION_TARGET_PATH' with format 'CONVERSION_TARGET_TYPE'. |   | 
+|  | UNAVAILABLE   |  (!)  |  Virtual machine template conversion at 'CONVERSION_TARGET_PATH' is not present in the datacenter repository. |   | 
+ || h6. Virtual_machine || || || || || 
+|  | ALLOCATE_HD   |  (i)  |  The hard disk resource of 'RASD_LIMIT' MB has been assigned to virtual machine 'VIRTUAL_MACHINE_NAME'. |   | 
+|  | ALLOCATE_NICS  |  (-)  |  Cannot add more NICs to virtual machine 'VIRTUAL_MACHINE_NAME'. NIC limit: 'NICS_PER_VM', Current NICs: CURRENT_NICS_SIZE, Requested NICs: REQUESTED_NICS_SIZE. | VM-49  | 
+|  | ALLOCATE_NICS   |  (i)  |  Virtual machine 'VIRTUAL_MACHINE_NAME' has attached the NIC associated with IP Address 'IP' in VLAN 'VLAN_NAME'. |   | 
+|  | ALLOCATE_VOLUME   |  (i)  |  Volume 'VOLUME_NAME' of VOLUME_SIZE MB has been attached to virtual machine 'VIRTUAL_MACHINE_NAME'. |   | 
+|  | ASYNC_HANDLER_RESPONSE  |  (-)  |  Error processing task 'TASK_TYPE' in handler 'HANDLER_NAME'. Error: 'EXCEPTION_CLASS': 'TASK_ERROR'. | JOB-1  | 
+|  | CAPTURE   |  (i)  |  The imported virtual machine 'name' has been successfully captured from the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_IP' - 'HYPERVISOR_TYPE') into the virtual appliance 'virtualappliance.name'. |   | 
+|  | CAPTURE   |  (!)  |  No available tag has been found for VLANs when capturing the virtual machine 'name'. | SCH-EXCEEDED-VLANTAG  | 
+|  | CHEF_RUNLIST_DELETE   |  (i)  |  Removed run list element 'RUN_LIST_ELEMENT' because it no longer exists on the Chef Server. |   | 
+|  | CHEF_RUNLIST_UPDATE   |  (!)  |  The node does not exist on the Chef Server. If the virtual machine is bootstrapping, please wait until the process completes. |   | 
+|  | CREATE   |  (i)  |  The virtual machine was created successfully. |   | 
+|  | DEALLOCATE_HD   |  (i)  |  The hard disk resource of HARD_DISK_SIZE MB has been released from virtual machine 'VIRTUAL_MACHINE_NAME'. |   | 
+|  | DEALLOCATE_NICS   |  (i)  |  Virtual machine 'VIRTUAL_MACHINE_NAME' has released the NIC associated with IP Address 'IP' in VLAN 'VLAN_NAME'. |   | 
+|  | DEALLOCATE_VOLUME   |  (i)  |  Volume 'VOLUME_NAME' of VOLUME_SIZE MB has been detached from virtual machine 'VIRTUAL_MACHINE_NAME'. |   | 
+|  | DEFINITION_SYNCER_CPU_CHANGED   |  (i)  |  CPU of virtual machine 'VIRTUAL_MACHINE_NAME' has been changed from 'OLD_VALUE' to 'NEW_VALUE'. |   | 
+|  | DEFINITION_SYNCER_DATASTORE_CHANGED   |  (i)  |  Datastore of virtual machine 'VIRTUAL_MACHINE_NAME' has been changed from 'OLD_VALUE' to 'NEW_VALUE'. |   | 
+|  | DEFINITION_SYNCER_FLOATINGIP_ADDED   |  (i)  |  New floating IP 'IP' detected and attached to virtual machine 'VIRTUAL_MACHINE_NAME'. |   | 
+|  | DEFINITION_SYNCER_PROFILE_CHANGED   |  (i)  |  Hardware profile of virtual machine 'VIRTUAL_MACHINE_NAME' has been changed from 'OLD_VALUE' to 'NEW_VALUE'. |   | 
+|  | DEFINITION_SYNCER_RAM_CHANGED   |  (i)  |  RAM of virtual machine 'VIRTUAL_MACHINE_NAME' has been changed from 'OLD_VALUE' to 'NEW_VALUE'. |   | 
+|  | DELETE   |  (i)  |  The virtual machine was deleted successfully. |   | 
+|  | DEPLOY DEPLOY_FREE_RESOURCES_ |  (-)  |  Deploy of virtual machine 'VIRTUAL_MACHINE_NAME' (task 'TASK_ID') could not queue the request to free resources. This means that some resources were not properly freed. This might be related to a RabbitMQ malfunction. | TASK-3  | 
+|  | DEPLOY  |  (-)  |  Could not deploy the virtual machine 'name': 'EVENT'. |   | 
+|  | DEPLOY  |  (-)  |  The virtual machine 'VIRTUAL_MACHINE_NAME' is now in state UNKNOWN. Unexpected Error: 'MESSAGE'. | 500  | 
+|  | DEPLOY  |  (-)  |  There are not enough resources available in the datacenter. Try again in a few minutes and if the error persists, please contact your System Administrator (Error code: 'CODE'). | DC-10  | 
+|  | DEPLOY  |  (-)  |  The virtual machine is now in state UNKNOWN. Unexpected Error: 'RS_ERROR'. | GEN-14  | 
+|  | DEPLOY  |  (-)  |  The requested virtual machine definition cannot be applied by the hypervisor plugin: 'MESSAGE'. | GEN-20  | 
+|  | DEPLOY  |  (-)  |  Virtual factory task 'TASK_ID' on virtual machine ID 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') failed on the platform due to a communication problem with the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. The platform will perform a check on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | HYP-01  | 
+|  | DEPLOY  |  (-)  |  The deploy of the virtual machine 'VIRTUAL_MACHINE_NAME' failed: The port group attached to the virtual switch does not match the expected virtual switch. Error: 'EVENT'. | NET-1  | 
+|  | DEPLOY  |  (-)  |  The virtual machine 'name' definition is invalid. Deploy failed: 'EVENT'. | PL-2  | 
+|  | DEPLOY  |  (-)  |  The deploy of the virtual machine 'name' failed: 'EVENT'. | PL-CPROV-14  | 
+|  | DEPLOY  |  (-)  |  The deploy of the virtual machine 'name' failed: 'EVENT'. | PL-CPROV-20  | 
+|  | DEPLOY  |  (-)  |  The deploy of the virtual machine 'name' failed: 'EVENT'. | PL-CPROV-3  | 
+|  | DEPLOY  |  (-)  |  Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the IDE controller is full. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-ED-1  | 
+|  | DEPLOY  |  (-)  |  Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-0  | 
+|  | DEPLOY  |  (-)  |  Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine already exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-1  | 
+|  | DEPLOY  |  (-)  |  The deploy of the virtual machine 'VIRTUAL_MACHINE_NAME' failed: 'EVENT'. | PL-VM-01  | 
+|  | DEPLOY  |  (-)  |  There are CANDIDATES_SIZE candidate machines but all are oversubscribed by the current workload rules (RAM and CPU oversubscription or no suitable datastore with enough free space).\nPlease check the workload rules or the physical machine resources.\nVirtual machine requires REQUIREMENTS_CPU CPU -- REQUIREMENTS_RAM RAM \nCandidate machines: CANDIDATES_NAMES. | SCH-NOK  | 
+|  | DEPLOY  |  (-)  |  The virtual machine is now in state UNKNOWN. Unexpected Error: 'MESSAGE'. | VM-54  | 
+|  | DEPLOY  |  (-)  |  The virtual machine is now in state UNKNOWN. Unexpected Error: 'MESSAGE'. | VM-55  | 
+|  | DEPLOY  |  (-)  |  The virtual machine is now in state UNKNOWN. Unexpected Error: 'MESSAGE'. | VM-56  | 
+|  | DEPLOY FINISH_ |  (-)  |  Virtual machine deploy task with task ID 'TASK_ID' failed because the VM does not exist in the hypervisor. Setting virtual machine state to UNKNOWN 'VIRTUAL_MACHINE_NAME' ('VIRTUAL_MACHINE_ID'). | JOB-2  | 
+|  | DEPLOY FINISH_ |  (-)  |  Deploy (task ID 'TASK_ID') on virtual machine 'VIRTUAL_MACHINE_NAME' failed. The virtual machine is in state NOT_ALLOCATED. On hypervisor 'MACHINE_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | TASK-3  | 
+|  | DEPLOY FINISH_ |  (-)  |  Deploy of virtual machine ID 'TASK_ID' and owner 'TASK_OWNER_ID' failed on the platform. Aborted the task created at 'TASK_TIMESTAMP'. Failed to set virtual machine state to UNKNOWN. | TASK-4  | 
+|  | DEPLOY FINISH |  (i)  |  Deploy on virtual machine 'VIRTUAL_MACHINE_NAME' completed. Scheduled in hypervisor 'MACHINE_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. |   | 
+|  | DEPLOY HA_ |  (-)  |  Could not deploy the virtual machine 'name' for HA: 'EVENT'. |   | 
+|  | DEPLOY HA_ |  (-)  |  Virtual factory task 'TASK_ID' on virtual machine ID 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') failed on the platform due to a communication problem with the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. The platform will perform a check on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | HYP-01  | 
+|  | DEPLOY HA_ |  (-)  |  Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the IDE controller is full. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-ED-1  | 
+|  | DEPLOY HA_ |  (-)  |  The deploy task could not be queued in the virtual factory. RabbitMQ might be down or not properly configured. | TR-DEPLOY-VM  | 
+|  | DEPLOY HA_ |  (-)  |  Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | VAL-0  | 
+|  | DEPLOY   |  (i)  |  The deploy of the virtual machine 'VIRTUAL_MACHINE_NAME' was successfully queued in the virtual factory. |   | 
+|  | FIREWALL_POLICY   |  (i)  |  Firewall policies on virtual machine 'name' have changed. |   | 
+|  | IMPORT   |  (i)  |  A virtual machine with name 'name' has been imported from hypervisor 'HYPERVISOR_NAME' (HYPERVISOR_IP). |   | 
+|  | IMPORT   |  (!)  |  Could not import virtual machine with name 'VIRTUAL_MACHINE_NAME' from hypervisor 'HYPERVISOR_NAME' (HYPERVISOR_IP) because of VM with duplicate name on hypervisor 'OTHER_HYPERVISOR_NAME' (OTHER_HYPERVISOR_IP). |   | 
+|  | INITIATOR_MAPPING  |  (-)  |  Could not add the mappings for virtual machine UUID 'uuid' name 'name'. | VOL-19  | 
+|  | INSTANCE_CONVERSION_MASTER_START  |  (-)  |  Failed to queue conversion to master format for the instance of virtual machine 'VIRTUAL_MACHINE_NAME'. | JOB-4  | 
+|  | INSTANCE_CONVERSION_MASTER_START   |  (i)  |  Conversion to master format queued for instance template 'TEMPLATE_NAME'. |   | 
+|  | INSTANCE_CONVERSION_START  |  (-)  |  Failed to queue conversions for the instance template 'TEMPLATE_NAME'. | 500  | 
+|  | INSTANCE_CONVERSION_START   |  (i)  |  Conversions queued for the instance template 'TEMPLATE_NAME'. |   | 
+|  | INSTANCE_CONVERSION_START   |  (!)  |  Failed to queue conversions for the instance template 'TEMPLATE_NAME'. |   | 
+|  | INSTANCE_DISK_COPY  |  (-)  |  Failed to copy disk of virtual machine 'VIRTUAL_MACHINE_NAME'. EVENT. | JOB-2  | 
+|  | INSTANCE_DISK_COPY   |  (i)  |  Completed copy of disk of virtual machine 'VIRTUAL_MACHINE_NAME'. |   | 
+|  | INSTANCE_DUMP_VOLUME  |  (-)  |  Failed to dump volume for persistent virtual machine 'VIRTUAL_MACHINE_NAME'. | JOB-2  | 
+|  | INSTANCE_DUMP_VOLUME   |  (i)  |  Completed dump to volume of persistent virtual machine 'VIRTUAL_MACHINE_NAME'. |   | 
+|  | INSTANCE_FINISH  |  (-)  |  Virtual factory task 'TASK_OWNER' on virtual machine ID 'TASK_ID' ('VIRTUAL_MACHINE_NAME') failed on the platform due to a communication problem with the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. The platform will perform a check on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | HYP-01  | 
+|  | INSTANCE_FINISH  |  (-)  |  Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-0  | 
+|  | INSTANCE_FINISH  |  (-)  |  Instance (task ID 'TASK_OWNER') failed on virtual machine ID 'TASK_ID' ('VIRTUAL_MACHINE_NAME') on hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | TASK-3  | 
+|  | INSTANCE_FINISH  |  (-)  |  Aborted instance (task ID 'TASK_OWNER') of virtual machine ID 'TASK_ID'. | TASK-4  | 
+|  | INSTANCE_FINISH   |  (i)  |  Completed instance (task ID 'TASK_OWNER') on virtual machine ID 'TASK_ID' ('VIRTUAL_MACHINE_NAME') on hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. |   | 
+|  | INSTANCE_START  |  (-)  |  Could not create an instance of the virtual machine 'name': 'EVENT'. |   | 
+|  | INSTANCE_START  |  (-)  |  Unexpected error instancing virtual machine 'name'. | 500 | 
+|  | INSTANCE_TEMPLATE_CREATE   |  (i)  |  Inserted template 'TEMPLATE_NAME' for the instance of virtual machine 'VIRTUAL_MACHINE_NAME'. |   | 
+|  | LOCK_DELETE  |  (-)  |  Delete of the virtual machine 'name' failed due to an invalid state: 'state'. | VM-8  | 
+|  | LOCK_DEPLOY  |  (-)  |  The virtual machine 'name' was expected to be in the not allocated state but was 'state'. | VM-7  | 
+|  | LOCK_RECONFIGURE  |  (-)  |  Could not reconfigure the virtual machine 'name' : 'MESSAGE'. | VM-13  | 
+|  | METADATA_MODIFIED   |  (i)  |  Backup configuration for virtual machine 'name' has been modified. |   | 
+|  | MODIFY  |  (-)  |  Virtual machine cannot be reconfigured due to unexpected errors. Contact your System Administrator. | VM-59  | 
+|  | MODIFY  |  (-)  |  Cannot update the virtual machine because target physical NIC cannot be found. The physical NIC where the virtual NIC with IP 'VNIC_IP' was attached may have been removed directly in the hypervisor 'HYPERVISOR_IP' ('HYPERVISOR_NAME'). | VM-66  | 
+|  | MOVE_BY_HA  |  (-)  |  HA Move (task ID 'TASK_ID') on virtual machine 'TASK_OWNER_ID' failed: Updating the virtual machine to state 'VIRTUAL_MACHINE_STATE'. | JOB-4  | 
+|  | MOVE_BY_HA  |  (-)  |  Deploy (task ID 'TASK_ID') on virtual machine 'VIRTUAL_MACHINE_NAME' failed. The virtual machine is in state NOT_ALLOCATED. On hypervisor 'MACHINE_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | TASK-3  | 
+|  | MOVE_BY_HA  |  (-)  |  HA Move (task ID 'TASK_ID') on virtual machine 'TASK_OWNER_ID' failed: Updating the virtual machine to state 'VIRTUAL_MACHINE_STATE'. | TASK-4  | 
+|  | MOVE_BY_HA FREE_RESOURCES_ |  (-)  |  Deploy on virtual machine 'VIRTUAL_MACHINE_NAME' (task 'TASK_ID') could not queue the request to free resources. This means that some resources were not properly freed. This might be related to a RabbitMQ malfunction. | TASK-3  | 
+|  | MOVE_BY_HA   |  (i)  |  Deploy on virtual machine 'VIRTUAL_MACHINE_NAME' completed. Scheduled on hypervisor 'MACHINE_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. |   | 
+|  | PAUSE  |  (-)  |  Could not pause the virtual machine 'name': 'EVENT'. |   | 
+|  | PAUSE  |  (-)  |  Virtual factory task 'TASK_ID' on virtual machine ID 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') failed on the platform due to a communication problem with the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. The platform will perform a check on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | HYP-01  | 
+|  | PAUSE  |  (-)  |  Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the IDE controller is full. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-ED-1  | 
+|  | PAUSE  |  (-)  |  Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-0  | 
+|  | POWEROFF  |  (-)  |  Could not power off the virtual 'name': 'EVENT'. |   | 
+|  | POWEROFF  |  (-)  |  Virtual factory task 'TASK_ID' on virtual machine ID 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') failed on the platform due to a communication problem with the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. The platform will perform a check on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | HYP-01  | 
+|  | POWEROFF  |  (-)  |  The virtual machine 'name' does not support the power off operation. Error: 'EVENT'. | PL-CPROV-21  | 
+|  | POWEROFF  |  (-)  |  Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the IDE controller is full. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-ED-1  | 
+|  | POWEROFF  |  (-)  |  Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-0  | 
+|  | POWERON  |  (-)  |  Could not power on the virtual machine 'name': 'EVENT'. |   | 
+|  | POWERON  |  (-)  |  Virtual factory task 'TASK_ID' on virtual machine ID 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') failed on the platform due to a communication problem with the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. The platform will perform a check on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | HYP-01  | 
+|  | POWERON  |  (-)  |  Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the IDE controller is full. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-ED-1  | 
+|  | POWERON  |  (-)  |  Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-0  | 
+|  | RECONFIGURE  |  (-)  |  Failed to reconfigure the virtual machine 'VIRTUAL_MACHINE_NAME'. |   | 
+|  | RECONFIGURE  |  (-)  |  Cannot reconfigure the virtual machine 'name' because there are no VLAN tags available. | ALLOC-2  | 
+|  | RECONFIGURE  |  (-)  |  Virtual factory task 'TASK_ID' on virtual machine ID 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') failed on the platform due to a communication problem with the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. The platform will perform a check on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | HYP-01  | 
+|  | RECONFIGURE  |  (-)  |  Failed to reconfigure the virtual machine 'name'. Cannot move a virtual machine between virtual datacenters while it is deployed. | PL-CPROV-16  | 
+|  | RECONFIGURE  |  (-)  |  Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the IDE controller is full. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-ED-1  | 
+|  | RECONFIGURE  |  (-)  |  Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-0  | 
+|  | RECONFIGURE  |  (-)  |  Reconfigure (task ID 'TASK_ID') on virtual machine 'VIRTUAL_MACHINE_NAME' failed. The virtual machine is in state OFF. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. Reason: 'TASK_ERROR'. | PL-VM-02  | 
+|  | RECONFIGURE  |  (-)  |   Reconfigure on virtual machine 'VIRTUAL_MACHINE_NAME' (task 'TASK_ID') could not queue the request to free resources. This means that some resources were not properly freed. This might be related to a RabbitMQ malfunction. | TASK-3  | 
+|  | RECONFIGURE  |  (-)  |   Reconfigure (task ID 'TASK_ID') on virtual machine ID 'TASK_OWNER_ID' failed: Updating the virtual machine to state 'VIRTUAL_MACHINE_STATE'. | TASK-4 | 
+|  | RECONFIGURE  |  (-)  |  Cannot update the virtual machine because IPs 'IP' are in quarantine. | VLAN-51  | 
+|  | RECONFIGURE  |  (-)  |  Cannot update the virtual machine because IPs 'IP' are not available. | VLAN-68  | 
+|  | RECONFIGURE   |  (i)  |  The virtual machine 'VIRTUAL_MACHINE_NAME' has been reconfigured successfully. The changes were: CPU CPUs, RAM RAM and CORES_PER_SOCKET cores per socket. EXTRA_RECONFIGURE_MESSAGE. |   | 
+|  | RECONFIGURE   |  (!)  |  The Virtual Machine 'name' has two NICs using IPs in the same VLAN. VLAN: 'VLAN_NAME'. |   | 
+|  | RECONFIGURE   |  (!)  |  Reconfigure (task ID 'TASK_ID') failed on virtual machine 'VIRTUAL_MACHINE_NAME'. The virtual machine is in state OFF. Hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. Reason: 'MESSAGE'. | TASK-3  | 
+|  | REFRESH  |  (-)  |  Could not refresh the virtual machine 'name': 'EVENT'. |   | 
+|  | REFRESH  |  (-)  |  Virtual factory task 'TASK_ID' on virtual machine ID 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') failed on the platform due to a communication problem with the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. The platform will perform a check on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | HYP-01  | 
+|  | REFRESH  |  (-)  |  Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the IDE controller is full. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-ED-1  | 
+|  | REFRESH  |  (-)  |  Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-0  | 
+|  | REFRESH  |  (-)  |  Refresh resources (task ID 'TASK_ID') operation on virtual machine  'VIRTUAL_MACHINE_NAME' failed. On hypervisor 'MACHINE_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | TR-REFRESH-RESOURCES-VM  | 
+|  | REFRESH RESOURCES |  (i)  |  Resources of virtual machine 'name' have been refreshed. |   | 
+|  | REFRESH _RESOURCES |  (!)  |  Refresh resources (task ID 'TASK_ID') operation on virtual machine  'VIRTUAL_MACHINE_NAME' failed. On hypervisor 'MACHINE_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. |   | 
+|  | RELEASE   |  (i)  |  The captured virtual machine 'VIRTUAL_MACHINE_NAME' has been successfully released from the virtual appliance 'VAPP_NAME' of the virtual datacenter 'VDC_NAME'. It is now available again as an imported virtual machine on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_IP' - 'HYPERVISOR_TYPE'). |   | 
+|  | RESET  |  (-)  |  Could not reset the state of the virtual machine 'name': 'EVENT'. |   | 
+|  | RESET  |  (-)  |  Could not reset virtual machine 'VIRTUAL_MACHINE_NAME'. | HYP-01 | 
+|  | RESET  |  (-)  |  Virtual factory task 'TASK_ID' on virtual machine ID 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') failed on the platform due to a communication problem with the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. The platform will perform a check on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | HYP-01  | 
+|  | RESET  |  (-)  |  Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the IDE controller is full. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-ED-1  | 
+|  | RESET  |  (-)  |  Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-0  | 
+|  | RESET   |  (i)  |   Operation to reset the virtual machine 'VIRTUAL_MACHINE_NAME' queued in the virtual factory successfully. The virtual machine is locked. |   | 
+|  | RESUME  |  (-)  |  Could not resume the virtual machine 'name': 'EVENT'. |   | 
+|  | RESUME  |  (-)  |  Virtual factory task 'TASK_ID' on virtual machine ID 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') failed on the platform due to a communication problem with the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. The platform will perform a check on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | HYP-01  | 
+|  | RESUME  |  (-)  |  Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the IDE controller is full. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-ED-1  | 
+|  | RESUME  |  (-)  |  Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-0  | 
+|  | STATE CHANGE |  (i)  |  Change state task ID 'TASK_ID' on virtual machine name 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') done on hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. |   | 
+|  | STATE CHANGE |  (!)  |  Change state task ID 'TASK_ID' on virtual machine name 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') failed on hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. |   | 
+|  | STATE   |  (i)  |  The operation to apply the state of the virtual machine 'name' in the hypervisor was successfully queued in the virtual factory. The virtual machine is now locked. |   | 
+|  | STORE_RUNLIST  |  (-)  |  The run list for the Chef node 'name' could not be updated. Please verify that the 'abiquo' client on the Chef server has the appropriate permissions to perform this task. | CHEF-5  | 
+|  | STORE_RUNLIST   |  (i)  |  The run list for the Chef node 'name' has been updated with RUN_LIST_SIZE recipes. |   | 
+ || h6. Virtual_machine_template || || || || || 
+|  | AVAILABLE   |  (i)  |  Virtual machine template 'VIRTUAL_MACHINE_TEMPLATE_NAME' available again. |   | 
+|  | CONVERSION  |  (-)  |  Could not send the conversion for ('TEMPLATE_NAME' to 'TEMPLATE_DISK_FORMAT_TYPE') to the BPM. Check connection and configuration. The conversion will be skipped. | CONVERSION-6  | 
+|  | CONVERSION FINISH_ |  (-)  |  Failed while converting the virtual machine template 'VMT_MASTER_NAME' from disk format 'CONVERSION_SOURCE_TYPE' to 'CONVERSION_TARGET_TYPE'. | JOB-2  | 
+|  | CONVERSION FINISH_ |  (-)  |  Failed while converting the virtual machine template 'VMT_MASTER_NAME' from disk format 'CONVERSION_SOURCE_TYPE' to 'CONVERSION_TARGET_TYPE'. | JOB-4  | 
+|  | CONVERSION FINISH |  (i)  |  Conversion from disk format 'CONVERSION_SOURCE_TYPE' to 'CONVERSION_TARGET_TYPE' finished successfully for template 'VMT_MASTER_NAME'. |   | 
+|  | CONVERSION INSTANCE_FINISH_ |  (-)  |  Failed to create conversion of instance template 'TEMPLATE_NAME'. | JOB-2  | 
+|  | CONVERSION INSTANCE_FINISH |  (i)  |  Conversion created of instance template 'TEMPLATE_NAME'. |   | 
+|  | CONVERSION TASK_ENQUEUE |  (i)  |  Task (task ID 'TASK_ID') queued successfully in the conversion manager. |   | 
+|  | CONVERSION   |  (!)  |  The virtual machine template was found in a different datacenter than expected ('DC_NAME' not 'DC_OLD_NAME'). The conversion will be skipped. |   | 
+|  | CREATED_IN_REPO  |  (-)  |  Cannot process virtual machine template creation event for path 'VIRTUAL_MACHINE_TEMPLATE_PATH' in datacenter 'DC_ID'. | VIMAGE-36  | 
+|  | CREATED_IN_REPO   |  (i)  |  New virtual machine template 'VIRTUAL_MACHINE_TEMPLATE_NAME' added at 'VIRTUAL_MACHINE_TEMPLATE_PATH'. |   | 
+|  | CREATE_FROM_DEF_FINISH  |  (-)  |  Virtual machine template 'name' download failed. | AM-3  | 
+|  | CREATE_FROM_DEF_FINISH  |  (-)  |  Virtual machine template 'name' download event processing failed. | VIMAGE-36  | 
+|  | CREATE_FROM_DEF_FINISH   |  (i)  |  Virtual machine template 'name' download completed. |   | 
+|  | CREATE_FROM_DEF_START  |  (-)  |  Failed to download virtual machine template from template definition URL 'OVFID' into datacenter 'DC_NAME'. | AM-3  | 
+|  | CREATE_FROM_DEF_START  |  (-)  |  Failed to download virtual machine template because it was not possible to save the associated task (Redis might be down or not configured). | REDIS-0  | 
+|  | CREATE_FROM_DEF_START   |  (i)  |  Requested download of the virtual machine template 'name' from template definition URL 'OVFID' into datacenter repository path 'path'. |   | 
+|  | CREATE_FROM_INST_FINISH  |  (-)  |  Virtual machine template 'name' promote failed. | AM-3  | 
+|  | CREATE_FROM_INST_FINISH   |  (i)  |  Virtual machine template 'name' promote completed. |   | 
+|  | CREATE_FROM_INST_START  |  (-)  |  Failed to promote virtual machine template from virtual machine template instance 'VIRTUAL_MACHINE_TEMPLATE_NAME' in datacenter 'DC_NAME'. | AM-3  | 
+|  | CREATE_FROM_INST_START  |  (-)  |  Failed to promote virtual machine template because it was not possible to save the associated task (Redis might be down or not configured). | REDIS-0  | 
+|  | CREATE_FROM_INST_START   |  (i)  |  Requested promotion of the virtual machine template 'name' from virtual machine template instance 'VIRTUAL_MACHINE_TEMPLATE_NAME' to datacenter repository path 'path'. |   | 
+|  | DELETE   |  (i)  |  Virtual machine template 'TEMPLATE_NAME' has been deleted. |   | 
+|  | MODIFY  |  (-)  |  Virtual machine template 'name' (ID 'id') is shared and has virtual machines created. Therefore it cannot be modified to be not shared. | VIMAGE-11  | 
+|  | MODIFY   |  (i)  |  Virtual machine template 'VIRTUAL_MACHINE_TEMPLATE_OLD_NAME' has been updated. |   | 
+|  | PERSISTENT_DELETE   |  (i)  |  Persistent virtual machine template 'VMT_PERSISTENT_NAME' has been deleted. |   | 
+|  | PERSISTENT_DUMP_FINISH  |  (-)  |  Volume dump failed for persistent virtual machine template 'VMT_PERSISTENT_NAME'. | JOB-1  | 
+|  | PERSISTENT_DUMP_FINISH   |  (i)  |  Volume dump successfully completed for persistent virtual machine template 'VMT_PERSISTENT_NAME'. |   | 
+|  | PERSISTENT_DUMP_START  |  (-)  |  Could not get the initiator of the BPM machine: MESSAGE. | PERSISTENT-6  | 
+|  | PERSISTENT_FINISH   |  (i)  |  Persistent process finished for virtual machine template 'VMT_PERSISTENT_NAME'. |   | 
+|  | PERSISTENT_INITIATOR_ADD  |  (-)  |  Unable to create the initiator mapping for initiator 'INITIATORIQN' and volume 'VOLUME_NAME'. | PERSISTENT-13  | 
+|  | PERSISTENT_INITIATOR_ADD   |  (i)  |  Added initiator to the target storage technology 'INITIATORIQN' and volume 'VOLUME_NAME'. |   | 
+|  | PERSISTENT_MODIFY   |  (i)  |  Persistent virtual machine template 'VIRTUAL_MACHINE_TEMPLATE_OLD_NAME' has been updated. |   | 
+|  | PERSISTENT_RAW_CREATE  |  (-)  |  Dumps pending from raw conversion of template 'VMT_MASTER_NAME' have failed. | 500  | 
+|  | PERSISTENT_RAW_CREATE   |  (i)  |  Raw conversion finished successfully for virtual machine template 'VMT_MASTER_NAME'. |   | 
+|  | PERSISTENT_START   |  (i)  |  Persistent process started for template 'VMT_MASTER_NAME' with new name 'VMT_PERSISTENT_NAME'. |   | 
+|  | PERSISTENT_TASK_ENQUEUE   |  (i)  |  Task queued successfully in the conversion manager. |   | 
+|  | PERSISTENT_VOLUME_ASSIGN  |  (-)  |  The selected volume is not large enough to hold the persistent virtual machine template. | VOL-1  | 
+|  | PERSISTENT_VOLUME_ASSIGN   |  (i)  |  Using the selected volume 'VOLUME_NAME' to hold the persistent virtual machine template. |   | 
+|  | PERSISTENT_VOLUME_CREATE   |  (i)  |  Persistent volume created successfully for virtual machine template 'VMT_MASTER_NAME' in virtual datacenter 'VDC_NAME'. |   | 
+|  | UNAVAILABLE   |  (!)  |  Virtual machine template 'VIRTUAL_MACHINE_TEMPLATE_NAME' is not present in the datacenter repository. |   | 
+ || h6. Virtual_machine || || || || || 
+|  | UNDEPLOY  |  (-)  |  Could not undeploy the virtual machine 'name': 'EVENT'. |   | 
+|  | UNDEPLOY  |  (-)  |  The virtual machine is now in state UNKNOWN. Unexpected Error: 'MESSAGE'. | GEN-14  | 
+|  | UNDEPLOY  |  (-)  |  Virtual factory task 'TASK_ID' on virtual machine ID 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') failed on the platform due to a communication problem with the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. The platform will perform a check on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | HYP-01  | 
+|  | UNDEPLOY  |  (-)  |  Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the IDE controller is full. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-ED-1  | 
+|  | UNDEPLOY  |  (-)  |  Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-0  | 
+|  | UNDEPLOY  |  (-)  |  Could not free VLAN network 'VLAN_NAME' from virtual machine 'name' undeploy. | TAG-RELEASE  | 
+|  | UNDEPLOY  |  (-)  |  The virtual machine 'name' is now in the UNKNOWN state. Unexpected Error: 'MESSAGE'. | TR-UNDEPLOY-VM | 
+|  | UNDEPLOY FINISH_ |  (-)  |  Undeploy of virtual machine ID 'TASK_ID' and owner 'TASK_OWNER_ID' failed on the platform. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. | TASK-4  | 
+|  | UNDEPLOY FINISH |  (i)  |  The virtual machine 'VIRTUAL_MACHINE_NAME' with task ID 'TASK_ID' was undeployed successfully in the virtual factory on hypervisor 'MACHINE_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. |   | 
+|  | UNDEPLOY HA_ |  (-)  |  Could not undeploy the virtual machine 'name' for HA: 'EVENT'. |   | 
+|  | UNDEPLOY HA_ |  (-)  |  Undeploy of virtual machine ID 'TASK_ID' and owner 'TASK_OWNER_ID' failed on the platform. Finished the task created at 'TASK_TIMESTAMP'. | -TASK-3  | 
+|  | UNDEPLOY HA_ |  (-)  |  Undeploy of virtual machine ID 'TASK_ID' and owner 'TASK_OWNER_ID' failed on the platform. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. | -TASK-4  | 
+|  | UNDEPLOY HA_ |  (-)  |  Virtual factory task 'TASK_ID' on virtual machine ID 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') failed on the platform due to a communication problem with the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. The platform will perform a check on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | HYP-01  | 
+|  | UNDEPLOY HA_ |  (-)  |  Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the IDE controller is full. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-ED-1  | 
+|  | UNDEPLOY HA_ |  (-)  |  Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-0  | 
+|  | UNDEPLOY HA_ |  (-)  |  The deploy task could not be queued in the virtual factory. RabbitMQ might be down or not properly configured. | TR-UNDEPLOY-VM | 
+|  | UNDEPLOY HA |  (i)  |  The virtual machine 'VIRTUAL_MACHINE_NAME' with taskId 'TASK_ID' was undeployed successfully in the virtual factory. Finished the task created at 'TASK_TIMESTAMP'. |   | 
+|  | UNDEPLOY   |  (i)  |  The undeploy of the virtual machine 'VIRTUAL_MACHINE_NAME' was successfully queued in the virtual factory. |   | 
+|  | VSM_CHANGE_STATE   |  (i)  |  State of virtual machine 'VIRTUAL_MACHINE_NAME' updated to 'VIRTUAL_MACHINE_STATE'. |   | 
+|  | VSM_VM_DESTROYED   |  (i)  |  Deleted virtual machine 'VIRTUAL_MACHINE_NAME'. |   | 
+|  | VSM_VM_MOVED  |  (-)  |  Error processing MOVE event on virtual machine 'VIRTUAL_MACHINE_NAME'. VM was not found on the destination physical machine 'MACHINE_NAME'. | VSM-01  | 
+|  | VSM_VM_MOVED  |  (-)  |  Error processing MOVE event on virtual machine 'VIRTUAL_MACHINE_NAME'. The destination datastore 'DC_NAME' does not exist. | VSM-02  | 
+|  | VSM_VM_MOVED  |  (-)  |  Limits rule has been broken. Machine 'MACHINE_NAME' has virtual machine 'VIRTUAL_MACHINE_NAME' which exceeds limits 'MESSAGE'. | VSM-04  | 
+|  | VSM_VM_MOVED  |  (-)  |  Oversubscription rule has been broken. Machine 'MACHINE_NAME' has virtual machine 'VIRTUAL_MACHINE_NAME' which exceeds oversubscription rules. | VSM-05  | 
+|  | VSM_VM_MOVED  |  (-)  |  Enterprise reservation rule has been broken by moving a virtual machine 'VIRTUAL_MACHINE_NAME'. Machine 'MACHINE_NAME' has virtual machine 'VIRTUAL_MACHINE_NAME' of enterprise 'ENT_NAME'. | VSM-06  | 
+|  | VSM_VM_MOVED  |  (-)  |  Enterprise exclusion rule has been broken by moving a virtual machine 'VIRTUAL_MACHINE_NAME'. Machine 'MACHINE_NAME' has virtual machine 'VIRTUAL_MACHINE_NAME' of enterprise 'ENT_NAME'. | VSM-07  | 
+|  | VSM_VM_MOVED  |  (-)  |  Anti-affinity rule has been broken by moving a virtual machine 'VIRTUAL_MACHINE_NAME'. Machine 'MACHINE_NAME' has virtual machine 'VIRTUAL_MACHINE_NAME' of anti-affinity rule 'LAYER'. | VSM-08  | 
+|  | VSM_VM_MOVED  |  (-)  |  Error processing MOVE event on virtual machine 'VIRTUAL_MACHINE_NAME'. Could not add the initiator mappings for the destination physical machine 'HYPERVISOR_NAME'; they must be manually added. | VSM-10  | 
+|  | VSM_VM_MOVED   |  (i)  |  Virtual machine 'VIRTUAL_MACHINE_NAME' moved from source machine 'CLONED_VM_MACHINE_NAME' to machine 'MACHINE_NAME'. |   | 
+|  | VSM_VM_MOVED   |  (!)  |  New datastore 'ROOT_PATH' added in physical machine 'MACHINE_NAME' while processing MOVE event on virtual machine 'VIRTUAL_MACHINE_NAME'. |   | 
+|  | VSM_VM_RETRIEVE  |  (-)  |  Error processing MOVE event on virtual machine 'VIRTUAL_MACHINE_NAME'. VM was not found on the destination physical machine 'MACHINE_NAME'. | VSM-01  | 
+|  | VSM_VM_UNSUBSCRIBE  |  (-)  |  Unable to unsubscribe virtual machine. | VSM-09  | 
+|  | WORKFLOW_DEPLOY_SEND  |  (-)  |  Virtual machine 'name' workflow undeploy webhook request  for task 'TASK_ID' failed. | WKF-01  | 
+|  | WORKFLOW_DEPLOY_SEND   |  (i)  |  Virtual machine 'name' workflow deploy webhook for task 'TASK_ID' sent successfully. |   | 
+|  | WORKFLOW_RECONFIGURE_SEND  |  (-)  |  Virtual machine 'name' workflow undeploy webhook request for task 'TASK_ID' failed. | WKF-01  | 
+|  | WORKFLOW_RECONFIGURE_SEND   |  (i)  |  Virtual machine 'name' workflow reconfigure webhook for task 'TASK_ID' sent successfully. |   | 
+|  | WORKFLOW_UNDEPLOY_SEND  |  (-)  |  Virtual machine 'name' workflow undeploy webhook request for task 'TASK_ID' failed. | WKF-01  | 
+|  | WORKFLOW_UNDEPLOY_SEND   |  (i)  |  Virtual machine 'name' workflow undeploy webhook for task 'TASK_ID' sent successfully. |   | 
+ || h6. Volume || || || || || 
+|  | CREATE  |  (-)  |  Could not create volume 'VOLUME_NAME' of size VOLUME_SIZE MB. | SSM-5  | 
+|  | CREATE  |  (-)  |  Could not create volume 'VOLUME_NAME'. No candidate pools where found in tier 'TIER_NAME' to create the volume. | VOL-1  | 
+|  | CREATE  |  (-)  |  Could not create volume 'VOLUME_NAME' of size VOLUME_SIZE MB: 'MESSAGE' | VOL-4  | 
+|  | CREATE   |  (i)  |  Created volume 'name' of size sizeInMB MB. |   | 
+|  | DELETE  |  (-)  |  Volume 'name' could not be deleted: 'MESSAGE' | 503-SERVICE-UNAVAILABLE  | 
+|  | DELETE  |  (-)  |  Could not roll back volume 'VOLUME_UUID' on the target device : 'MESSAGE' | 503-SERVICE-UNAVAILABLE_PERSISTENT  | 
+|  | DELETE   |  (i)  |  Deleted volume 'VOLUME_NAME'. |   | 
+|  | DELETE   |  (!)  |  Volume 'VOLUME_NAME' could not be physically deleted from the target storage device: 'MESSAGE' | 503-SERVICE-UNAVAILABLE  | 
+|  | MODIFY  |  (-)  |  The size of the volume cannot be reduced. | VOL-10  | 
+|  | MODIFY  |  (-)  |  An unexpected error occurred and the volume could not be updated. | VOL-15  | 
+|  | MODIFY   |  (i)  |  Volume 'VOLUME_OLD_NAME' modified. |   | 
+|  | MOVE   |  (i)  |  Volume 'VOLUME_NAME' of VOLUME_SIZE MB has been moved to virtual datacenter 'VDC_NAME'. |   | 
+|  | RESIZE  |  (-)  |  Could not physically update volume 'name' on the target storage device. | SSM-7  | 
+|  | RESIZE   |  (i)  |  Volume 'VOLUME_OLD_NAME' resized from VOLUME_OLD_SIZE MB to VOLUME_SIZE MB. |   | 
+ || h6. Workload || || || || || 
+|  | HARD_LIMIT_EXCEEDED  |  (-)  | LIMIT_MESSAGE | LIMIT-1 | 
+|  | SOFT_LIMIT_EXCEEDED   |  (i)  | LIMIT_MESSAGE | LIMIT-2 | 

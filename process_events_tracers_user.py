@@ -21,6 +21,7 @@ def main():
 	tracer_messages = []
 	tracers = []
 
+	indexed_messages = {}
 	tkey_errors = {}
 	tkey_severities = {}
 	eaindex = 0
@@ -29,7 +30,7 @@ def main():
 	extra_text = {}
 	extra_bit = {}
 	outputline = {}
-
+	last_entity_names_eci = " "
 	groupkey = {}
 	previous_key = " "
 	out_subdir = "output_files"
@@ -68,15 +69,19 @@ def main():
 				tracer_text = tracerSplit[1]
 				tracer_text = re.sub("\{","",tracer_text)
 				tracer_text = re.sub("\}","",tracer_text)
-				tracer_text = re.sub("details","",tracer_text)
-				tracer_text = re.sub("entity","",tracer_text)
+				tracer_text = re.sub("details\.","",tracer_text)
+				tracer_text = re.sub("entity\.","",tracer_text)
 				tracer_text = re.sub("\\\\:",":",tracer_text)
 				tracer_text = re.sub("details","",tracer_text)
 				tracer_text = re.sub("\[","(",tracer_text)
 				tracer_text = re.sub("\]",")",tracer_text)
+#				tracer_text = re.sub("\'\.","\'",tracer_text)
 #     gsub(/{/,"",n); gsub(/}/,"",n); gsub(/\[/,"(",n); gsub(/\]/,")",n); gsub(/(\\)(n)/,"- ",n); gsub(/(\\)(:)/,":",n); gsub("details.","",n); gsub("entity.","",n);
 				tracer_texts.append(tracer_text)
-				
+				midex = tracerSplit[0]
+#				indexed_messages[midex]=tracer_text
+				indexed_messages[midex]=tracer_text
+
 	entity_compounds.sort()
 	entity_compounds.sort(key=len, reverse=True)	
 
@@ -110,18 +115,21 @@ def main():
 						extra_text[tkey] = re.sub("_$","",extra_texts)
 					if re.search("[A-Z]+",info_split[1]):	
 						extra_bits = info_split[1]
-						extra_bit[tkey] = re.sub("_$","",extra_bits)
-					
+#						extra_bit[tkey] = re.sub("_$","",extra_bits)
+						extra_bits = re.sub("_","",extra_bits)											
+						tkey_errors[tkey] = extra_bits
 
 				if re.search("WARN",tkey_sub):
 					info_split = tkey_sub.split("WARN")
 					tkey_severities[tkey] = " (!) "
 					if re.search("[A-Z]+",info_split[0]):
 						extra_texts = info_split[0]
-						extra_text[tkey] = re.sub("_$","",extra_texts)
+						extra_text[tkey] = re.sub("_$","",extra_texts)				
 					if re.search("[A-Z]+",info_split[1]):	
 						extra_bits = info_split[1]
-						extra_bit[tkey] = re.sub("_$","",extra_bits)
+						extra_bits = re.sub("_","",extra_bits)
+						tkey_errors[tkey] = extra_bits
+
 
 				if re.search("ERROR",tkey_sub):
 					info_split = tkey_sub.split("ERROR")
@@ -136,22 +144,35 @@ def main():
 				tkey_sub = re.sub("_$","",tkey_sub)
 
 				tracer_keys_subbed.append(tkey_sub)
-
-				outputline[tkey] = "| " + entity_names[eci] + " | " + entity_actions[eci] + " " + extra_text[tkey] + " " + extra_bit[tkey] + " | " + tkey_severities[tkey] + " | " + bad tracer_texts[tki] + " | "  + tkey_errors[tkey]  + " | \n"
+#				print ("eci: ",eci," \t | tkey: ",tkey," \t |",tki) 
+				print ("eneci: ***",entity_names[eci],"*** \t | last_entity_names_eci: ***",last_entity_names_eci,"***")
+				if entity_names[eci] == last_entity_names_eci:
+					outputline[tkey] = "|  | " + entity_actions[eci] + " " + extra_text[tkey] + " | " + tkey_severities[tkey] + " | " + indexed_messages[tkey] + " | "  + tkey_errors[tkey]  + " | \n"						
+				else:
+					outputline[tkey] = "| " + entity_names[eci] + " | " + entity_actions[eci] + " " + extra_text[tkey] + " | " + tkey_severities[tkey] + " | " + indexed_messages[tkey] + " | "  + tkey_errors[tkey]  + " | \n"
+					last_entity_names_eci = entity_names[eci]
+#				else:
+#					outputline[tkey] = "|  | " + entity_actions[eci] + " " + extra_text[tkey] + " | " + tkey_severities[tkey] + " | " + indexed_messages[tkey] + " | "  + tkey_errors[tkey]  + " | \n"						
+#				outputline[tkey] = "| " + entity_names[eci] + " | " + entity_actions[eci] + " " + extra_text[tkey] + " " + extra_bit[tkey] + " | " + tkey_severities[tkey] + " | " + indexed_messages[tkey] + " | "  + tkey_errors[tkey]  + " | \n"
+#				outputline[tkey] = "| " + entity_names[eci] + " | " + entity_actions[eci] + " " + extra_text[tkey] + " " + extra_bit[tkey] + " | " + tkey_severities[tkey] + " | " + tracer_texts[tki] + " | "  + tkey_errors[tkey]  + " | \n"
 				groupkey[tkey] = eci
 
-	
 	with open(os.path.join(out_subdir,wiki_event_tracer_user_file), 'w') as f:
-#	with open('v30_entity_action_table_for_wiki.txt', 'w') as f:
 		f.write(header)
 		ol_keys = sorted(outputline.keys())
 		for olk in ol_keys:
-			print ("olk: " olk)
+#			print ("olk: ",olk," \t| groupkey-olk: ",groupkey[olk]," \t | entity_names-g-o: ",entity_names[groupkey[olk]])
 			if entity_names[groupkey[olk]] != previous_key:
-				groupheader	= " || h6. " + entity_names[groupkey[olk]] + " || || || || || \n"
-				f.write(groupheader)
+				entity_name_fix_case = entity_names[groupkey[olk]]
+				entity_name_fix_case_end = entity_name_fix_case[1:].lower()
+				entity_name_fix_case_start = entity_name_fix_case[:1]
+				entity_name_fix_case = entity_name_fix_case_start + entity_name_fix_case_end
+				groupheader	= " || h6. " + entity_name_fix_case + " || || || || || \n"
+				if entity_names[groupkey[olk]] in user_entities:				
+					f.write(groupheader)
 				previous_key = entity_names[groupkey[olk]]
-			f.write(outputline[olk])
+			if entity_names[groupkey[olk]] in user_entities:				
+				f.write(outputline[olk])
 
 
 
