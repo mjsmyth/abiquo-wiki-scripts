@@ -4,6 +4,10 @@
 # Output file should be output_files/wiki_events.txt
 # Note that I have hacked this program to make it leave out the java muck surrounding the enumerations!
 # If there are any problems: it uses RS = Master, and checks for * in records, and doesn't print headers or details of the first record and last two records! 
+# NOTE that this script produces two other output files - entity_action_list.txt, which is an input to the tracer processing scripts
+# and entity_list.txt which is a list of all entities as a starting point for the events and tracer tables for users... 
+# actually now I think about it, the user events have "USER" maybe this isn't necessary... aagh
+# ./process_events.sh ../platform/model/event-model-transport/src/main/java/com/abiquo/event/model/enumerations/EntityAction.java output_files/wiki_events.txt
 #
 # Note that the following comments are out of date:
 # Convert EventType.java to Confluence Wiki Format
@@ -29,6 +33,10 @@ startout[0] = "";
 entityout[0] = "";
 endout[0] = "";
 entityheader[0] = "";
+entity_space_action[0] = "";
+entity_for_users[0] = "";
+entity_action_list = "input_files/entity_action_list.txt"
+entity_list = "input_files/entity_list.txt"
 } 
 {  
    if ($0 ~ /\*/)
@@ -43,6 +51,7 @@ entityheader[0] = "";
       gsub ("\<","",EntityName);
       gsub ("\>","",EntityName);
       ActionName = EntityActionNames[2];
+      entity_space_action[NR] = EntityName " " ActionName;
       for (MyKey = 2;MyKey<5;MyKey ++)
       {
         if ($MyKey ~ "KEYS")
@@ -90,6 +99,7 @@ entityheader[0] = "";
       gsub ("\{","",ENameHeading);
       gsub ("\n","",ENameHeading);
       entityout[eIndex] = ENameHeading; 
+      entity_for_users[NR] = ENameHeading;
       entityheader_fixcase = ENameHeading;
       gsub("_"," ",entityheader_fixcase);
       entityheader_fixcase = tolower(entityheader_fixcase);
@@ -110,10 +120,12 @@ END {
     if (endout[s] !~ /[A-Z][a-z]/) 
       {
           print "|| h6. " entityheader[s] " || || ||" ;
+          print entity_for_users[s] >> entity_list;
       }    
     else
       {
         print startout[s] entityout[s] endout[s];
+        print entity_space_action[s] >> entity_action_list;
       }  
   }
 }' >$2 
