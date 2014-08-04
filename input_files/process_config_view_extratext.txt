@@ -1,0 +1,101 @@
+client.theme.defaultEnterpriseLogoPath = Directory and filename of the tenant logo file. The directory is relative to the Abiquo installation directory. The logo file should be a .png, .jpg or other web compatible image file. The resolution should be 72 ppi and the image size should be 130 x 70 pixels
+
+client.user.numberEnterprisesPerPage = How many enterprises display per page in the Users view
+
+client.user.numberUsersPerPage = How many users display per page in Users View
+
+client.main.enterpriseLogoURL = This web page will be displayed when the Abiquo server has access to the URL
+
+client.main.billingUrl = To display the report button, enter the report URL here. Clicking the icon will open this page and pass the user's enterprise as a parameter (in the form ?enterprise=1). Users must also have the Access Reports privilege in order to display the report icon and access the report page. By default this privilege is assigned to the cloud admin role
+
+client.main.disableChangePassword = Mark this checkbox to enable users to open a popup to edit their personal details by clicking on the link in the top right corner of the screen. The user personal details include the password if platform authentication is used. The information that can be edited varies, depending on the user. If this option is disabled, the user details can only be edited in Users view
+
+client.logout.url = If no URL is supplied, the login screen is opened after logout
+
+client.main.allowLogout = Allow users to log out by clicking on the "logout" link in the top right corner of the screen. Otherwise the link will not be displayed, and users will only be logged out when their browser session ends
+
+client.main.showHardDisk =Display the virtual machine hard disk tab. CHECK IF NOW USER PRIVILEGES
+
+client.main.defaultView = Select from the pull-down list of Abiquo views - Home, Infrastructure, Virtual Datacenters, etc. The Home view is the system default. If another view is set as the system default and the user does not have enough privileges to open it, the Home view will open
+
+client.main.showSoftInfo = If this option is not selected, the soft limits message will state that the limits have been reached and allow the user to decide if they want to continue
+
+client.main.showHardInfo =  If this option is not selected, the hard limits message will state that the limits have been reached and that the operation cannot be performed
+
+client.main.workflowEnabled = If workflow is enabled, in Virtual Datacenters view, the Workflow Tasks tab will display queued tasks. Before you enable workflow, enter the Workflow endpoint, otherwise tasks in progress will fail because of the missing endpoint
+
+client.main.workflowEndPoint = Enter the URL endpoint for the workflow process. If workflow is enabled, Abiquo will send workflow requests to this URL. The workflow endpoint is the URL of the web application that connects to the workflow tool. If you do not have the URL for the workflow endpoint, check with your system administrator
+
+client.main.enableFirewallForPrivateVDC = Firewall front end for datacenters with their own firewall integrations
+
+client.applibrary.ovfpackagesDownloadingProgressUpdateInterval = How often the background process will check the download to update the progress bar when you Add VM Template from Remote Repository to the appliance library of a datacenter. The update interval is indicated by a countdown timer in the lower right corner of the screen
+
+client.applibrary.virtualimageUploadProgressUpdateInterval = How often the background process will check the upload to update the progress bar when you Add VM Template from Local File to the appliance library of a datacenter. The update interval is indicated by a countdown timer in the lower right corner of the screen
+
+client.infra.googleMapsDefaultLatitude = The decimal latitude of the map location you will see when OpenStreetMap opens in the Infrastructure view. The default value is for Barcelona
+
+client.infra.googleMapsDefaultLongitude = The decimal longitude of the map location you will see when OpenStreetMap opens in the Infrastructure view. The default value is for Barcelona
+
+client.infra.googleMapsDefaultZoom = -
+
+client.infra.InfrastructureUpdateInterval = More than one cloud administrator can work with the same Abiquo platform at the same time. Thus the infrastructure page is updated so that changes in datacenters are propagated to all servers. The update interval is indicated by a countdown timer in the lower right corner of the screen in Infrastructure view
+
+client.infra.ucsManagerLink = The value entered in this field will be appended to the URL of the managed rack to give the location where the UCS Manager Interface is located. For example "/ucsm/ucsm.jnlp"
+
+client.metering.meteringUpdateInterval = How often Abiquo updates the display of the event log in the Home View
+
+client.network.numberIpAdressesPerPage = -
+
+client.virtual.allowVMRemoteAccess = When enabled, you can click the eye icon for a virtual machine within a virtual datacenter to open a hypervisor shell window. This option does not affect remote shell access (e.g. ssh). Otherwise, the eye icon is disabled. For more information see Configure Remote Access to Virtual Machines
+
+client.virtual.virtualApplianceDeployingUpdateInterval = How often the background process checks the deployment of virtual appliances and updates the virtual appliance state. Indicated by a countdown timer in the bottom right corner of the screen on the Virtual Appliance page. For more information please see Manage Virtual Appliances
+
+client.virtual.virtualAppliancesUpdateInterval =How often the background process checks the state of virtual appliances and updates the state. Indicated by a countdown timer in the bottom right corner of the screen on the Virtual Appliance page. For more information please see Manage Virtual Appliances
+
+client.virtual.moreInfoAboutUploadLimitations = This link provides information about limitations (such as format and size) when you upload a new virtual machine template to the appliance library
+
+client.infra.vlanIdMin = -
+
+client.infra.vlanIdMax = -
+
+client.infra.defaultHypervisorPassword = -
+
+client.infra.defaultHypervisorPort = -
+
+client.infra.defaultHypervisorUser = -
+
+client.storage.volumeMaxSizeValues =Values displayed in gigabytes on the form for adding a new volume to a virtual datacenter. Enter values separated by commas with no spaces. You can enter values with decimal places and values lower than one
+
+client.virtual.virtualImagesRefreshConversionsInterval = When you edit a virtual machine template in your appliance library (uploaded from local machine/downloaded from repository), you can launch a background process to generate all the missing template formats for other hypervisors. In the template formats list, the state of all template conversions is indicated and it gets refreshed by a background process. Because this is a pop-up screen, there is no countdown timer
+
+client.applibrary.defaultTemplateRepository = -
+
+client.network.defaultName = The name of the default private VLAN
+
+client.network.defaultNetmask = The network mask of the default private VLAN
+
+client.network.defaultAddress = The network address of the default private VLAN
+
+client.network.defaultGateway =The gateway of the network. Make sure the gateway is an IP address inside the range defined by the network address and the network mask
+
+client.network.defaultPrimaryDNS = -
+
+client.network.defaultSecondaryDNS = -
+
+client.network.defaultSufixDNS = -
+
+client.dashboard.abiquoURL = -
+
+client.dashboard.allowUsersAccess = If selected, the users button is displayed, and both cloud administrators and enterprise administrators can edit users. If not selected, no users icon is displayed and no one can edit users until the cloud administrator changes this option
+
+client.dashboard.showStartUpAlert = WIZARD
+
+client.dashboard.dashboardUpdateInterval = Time interval between updates of the monitoring dashboard of the Home View to allow multiple users to make and see changes. Indicated with a countdown timer in the lower right-hand corner of the screen
+
+client.dashboard.licenseUrl = URL that will be shown in Abiquo to enable users to purchase licenses
+
+client.wiki.showHelp = To display the help icon on all pop-ups, mark the Show help icon checkbox. This icon will take the user to the specific help page for the pop-up or the default help page
+
+client.wiki.showDefaultHelp = If there is no specific help page for a pop-up, show a default help page
+
+client.wiki.defaultURL = To show the help icon on pop-ups without specific help pages. Otherwise, the default help icon will not display
