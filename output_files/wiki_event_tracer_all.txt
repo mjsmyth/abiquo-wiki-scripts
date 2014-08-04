@@ -1,13 +1,50 @@
 || Entity || Action || Severity || Tracer || API Error ||
+|| h6. Application || || || || || 
+| APPLICATION | CREATE   |  (i)  | Application 'name' added for user 'user.name'. |   | 
+| APPLICATION | DELETE   |  (i)  | Application 'APPLICATION_NAME' has been removed for user 'USER_NAME'. |   | 
 || h6. Category || || || || || 
 | CATEGORY | CREATE DELETE |  (i)  | Removing category 'CATEGORY_NAME'. |   | 
 | CATEGORY | CREATE   |  (i)  | A new category has been created with the name 'name'. |   | 
 | CATEGORY | CREATE MODIFY |  (i)  | Category 'CATEGORY_OLD_NAME' updated. |   | 
+|| h6. Costcode || || || || || 
+| COSTCODE | CREATE   |  (i)  | Created cost code 'name'. |   | 
+| COSTCODE | DELETE   |  (i)  | Deleted cost code 'COSTCODE_NAME'. |   | 
+| COSTCODE | MODIFY   |  (i)  | Cost code 'COSTCODE_NAME' has been modified (Name: 'name') |   | 
+|| h6. Currency || || || || || 
+| CURRENCY | CREATE   |  (i)  | Created currency 'name'. |   | 
+| CURRENCY | DELETE   |  (i)  | Currency 'CURRENCY_OLD_NAME' removed. |   | 
+| CURRENCY | MODIFY   |  (i)  | Currency 'CURRENCY_OLD_NAME' modified. |   | 
+|| h6. Datacenter_backup || || || || || 
+| DATACENTER_BACKUP | CREATE   |  (i)  | Backup configuration 'template.name' has been created for datacenter 'datacenter.name'. |   | 
+| DATACENTER_BACKUP | DELETE   |  (i)  | Deleted Backup configuration 'BU_NAME' for datacenter 'DC_NAME'. |   | 
+| DATACENTER_BACKUP | MODIFY   |  (i)  | Backup configuration for datacenter 'DC_NAME' has been modified. |   | 
+|| h6. Datacenter || || || || || 
+| DATACENTER | CLOSE_PRODUCER  |  (-)  | Error closing the connection after queuing task in the virtual factory. RabbitMQ might be down or not properly configured. |  | 
+| DATACENTER | CREATE   |  (i)  | Datacenter 'name' has been created in 'location'. |   | 
+| DATACENTER | CREATE   |  (!)  | Another Datacenter with the name 'name' already exists; please choose a different name. |   | 
+| DATACENTER | DELETE  |  (-)  | Cannot delete datacenter 'name': MESSAGE. | DC-5 | 
+| DATACENTER | DELETE  |  (-)  | Cannot delete datacenter 'name': MESSAGE. | DC-6 | 
+| DATACENTER | DELETE   |  (i)  | Datacenter 'DC_NAME' deleted. |   | 
+| DATACENTER | ENQUEUE_DC_REQUEST  |  (-)  | Failed to persist task. Redis might be down or not configured. |  | 
+| DATACENTER | MODIFY   |  (i)  | Datacenter 'DC_OLD_NAME' has been modified (Name: 'name', Location: 'location') |   | 
+| DATACENTER | REMOTE_SERVICES_CREATE   |  (i)  | Remote services have been successfully added to datacenter 'name'. |   | 
+| DATACENTER | REMOTE_SERVICES_CREATE   |  (!)  | The remote service from datacenter 'DC_NAME' is down or not configured due to: 'RS_ERROR'. |   | 
 || h6. Datacenter_repository || || || || || 
 | DATACENTER_REPOSITORY | REFRESH  |  (-)  | Cannot refresh datacenter repository 'repositoryLocation'. | AM-3 | 
 | DATACENTER_REPOSITORY | REFRESH   |  (i)  | Datacenter repository 'repositoryLocation' refresh started. |   | 
+|| h6. Datacenter || || || || || 
+| DATACENTER | REQUEST_PRODUCER  |  (-)  | Failed to queue task in the virtual factory. RabbitMQ might be down or not properly configured. |  | 
+|| h6. Enterprise || || || || || 
+| ENTERPRISE | CREATE   |  (i)  | Enterprise 'name' has been created. |   | 
+| ENTERPRISE | DELETE   |  (i)  | Enterprise 'ENT_NAME' has been deleted. |   | 
+| ENTERPRISE | DISABLE_WORKFLOW   |  (i)  | Workflow disabled for enterprise 'name'. |   | 
+| ENTERPRISE | ENABLE_WORKFLOW   |  (i)  | Workflow enabled for enterprise 'name'. |   | 
+| ENTERPRISE | MODIFY   |  (i)  | Enterprise 'ENT_OLD_NAME' has been modified. |   | 
+| ENTERPRISE | PRICING_TEMPLATE_ASSIGN   |  (i)  | Pricing template 'PRICING_TEMPLATE_NAME' has been associated with enterprise 'ENT_OLD_PRICING_TEMPLATE_NAME'. |   | 
 || h6. External_ip || || || || || 
 | EXTERNAL_IP | CREATE   |  (i)  | IP 'ip' of type 'EXTERNAL' has been created in network 'PUBLIC_NET_NAME' of datacenter 'DC_NAME'. |   | 
+|| h6. External_network || || || || || 
+| EXTERNAL_NETWORK | DEFAULT   |  (i)  | External VLAN with name 'name' has been configured as the default in enterprise 'ENT_NAME'. |   | 
 || h6. Firewall_policy || || || || || 
 | FIREWALL_POLICY | CREATE   |  (i)  | The firewall policy 'name' has been created.\nIf your cloud provider creates default rules, synchronize rules using our firewall synchronization feature. |   | 
 | FIREWALL_POLICY | DELETE   |  (i)  | The firewall policy 'POLICY_NAME' has been deleted. |   | 
@@ -26,6 +63,10 @@
 || h6. Layer || || || || || 
 | LAYER | CHECK_CAPACITY  |  (-)  | The anti-affinity layer requires more machines than currently available in the datacenter. | AAFFINITY-0 | 
 | LAYER | CHECK_CAPACITY  |  (-)  | Anti-affinity for layer 'LAYER' in VApp 'VAPP_NAME' cannot be honored: 'NUM_POSSIBLE_MACHINES' were available in Datacenter 'DC_NAME', Rack 'RACK_NAME', but 'MIN_REQUIRED_MACHINES' machines were required. | AAFFINITY-1 | 
+|| h6. License || || || || || 
+| LICENSE | ADD  |  (-)  | The maximum number of managed cores has been reached. | LICENSE-4 | 
+| LICENSE | ADD   |  (i)  | Added license to manage 'NUM_CORES' cores. Expires: 'EXPIRATION'. |   | 
+| LICENSE | REMOVE   |  (i)  | Removed license with 'NUM_CORES' cores and expiration: 'EXPIRATION'. |   | 
 || h6. Load_balancer || || || || || 
 | LOAD_BALANCER | CREATE   |  (i)  | Added load balancer 'name'. |   | 
 | LOAD_BALANCER | DELETE   |  (i)  | Removed load balancer 'LOAD_BALANCER_NAME'. |   | 
@@ -37,6 +78,27 @@
 | LOAD_BALANCER | SYNCH_VIRTUAL_MACHINES   |  (i)  | Virtual machines of load balancer 'name' have been synchronized. |   | 
 | LOAD_BALANCER | VIRTUAL_MACHINES  |  (-)  | An error occurred while registering virtual machines for load balancer 'LOAD_BALANCER_NAME'. The current state of the load balancer or virtual machines could be inconsistent. Please synchronize the load balancer. |  | 
 | LOAD_BALANCER | VIRTUAL_MACHINES   |  (i)  | The virtual machines registered to the load balancer 'name' have been updated. |   | 
+|| h6. Machine || || || || || 
+| MACHINE | CHECK  |  (-)  | Could not retrieve the virtual infrastructure from machine 'name' during the health check. 'MESSAGE'. | MACHINE-6 | 
+| MACHINE | CHECK STATE |  (!)  | Changing state of machine 'MACHINE_NAME' to 'MACHINE_STATE'. |   | 
+| MACHINE | CHECK   |  (!)  | Received a notification from an unknown machine. Check database consistency. Machine IP: 'HYPERVISOR_IP'. |   | 
+| MACHINE | CREATE   |  (i)  | Machine 'name' (IP: 'HYPERVISOR_IP' type: 'HYPERVISOR_TYPE' state: 'state') created successfully. |   | 
+| MACHINE | CREATE   |  (!)  | The machine 'name' (IP: 'HYPERVISOR_IP') has no IQN in the DB. This could cause problems with external storage capabilities. Please configure this value on the HOST. The new IQN value will be added to the DB in the next background infrastructure check. |   | 
+| MACHINE | CREATE   |  (!)  | The maximum number of managed cores has been reached. | LICENSE-4 | 
+| MACHINE | DELETE   |  (i)  | Machine 'MACHINE_NAME' (IP: 'MACHINE_IP' type: 'MACHINE_HYP' ) deleted. |   | 
+| MACHINE | MODIFY   |  (i)  | Machine 'MACHINE_OLD_NAME' (IP: 'MACHINE_OLD_IP' type: 'MACHINE_OLD_HYP' state: 'MACHINE_OLD_STATE') modified successfully. |   | 
+| MACHINE | MODIFY   |  (!)  | The machine 'MACHINE_OLD_NAME' (IP: 'MACHINE_OLD_IP') has no IQN in the DB. This could cause problems with external storage capabilities. Please configure this value on the HOST. The new IQN value will be added to the DB in the next background infrastructure check. |   | 
+| MACHINE | NICS_REFRESH  |  (-)  | The physical machine with IP 'HYPERVISOR_IP' ('name') has lost its network interface 'NETWORK_INTERFACE_NAME'. It was used by virtual machines ('VMS_BROKEN'). These virtual machines are currently not synchronized and it is impossible to recover their vNICs. | MACHINE-28 | 
+| MACHINE | RECOVERING_STATE   |  (i)  | Recovering machine 'MACHINE_NAME' from UNLICENSED state. |   | 
+| MACHINE | VIRTUAL_MACHINE_DELETE   |  (i)  | Virtual machines from host 'MACHINE_IP' that are not managed by the platform have been deleted from the platform database. |   | 
+|| h6. Network_service_type || || || || || 
+| NETWORK_SERVICE_TYPE | CREATE   |  (i)  | A new network service type with name 'NST_NAME' has been created in datacenter 'DC_NAME'. |   | 
+| NETWORK_SERVICE_TYPE | DELETE   |  (i)  | Network service type 'NST_NAME' in datacenter 'DC_NAME' has been deleted. |   | 
+| NETWORK_SERVICE_TYPE | MODIFY   |  (i)  | Network service type 'NST_NAME' in datacenter 'DC_NAME' has been modified. |   | 
+|| h6. Pricing_template || || || || || 
+| PRICING_TEMPLATE | CREATE   |  (i)  | Created pricing template: 'name'. |   | 
+| PRICING_TEMPLATE | DELETE   |  (i)  | Deleted pricing template 'PRICING_TEMPLATE_NAME'. |   | 
+| PRICING_TEMPLATE | MODIFY   |  (i)  | Pricing template 'PRICING_TEMPLATE_NAME' has been modified (Name: 'name') |   | 
 || h6. Private_ip || || || || || 
 | PRIVATE_IP | CREATE   |  (i)  | Private IP 'ip' has been created in network 'PRIVATE_NET_NAME' of virtual datacenter 'VDC_NAME'. |   | 
 || h6. Private_network || || || || || 
@@ -44,6 +106,12 @@
 | PRIVATE_NETWORK | DEFAULT   |  (i)  | A virtual datacenter auto-created private VLAN will be the default in enterprise 'ENT_NAME'. |   | 
 | PRIVATE_NETWORK | DELETE   |  (i)  | The private VLAN with name 'PRIVATE_NET_NAME' in virtual datacenter 'VDC_NAME' has been deleted. |   | 
 | PRIVATE_NETWORK | MODIFY   |  (i)  | The private VLAN with name 'PRIVATE_NET_OLD_NAME' has been modified in virtual datacenter 'VDC_NAME'. |   | 
+|| h6. Public_cloud_region || || || || || 
+| PUBLIC_CLOUD_REGION | CREATE   |  (i)  | Public cloud region 'name' has been created in 'region.name' (region.endpoint). |   | 
+| PUBLIC_CLOUD_REGION | DELETE   |  (i)  | Public cloud region 'PCR_NAME' has been deleted. |   | 
+| PUBLIC_CLOUD_REGION | MODIFY   |  (i)  | Public cloud region 'PCR_OLD_NAME' has been modified (Name: PCR_NAME, Endpoint: 'PCR_ENDPOINT'). |   | 
+| PUBLIC_CLOUD_REGION | REMOTE_SERVICES_CREATE   |  (i)  | Remote services have been successfully added to public cloud region 'name'. |   | 
+| PUBLIC_CLOUD_REGION | REMOTE_SERVICES_CREATE   |  (!)  | The remote service from public cloud region 'PCR_NAME' is down or not configured due to: 'RS_ERROR'. |   | 
 || h6. Public_ip || || || || || 
 | PUBLIC_IP | CREATE FLOATINGIP |  (i)  | Floating IP 'ip' has been created in location 'DC_NAME' for enterprise 'ENT_NAME'. |   | 
 | PUBLIC_IP | CREATE IMPORT_FLOATINGIP |  (i)  | Floating IP 'IP' has been imported in location 'DC_NAME' for enterprise 'ENT_NAME'. |   | 
@@ -53,10 +121,43 @@
 | PUBLIC_IP | RELEASE FLOATINGIP |  (i)  | Floating IP 'IP' has been released and deleted in location 'DC_NAME' for enterprise 'ENT_NAME'. |   | 
 | PUBLIC_IP | RELEASE IMPORT_FLOATINGIP |  (i)  | Floating IP 'IP' has been released and deleted in location 'DC_NAME' for enterprise 'ENT_NAME'. |   | 
 | PUBLIC_IP | RELEASE   |  (i)  | Public IP 'IP' has been released from virtual datacenter 'VDC_NAME'. |   | 
+|| h6. Public_network || || || || || 
+| PUBLIC_NETWORK | CREATE   |  (i)  | A new 'type' VLAN with name 'name' has been created in datacenter 'DC_NAME'. |   | 
+| PUBLIC_NETWORK | DELETE   |  (i)  | The 'PUBLIC_NET_TYPE' VLAN with name 'PUBLIC_NET_NAME' in datacenter 'DC_NAME' has been deleted. |   | 
+| PUBLIC_NETWORK | MODIFY   |  (i)  | The 'PUBLIC_NET_TYPE' VLAN with name 'PUBLIC_NET_OLD_NAME' in datacenter 'DC_NAME' has been modified. |   | 
+|| h6. Rack || || || || || 
+| RACK | CREATE   |  (i)  | Rack 'name' has been created. |   | 
+| RACK | DELETE   |  (i)  | Rack 'RACK_NAME' deleted. |   | 
+| RACK | MODIFY  |  (-)  | Rack with duplicate name 'RACK_NAME'. | RACK-3 | 
+| RACK | MODIFY   |  (i)  | Rack 'RACK_NAME' has been modified (Name: 'name', Short description: 'shortDescription', HA enabled: 'haEnabled') |   | 
+|| h6. Remote_service || || || || || 
+| REMOTE_SERVICE | CHECK  |  (-)  | An error occurred while retrieving remote services. | 500 | 
+| REMOTE_SERVICE | CHECK  |  (-)  | An error occurred while checking remote service 'RS_TYPE' of datacenter 'DC_NAME'. | GEN-13 | 
+| REMOTE_SERVICE | CREATE   |  (i)  | 'type' created at 'uri' for datacenter 'DC_NAME'. |   | 
+| REMOTE_SERVICE | CREATE   |  (!)  | Appliance manager cannot be created at 'RS_URI' for datacenter 'DC_NAME' due to configuration errors: 'RS_ERROR'. |   | 
+| REMOTE_SERVICE | DELETE   |  (i)  | 'RS_TYPE' deleted. |   | 
+| REMOTE_SERVICE | MODIFY   |  (i)  | 'type' updated. |   | 
+|| h6. Role || || || || || 
+| ROLE | CREATE   |  (i)  | Created role 'name' (Enterprise: 'ENT_NAME') |   | 
+| ROLE | DELETE   |  (i)  | Deleted role 'ROLE_NAME'. |   | 
+|| h6. Role_ldap || || || || || 
+| ROLE_LDAP | CREATE   |  (i)  | Created LDAP role 'name'. |   | 
+| ROLE_LDAP | DELETE   |  (i)  | Delete LDAP role 'ROLE_LDAP'. |   | 
+| ROLE_LDAP | MODIFY   |  (i)  | LDAP Role 'ROLE_LDAP_OLD' has been modified (LDAP: 'ROLE_LDAP') |   | 
+|| h6. Role || || || || || 
+| ROLE | MODIFY   |  (i)  | Role 'ROLE_OLD_NAME' of enterprise 'ROLE_OLD_ENT', has been modified (Name: 'name', Enterprise: 'ENT_NAME', Privileges added: 'PRIVILEGES_ADDED', Privileges deleted: 'PRIVILEGES_DELETED') |   | 
 || h6. Routing_rule || || || || || 
 | ROUTING_RULE | CREATE   |  (i)  | Added routing rule 'portIn' -> 'portOut' to load balancer 'LOAD_BALANCER_NAME'. |   | 
 | ROUTING_RULE | DELETE   |  (i)  | Removed routing rule 'ROUTING_RULE_PORT_IN' -> 'ROUTING_RULE_PORT_OUT' from load balancer 'LOAD_BALANCER_NAME'. |   | 
 | ROUTING_RULE | MODIFY   |  (i)  | Modified routing rule 'portIn' -> 'portOut' of load balancer 'LOAD_BALANCER_NAME'. |   | 
+|| h6. Rules || || || || || 
+| RULES | APPLY   |  (i)  | Allocation rules have been applied. |   | 
+| RULES | LOADBALANCE_APPLY   |  (i)  | Load balance allocation rule of 'LOADBALANCE_TYPE' type has been applied. |   | 
+| RULES | LOADBALANCE_DELETE   |  (i)  | Load balance allocation rule has been removed. |   | 
+| RULES | LOADLEVEL_APPLY   |  (i)  | Load level rule has been applied. |   | 
+| RULES | LOADLEVEL_DELETE   |  (i)  | Load level rule has been removed. |   | 
+| RULES | RESTRICTSHARED_APPLY   |  (i)  | Restrict shared server allocation rule between enterprise 'ENTERPRISE1' and 'ENTERPRISE2' has been applied. |   | 
+| RULES | RESTRICTSHARED_DELETE   |  (i)  | Restrict shared server allocation rule between enterprise 'ENTERPRISE1' and 'ENTERPRISE2' has been removed. |   | 
 || h6. Scheduler || || || || || 
 | SCHEDULER | BEST_TARGET  |  (-)  | No rack can be selected because all racks exceed the maximum allowed VLANs. | SCH-EXCEEDED-MAX-VLAN | 
 | SCHEDULER | DATASTORE  |  (-)  | The target physical machine has no datastores. | SCH-NO-DATASTORES | 
@@ -67,9 +168,21 @@
 | SCHEDULER | FREE_VLAN  |  (-)  | The maximum number of VLAN tags has been reached. | SCH-EXCEEDED-VLAN_TAG | 
 | SCHEDULER | VIRTUAL_MACHINE  |  (-)  | There are not enough resources to deploy the virtual machine. | SCH-NOT-ENOUGH-RESOURCES | 
 | SCHEDULER | VIRTUAL_MACHINE  |  (-)  | Scheduler cannot fulfil user request due to SchedulerException: 'ERROR_MESSAGE'. | SCH-VM | 
+|| h6. Scope || || || || || 
+| SCOPE | CREATE   |  (i)  | Created scope with name 'name'. |   | 
+| SCOPE | DELETE   |  (i)  | Scope with name 'SCOPE_NAME' has been deleted. |   | 
+| SCOPE | MODIFY   |  (i)  | Scope with name 'SCOPE_NAME' has been modified. |   | 
 || h6. Session || || || || || 
 | SESSION | LOGIN   |  (i)  | User 'USER_NICK' logged in. |   | 
 | SESSION | LOGOUT   |  (i)  | User 'USER_NICK' logged out. |   | 
+|| h6. Storage_device || || || || || 
+| STORAGE_DEVICE | CREATE   |  (i)  | Storage device 'name' has been created. |   | 
+| STORAGE_DEVICE | DELETE   |  (i)  | Deleted storage device 'STORAGE_DEVICE_NAME'. |   | 
+| STORAGE_DEVICE | MODIFY   |  (i)  | Storage device 'STORAGE_DEVICE_OLD_NAME' has been modified. |   | 
+|| h6. Storage_pool || || || || || 
+| STORAGE_POOL | CREATE   |  (i)  | Created storage pool 'STORAGE_POOL_NAME' on device 'STORAGE_DEVICE_NAME'. |   | 
+| STORAGE_POOL | DELETE   |  (i)  | Deleted storage pool 'STORAGE_POOL_NAME' on device 'STORAGE_DEVICE_NAME'. |   | 
+| STORAGE_POOL | MODIFY   |  (i)  | Storage pool 'TIER_OLD_NAME' moved to tier 'tier.name'. |   | 
 || h6. Task || || || || || 
 | TASK | DEPLOY_CANCEL  |  (-)  | Deploy task 'taskId' (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME') workflow cancelation failed (custom message: 'CAUSE'). | WKF-02 | 
 | TASK | DEPLOY_CANCEL   |  (i)  | Deploy task 'taskId'  (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME') workflow cancelation was successful (custom message: 'CAUSE'). |   | 
@@ -83,6 +196,13 @@
 | TASK | UNDEPLOY_CANCEL   |  (i)  | Undeploy task 'taskId' (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME')  workflow cancelation was successful (custom message: 'CAUSE'). |   | 
 | TASK | UNDEPLOY_CONTINUE  |  (-)  | Undeploy task 'taskId' (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME') workflow continuation failed (custom message: 'CAUSE'). | WKF-03 | 
 | TASK | UNDEPLOY_CONTINUE   |  (i)  | Undeploy task 'taskId' (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME')  workflow continuation was successful (custom message: 'CAUSE'). |   | 
+|| h6. Template_definition_list || || || || || 
+| TEMPLATE_DEFINITION_LIST | CREATE   |  (!)  | Template definition list 'name' cannot be validated: 'TEMPLATE_DEF_LIST_VALIDATION'. |   | 
+| TEMPLATE_DEFINITION_LIST | DELETE   |  (i)  | Removing OVF package list 'TEMPLATE_DEF_LIST_NAME'. |   | 
+| TEMPLATE_DEFINITION_LIST | MODIFY   |  (i)  | Template definition list 'TEMPLATE_DEFINITION_LIST_OLD_NAME' updated. |   | 
+|| h6. Tier || || || || || 
+| TIER | ALLOW   |  (i)  | Storage tier 'name' has been allowed for enterprise 'ENT_NAME'. |   | 
+| TIER | RESTRICT   |  (i)  | Storage tier 'name' has been restricted for enterprise 'ENT_NAME'. |   | 
 || h6. User || || || || || 
 | USER | CREATE   |  (i)  | User 'name' has been created (Enterprise: 'enterprise.name' Name: 'name' Surname: 'surname' Role: 'role.name') |   | 
 | USER | DELETE  |  (-)  | User 'name' could not be deleted. Users with role 'role.name' can only be deleted by users with the same role. | USER-16 | 

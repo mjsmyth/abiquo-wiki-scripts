@@ -34,16 +34,16 @@ def main():
 	groupkey = {}
 	previous_key = " "
 	out_subdir = "output_files"
-	wiki_event_tracer_user_file = "wiki_event_tracer_user.txt"
+	wiki_event_tracer_all_file = "wiki_event_tracer_all.txt"
 	git_dir = "../platform/m/src/main/resources/messages"
 	input_subdir = "input_files"
-	user_file = "entity_user_list.txt"
+	entity_file = "entity_list.txt"
 	prop_file = "tracer.properties"
 	entity_action_file = "entity_action_list.txt"
 	entity_actions_file = [ea.strip() for ea in open(os.path.join(input_subdir,entity_action_file))]
 	header = "|| Entity || Action || Severity || Tracer || API Error ||\n"
 
-	user_entities = [ue.strip() for ue in open(os.path.join(input_subdir,user_file))]
+	entities = [ue.strip() for ue in open(os.path.join(input_subdir,entity_file))]
   
 	tracer_messages = [tm.strip() for tm in open(os.path.join(git_dir,prop_file))]
 	tracer_messages.sort()
@@ -166,7 +166,7 @@ def main():
 #				outputline[tkey] = "| " + entity_names[eci] + " | " + entity_actions[eci] + " " + extra_text[tkey] + " " + extra_bit[tkey] + " | " + tkey_severities[tkey] + " | " + tracer_texts[tki] + " | "  + tkey_errors[tkey]  + " | \n"
 				groupkey[tkey] = eci
 
-	with open(os.path.join(out_subdir,wiki_event_tracer_user_file), 'w') as f:
+	with open(os.path.join(out_subdir,wiki_event_tracer_all_file), 'w') as f:
 		f.write(header)
 		ol_keys = sorted(outputline.keys())
 		for olk in ol_keys:
@@ -177,10 +177,10 @@ def main():
 				entity_name_fix_case_start = entity_name_fix_case[:1]
 				entity_name_fix_case = entity_name_fix_case_start + entity_name_fix_case_end
 				groupheader	= "|| h6. " + entity_name_fix_case + " || || || || || \n"
-				if entity_names[groupkey[olk]] in user_entities:				
+				if entity_names[groupkey[olk]] in entities:				
 					f.write(groupheader)
 				previous_key = entity_names[groupkey[olk]]
-			if entity_names[groupkey[olk]] in user_entities:				
+			if entity_names[groupkey[olk]] in entities:				
 				f.write(outputline[olk])
 
 
