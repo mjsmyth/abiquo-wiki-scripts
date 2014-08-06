@@ -66,7 +66,7 @@ Privileges</strong></td>
  This privilege allows a user to view enterprise limits in addition to resources used in the enterprise resources panel if the user has the Display enterprise statistics privilege</td>
 <td class="highlight warning" data-highlight-class="warning"> <p> X </p> </td>
 <td class="highlight note" data-highlight-class="note"> <p> X </p> </td>
-<td class="highlight success" data-highlight-class="success"> <p> X </p> </td> 
+<td class="highlight success" data-highlight-class="success"> <p>   </p> </td> 
 <td class="highlight info" data-highlight-class="info"> <p>   </p> </td> 
 <td > </td></tr>
 <tr>
@@ -245,6 +245,18 @@ Privileges</strong></td>
 <td > </td></tr>
 <tr> 
  <td> 
+ Manage load balancers</td> 
+ <td> 
+ MANAGE_LOADBALANCERS</td> 
+ <td> 
+ This privilege allows a user to manage load balancers (add, edit and delete) for virtual datacenters</td>
+<td class="highlight warning" data-highlight-class="warning"> <p> X </p> </td>
+<td class="highlight note" data-highlight-class="note"> <p> X </p> </td>
+<td class="highlight success" data-highlight-class="success"> <p>   </p> </td> 
+<td class="highlight info" data-highlight-class="info"> <p>   </p> </td> 
+<td > </td></tr>
+<tr> 
+ <td> 
  Access Virtual Datacenters view</td> 
  <td> 
  VDC_ENUMERATE</td> 
@@ -338,14 +350,26 @@ Privileges</strong></td>
 <td > </td></tr>
 <tr> 
  <td> 
+ Assign load balancers</td> 
+ <td> 
+ ASSIGN_LOADBALANCERS</td> 
+ <td> 
+ This privilege allows a user to assign load balancers</td>
+<td class="highlight warning" data-highlight-class="warning"> <p> X </p> </td>
+<td class="highlight note" data-highlight-class="note"> <p> X </p> </td>
+<td class="highlight success" data-highlight-class="success"> <p>   </p> </td> 
+<td class="highlight info" data-highlight-class="info"> <p>   </p> </td> 
+<td > </td></tr>
+<tr> 
+ <td> 
  Manage Virtual Machine hard disks</td> 
  <td> 
  MANAGE_HARD_DISKS</td> 
  <td> 
  This privilege allows a user to access the Virtual Machine hard disk tab and manage hard disks (add and delete)</td>
 <td class="highlight warning" data-highlight-class="warning"> <p> X </p> </td>
-<td class="highlight note" data-highlight-class="note"> <p>   </p> </td>
-<td class="highlight success" data-highlight-class="success"> <p>   </p> </td> 
+<td class="highlight note" data-highlight-class="note"> <p> X </p> </td>
+<td class="highlight success" data-highlight-class="success"> <p> X </p> </td> 
 <td class="highlight info" data-highlight-class="info"> <p>   </p> </td> 
 <td > </td></tr>
 <tr> 

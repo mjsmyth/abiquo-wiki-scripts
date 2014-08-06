@@ -5,6 +5,9 @@
 # - database privileges information (run process_privileges.sql on the latest Abiquo DB to create process_privileges_sql.txt)
 # - an extra text file (process_privileges_extratext.txt)
 # It creates wiki_privileges.txt - a wiki storage format table for pasting into Privileges page of the wiki
+# NB: check that privs_processed which is written to standard out is equal to 
+# the number of rows in privilege table in Abiquo DB
+# select * from privilege;
 #
 import sys
 import re
@@ -12,6 +15,8 @@ import json as simplejson
 import os
 
 def main():
+    sql_total = 0
+    privs_processed = 0
     rowing = {}
     rowing[1] = "<tr>\n<td class=\"highlight info\" data-highlight-class=\"info\"><strong>\n"
     rowing[3] = "Privileges</strong></td>\n"
@@ -52,6 +57,8 @@ def main():
         sqllabels[sqllist_joinkey] = sqllist[0]
         sqlroles[sqllist_joinkey] = sqllist[1]
 
+
+
     #orderlabels = {}
     #orderroles = {}
     #orderfile = 'order_brief.txt'
@@ -67,7 +74,7 @@ def main():
     grouporder = {1: 'home', 2: 'infrastructure', 3: 'virtualDatacenters', 4: 'virtualAppliances', 5: 'appsLibrary', 6: 'users', 7: 'systemConfiguration', 8: 'events', 9: 'pricing'}
     groupmatch = {'home': 'ENTERPRISE', 'infrastructure': 'PHYS', 'virtualDatacenters': 'VDC', 'virtualAppliances': 'VAPP','appsLibrary': 'APPLIB', 'users': 'USERS', 'systemConfiguration': 'SYSCONFIG', 'events': 'EVENTLOG', 'pricing': 'PRICING'}
     
-    labelmatch = {'MANAGE_FIREWALLS': 'VDC', 'MANAGE_FLOATINGIPS': 'VDC', 'WORKFLOW_OVERRIDE': 'VAPP', 'MANAGE_HARD_DISKS': 'VAPP', 'ASSIGN_FIREWALLS': 'VAPP', 'APPLIB_VM_COST_CODE': 'PRICING'}
+    labelmatch = {'MANAGE_LOADBALANCERS': 'VDC', 'MANAGE_FIREWALLS': 'VDC', 'MANAGE_FLOATINGIPS': 'VDC', 'WORKFLOW_OVERRIDE': 'VAPP', 'MANAGE_HARD_DISKS': 'VAPP', 'ASSIGN_LOADBALANCERS': 'VAPP', 'ASSIGN_FIREWALLS': 'VAPP', 'APPLIB_VM_COST_CODE': 'PRICING'}
 
     json_data = open(os.path.join(input_gitdir,'lang_en_US.json'))
     data = simplejson.load(json_data)
@@ -120,6 +127,7 @@ def main():
             if current_group == plk:
                 output_row = "<tr> \n <td> \n " + privnames[plk_orig] + "</td> \n <td> \n " + plk_orig + "</td> \n <td> \n " + privdescs[plk_orig] 
                 out_file.write (output_row)
+                privs_processed = privs_processed + 1
                 #print (privnames[plk_orig],": ",privdescs[plk_orig])
                 if plk_orig in extratext:
                     out_file.write (". " + extratext[plk_orig])   
@@ -155,6 +163,7 @@ def main():
                 for okey in range (1, 6):
                     out_file.write (outroles[okey])
     out_file.write ("</tbody>\n</table>\n")
+    print("privs_processed: ",privs_processed)
     json_data.close()
     out_file.close()
 
