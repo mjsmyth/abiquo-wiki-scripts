@@ -43,7 +43,7 @@ def main():
         extratext[extkey] = exttext
     sqllabels = {}
     sqlroles = {}
-    sqlfile = 'process_privileges_sql.txt'
+    sqlfile = 'process_privileges_sql_20140806.txt'
     sqllines = (sqlline.rstrip() for sqlline in open(os.path.join(input_subdir,sqlfile)))
     for sql_orig in sqllines:
         #print (sql_orig)
