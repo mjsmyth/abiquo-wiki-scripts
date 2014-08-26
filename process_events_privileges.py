@@ -48,6 +48,7 @@ def main():
 	keyHappy = " "
 	event_list_with_privileges = {}
 
+
 	git_events_security_dir = "../platform/api/src/main/resources/events"
 	events_security_privileges_file = "events-security.properties"
 	events_security_file = [es.strip() for es in open(os.path.join(git_events_security_dir,events_security_privileges_file))]
@@ -58,7 +59,7 @@ def main():
 	entity_list = "input_files/entity_list.txt"
 
 	for esi in events_security_file:
-		print ("esi: ",esi)
+#		print ("esi: ",esi)
 		esSplit = esi.split("=")
 		es_privilege = esSplit[0]
 		es_privilege = es_privilege.strip()
@@ -81,11 +82,11 @@ def main():
 	ea_records = re.split(RS,eadata)
 
 	for NR,ear in enumerate(ea_records):
-		print ("NR: ", NR)
+#		print ("NR: ", NR)
 		NRSave = NR
 		ea_fields = re.split(FS,ear)
 		if re.match ("\*",ear):
-			print ("ear: ",ear)
+#			print ("ear: ",ear)
 			break
 
 		if len(ea_fields) > 1:
@@ -103,19 +104,23 @@ def main():
 
 			if entity_underscore_action in event_list_with_privileges:
 				privilege_list = event_list_with_privileges[entity_underscore_action]
+				privilege_list_string = ', '.join(privilege_list)
+			else:
+				privilege_list_string = " "
 
-			privilege_list_string = ', '.join(privilege_list)
-			print ("EntityName: ", EntityName)
-			print ("ActionName: ", ActionName)
+#			print ("EntityName: ", EntityName)
+#			print ("ActionName: ", ActionName)
 
 			mykeysstring = " ".join((ea_fields))
-			print ("mykeysstring: ",mykeysstring)
+#			print ("mykeysstring: ",mykeysstring)
 
 			thekeys = re.findall('(?<=KEYS\.)[A-Z_]*',mykeysstring)
 			if thekeys:
-				print(thekeys)
-
-			thekeysstring = ', '.join(thekeys)
+#				print(thekeys)
+				thekeystring = ', '.join(thekeys)
+			else:
+				thekeystring = " "
+			
 
 			# for MyKey in range(1,4):
 			# 	print ("ea_fieldsMK: ",ea_fields[MyKey])
@@ -146,8 +151,8 @@ def main():
 			# 			keyHappy = copy(KeyItem)
 			
 			startout[NR] = "| " 
-			endout[NR] =  " | " + ActionName + " | " + thekeysstring + " | " + privilege_list_string + " |" 
-			print("endout[NR]: ",endout[NR])
+			endout[NR] =  " | " + ActionName + " | " + thekeystring + " | " + privilege_list_string + " |" 
+#			print("endout[NR]: ",endout[NR])
 	 
 		if len(ea_fields) == 1:
 			eIndex = NR + 1
