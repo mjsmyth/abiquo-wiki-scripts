@@ -41,7 +41,7 @@ def main():
 	endout = {}
 	entityheader = {}
 	entity_space_action = {}
-	entity_underscore_actions = {}
+	entity_underscore_action = {}
 	entity_for_users = {}
 	KeyInfo = {}
 	KeySplit = {}
@@ -98,13 +98,8 @@ def main():
 
 			ActionName = EntityActionNames[1]
 			entity_space_action[NR] = EntityName + " " + ActionName
-			entity_underscore_actions[NR] = EntityName + "_" + ActionName
-			entity_underscore_action = EntityName + "_" + ActionName
+			entity_underscore_action[NR] = EntityName + "_" + ActionName
 
-			if entity_underscore_action in event_list_with_privileges:
-				privilege_list = event_list_with_privileges[entity_underscore_action]
-
-			privilege_list_string = ', '.join(privilege_list)
 			print ("EntityName: ", EntityName)
 			print ("ActionName: ", ActionName)
 
@@ -146,7 +141,7 @@ def main():
 			# 			keyHappy = copy(KeyItem)
 			
 			startout[NR] = "| " 
-			endout[NR] =  " | " + ActionName + " | " + thekeysstring + " | " + privilege_list_string + " |" 
+			endout[NR] =  " | " + ActionName + " | " + thekeysstring + " |" 
 			print("endout[NR]: ",endout[NR])
 	 
 		if len(ea_fields) == 1:
@@ -169,7 +164,7 @@ def main():
 			entityheader[NR] = entityheader_for_sub
 	 		
 
-	print ("|| Entity || Action || Additional Information || Privileges for Event || ")
+	print ("|| Entity || Action || Additional Information ||")
 	NRI = NRSave - 2
 	for s in range(1, NRI): 
 		if s in endout:
@@ -178,7 +173,7 @@ def main():
 			else:
 				print (startout[s], endout[s])	
 		else:
-			print ("|| h6. ", entityheader[s], " || || || ||")
+			print ("|| h6. ", entityheader[s], " || || ||")
 
   
 # Calls the main() function
