@@ -58,6 +58,9 @@ def main():
 
 	entity_list = "input_files/entity_list.txt"
 
+	out_subdir = "output_files"
+	wiki_entity_action_privileges_file = "wiki_entity_action_privileges.txt"
+
 	for esi in events_security_file:
 #		print ("esi: ",esi)
 		esSplit = esi.split("=")
@@ -121,34 +124,6 @@ def main():
 			else:
 				thekeystring = " "
 			
-
-			# for MyKey in range(1,4):
-			# 	print ("ea_fieldsMK: ",ea_fields[MyKey])
-			# 	if re.match ("KEYS",ea_fields[MyKey]):
-			# 		KeyInput = ea_fields[MyKey]
-			# 		KeyInput = re.sub("KEYS.","",KeyInput)
-			# 		KeyInput = re.sub("\\[","",KeyInput)
-			# 		KeyInput = re.sub("\]","",KeyInput)
-			# 		KeyInput = re.sub("\{","",KeyInput)
-			# 		KeyInput = re.sub("\}","",KeyInput)
-			# 		KeyInput = re.sub("\);","",KeyInput)
-			# 		KeyInput = re.sub("\n","",KeyInput)
-			# 		KeyInput = re.sub("\*","",KeyInput)
-			# 		KeyInfo[MyKey] = copy(KeyInput)
-			# 	else:
-			# 		KeyInfo[MyKey] = " "
-			# print ("KeyInfo: ", str(KeyInfo))
-			# for mk in KeyInfo:	
-			# 	KeyTotal = KeyTotal + KeyInfo[mk] 
-			# print ("KeyTotal: ",KeyTotal)	
-			# KeySplit = KeyTotal.split ("\,|[ \t\n]+")
-			# keyHappy = " ";
-			# for KeyItem in KeySplit:
-			# 	if re.match("/[A-Z][a-z]/",KeyItem):
-			# 		if re.match("/[A-Z][a-z]/",keyHappy):
-			# 			keyHappy = keyHappy + ", " + KeyItem
-			# 		else:
-			# 			keyHappy = copy(KeyItem)
 			
 			startout[NR] = "| " 
 			endout[NR] =  " | " + ActionName + " | " + thekeystring + " | " + privilege_list_string + " |" 
@@ -172,19 +147,23 @@ def main():
 			entityheader_for_sub = re.sub ("Ssl","SSL",entityheader_for_sub)
 			entityheader_for_sub = re.sub ("ldap","LDAP",entityheader_for_sub)
 			entityheader[NR] = entityheader_for_sub
+
 	 		
-
-	print ("|| Entity || Action || Additional Information || Privileges for Event || ")
-	NRI = NRSave - 2
-	for s in range(1, NRI): 
-		if s in endout:
-			if s in entityout:
-				print (startout[s], entityout[s], endout[s])
+	with open(os.path.join(out_subdir,wiki_entity_action_privileges_file), 'w') as f:
+		header = "|| Entity || Action || Additional Information || Privileges for Event || \n"
+		f.write(header)	 		
+		NRI = NRSave - 2
+		for s in range(1, NRI): 
+			if s in endout:
+				if s in entityout:
+					outline = startout[s] + entityout[s] + endout[s] + "\n"
+					f.write(outline)
 			else:
-				print (startout[s], endout[s])	
+					outline = startout[s] + endout[s] + "\n"
+					f.write(outline)
 		else:
-			print ("|| h6. ", entityheader[s], " || || || ||")
-
+			outline = "|| h6. " + entityheader[s] + " || || || ||\n"
+			f.write(outline)
   
 # Calls the main() function
 if __name__ == '__main__':
