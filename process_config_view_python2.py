@@ -18,7 +18,7 @@ def main():
 #	ui_path = input("Language file path: ").strip()
 	input_subdir = "input_files"
 	output_subdir = "output_files" 
-	output_file_name = "wiki_config_view.txt"
+	output_file_name = "v32_wiki_config_view.txt"
 	ui_path = "../platform/ui/app/"
 	ui_path_lang = ui_path + "lang/"
 	ui_path_html = ui_path + "modules/configuration/partials/"
@@ -117,7 +117,7 @@ def main():
 # Process the language file which has keys and UI labels
 # e.g. "configuration.systemproperties.infra.defaulttemplaterepository":"Default Abiquo template repo (will not be created if empty)",
 # Store the lowercase key e.g. defaulttemplaterepository and the UI label
-	ui_json = ui_path_lang + "lang_en_US.json"		
+	ui_json = ui_path_lang + "lang_en_US_labels.json"		
 	ui_json_data = open(ui_json)
 	ui_data = json.load(ui_json_data)
 	ui_keys = sorted(ui_data.keys())
@@ -134,14 +134,14 @@ def main():
 			store_ui_label[uikkey] = ui_data[uik]
 
 # Process the text file with the wiki notes about the system properties. It has lower case keys
-	with open(os.path.join(input_subdir,'process_config_view_extratext.txt'), 'r') as extra_text_file:
+	with open(os.path.join(input_subdir,'v32_process_config_view_extratext.txt'), 'r') as extra_text_file:
 		extra_text_all = extra_text_file.read()
 	extra_text_list = extra_text_all.split("\n\n")
 	
 	for et in extra_text_list:
 		ettext = " "
 		extra_text_split = et.split("=",1)
-		print ("extra_text_split_0: ", extra_text_split[0])_
+		print ("extra_text_split_0: ", extra_text_split[0])
 		print ("extra_text_split_1: ", extra_text_split[1])
 		etkeyall = extra_text_split[0]
 		etkeyall = etkeyall.split(".")
@@ -176,12 +176,17 @@ def main():
 	with open(dashboard_ui, 'r') as dashboard_html_text_file:
 		dashboard_text_all = dashboard_html_text_file.read()
 
+	password_ui = ui_path_html + "passwordform.html"
+	with open(password_ui, 'r') as password_html_text_file:
+		password_text_all = password_html_text_file.read()	
+
 	wikilinks_ui = ui_path_html + "wikilinksform.html"
 	with open(wikilinks_ui, 'r') as wikilinks_html_text_file:
 		wikilinks_text_all = wikilinks_html_text_file.read()
 
 
-	html_text_all = general_text_all.strip() + infrastructure_text_all.strip() + network_text_all.strip() + dashboard_text_all.strip() + wikilinks_text_all.strip() 
+
+	html_text_all = general_text_all.strip() + infrastructure_text_all.strip() + network_text_all.strip() + dashboard_text_all.strip() + password_text_all.strip() + wikilinks_text_all.strip() 
 
 	# Process the UI order
 	# search patterns
@@ -252,7 +257,7 @@ def main():
 		if su in store_extra_text:
 			extra_text_output = store_extra_text[su]
 			print ("store_extra_text: ",store_extra_text[su])
-		else
+		else:
 			extra_text_output = "-"	
 		if su in store_ui_label:
 			ui_label_output = store_ui_label[su]	

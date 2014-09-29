@@ -158,12 +158,12 @@ def main():
 				if s in entityout:
 					outline = startout[s] + entityout[s] + endout[s] + "\n"
 					f.write(outline)
-			else:
+				else:
 					outline = startout[s] + endout[s] + "\n"
 					f.write(outline)
-		else:
-			outline = "|| h6. " + entityheader[s] + " || || || ||\n"
-			f.write(outline)
+			else:
+				outline = "|| h6. " + entityheader[s] + " || || || ||\n"
+				f.write(outline)
   
 # Calls the main() function
 if __name__ == '__main__':
