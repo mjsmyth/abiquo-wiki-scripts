@@ -29,10 +29,11 @@ cat $1 | gawk 'BEGIN{
   gitPropNameSplit[0] = "";
   gitPropNameCat[0] = "";
   headerProf[0] = "";
-  td = "2014-07-29"
+  td = "2014-10-07"
+  
 
   fn_api = "properties_api_" td ".txt";
-  fn_rs =  "properties_rs_" td ".txt";
+  fn_rs = "properties_rs_" td ".txt";
   fn_v2v = "properties_v2v_" td ".txt";
   fn_oa = "properties_oa_" td ".txt";
   
