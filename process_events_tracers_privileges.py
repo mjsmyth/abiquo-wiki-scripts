@@ -1,5 +1,7 @@
 #!/usr/bin/python3 -tt
-
+# Reads files from local github dir but also reads a file from the input_files directory!
+# So you need to run the scripts to process the entity and action first...
+# process_entity_action_privleges.py
 import sys
 import re
 import os
@@ -206,7 +208,7 @@ def main():
 				entity_name_fix_case_end = entity_name_fix_case[1:].lower()
 				entity_name_fix_case_start = entity_name_fix_case[:1]
 				entity_name_fix_case = entity_name_fix_case_start + entity_name_fix_case_end
-				groupheader	= "|| h6. " + entity_name_fix_case + " || || || || || \n"
+				groupheader	= "|| h6. " + entity_name_fix_case + " || || || || || ||\n"
 				if entity_names[groupkey[olk]] in entities:				
 					f.write(groupheader)
 				previous_key = entity_names[groupkey[olk]]
