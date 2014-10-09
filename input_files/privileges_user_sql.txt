@@ -1,0 +1,13 @@
+| VDC_ENUMERATE                        | USER                |
+| VDC_MANAGE_VAPP                      | USER                |
+| VAPP_CUSTOMISE_SETTINGS              | USER                |
+| VAPP_DEPLOY_UNDEPLOY                 | USER                |
+| VAPP_PERFORM_ACTIONS                 | USER                |
+| VAPP_CREATE_STATEFUL                 | USER                |
+| VAPP_CREATE_INSTANCE                 | USER                |
+| EVENTLOG_VIEW_ENTERPRISE             | USER                |
+| ENTERPRISE_SHOW_STATS_LIMITS         | USER                |
+| VAPP_MANAGE_LAYERS                   | USER                |
+| VAPP_STATEFUL_VIEW                   | USER                |
+| USERS_ENABLE_DISABLE_VM_METRICS      | USER                |
+| USERS_SHOW_VM_METRICS                | USER                |

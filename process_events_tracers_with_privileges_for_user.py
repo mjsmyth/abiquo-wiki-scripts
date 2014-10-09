@@ -1,9 +1,7 @@
 #!/usr/bin/python3 -tt
-# Requires a list of entities and actions for splitting the tracer codes up 
-# entity_action_list.txt
-# And a separate list of entities for filtering the output to the file
-# This is used to produce a user version
-#
+# Reads files from local github dir but also reads a file from the input_files directory!
+# So you need to run the scripts to process the entity and action first...
+# process_entity_action_privleges.py
 import sys
 import re
 import os
@@ -38,19 +36,23 @@ def main():
 	groupkey = {}
 	previous_key = " "
 	out_subdir = "output_files"
-	wiki_event_tracer_all_file = "wiki_event_tracer_all.txt"
+	wiki_event_tracer_privileges_file = "wiki_event_tracer_privileges.txt"
 	git_dir = "../platform/m/src/main/resources/messages"
+	git_events_security_dir = "../platform/api/src/main/resources/events"
+	events_security_privileges_file = "events-security.properties"
 	input_subdir = "input_files"
 	entity_file = "entity_list.txt"
 	prop_file = "tracer.properties"
 	entity_action_file = "entity_action_list.txt"
 	entity_actions_file = [ea.strip() for ea in open(os.path.join(input_subdir,entity_action_file))]
-	header = "|| Entity || Action || Severity || Tracer || API Error ||\n"
+	events_security_file = [es.strip() for es in open(os.path.join(git_events_security_dir,events_security_privileges_file))]
+	header = "|| Entity || Action || Severity || Tracer || API Error || Privileges ||\n"
 
 	entities = [ue.strip() for ue in open(os.path.join(input_subdir,entity_file))]
   
 	tracer_messages = [tm.strip() for tm in open(os.path.join(git_dir,prop_file))]
 	tracer_messages.sort()
+	event_list_with_privileges = {}
 
 #	for ue in user_entities:
 #		print("User entity: ",ue)
@@ -60,10 +62,28 @@ def main():
 		eaSplit = eai.split(" ")
 		print ("eaSplit: ",eaSplit)
 		entity_compound = eaSplit[0] + "_" + eaSplit[1]
+		entity_compound_dot = eaSplit[0] + "." + eaSplit[1]
 		entity_compounds.append(entity_compound)
 		entity_names[entity_compound] = eaSplit[0].strip()
 		entity_actions[entity_compound] = eaSplit[1]
 	
+	for esi in events_security_file:
+		print ("esi: ",esi)
+		esSplit = esi.split("=")
+		es_privilege = esSplit[0]
+		es_privilege = es_privilege.strip()
+		es_event_list = esSplit[1]
+		elSplit = es_event_list.split(",")
+		for els in elSplit:		
+#			substitute the dot for an underscore
+			event_list_event = re.sub("\.","_",els)
+			event_list_event = event_list_event.strip()
+			if event_list_event not in event_list_with_privileges:
+				event_list_with_privileges[event_list_event] = [es_privilege]
+			else:
+				if es_privilege not in event_list_with_privileges[event_list_event]:
+					event_list_with_privileges[event_list_event].append(es_privilege)
+
 		
 	for tmi in tracer_messages:
 		if not re.search("^\#",tmi):
@@ -162,7 +182,15 @@ def main():
 #				print("tkey_severities.tkey: *****",tkey_severities[tkey],"*****")					
 #				print("indexed_messages.tkey: *****",indexed_messages[tkey],"*****")					
 #				print("tkey_errors.tkey: *****",tkey_errors[tkey],"*****")
-				outputline[tkey] = "| " + entity_names[eci] + " | " + entity_actions[eci] + " " + extra_text[tkey] + " | " + tkey_severities[tkey] + " | " + indexed_messages[tkey] + " | "  + tkey_errors[tkey]  + " | \n"
+				event_list_with_privileges_print = ""
+				for elwp in event_list_with_privileges[eci]:
+					elwp_item = elwp.strip('\'')
+					if not event_list_with_privileges_print:
+						event_list_with_privileges_print =  elwp_item
+					else:
+						event_list_with_privileges_print = event_list_with_privileges_print + ", " + elwp_item
+						
+				outputline[tkey] = "| " + entity_names[eci] + " | " + entity_actions[eci] + " " + extra_text[tkey] + " | " + tkey_severities[tkey] + " | " + indexed_messages[tkey] + " | "  + tkey_errors[tkey]  + " | " + event_list_with_privileges_print  + " | \n"
 #				print ("tkey: ***",tkey.strip(),"***")
 #				else:
 #					outputline[tkey] = "|  | " + entity_actions[eci] + " " + extra_text[tkey] + " | " + tkey_severities[tkey] + " | " + indexed_messages[tkey] + " | "  + tkey_errors[tkey]  + " | \n"						
@@ -170,7 +198,7 @@ def main():
 #				outputline[tkey] = "| " + entity_names[eci] + " | " + entity_actions[eci] + " " + extra_text[tkey] + " " + extra_bit[tkey] + " | " + tkey_severities[tkey] + " | " + tracer_texts[tki] + " | "  + tkey_errors[tkey]  + " | \n"
 				groupkey[tkey] = eci
 
-	with open(os.path.join(out_subdir,wiki_event_tracer_all_file), 'w') as f:
+	with open(os.path.join(out_subdir,wiki_event_tracer_privileges_file), 'w') as f:
 		f.write(header)
 		ol_keys = sorted(outputline.keys())
 		for olk in ol_keys:
@@ -180,7 +208,7 @@ def main():
 				entity_name_fix_case_end = entity_name_fix_case[1:].lower()
 				entity_name_fix_case_start = entity_name_fix_case[:1]
 				entity_name_fix_case = entity_name_fix_case_start + entity_name_fix_case_end
-				groupheader	= "|| h6. " + entity_name_fix_case + " || || || || || \n"
+				groupheader	= "|| h6. " + entity_name_fix_case + " || || || || || ||\n"
 				if entity_names[groupkey[olk]] in entities:				
 					f.write(groupheader)
 				previous_key = entity_names[groupkey[olk]]
@@ -189,89 +217,7 @@ def main():
 
 
 
-# 				if eci != previous_key:
-#					previous_key = eci
-#					outputline	= " || " + entity_names[eci] + " || || || || || \n"
-#				print ("| ",entity_names[eci]," | ",entity_actions[eci]," ",extra_text[tkey]," ",extra_bit[tkey]," | ",tkey_severities[tkey]," | ",tracer_texts[tki]," | ",tkey_errors[tkey]," | ")
-					    	
-			
-			
-	
-#	sp_json_data = open('api_get_system_properties.json')
-#	sp_data = simplejson.load(sp_json_data)
-#	sp_data_keys = sorted (sp_data.keys())
-#	for spdk in sp_data_keys:
-#		if spdk == "collection":
-#			sp_collection = sp_data[spdk]
-#			for sp_item in sp_collection:
-#				sp_keys = sorted(sp_item.keys())
-#				for spk in sp_keys:
-#					if spk == "id":
-#						sp_id_value = sp_item[spk]
-#						print ("sp_id: ", sp_id_value)#
-#					elif spk == "name":
-#						sp_name_value = sp_item[spk]
-#						print ("sp_name: ", sp_name_value)
-#						sp_name_list = sp_name_value.split(".")
-#						if sp_name_list[1] == "wiki":
-#							values_wiki[sp_id] = sp_id_value
-#						else:
-#							values_non_wiki[sp_id] = sp_id_value	
-#					elif spk == "value":
-#						sp_value_value = sp_item[spk]
-#						print ("sp_value: ", sp_value_value)
-#						
-#    			
-# 
-#    grouporder = {1: 'general', 2: 'infrastructure', 3: 'network', 4: 'dashboard', 5: 'wikilinks', 6: 'licenses'}
-#    groupmatch = {'general': 'client.main', 'infrastructure': 'client.infra', 'network': 'client.network', 'virtualAppliances': 'VAPP','appsLibrary': 'APPLIB', 'users': 'USERS', 'systemConfiguration': 'SYSCONFIG', 'events': 'EVENTLOG', 'pricing': 'PRICING'}
-#    json_data = open('lang_en_US.json')
-#    data = simplejson.load(json_data)
-#    privlabels = {}
-#    privnames = {}
-#    privdescs = {}
-#    privgroups = {}
-#    labelkeys = sorted(data.keys())
-#    for labelkey_orig in labelkeys: 
-#        labelkey = labelkey_orig.split(".")
-#        pg = labelkey[0]
-#        if pg == "privilegegroup":
-#            pgk = labelkey[1]
-#            if pgk != "allprivileges":
-#                privgroups[pgk] = data[labelkey_orig]
-#                print ("privilege group: ", labelkey)
-#        elif pg == "privilege":
-#            pd = labelkey[1]
-#            if pd == "description":
-#                pdk = labelkey[2]
-#                privdescs[pdk] = data[labelkey_orig]
-#                print("privilege description: ", labelkey)
-#            elif pd != "details":
-#                privlabels[pd] = pd 
-#                privnames[pd] = data[labelkey_orig] 
-#                print("privilege: ", labelkey)
 
-#    pgkeys = sorted(grouporder.keys())     
-#    plkeys = sorted(privlabels.keys())
-#    for pgk in pgkeys:
-#        pgkordered = grouporder[pgk]
-#        current_group = groupmatch[pgkordered]
-#        privgroupindexed = privgroups[pgkordered]
-#        print (privgroupindexed)
-#        for plk_orig in plkeys:
-#            plk = plk_orig.split("_")
-#            if current_group == plk[0]:
-#                print (privnames[plk_orig],": ",privdescs[plk_orig])
-#                key_cloud_admin = plk_orig + "=CLOUD_ADMIN"
-#                key_ent_admin = plk_orig + "=ENTERPRISE_ADMIN"
-#                key_user = plk_orig + "=USER"
-#                if key_cloud_admin in sqlroles:
-#                    print ("CLOUD_ADMIN")
-#                if key_ent_admin in sqlroles:
-#                    print ("ENT_ADMIN")    
-#                if key_user in sqlroles:
-#                    print ("USER")                   
-#	sp_json_data.close()
 
         
   

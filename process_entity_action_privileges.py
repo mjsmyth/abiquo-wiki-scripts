@@ -7,6 +7,8 @@ import os
 # create a set of tables of events and actions 
 # Input file should be platform/model/event-model-transport/src/main/java/com/abiquo/event/model/enumerations/EntityAction.java
 # Output file should be output_files/wiki_events.txt
+# Plus: entity_list.txt
+#
 # Note that I have hacked this program to make it leave out the java muck surrounding the enumerations!
 # If there are any problems: it uses RS = Master, and checks for * in records, and doesn't print headers or details of the first record and last two records! 
 # NOTE that this script produces two other output files - entity_action_list.txt, which is an input to the tracer processing scripts

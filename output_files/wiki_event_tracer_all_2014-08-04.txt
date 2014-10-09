@@ -107,7 +107,7 @@
 | PRIVATE_NETWORK | DELETE   |  (i)  | The private VLAN with name 'PRIVATE_NET_NAME' in virtual datacenter 'VDC_NAME' has been deleted. |   | 
 | PRIVATE_NETWORK | MODIFY   |  (i)  | The private VLAN with name 'PRIVATE_NET_OLD_NAME' has been modified in virtual datacenter 'VDC_NAME'. |   | 
 || h6. Public_cloud_region || || || || || 
-| PUBLIC_CLOUD_REGION | CREATE   |  (i)  | Public cloud region 'name' has been created in 'PCR_REGION' (PCR_ENDPOINT). |   | 
+| PUBLIC_CLOUD_REGION | CREATE   |  (i)  | Public cloud region 'name' has been created in 'region.name' (region.endpoint). |   | 
 | PUBLIC_CLOUD_REGION | DELETE   |  (i)  | Public cloud region 'PCR_NAME' has been deleted. |   | 
 | PUBLIC_CLOUD_REGION | MODIFY   |  (i)  | Public cloud region 'PCR_OLD_NAME' has been modified (Name: PCR_NAME, Endpoint: 'PCR_ENDPOINT'). |   | 
 | PUBLIC_CLOUD_REGION | REMOTE_SERVICES_CREATE   |  (i)  | Remote services have been successfully added to public cloud region 'name'. |   | 
@@ -133,9 +133,9 @@
 || h6. Remote_service || || || || || 
 | REMOTE_SERVICE | CHECK  |  (-)  | An error occurred while retrieving remote services. | 500 | 
 | REMOTE_SERVICE | CHECK  |  (-)  | An error occurred while checking remote service 'RS_TYPE' of datacenter 'DC_NAME'. | GEN-13 | 
-| REMOTE_SERVICE | CREATE   |  (i)  | 'type' created at 'uri'. |   | 
+| REMOTE_SERVICE | CREATE   |  (i)  | 'type' created at 'uri' for datacenter 'DC_NAME'. |   | 
 | REMOTE_SERVICE | CREATE   |  (!)  | Appliance manager cannot be created at 'RS_URI' for datacenter 'DC_NAME' due to configuration errors: 'RS_ERROR'. |   | 
-| REMOTE_SERVICE | DELETE   |  (i)  | 'RS_TYPE' (RS_URI) deleted. |   | 
+| REMOTE_SERVICE | DELETE   |  (i)  | 'RS_TYPE' deleted. |   | 
 | REMOTE_SERVICE | MODIFY   |  (i)  | 'type' updated. |   | 
 || h6. Role || || || || || 
 | ROLE | CREATE   |  (i)  | Created role 'name' (Enterprise: 'ENT_NAME') |   | 
@@ -204,14 +204,11 @@
 | TIER | ALLOW   |  (i)  | Storage tier 'name' has been allowed for enterprise 'ENT_NAME'. |   | 
 | TIER | RESTRICT   |  (i)  | Storage tier 'name' has been restricted for enterprise 'ENT_NAME'. |   | 
 || h6. User || || || || || 
-| USER | CREATE   |  (i)  | User 'name' has been created (Enterprise: 'enterprise.name' Name: 'name' Surname: 'surname' Role: 'ROLE_NAME') |   | 
+| USER | CREATE   |  (i)  | User 'name' has been created (Enterprise: 'enterprise.name' Name: 'name' Surname: 'surname' Role: 'role.name') |   | 
 | USER | DELETE  |  (-)  | User 'name' could not be deleted. Users with role 'role.name' can only be deleted by users with the same role. | USER-16 | 
 | USER | DELETE   |  (i)  | User 'USER_NAME' has been deleted (Enterprise: 'ENT_NAME' Name: 'USER_NAME' Surname: 'USER_SURNAME' Role: 'ROLE_NAME') |   | 
-| USER | FIRST_LOGIN   |  (i)  | Enabled password reset on login for user:  'name'. |   | 
 | USER | MODIFY  |  (-)  | User 'name' could not be modified. Users with role 'role.name' can only be modified by users with the same role. | USER-22 | 
-| USER | MODIFY   |  (i)  | User 'USER_OLD_NAME' has been modified (Enterprise: 'enterprise.name' Name: 'name' Surname: 'surname' Role: 'ROLE_NAME') |   | 
-| USER | RESET_PSW   |  (i)  | User 'name' has requested a password reset. |   | 
-| USER | RESET_PSW   |  (!)  | Reset password email is not correctly  configured. |   | 
+| USER | MODIFY   |  (i)  | User 'USER_OLD_NAME' has been modified (Enterprise: 'enterprise.name' Name: 'name' Surname: 'surname' Role: 'role.name') |   | 
 || h6. Virtual_appliance || || || || || 
 | VIRTUAL_APPLIANCE | COPY  |  (-)  | Virtual appliance 'name' cannot be copied. The 'DISK_TYPE' template of this virtual machine is not compatible with the target hypervisor ('HYPERVISOR_TYPE') and no conversions are available. | VAPP-10 | 
 | VIRTUAL_APPLIANCE | COPY  |  (-)  | Virtual appliance 'name', cannot be copied. The expected state was NOT_DEPLOYED but the actual state is 'state'. | VAPP-13 | 
@@ -367,7 +364,6 @@
 | VIRTUAL_MACHINE | RESET  |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the IDE controller is full. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-ED-1 | 
 | VIRTUAL_MACHINE | RESET  |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-0 | 
 | VIRTUAL_MACHINE | RESET   |  (i)  | Operation to reset the virtual machine 'VIRTUAL_MACHINE_NAME' queued in the virtual factory successfully. The virtual machine is locked. |   | 
-| VIRTUAL_MACHINE | RESTORE_BACKUP   |  (i)  | Restore 'RESTORE_STATUS' for backup with id 'BACKUP_ID' name 'BACKUP_NAME' backup status 'BACKUP_STATUS' date 'BACKUP_DATE' size 'BACKUP_SIZE' type 'BACKUP_TYPE' |   | 
 | VIRTUAL_MACHINE | RESUME  |  (-)  | Could not resume the virtual machine 'name': 'EVENT'. |  | 
 | VIRTUAL_MACHINE | RESUME  |  (-)  | Virtual factory task 'TASK_ID' on virtual machine ID 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') failed on the platform due to a communication problem with the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. The platform will perform a check on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | HYP-01 | 
 | VIRTUAL_MACHINE | RESUME  |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the IDE controller is full. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-ED-1 | 

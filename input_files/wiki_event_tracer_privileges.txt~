@@ -1,0 +1,478 @@
+|| Entity || Action || Severity || Tracer || API Error || Privileges ||
+|| h6. Application || || || || || ||
+| APPLICATION | CREATE   |  (i)  | Application 'name' added for user 'user.name'. |   | AUTHENTICATED | 
+| APPLICATION | DELETE   |  (i)  | Application 'APPLICATION_NAME' has been removed for user 'USER_NAME'. |   | AUTHENTICATED | 
+|| h6. Category || || || || || ||
+| CATEGORY | CREATE DELETE |  (i)  | Removing category 'CATEGORY_NAME'. |   | APPLIB_MANAGE_CATEGORIES, APPLIB_MANAGE_GLOBAL_CATEGORIES | 
+| CATEGORY | CREATE   |  (i)  | A new category has been created with the name 'name'. |   | APPLIB_MANAGE_CATEGORIES, APPLIB_MANAGE_GLOBAL_CATEGORIES | 
+| CATEGORY | CREATE MODIFY |  (i)  | Category 'CATEGORY_OLD_NAME' updated. |   | APPLIB_MANAGE_CATEGORIES, APPLIB_MANAGE_GLOBAL_CATEGORIES | 
+|| h6. Costcode || || || || || ||
+| COSTCODE | CREATE   |  (i)  | Created cost code 'name'. |   | PRICING_MANAGE | 
+| COSTCODE | DELETE   |  (i)  | Deleted cost code 'COSTCODE_NAME'. |   | PRICING_MANAGE | 
+| COSTCODE | MODIFY   |  (i)  | Cost code 'COSTCODE_NAME' has been modified (Name: 'name') |   | PRICING_MANAGE | 
+|| h6. Currency || || || || || ||
+| CURRENCY | CREATE   |  (i)  | Created currency 'name'. |   | PRICING_MANAGE | 
+| CURRENCY | DELETE   |  (i)  | Currency 'CURRENCY_OLD_NAME' removed. |   | PRICING_MANAGE | 
+| CURRENCY | MODIFY   |  (i)  | Currency 'CURRENCY_OLD_NAME' modified. |   | PRICING_MANAGE | 
+|| h6. Datacenter_backup || || || || || ||
+| DATACENTER_BACKUP | CREATE   |  (i)  | Backup configuration 'template.name' has been created for datacenter 'datacenter.name'. |   | PHYS_DC_ALLOW_BACKUP_CONFIG | 
+| DATACENTER_BACKUP | DELETE   |  (i)  | Deleted Backup configuration 'BU_NAME' for datacenter 'DC_NAME'. |   | PHYS_DC_ALLOW_BACKUP_CONFIG | 
+| DATACENTER_BACKUP | MODIFY   |  (i)  | Backup configuration for datacenter 'DC_NAME' has been modified. |   | PHYS_DC_ALLOW_BACKUP_CONFIG | 
+|| h6. Datacenter || || || || || ||
+| DATACENTER | CLOSE_PRODUCER  |  (-)  | Error closing the connection after queuing task in the virtual factory. RabbitMQ might be down or not properly configured. |  | PHYS_DC_MANAGE | 
+| DATACENTER | CREATE   |  (i)  | Datacenter 'name' has been created in 'location'. |   | PHYS_DC_MANAGE | 
+| DATACENTER | CREATE   |  (!)  | Another Datacenter with the name 'name' already exists; please choose a different name. |   | PHYS_DC_MANAGE | 
+| DATACENTER | DELETE  |  (-)  | Cannot delete datacenter 'name': MESSAGE. | DC-5 | PHYS_DC_MANAGE | 
+| DATACENTER | DELETE  |  (-)  | Cannot delete datacenter 'name': MESSAGE. | DC-6 | PHYS_DC_MANAGE | 
+| DATACENTER | DELETE   |  (i)  | Datacenter 'DC_NAME' deleted. |   | PHYS_DC_MANAGE | 
+| DATACENTER | ENQUEUE_DC_REQUEST  |  (-)  | Failed to persist task. Redis might be down or not configured. |  | PHYS_DC_MANAGE | 
+| DATACENTER | MODIFY   |  (i)  | Datacenter 'DC_OLD_NAME' has been modified (Name: 'name', Location: 'location') |   | PHYS_DC_MANAGE | 
+| DATACENTER | REMOTE_SERVICES_CREATE   |  (i)  | Remote services have been successfully added to datacenter 'name'. |   | PHYS_DC_MANAGE | 
+| DATACENTER | REMOTE_SERVICES_CREATE   |  (!)  | The remote service from datacenter 'DC_NAME' is down or not configured due to: 'RS_ERROR'. |   | PHYS_DC_MANAGE | 
+|| h6. Datacenter_repository || || || || || ||
+| DATACENTER_REPOSITORY | REFRESH  |  (-)  | Cannot refresh datacenter repository 'repositoryLocation'. | AM-3 | APPLIB_MANAGE_REPOSITORY | 
+| DATACENTER_REPOSITORY | REFRESH   |  (i)  | Datacenter repository 'repositoryLocation' refresh started. |   | APPLIB_MANAGE_REPOSITORY | 
+|| h6. Datacenter || || || || || ||
+| DATACENTER | REQUEST_PRODUCER  |  (-)  | Failed to queue task in the virtual factory. RabbitMQ might be down or not properly configured. |  | PHYS_DC_MANAGE | 
+|| h6. Enterprise || || || || || ||
+| ENTERPRISE | CREATE   |  (i)  | Enterprise 'name' has been created. |   | USERS_MANAGE_ENTERPRISE | 
+| ENTERPRISE | DELETE   |  (i)  | Enterprise 'ENT_NAME' has been deleted. |   | USERS_MANAGE_ENTERPRISE | 
+| ENTERPRISE | DISABLE_WORKFLOW   |  (i)  | Workflow disabled for enterprise 'name'. |   | USERS_MANAGE_ENTERPRISE | 
+| ENTERPRISE | ENABLE_WORKFLOW   |  (i)  | Workflow enabled for enterprise 'name'. |   | USERS_MANAGE_ENTERPRISE | 
+| ENTERPRISE | MODIFY   |  (i)  | Enterprise 'ENT_OLD_NAME' has been modified. |   | USERS_MANAGE_ENTERPRISE | 
+| ENTERPRISE | PRICING_TEMPLATE_ASSIGN   |  (i)  | Pricing template 'PRICING_TEMPLATE_NAME' has been associated with enterprise 'ENT_OLD_PRICING_TEMPLATE_NAME'. |   | PRICING_MANAGE, USERS_MANAGE_ENTERPRISE | 
+|| h6. External_ip || || || || || ||
+| EXTERNAL_IP | CREATE   |  (i)  | IP 'ip' of type 'EXTERNAL' has been created in network 'PUBLIC_NET_NAME' of datacenter 'DC_NAME'. |   | PHYS_DC_ALLOW_MODIFY_NETWORK | 
+|| h6. External_network || || || || || ||
+| EXTERNAL_NETWORK | DEFAULT   |  (i)  | External VLAN with name 'name' has been configured as the default in enterprise 'ENT_NAME'. |   | PHYS_DC_ALLOW_MODIFY_NETWORK | 
+|| h6. Firewall_policy || || || || || ||
+| FIREWALL_POLICY | CREATE   |  (i)  | The firewall policy 'name' has been created.\nIf your cloud provider creates default rules, synchronize rules using our firewall synchronization feature. |   | MANAGE_FIREWALLS | 
+| FIREWALL_POLICY | DELETE   |  (i)  | The firewall policy 'POLICY_NAME' has been deleted. |   | MANAGE_FIREWALLS | 
+| FIREWALL_POLICY | MODIFY   |  (i)  | The firewall policy 'POLICY_OLD_NAME' has been modified: name: 'name', description: 'description'. |   | MANAGE_FIREWALLS | 
+| FIREWALL_POLICY | RULES_MODIFY   |  (i)  | The firewall policy 'POLICY_NAME' rules have changed. |   | MANAGE_FIREWALLS | 
+| FIREWALL_POLICY | RULES_MODIFY   |  (!)  | An error occurred while adding new rules in the firewall policy 'POLICY_NAME'. It is possible that old rules have been removed. Please check them. |   | MANAGE_FIREWALLS | 
+|| h6. Hard_disk || || || || || ||
+| HARD_DISK | CREATE   |  (i)  | A new hard disk of HARD_DISK_SIZE MB has been created in virtual datacenter 'VDC_NAME'. |   | MANAGE_HARD_DISKS | 
+| HARD_DISK | DELETE   |  (i)  | The hard disk resource 'HARD_DISK_ID' of HARD_DISK_SIZE MB has been deleted from virtual datacenter 'VDC_NAME'. |   | MANAGE_HARD_DISKS | 
+| HARD_DISK | MODIFY  |  (-)  | The size of the hard disk cannot be reduced. | HD-8 | MANAGE_HARD_DISKS | 
+| HARD_DISK | MODIFY   |  (i)  | The hard disk on virtual machine 'VIRTUAL_MACHINE_NAME' with sequence 'HARD_DISK_OLD_SEQUENCE' has been modified. |   | MANAGE_HARD_DISKS | 
+| HARD_DISK | RESIZE   |  (i)  | The hard disk on virtual machine 'VIRTUAL_MACHINE_NAME' with sequence 'HARD_DISK_OLD_SEQUENCE' of HARD_DISK_OLD_SIZE bytes has been resized to HARD_DISK_SIZE bytes. |   | MANAGE_HARD_DISKS | 
+|| h6. Health_check || || || || || ||
+| HEALTH_CHECK | CREATE   |  (i)  | Added health check 'name' to load balancer 'LOAD_BALANCER_NAME' in 'DC_NAME' location for enterprise 'ENT_NAME': protocol 'protocol', path 'path'. |   | MANAGE_LOADBALANCERS | 
+| HEALTH_CHECK | DELETE   |  (i)  | Removed health check 'HEALTH_CHECK_NAME' from load balancer 'LOAD_BALANCER_NAME' in 'DC_NAME' location for enterprise 'ENT_NAME'. |   | MANAGE_LOADBALANCERS | 
+|| h6. Layer || || || || || ||
+| LAYER | CHECK_CAPACITY  |  (-)  | The anti-affinity layer requires more machines than currently available in the datacenter. | AAFFINITY-0 | VAPP_MANAGE_LAYERS | 
+| LAYER | CHECK_CAPACITY  |  (-)  | Anti-affinity for layer 'LAYER' in VApp 'VAPP_NAME' cannot be honored: 'NUM_POSSIBLE_MACHINES' were available in Datacenter 'DC_NAME', Rack 'RACK_NAME', but 'MIN_REQUIRED_MACHINES' machines were required. | AAFFINITY-1 | VAPP_MANAGE_LAYERS | 
+|| h6. License || || || || || ||
+| LICENSE | ADD  |  (-)  | The maximum number of managed cores has been reached. | LICENSE-4 | SYSCONFIG_ALLOW_MODIFY | 
+| LICENSE | ADD   |  (i)  | Added license to manage 'NUM_CORES' cores. Expires: 'EXPIRATION'. |   | SYSCONFIG_ALLOW_MODIFY | 
+| LICENSE | REMOVE   |  (i)  | Removed license with 'NUM_CORES' cores and expiration: 'EXPIRATION'. |   | SYSCONFIG_ALLOW_MODIFY | 
+|| h6. Load_balancer || || || || || ||
+| LOAD_BALANCER | CREATE   |  (i)  | Added load balancer 'name'. |   | MANAGE_LOADBALANCERS | 
+| LOAD_BALANCER | DELETE   |  (i)  | Removed load balancer 'LOAD_BALANCER_NAME'. |   | MANAGE_LOADBALANCERS | 
+| LOAD_BALANCER | MODIFY   |  (i)  | Load balancer 'LOAD_BALANCER_OLD_NAME' has been updated. |   | MANAGE_LOADBALANCERS | 
+| LOAD_BALANCER | SYNCH_CREATE   |  (i)  | Added load balancer 'name' during refresh. |   | MANAGE_LOADBALANCERS | 
+| LOAD_BALANCER | SYNCH_DELETE   |  (i)  | Removed load balancer 'LOAD_BALANCER_NAME' during refresh. |   | MANAGE_LOADBALANCERS | 
+| LOAD_BALANCER | SYNCH_MODIFY   |  (i)  | Load balancer 'name' has been synchronized. |   | MANAGE_LOADBALANCERS | 
+| LOAD_BALANCER | SYNCH_VIRTUAL_MACHINES DELETE |  (i)  | Virtual machines removed from load balancer 'LOAD_BALANCER_NAME'. |   | ASSIGN_LOADBALANCERS, MANAGE_LOADBALANCERS | 
+| LOAD_BALANCER | SYNCH_VIRTUAL_MACHINES   |  (i)  | Virtual machines of load balancer 'name' have been synchronized. |   | ASSIGN_LOADBALANCERS, MANAGE_LOADBALANCERS | 
+| LOAD_BALANCER | VIRTUAL_MACHINES  |  (-)  | An error occurred while registering virtual machines for load balancer 'LOAD_BALANCER_NAME'. The current state of the load balancer or virtual machines could be inconsistent. Please synchronize the load balancer. |  | ASSIGN_LOADBALANCERS | 
+| LOAD_BALANCER | VIRTUAL_MACHINES   |  (i)  | The virtual machines registered to the load balancer 'name' have been updated. |   | ASSIGN_LOADBALANCERS | 
+|| h6. Machine || || || || || ||
+| MACHINE | CHECK  |  (-)  | Could not retrieve the virtual infrastructure from machine 'name' during the health check. 'MESSAGE'. | MACHINE-6 | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| MACHINE | CHECK STATE |  (!)  | Changing state of machine 'MACHINE_NAME' to 'MACHINE_STATE'. |   | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| MACHINE | CHECK   |  (!)  | Received a notification from an unknown machine. Check database consistency. Machine IP: 'HYPERVISOR_IP'. |   | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| MACHINE | CREATE   |  (i)  | Machine 'name' (IP: 'HYPERVISOR_IP' type: 'HYPERVISOR_TYPE' state: 'state') created successfully. |   | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| MACHINE | CREATE   |  (!)  | The machine 'name' (IP: 'HYPERVISOR_IP') has no IQN in the DB. This could cause problems with external storage capabilities. Please configure this value on the HOST. The new IQN value will be added to the DB in the next background infrastructure check. |   | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| MACHINE | CREATE   |  (!)  | The maximum number of managed cores has been reached. | LICENSE-4 | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| MACHINE | DELETE   |  (i)  | Machine 'MACHINE_NAME' (IP: 'MACHINE_IP' type: 'MACHINE_HYP' ) deleted. |   | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| MACHINE | MODIFY   |  (i)  | Machine 'MACHINE_OLD_NAME' (IP: 'MACHINE_OLD_IP' type: 'MACHINE_OLD_HYP' state: 'MACHINE_OLD_STATE') modified successfully. |   | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| MACHINE | MODIFY   |  (!)  | The machine 'MACHINE_OLD_NAME' (IP: 'MACHINE_OLD_IP') has no IQN in the DB. This could cause problems with external storage capabilities. Please configure this value on the HOST. The new IQN value will be added to the DB in the next background infrastructure check. |   | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| MACHINE | NICS_REFRESH  |  (-)  | The physical machine with IP 'HYPERVISOR_IP' ('name') has lost its network interface 'NETWORK_INTERFACE_NAME'. It was used by virtual machines ('VMS_BROKEN'). These virtual machines are currently not synchronized and it is impossible to recover their vNICs. | MACHINE-28 | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| MACHINE | RECOVERING_STATE   |  (i)  | Recovering machine 'MACHINE_NAME' from UNLICENSED state. |   | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| MACHINE | VIRTUAL_MACHINE_DELETE   |  (i)  | Virtual machines from host 'MACHINE_IP' that are not managed by the platform have been deleted from the platform database. |   | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+|| h6. Network_service_type || || || || || ||
+| NETWORK_SERVICE_TYPE | CREATE   |  (i)  | A new network service type with name 'NST_NAME' has been created in datacenter 'DC_NAME'. |   | PHYS_DC_ALLOW_MODIFY_NETWORK | 
+| NETWORK_SERVICE_TYPE | DELETE   |  (i)  | Network service type 'NST_NAME' in datacenter 'DC_NAME' has been deleted. |   | PHYS_DC_ALLOW_MODIFY_NETWORK | 
+| NETWORK_SERVICE_TYPE | MODIFY   |  (i)  | Network service type 'NST_NAME' in datacenter 'DC_NAME' has been modified. |   | PHYS_DC_ALLOW_MODIFY_NETWORK | 
+|| h6. Pricing_template || || || || || ||
+| PRICING_TEMPLATE | CREATE   |  (i)  | Created pricing template: 'name'. |   | PRICING_MANAGE | 
+| PRICING_TEMPLATE | DELETE   |  (i)  | Deleted pricing template 'PRICING_TEMPLATE_NAME'. |   | PRICING_MANAGE | 
+| PRICING_TEMPLATE | MODIFY   |  (i)  | Pricing template 'PRICING_TEMPLATE_NAME' has been modified (Name: 'name') |   | PRICING_MANAGE | 
+|| h6. Private_ip || || || || || ||
+| PRIVATE_IP | CREATE   |  (i)  | Private IP 'ip' has been created in network 'PRIVATE_NET_NAME' of virtual datacenter 'VDC_NAME'. |   | PHYS_DC_ALLOW_MODIFY_NETWORK, VDC_MANAGE_NETWORK | 
+|| h6. Private_network || || || || || ||
+| PRIVATE_NETWORK | CREATE   |  (i)  | A new private VLAN with name 'name' has been created in virtual datacenter 'VDC_NAME'. |   | PHYS_DC_ALLOW_MODIFY_NETWORK, VDC_MANAGE_NETWORK | 
+| PRIVATE_NETWORK | DEFAULT   |  (i)  | A virtual datacenter auto-created private VLAN will be the default in enterprise 'ENT_NAME'. |   | PHYS_DC_ALLOW_MODIFY_NETWORK, VDC_MANAGE_NETWORK | 
+| PRIVATE_NETWORK | DELETE   |  (i)  | The private VLAN with name 'PRIVATE_NET_NAME' in virtual datacenter 'VDC_NAME' has been deleted. |   | PHYS_DC_ALLOW_MODIFY_NETWORK, VDC_MANAGE_NETWORK | 
+| PRIVATE_NETWORK | MODIFY   |  (i)  | The private VLAN with name 'PRIVATE_NET_OLD_NAME' has been modified in virtual datacenter 'VDC_NAME'. |   | PHYS_DC_ALLOW_MODIFY_NETWORK, VDC_MANAGE_NETWORK | 
+|| h6. Public_cloud_region || || || || || ||
+| PUBLIC_CLOUD_REGION | CREATE   |  (i)  | Public cloud region 'name' has been created in 'PCR_REGION' (PCR_ENDPOINT). |   | PHYS_DC_MANAGE | 
+| PUBLIC_CLOUD_REGION | DELETE   |  (i)  | Public cloud region 'PCR_NAME' has been deleted. |   | PHYS_DC_MANAGE | 
+| PUBLIC_CLOUD_REGION | MODIFY   |  (i)  | Public cloud region 'PCR_OLD_NAME' has been modified (Name: PCR_NAME, Endpoint: 'PCR_ENDPOINT'). |   | PHYS_DC_MANAGE | 
+| PUBLIC_CLOUD_REGION | REMOTE_SERVICES_CREATE   |  (i)  | Remote services have been successfully added to public cloud region 'name'. |   | PHYS_DC_MANAGE | 
+| PUBLIC_CLOUD_REGION | REMOTE_SERVICES_CREATE   |  (!)  | The remote service from public cloud region 'PCR_NAME' is down or not configured due to: 'RS_ERROR'. |   | PHYS_DC_MANAGE | 
+|| h6. Public_ip || || || || || ||
+| PUBLIC_IP | CREATE FLOATINGIP |  (i)  | Floating IP 'ip' has been created in location 'DC_NAME' for enterprise 'ENT_NAME'. |   | PHYS_DC_ALLOW_MODIFY_NETWORK | 
+| PUBLIC_IP | CREATE IMPORT_FLOATINGIP |  (i)  | Floating IP 'IP' has been imported in location 'DC_NAME' for enterprise 'ENT_NAME'. |   | PHYS_DC_ALLOW_MODIFY_NETWORK | 
+| PUBLIC_IP | CREATE IMPORT_UNAVAILABLE_FLOATINGIP |  (i)  | Floating IP 'IP' has been imported into location 'DC_NAME' for enterprise 'ENT_NAME' but it is not available for use. It is probably already attached to a VM in the cloud provider. |   | PHYS_DC_ALLOW_MODIFY_NETWORK | 
+| PUBLIC_IP | CREATE   |  (i)  | IP 'ip' of type 'PUBLIC' has been created in network 'PUBLIC_NET_NAME' of datacenter 'DC_NAME'. |   | PHYS_DC_ALLOW_MODIFY_NETWORK | 
+| PUBLIC_IP | PURCHASE   |  (i)  | Public IP 'ip' has been purchased by virtual datacenter 'VDC_NAME'. |   | PHYS_DC_ALLOW_MODIFY_NETWORK, VDC_MANAGE_NETWORK | 
+| PUBLIC_IP | RELEASE FLOATINGIP |  (i)  | Floating IP 'IP' has been released and deleted in location 'DC_NAME' for enterprise 'ENT_NAME'. |   | PHYS_DC_ALLOW_MODIFY_NETWORK, VDC_MANAGE_NETWORK | 
+| PUBLIC_IP | RELEASE IMPORT_FLOATINGIP |  (i)  | Floating IP 'IP' has been released and deleted in location 'DC_NAME' for enterprise 'ENT_NAME'. |   | PHYS_DC_ALLOW_MODIFY_NETWORK, VDC_MANAGE_NETWORK | 
+| PUBLIC_IP | RELEASE   |  (i)  | Public IP 'IP' has been released from virtual datacenter 'VDC_NAME'. |   | PHYS_DC_ALLOW_MODIFY_NETWORK, VDC_MANAGE_NETWORK | 
+|| h6. Public_network || || || || || ||
+| PUBLIC_NETWORK | CREATE   |  (i)  | A new 'type' VLAN with name 'name' has been created in datacenter 'DC_NAME'. |   | PHYS_DC_ALLOW_MODIFY_NETWORK | 
+| PUBLIC_NETWORK | DELETE   |  (i)  | The 'PUBLIC_NET_TYPE' VLAN with name 'PUBLIC_NET_NAME' in datacenter 'DC_NAME' has been deleted. |   | PHYS_DC_ALLOW_MODIFY_NETWORK | 
+| PUBLIC_NETWORK | MODIFY   |  (i)  | The 'PUBLIC_NET_TYPE' VLAN with name 'PUBLIC_NET_OLD_NAME' in datacenter 'DC_NAME' has been modified. |   | PHYS_DC_ALLOW_MODIFY_NETWORK | 
+|| h6. Rack || || || || || ||
+| RACK | CREATE   |  (i)  | Rack 'name' has been created. |   | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| RACK | DELETE   |  (i)  | Rack 'RACK_NAME' deleted. |   | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| RACK | MODIFY  |  (-)  | Rack with duplicate name 'RACK_NAME'. | RACK-3 | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| RACK | MODIFY   |  (i)  | Rack 'RACK_NAME' has been modified (Name: 'name', Short description: 'shortDescription', HA enabled: 'haEnabled') |   | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+|| h6. Remote_service || || || || || ||
+| REMOTE_SERVICE | CHECK  |  (-)  | An error occurred while retrieving remote services. | 500 | PHYS_DC_MANAGE | 
+| REMOTE_SERVICE | CHECK  |  (-)  | An error occurred while checking remote service 'RS_TYPE' of datacenter 'DC_NAME'. | GEN-13 | PHYS_DC_MANAGE | 
+| REMOTE_SERVICE | CREATE   |  (i)  | 'type' created at 'uri'. |   | PHYS_DC_MANAGE | 
+| REMOTE_SERVICE | CREATE   |  (!)  | Appliance manager cannot be created at 'RS_URI' for datacenter 'DC_NAME' due to configuration errors: 'RS_ERROR'. |   | PHYS_DC_MANAGE | 
+| REMOTE_SERVICE | DELETE   |  (i)  | 'RS_TYPE' (RS_URI) deleted. |   | PHYS_DC_MANAGE | 
+| REMOTE_SERVICE | MODIFY   |  (i)  | 'type' updated. |   | PHYS_DC_MANAGE | 
+|| h6. Role || || || || || ||
+| ROLE | CREATE   |  (i)  | Created role 'name' (Enterprise: 'ENT_NAME') |   | USERS_MANAGE_ROLES | 
+| ROLE | DELETE   |  (i)  | Deleted role 'ROLE_NAME'. |   | USERS_MANAGE_ROLES | 
+|| h6. Role_ldap || || || || || ||
+| ROLE_LDAP | CREATE   |  (i)  | Created LDAP role 'name'. |   | USERS_MANAGE_LDAP_GROUP, USERS_MANAGE_ROLES | 
+| ROLE_LDAP | DELETE   |  (i)  | Delete LDAP role 'ROLE_LDAP'. |   | USERS_MANAGE_LDAP_GROUP, USERS_MANAGE_ROLES | 
+| ROLE_LDAP | MODIFY   |  (i)  | LDAP Role 'ROLE_LDAP_OLD' has been modified (LDAP: 'ROLE_LDAP') |   | USERS_MANAGE_LDAP_GROUP, USERS_MANAGE_ROLES | 
+|| h6. Role || || || || || ||
+| ROLE | MODIFY   |  (i)  | Role 'ROLE_OLD_NAME' of enterprise 'ROLE_OLD_ENT', has been modified (Name: 'name', Enterprise: 'ENT_NAME', Privileges added: 'PRIVILEGES_ADDED', Privileges deleted: 'PRIVILEGES_DELETED') |   | USERS_MANAGE_ROLES | 
+|| h6. Routing_rule || || || || || ||
+| ROUTING_RULE | CREATE   |  (i)  | Added routing rule 'portIn' -> 'portOut' to load balancer 'LOAD_BALANCER_NAME'. |   | MANAGE_LOADBALANCERS | 
+| ROUTING_RULE | DELETE   |  (i)  | Removed routing rule 'ROUTING_RULE_PORT_IN' -> 'ROUTING_RULE_PORT_OUT' from load balancer 'LOAD_BALANCER_NAME'. |   | MANAGE_LOADBALANCERS | 
+| ROUTING_RULE | MODIFY   |  (i)  | Modified routing rule 'portIn' -> 'portOut' of load balancer 'LOAD_BALANCER_NAME'. |   | MANAGE_LOADBALANCERS | 
+|| h6. Rules || || || || || ||
+| RULES | APPLY   |  (i)  | Allocation rules have been applied. |   | PHYS_DC_ALLOW_MODIFY_ALLOCATION | 
+| RULES | LOADBALANCE_APPLY   |  (i)  | Load balance allocation rule of 'LOADBALANCE_TYPE' type has been applied. |   | PHYS_DC_ALLOW_MODIFY_ALLOCATION | 
+| RULES | LOADBALANCE_DELETE   |  (i)  | Load balance allocation rule has been removed. |   | PHYS_DC_ALLOW_MODIFY_ALLOCATION | 
+| RULES | LOADLEVEL_APPLY   |  (i)  | Load level rule has been applied. |   | PHYS_DC_ALLOW_MODIFY_ALLOCATION | 
+| RULES | LOADLEVEL_DELETE   |  (i)  | Load level rule has been removed. |   | PHYS_DC_ALLOW_MODIFY_ALLOCATION | 
+| RULES | RESTRICTSHARED_APPLY   |  (i)  | Restrict shared server allocation rule between enterprise 'ENTERPRISE1' and 'ENTERPRISE2' has been applied. |   | PHYS_DC_ALLOW_MODIFY_ALLOCATION | 
+| RULES | RESTRICTSHARED_DELETE   |  (i)  | Restrict shared server allocation rule between enterprise 'ENTERPRISE1' and 'ENTERPRISE2' has been removed. |   | PHYS_DC_ALLOW_MODIFY_ALLOCATION | 
+|| h6. Scheduler || || || || || ||
+| SCHEDULER | BEST_TARGET  |  (-)  | No rack can be selected because all racks exceed the maximum allowed VLANs. | SCH-EXCEEDED-MAX-VLAN | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| SCHEDULER | DATASTORE  |  (-)  | The target physical machine has no datastores. | SCH-NO-DATASTORES | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| SCHEDULER | DATASTORE  |  (-)  | The target physical machine has no datastores enabled with the required free space. | SCH-NO-DATASTORES-ENABLED | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| SCHEDULER | FIRST_CANDIDATES  |  (-)  | No machine can be selected on rack: 'RACK_NAME'. | SCH-NOK | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| SCHEDULER | FIRST_CANDIDATES  |  (-)  | Not enough VLAN resources on rack ' RACK_NAME' to deploy the required virtual appliance. | SCH-NOT-ENOUGH-VLAN | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| SCHEDULER | FREE_PORT  |  (-)  | The maximum number of remote desktop ports has been reached. | SCH-VRDPORT | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| SCHEDULER | FREE_VLAN  |  (-)  | The maximum number of VLAN tags has been reached. | SCH-EXCEEDED-VLAN_TAG | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| SCHEDULER | VIRTUAL_MACHINE  |  (-)  | There are not enough resources to deploy the virtual machine. | SCH-NOT-ENOUGH-RESOURCES | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| SCHEDULER | VIRTUAL_MACHINE  |  (-)  | Scheduler cannot fulfil user request due to SchedulerException: 'ERROR_MESSAGE'. | SCH-VM | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+|| h6. Scope || || || || || ||
+| SCOPE | CREATE   |  (i)  | Created scope with name 'name'. |   | USERS_MANAGE_SCOPES | 
+| SCOPE | DELETE   |  (i)  | Scope with name 'SCOPE_NAME' has been deleted. |   | USERS_MANAGE_SCOPES | 
+| SCOPE | MODIFY   |  (i)  | Scope with name 'SCOPE_NAME' has been modified. |   | USERS_MANAGE_SCOPES | 
+|| h6. Session || || || || || ||
+| SESSION | LOGIN   |  (i)  | User 'USER_NICK' logged in. |   | AUTHENTICATED | 
+| SESSION | LOGOUT   |  (i)  | User 'USER_NICK' logged out. |   | AUTHENTICATED | 
+|| h6. Storage_device || || || || || ||
+| STORAGE_DEVICE | CREATE   |  (i)  | Storage device 'name' has been created. |   | PHYS_DC_ALLOW_MODIFY_STORAGE | 
+| STORAGE_DEVICE | DELETE   |  (i)  | Deleted storage device 'STORAGE_DEVICE_NAME'. |   | PHYS_DC_ALLOW_MODIFY_STORAGE | 
+| STORAGE_DEVICE | MODIFY   |  (i)  | Storage device 'STORAGE_DEVICE_OLD_NAME' has been modified. |   | PHYS_DC_ALLOW_MODIFY_STORAGE | 
+|| h6. Storage_pool || || || || || ||
+| STORAGE_POOL | CREATE   |  (i)  | Created storage pool 'STORAGE_POOL_NAME' on device 'STORAGE_DEVICE_NAME'. |   | PHYS_DC_ALLOW_MODIFY_STORAGE | 
+| STORAGE_POOL | DELETE   |  (i)  | Deleted storage pool 'STORAGE_POOL_NAME' on device 'STORAGE_DEVICE_NAME'. |   | PHYS_DC_ALLOW_MODIFY_STORAGE | 
+| STORAGE_POOL | MODIFY   |  (i)  | Storage pool 'TIER_OLD_NAME' moved to tier 'tier.name'. |   | PHYS_DC_ALLOW_MODIFY_STORAGE | 
+|| h6. Task || || || || || ||
+| TASK | DEPLOY_CANCEL  |  (-)  | Deploy task 'taskId' (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME') workflow cancelation failed (custom message: 'CAUSE'). | WKF-02 | VAPP_DEPLOY_UNDEPLOY, WORKFLOW_OVERRIDE | 
+| TASK | DEPLOY_CANCEL   |  (i)  | Deploy task 'taskId'  (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME') workflow cancelation was successful (custom message: 'CAUSE'). |   | VAPP_DEPLOY_UNDEPLOY, WORKFLOW_OVERRIDE | 
+| TASK | DEPLOY_CONTINUE  |  (-)  | Deploy task 'taskId' (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME') workflow continuation failed (custom message: 'CAUSE'). | WKF-03 | VAPP_DEPLOY_UNDEPLOY, WORKFLOW_OVERRIDE | 
+| TASK | DEPLOY_CONTINUE   |  (i)  | Deploy task 'taskId'  (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME') workflow continuation was successful (custom message: 'CAUSE'). |   | VAPP_DEPLOY_UNDEPLOY, WORKFLOW_OVERRIDE | 
+| TASK | RECONFIGURE_CANCEL  |  (-)  | Reconfigure task 'taskId' (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME') workflow cancelation failed (custom message: 'CAUSE'). | WKF-02 | VAPP_CUSTOMISE_SETTINGS, WORKFLOW_OVERRIDE | 
+| TASK | RECONFIGURE_CANCEL   |  (i)  | Reconfigure task 'taskId'  (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME') workflow cancelation was successful (custom message: 'CAUSE'). |   | VAPP_CUSTOMISE_SETTINGS, WORKFLOW_OVERRIDE | 
+| TASK | RECONFIGURE_CONTINUE  |  (-)  | Reconfigure task 'taskId' (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME') workflow continuation failed (custom message: 'CAUSE'). | WKF-03 | VAPP_CUSTOMISE_SETTINGS, WORKFLOW_OVERRIDE | 
+| TASK | RECONFIGURE_CONTINUE   |  (i)  | Reconfigure task 'taskId'  (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME') workflow continuation was successful (custom message: 'CAUSE'). |   | VAPP_CUSTOMISE_SETTINGS, WORKFLOW_OVERRIDE | 
+| TASK | UNDEPLOY_CANCEL  |  (-)  | Undeploy task 'taskId' (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME') workflow cancelation failed (custom message: 'CAUSE'). | WKF-02 | VAPP_DEPLOY_UNDEPLOY, WORKFLOW_OVERRIDE | 
+| TASK | UNDEPLOY_CANCEL   |  (i)  | Undeploy task 'taskId' (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME')  workflow cancelation was successful (custom message: 'CAUSE'). |   | VAPP_DEPLOY_UNDEPLOY, WORKFLOW_OVERRIDE | 
+| TASK | UNDEPLOY_CONTINUE  |  (-)  | Undeploy task 'taskId' (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME') workflow continuation failed (custom message: 'CAUSE'). | WKF-03 | VAPP_DEPLOY_UNDEPLOY, WORKFLOW_OVERRIDE | 
+| TASK | UNDEPLOY_CONTINUE   |  (i)  | Undeploy task 'taskId' (virtual machine 'VIRTUAL_MACHINE_NAME' ('ENT_NAME', virtual appliance 'VAPP_NAME', virtual datacenter 'VDC_ORIGIN'), datacenter 'DC_NAME')  workflow continuation was successful (custom message: 'CAUSE'). |   | VAPP_DEPLOY_UNDEPLOY, WORKFLOW_OVERRIDE | 
+|| h6. Template_definition_list || || || || || ||
+| TEMPLATE_DEFINITION_LIST | CREATE   |  (!)  | Template definition list 'name' cannot be validated: 'TEMPLATE_DEF_LIST_VALIDATION'. |   | APPLIB_ALLOW_MODIFY | 
+| TEMPLATE_DEFINITION_LIST | DELETE   |  (i)  | Removing OVF package list 'TEMPLATE_DEF_LIST_NAME'. |   | APPLIB_ALLOW_MODIFY | 
+| TEMPLATE_DEFINITION_LIST | MODIFY   |  (i)  | Template definition list 'TEMPLATE_DEFINITION_LIST_OLD_NAME' updated. |   | APPLIB_ALLOW_MODIFY | 
+|| h6. Tier || || || || || ||
+| TIER | ALLOW   |  (i)  | Storage tier 'name' has been allowed for enterprise 'ENT_NAME'. |   | PHYS_DC_ALLOW_MODIFY_STORAGE | 
+| TIER | RESTRICT   |  (i)  | Storage tier 'name' has been restricted for enterprise 'ENT_NAME'. |   | PHYS_DC_ALLOW_MODIFY_STORAGE | 
+|| h6. User || || || || || ||
+| USER | CREATE   |  (i)  | User 'name' has been created (Enterprise: 'enterprise.name' Name: 'name' Surname: 'surname' Role: 'ROLE_NAME') |   | USERS_MANAGE_USERS | 
+| USER | DELETE  |  (-)  | User 'name' could not be deleted. Users with role 'role.name' can only be deleted by users with the same role. | USER-16 | USERS_MANAGE_USERS | 
+| USER | DELETE   |  (i)  | User 'USER_NAME' has been deleted (Enterprise: 'ENT_NAME' Name: 'USER_NAME' Surname: 'USER_SURNAME' Role: 'ROLE_NAME') |   | USERS_MANAGE_USERS | 
+| USER | FIRST_LOGIN   |  (i)  | Enabled password reset on login for user:  'name'. |   | USERS_MANAGE_USERS | 
+| USER | MODIFY  |  (-)  | User 'name' could not be modified. Users with role 'role.name' can only be modified by users with the same role. | USER-22 | ENTERPRISE_ADMINISTER_ALL, USERS_MANAGE_USERS | 
+| USER | MODIFY   |  (i)  | User 'USER_OLD_NAME' has been modified (Enterprise: 'enterprise.name' Name: 'name' Surname: 'surname' Role: 'ROLE_NAME') |   | ENTERPRISE_ADMINISTER_ALL, USERS_MANAGE_USERS | 
+| USER | RESET_PSW   |  (i)  | User 'name' has requested a password reset. |   | USERS_MANAGE_USERS | 
+| USER | RESET_PSW   |  (!)  | Reset password email is not correctly  configured. |   | USERS_MANAGE_USERS | 
+|| h6. Virtual_appliance || || || || || ||
+| VIRTUAL_APPLIANCE | COPY  |  (-)  | Virtual appliance 'name' cannot be copied. The 'DISK_TYPE' template of this virtual machine is not compatible with the target hypervisor ('HYPERVISOR_TYPE') and no conversions are available. | VAPP-10 | VDC_MANAGE_VAPP | 
+| VIRTUAL_APPLIANCE | COPY  |  (-)  | Virtual appliance 'name', cannot be copied. The expected state was NOT_DEPLOYED but the actual state is 'state'. | VAPP-13 | VDC_MANAGE_VAPP | 
+| VIRTUAL_APPLIANCE | COPY  |  (-)  | Virtual appliance 'name' cannot be copied; the virtual datacenters (origin 'VDC_ORIGIN' and target 'VDC_DESTINATION') must belong to the same datacenter. | VAPP-7 | VDC_MANAGE_VAPP | 
+| VIRTUAL_APPLIANCE | COPY  |  (-)  | Virtual appliance 'name' cannot be copied. Virtual appliance contains captured virtual machine(s). | VAPP-9 | VDC_MANAGE_VAPP | 
+| VIRTUAL_APPLIANCE | COPY   |  (i)  | Virtual appliance 'VAPP_ORIGINAL_NAME' successfully copied from virtual datacenter 'VDC_ORIGIN' to virtual datacenter 'VDC_DESTINATION' with name 'VAPP_NAME'. |   | VDC_MANAGE_VAPP | 
+| VIRTUAL_APPLIANCE | CREATE   |  (i)  | Virtual appliance 'name' has been created. |   | VDC_MANAGE_VAPP | 
+| VIRTUAL_APPLIANCE | DELETE   |  (i)  | Delete of the virtual appliance 'VAPP_NAME' succeeded. |   | VDC_MANAGE_VAPP | 
+| VIRTUAL_APPLIANCE | DEPLOY  |  (-)  | The virtual appliance 'name' caused an error. Unexpected Error: 'MESSAGE'. Continuing to next virtual machine. | VAPP-3 | VAPP_DEPLOY_UNDEPLOY, VDC_MANAGE_VAPP | 
+| VIRTUAL_APPLIANCE | DEPLOY   |  (i)  | Virtual appliance 'name' is being deployed. |   | VAPP_DEPLOY_UNDEPLOY, VDC_MANAGE_VAPP | 
+| VIRTUAL_APPLIANCE | LOCK_DELETE  |  (-)  | Delete of the virtual appliance 'name' failed due to an invalid state. Should have been NOT_DEPLOYED but was 'state'. | VAPP-5 | VDC_MANAGE_VAPP | 
+| VIRTUAL_APPLIANCE | MODIFY   |  (i)  | Virtual appliance 'name' has been modified. |   | VDC_MANAGE_VAPP | 
+| VIRTUAL_APPLIANCE | MOVE  |  (-)  | Virtual appliance 'name' cannot be moved. The 'DISK_TYPE' template of this virtual machine is not compatible with the target hypervisor ('HYPERVISOR_TYPE') and no conversions are available. | VAPP-10 | VDC_MANAGE_VAPP | 
+| VIRTUAL_APPLIANCE | MOVE  |  (-)  | Virtual appliance 'name' cannot be moved; the virtual datacenters (origin 'VDC_ORIGIN' and target 'VDC_DESTINATION') must belong to the same datacenter. | VAPP-7 | VDC_MANAGE_VAPP | 
+| VIRTUAL_APPLIANCE | MOVE  |  (-)  | Virtual appliance 'name', cannot be moved. The expected state was NOT_DEPLOYED but the actual state is 'state'. | VAPP-8 | VDC_MANAGE_VAPP | 
+| VIRTUAL_APPLIANCE | MOVE  |  (-)  | Virtual appliance 'name' cannot be moved. Virtual appliance contains captured virtual machine(s). | VAPP-9 | VDC_MANAGE_VAPP | 
+| VIRTUAL_APPLIANCE | MOVE   |  (i)  | Virtual appliance 'VAPP_ORIGINAL_NAME' successfully moved from virtual datacenter 'VDC_ORIGIN' to virtual datacenter 'VDC_DESTINATION' with name 'VAPP_NAME'. |   | VDC_MANAGE_VAPP | 
+| VIRTUAL_APPLIANCE | UNDEPLOY  |  (-)  | The virtual machine 'VIRTUAL_MACHINE_NAME' caused an error. Unexpected Error: 'MESSAGE'. Continuing to next virtual machine. | VAPP-20 | VAPP_DEPLOY_UNDEPLOY, VDC_MANAGE_VAPP | 
+| VIRTUAL_APPLIANCE | UNDEPLOY   |  (i)  | Virtual appliance 'name' is being undeployed. |   | VAPP_DEPLOY_UNDEPLOY, VDC_MANAGE_VAPP | 
+| VIRTUAL_APPLIANCE | WORKFLOW_DEPLOY_BATCH  |  (-)  | Virtual appliance 'name' deploy workflow webhook request for task 'TASK_ID' failed. | WKF-01 | VAPP_DEPLOY_UNDEPLOY, VDC_MANAGE_VAPP, WORKFLOW_OVERRIDE | 
+| VIRTUAL_APPLIANCE | WORKFLOW_DEPLOY_BATCH   |  (i)  | Virtual appliance 'name' deploy workflow webhook sent successfully. |   | VAPP_DEPLOY_UNDEPLOY, VDC_MANAGE_VAPP, WORKFLOW_OVERRIDE | 
+| VIRTUAL_APPLIANCE | WORKFLOW_UNDEPLOY_BATCH  |  (-)  | Virtual appliance 'name' undeploy workflow webhook request for task 'TASK_ID' failed. | WKF-01 | VAPP_DEPLOY_UNDEPLOY, VDC_MANAGE_VAPP, WORKFLOW_OVERRIDE | 
+| VIRTUAL_APPLIANCE | WORKFLOW_UNDEPLOY_BATCH   |  (i)  | Virtual appliance 'name' undeploy workflow webhook sent successfully. |   | VAPP_DEPLOY_UNDEPLOY, VDC_MANAGE_VAPP, WORKFLOW_OVERRIDE | 
+|| h6. Virtual_datacenter || || || || || ||
+| VIRTUAL_DATACENTER | CREATE   |  (i)  | Virtual datacenter 'name' has been created. |   | VDC_MANAGE | 
+| VIRTUAL_DATACENTER | DELETE   |  (i)  | Virtual datacenter 'VDC_NAME' has been deleted. |   | VDC_MANAGE | 
+| VIRTUAL_DATACENTER | MODIFY  |  (-)  | 'MESSAGE'. | VDC-8 | VDC_MANAGE | 
+| VIRTUAL_DATACENTER | MODIFY   |  (i)  | Virtual datacenter 'VDC_NAME' has been modified. |   | VDC_MANAGE | 
+| VIRTUAL_DATACENTER | NETWORK_DEFAULT   |  (i)  | 'VLAN_TYPE' VLAN with name 'VLAN_NAME' has been configured as the default in virtual datacenter 'VDC_NAME'. |   | VDC_MANAGE, VDC_MANAGE_NETWORK | 
+|| h6. Virtual_image_conversion || || || || || ||
+| VIRTUAL_IMAGE_CONVERSION | AVAILABLE   |  (i)  | Virtual machine template conversion at 'CONVERSION_TARGET_PATH' is available again. |   | APPLIB_ALLOW_MODIFY, APPLIB_UPLOAD_IMAGE | 
+| VIRTUAL_IMAGE_CONVERSION | CREATED_IN_REPO   |  (i)  | New virtual machine template conversion at 'CONVERSION_TARGET_PATH' with format 'CONVERSION_TARGET_TYPE'. |   | APPLIB_ALLOW_MODIFY, APPLIB_MANAGE_REPOSITORY, APPLIB_UPLOAD_IMAGE | 
+| VIRTUAL_IMAGE_CONVERSION | UNAVAILABLE   |  (!)  | Virtual machine template conversion at 'CONVERSION_TARGET_PATH' is not present in the datacenter repository. |   | APPLIB_ALLOW_MODIFY, APPLIB_UPLOAD_IMAGE | 
+|| h6. Virtual_machine || || || || || ||
+| VIRTUAL_MACHINE | ALLOCATE_HD   |  (i)  | The hard disk resource of 'RASD_LIMIT' MB has been assigned to virtual machine 'VIRTUAL_MACHINE_NAME'. |   | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | ALLOCATE_NICS  |  (-)  | Cannot add more NICs to virtual machine 'VIRTUAL_MACHINE_NAME'. NIC limit: 'NICS_PER_VM', Current NICs: CURRENT_NICS_SIZE, Requested NICs: REQUESTED_NICS_SIZE. | VM-49 | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | ALLOCATE_NICS   |  (i)  | Virtual machine 'VIRTUAL_MACHINE_NAME' has attached the NIC associated with IP Address 'IP' in VLAN 'VLAN_NAME'. |   | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | ALLOCATE_VOLUME   |  (i)  | Volume 'VOLUME_NAME' of VOLUME_SIZE MB has been attached to virtual machine 'VIRTUAL_MACHINE_NAME'. |   | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | ASYNC_HANDLER_RESPONSE  |  (-)  | Error processing task 'TASK_TYPE' in handler 'HANDLER_NAME'. Error: 'EXCEPTION_CLASS': 'TASK_ERROR'. | JOB-1 | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | CAPTURE   |  (i)  | The imported virtual machine 'name' has been successfully captured from the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_IP' - 'HYPERVISOR_TYPE') into the virtual appliance 'virtualappliance.name'. |   | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| VIRTUAL_MACHINE | CAPTURE   |  (!)  | No available tag has been found for VLANs when capturing the virtual machine 'name'. | SCH-EXCEEDED-VLAN_TAG | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| VIRTUAL_MACHINE | CHEF_RUNLIST_DELETE   |  (i)  | Removed run list element 'RUN_LIST_ELEMENT' because it no longer exists on the Chef Server. |   | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | CHEF_RUNLIST_UPDATE   |  (!)  | The node does not exist on the Chef Server. If the virtual machine is bootstrapping, please wait until the process completes. |   | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | CREATE   |  (i)  | The virtual machine was created successfully. |   | VDC_MANAGE_VAPP | 
+| VIRTUAL_MACHINE | DEALLOCATE_HD   |  (i)  | The hard disk resource of HARD_DISK_SIZE MB has been released from virtual machine 'VIRTUAL_MACHINE_NAME'. |   | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | DEALLOCATE_NICS   |  (i)  | Virtual machine 'VIRTUAL_MACHINE_NAME' has released the NIC associated with IP Address 'IP' in VLAN 'VLAN_NAME'. |   | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | DEALLOCATE_VOLUME   |  (i)  | Volume 'VOLUME_NAME' of VOLUME_SIZE MB has been detached from virtual machine 'VIRTUAL_MACHINE_NAME'. |   | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | DEFINITION_SYNCER_CPU_CHANGED   |  (i)  | CPU of virtual machine 'VIRTUAL_MACHINE_NAME' has been changed from 'OLD_VALUE' to 'NEW_VALUE'. |   | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | DEFINITION_SYNCER_DATASTORE_CHANGED   |  (i)  | Datastore of virtual machine 'VIRTUAL_MACHINE_NAME' has been changed from 'OLD_VALUE' to 'NEW_VALUE'. |   | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | DEFINITION_SYNCER_FLOATINGIP_ADDED   |  (i)  | New floating IP 'IP' detected and attached to virtual machine 'VIRTUAL_MACHINE_NAME'. |   | MANAGE_FLOATINGIPS, VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | DEFINITION_SYNCER_PROFILE_CHANGED   |  (i)  | Hardware profile of virtual machine 'VIRTUAL_MACHINE_NAME' has been changed from 'OLD_VALUE' to 'NEW_VALUE'. |   | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | DEFINITION_SYNCER_RAM_CHANGED   |  (i)  | RAM of virtual machine 'VIRTUAL_MACHINE_NAME' has been changed from 'OLD_VALUE' to 'NEW_VALUE'. |   | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | DELETE   |  (i)  | The virtual machine was deleted successfully. |   | VAPP_DELETE_UNKNOWN_VM, VDC_MANAGE_VAPP | 
+| VIRTUAL_MACHINE | DEPLOY DEPLOY_FREE_RESOURCES |  (-)  | Deploy of virtual machine 'VIRTUAL_MACHINE_NAME' (task 'TASK_ID') could not queue the request to free resources. This means that some resources were not properly freed. This might be related to a RabbitMQ malfunction. | TASK-3 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY  |  (-)  | Could not deploy the virtual machine 'name': 'EVENT'. |  | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY  |  (-)  | The virtual machine 'VIRTUAL_MACHINE_NAME' is now in state UNKNOWN. Unexpected Error: 'MESSAGE'. | 500 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY  |  (-)  | There are not enough resources available in the datacenter. Try again in a few minutes and if the error persists, please contact your System Administrator (Error code: 'CODE'). | DC-10 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY  |  (-)  | The virtual machine is now in state UNKNOWN. Unexpected Error: 'RS_ERROR'. | GEN-14 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY  |  (-)  | The requested virtual machine definition cannot be applied by the hypervisor plugin: 'MESSAGE'. | GEN-20 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY  |  (-)  | Virtual factory task 'TASK_ID' on virtual machine ID 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') failed on the platform due to a communication problem with the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. The platform will perform a check on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | HYP-01 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY  |  (-)  | The deploy of the virtual machine 'VIRTUAL_MACHINE_NAME' failed: The port group attached to the virtual switch does not match the expected virtual switch. Error: 'EVENT'. | NET-1 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY  |  (-)  | The virtual machine 'name' definition is invalid. Deploy failed: 'EVENT'. | PL-2 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY  |  (-)  | The deploy of the virtual machine 'name' failed: 'EVENT'. | PL-CPROV-14 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY  |  (-)  | The deploy of the virtual machine 'name' failed: 'EVENT'. | PL-CPROV-20 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY  |  (-)  | The deploy of the virtual machine 'name' failed: 'EVENT'. | PL-CPROV-3 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY  |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the IDE controller is full. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-ED-1 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY  |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-0 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY  |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine already exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-1 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY  |  (-)  | The deploy of the virtual machine 'VIRTUAL_MACHINE_NAME' failed: 'EVENT'. | PL-VM-01 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY  |  (-)  | There are CANDIDATES_SIZE candidate machines but all are oversubscribed by the current workload rules (RAM and CPU oversubscription or no suitable datastore with enough free space).\nPlease check the workload rules or the physical machine resources.\nVirtual machine requires REQUIREMENTS_CPU CPU -- REQUIREMENTS_RAM RAM \nCandidate machines: CANDIDATES_NAMES. | SCH-NOK | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY  |  (-)  | The virtual machine is now in state UNKNOWN. Unexpected Error: 'MESSAGE'. | VM-54 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY  |  (-)  | The virtual machine is now in state UNKNOWN. Unexpected Error: 'MESSAGE'. | VM-55 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY  |  (-)  | The virtual machine is now in state UNKNOWN. Unexpected Error: 'MESSAGE'. | VM-56 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY FINISH |  (-)  | Virtual machine deploy task with task ID 'TASK_ID' failed because the VM does not exist in the hypervisor. Setting virtual machine state to UNKNOWN 'VIRTUAL_MACHINE_NAME' ('VIRTUAL_MACHINE_ID'). | JOB-2 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY FINISH |  (-)  | Deploy (task ID 'TASK_ID') on virtual machine 'VIRTUAL_MACHINE_NAME' failed. The virtual machine is in state NOT_ALLOCATED. On hypervisor 'MACHINE_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | TASK-3 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY FINISH |  (-)  | Deploy of virtual machine ID 'TASK_ID' and owner 'TASK_OWNER_ID' failed on the platform. Aborted the task created at 'TASK_TIMESTAMP'. Failed to set virtual machine state to UNKNOWN. | TASK-4 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY FINISH |  (i)  | Deploy on virtual machine 'VIRTUAL_MACHINE_NAME' completed. Scheduled in hypervisor 'MACHINE_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. |   | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY HA |  (-)  | Could not deploy the virtual machine 'name' for HA: 'EVENT'. |  | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY HA |  (-)  | Virtual factory task 'TASK_ID' on virtual machine ID 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') failed on the platform due to a communication problem with the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. The platform will perform a check on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | HYP-01 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY HA |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the IDE controller is full. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-ED-1 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY HA |  (-)  | The deploy task could not be queued in the virtual factory. RabbitMQ might be down or not properly configured. | TR-DEPLOY-VM | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY HA |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | VAL-0 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | DEPLOY   |  (i)  | The deploy of the virtual machine 'VIRTUAL_MACHINE_NAME' was successfully queued in the virtual factory. |   | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | FIREWALL_POLICY   |  (i)  | Firewall policies on virtual machine 'name' have changed. |   | ASSIGN_FIREWALLS | 
+| VIRTUAL_MACHINE | IMPORT   |  (i)  | A virtual machine with name 'name' has been imported from hypervisor 'HYPERVISOR_NAME' (HYPERVISOR_IP). |   | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| VIRTUAL_MACHINE | IMPORT   |  (!)  | Could not import virtual machine with name 'VIRTUAL_MACHINE_NAME' from hypervisor 'HYPERVISOR_NAME' (HYPERVISOR_IP) because of VM with duplicate name on hypervisor 'OTHER_HYPERVISOR_NAME' (OTHER_HYPERVISOR_IP). |   | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| VIRTUAL_MACHINE | INITIATOR_MAPPING  |  (-)  | Could not add the mappings for virtual machine UUID 'uuid' name 'name'. | VOL-19 | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | INSTANCE_CONVERSION_MASTER_START  |  (-)  | Failed to queue conversion to master format for the instance of virtual machine 'VIRTUAL_MACHINE_NAME'. | JOB-4 | VAPP_CREATE_INSTANCE | 
+| VIRTUAL_MACHINE | INSTANCE_CONVERSION_MASTER_START   |  (i)  | Conversion to master format queued for instance template 'TEMPLATE_NAME'. |   | VAPP_CREATE_INSTANCE | 
+| VIRTUAL_MACHINE | INSTANCE_CONVERSION_START  |  (-)  | Failed to queue conversions for the instance template 'TEMPLATE_NAME'. | 500 | VAPP_CREATE_INSTANCE | 
+| VIRTUAL_MACHINE | INSTANCE_CONVERSION_START   |  (i)  | Conversions queued for the instance template 'TEMPLATE_NAME'. |   | VAPP_CREATE_INSTANCE | 
+| VIRTUAL_MACHINE | INSTANCE_CONVERSION_START   |  (!)  | Failed to queue conversions for the instance template 'TEMPLATE_NAME'. |   | VAPP_CREATE_INSTANCE | 
+| VIRTUAL_MACHINE | INSTANCE_DISK_COPY  |  (-)  | Failed to copy disk of virtual machine 'VIRTUAL_MACHINE_NAME'. EVENT. | JOB-2 | VAPP_CREATE_INSTANCE | 
+| VIRTUAL_MACHINE | INSTANCE_DISK_COPY   |  (i)  | Completed copy of disk of virtual machine 'VIRTUAL_MACHINE_NAME'. |   | VAPP_CREATE_INSTANCE | 
+| VIRTUAL_MACHINE | INSTANCE_DUMP_VOLUME  |  (-)  | Failed to dump volume for persistent virtual machine 'VIRTUAL_MACHINE_NAME'. | JOB-2 | VAPP_CREATE_INSTANCE | 
+| VIRTUAL_MACHINE | INSTANCE_DUMP_VOLUME   |  (i)  | Completed dump to volume of persistent virtual machine 'VIRTUAL_MACHINE_NAME'. |   | VAPP_CREATE_INSTANCE | 
+| VIRTUAL_MACHINE | INSTANCE_FINISH  |  (-)  | Virtual factory task 'TASK_OWNER' on virtual machine ID 'TASK_ID' ('VIRTUAL_MACHINE_NAME') failed on the platform due to a communication problem with the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. The platform will perform a check on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | HYP-01 | VAPP_CREATE_INSTANCE | 
+| VIRTUAL_MACHINE | INSTANCE_FINISH  |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-0 | VAPP_CREATE_INSTANCE | 
+| VIRTUAL_MACHINE | INSTANCE_FINISH  |  (-)  | Instance (task ID 'TASK_OWNER') failed on virtual machine ID 'TASK_ID' ('VIRTUAL_MACHINE_NAME') on hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | TASK-3 | VAPP_CREATE_INSTANCE | 
+| VIRTUAL_MACHINE | INSTANCE_FINISH  |  (-)  | Aborted instance (task ID 'TASK_OWNER') of virtual machine ID 'TASK_ID'. | TASK-4 | VAPP_CREATE_INSTANCE | 
+| VIRTUAL_MACHINE | INSTANCE_FINISH   |  (i)  | Completed instance (task ID 'TASK_OWNER') on virtual machine ID 'TASK_ID' ('VIRTUAL_MACHINE_NAME') on hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. |   | VAPP_CREATE_INSTANCE | 
+| VIRTUAL_MACHINE | INSTANCE_START  |  (-)  | Could not create an instance of the virtual machine 'name': 'EVENT'. |  | VAPP_CREATE_INSTANCE | 
+| VIRTUAL_MACHINE | INSTANCE_START  |  (-)  | Unexpected error instancing virtual machine 'name'. | 500 | VAPP_CREATE_INSTANCE | 
+| VIRTUAL_MACHINE | INSTANCE_TEMPLATE_CREATE   |  (i)  | Inserted template 'TEMPLATE_NAME' for the instance of virtual machine 'VIRTUAL_MACHINE_NAME'. |   | VAPP_CREATE_INSTANCE | 
+| VIRTUAL_MACHINE | LOCK_DELETE  |  (-)  | Delete of the virtual machine 'name' failed due to an invalid state: 'state'. | VM-8 | VDC_MANAGE_VAPP | 
+| VIRTUAL_MACHINE | LOCK_DEPLOY  |  (-)  | The virtual machine 'name' was expected to be in the not allocated state but was 'state'. | VM-7 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | LOCK_RECONFIGURE  |  (-)  | Could not reconfigure the virtual machine 'name' : 'MESSAGE'. | VM-13 | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | METADATA_MODIFIED   |  (i)  | Backup configuration for virtual machine 'name' has been modified. |   | VAPP_DEFINE_BACKUP_INFO, VAPP_MANAGE_BACKUP, VAPP_MANAGE_BACKUP_DISKS | 
+| VIRTUAL_MACHINE | MODIFY  |  (-)  | Virtual machine cannot be reconfigured due to unexpected errors. Contact your System Administrator. | VM-59 | VAPP_CUSTOMISE_SETTINGS, VDC_MANAGE_VAPP | 
+| VIRTUAL_MACHINE | MODIFY  |  (-)  | Cannot update the virtual machine because target physical NIC cannot be found. The physical NIC where the virtual NIC with IP 'VNIC_IP' was attached may have been removed directly in the hypervisor 'HYPERVISOR_IP' ('HYPERVISOR_NAME'). | VM-66 | VAPP_CUSTOMISE_SETTINGS, VDC_MANAGE_VAPP | 
+| VIRTUAL_MACHINE | MOVE_BY_HA  |  (-)  | HA Move (task ID 'TASK_ID') on virtual machine 'TASK_OWNER_ID' failed: Updating the virtual machine to state 'VIRTUAL_MACHINE_STATE'. | JOB-4 | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| VIRTUAL_MACHINE | MOVE_BY_HA  |  (-)  | Deploy (task ID 'TASK_ID') on virtual machine 'VIRTUAL_MACHINE_NAME' failed. The virtual machine is in state NOT_ALLOCATED. On hypervisor 'MACHINE_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | TASK-3 | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| VIRTUAL_MACHINE | MOVE_BY_HA  |  (-)  | HA Move (task ID 'TASK_ID') on virtual machine 'TASK_OWNER_ID' failed: Updating the virtual machine to state 'VIRTUAL_MACHINE_STATE'. | TASK-4 | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| VIRTUAL_MACHINE | MOVE_BY_HA FREE_RESOURCES |  (-)  | Deploy on virtual machine 'VIRTUAL_MACHINE_NAME' (task 'TASK_ID') could not queue the request to free resources. This means that some resources were not properly freed. This might be related to a RabbitMQ malfunction. | TASK-3 | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| VIRTUAL_MACHINE | MOVE_BY_HA   |  (i)  | Deploy on virtual machine 'VIRTUAL_MACHINE_NAME' completed. Scheduled on hypervisor 'MACHINE_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. |   | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| VIRTUAL_MACHINE | PAUSE  |  (-)  | Could not pause the virtual machine 'name': 'EVENT'. |  | VAPP_PERFORM_ACTIONS | 
+| VIRTUAL_MACHINE | PAUSE  |  (-)  | Virtual factory task 'TASK_ID' on virtual machine ID 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') failed on the platform due to a communication problem with the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. The platform will perform a check on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | HYP-01 | VAPP_PERFORM_ACTIONS | 
+| VIRTUAL_MACHINE | PAUSE  |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the IDE controller is full. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-ED-1 | VAPP_PERFORM_ACTIONS | 
+| VIRTUAL_MACHINE | PAUSE  |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-0 | VAPP_PERFORM_ACTIONS | 
+| VIRTUAL_MACHINE | POWEROFF  |  (-)  | Could not power off the virtual 'name': 'EVENT'. |  | VAPP_PERFORM_ACTIONS | 
+| VIRTUAL_MACHINE | POWEROFF  |  (-)  | Virtual factory task 'TASK_ID' on virtual machine ID 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') failed on the platform due to a communication problem with the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. The platform will perform a check on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | HYP-01 | VAPP_PERFORM_ACTIONS | 
+| VIRTUAL_MACHINE | POWEROFF  |  (-)  | The virtual machine 'name' does not support the power off operation. Error: 'EVENT'. | PL-CPROV-21 | VAPP_PERFORM_ACTIONS | 
+| VIRTUAL_MACHINE | POWEROFF  |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the IDE controller is full. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-ED-1 | VAPP_PERFORM_ACTIONS | 
+| VIRTUAL_MACHINE | POWEROFF  |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-0 | VAPP_PERFORM_ACTIONS | 
+| VIRTUAL_MACHINE | POWERON  |  (-)  | Could not power on the virtual machine 'name': 'EVENT'. |  | VAPP_PERFORM_ACTIONS | 
+| VIRTUAL_MACHINE | POWERON  |  (-)  | Virtual factory task 'TASK_ID' on virtual machine ID 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') failed on the platform due to a communication problem with the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. The platform will perform a check on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | HYP-01 | VAPP_PERFORM_ACTIONS | 
+| VIRTUAL_MACHINE | POWERON  |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the IDE controller is full. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-ED-1 | VAPP_PERFORM_ACTIONS | 
+| VIRTUAL_MACHINE | POWERON  |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-0 | VAPP_PERFORM_ACTIONS | 
+| VIRTUAL_MACHINE | RECONFIGURE  |  (-)  | Failed to reconfigure the virtual machine 'VIRTUAL_MACHINE_NAME'. |  | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | RECONFIGURE  |  (-)  | Cannot reconfigure the virtual machine 'name' because there are no VLAN tags available. | ALLOC-2 | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | RECONFIGURE  |  (-)  | Virtual factory task 'TASK_ID' on virtual machine ID 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') failed on the platform due to a communication problem with the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. The platform will perform a check on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | HYP-01 | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | RECONFIGURE  |  (-)  | Failed to reconfigure the virtual machine 'name'. Cannot move a virtual machine between virtual datacenters while it is deployed. | PL-CPROV-16 | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | RECONFIGURE  |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the IDE controller is full. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-ED-1 | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | RECONFIGURE  |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-0 | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | RECONFIGURE  |  (-)  | Reconfigure (task ID 'TASK_ID') on virtual machine 'VIRTUAL_MACHINE_NAME' failed. The virtual machine is in state OFF. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. Reason: 'TASK_ERROR'. | PL-VM-02 | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | RECONFIGURE  |  (-)  | Reconfigure on virtual machine 'VIRTUAL_MACHINE_NAME' (task 'TASK_ID') could not queue the request to free resources. This means that some resources were not properly freed. This might be related to a RabbitMQ malfunction. | TASK-3 | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | RECONFIGURE  |  (-)  | Reconfigure (task ID 'TASK_ID') on virtual machine ID 'TASK_OWNER_ID' failed: Updating the virtual machine to state 'VIRTUAL_MACHINE_STATE'. | TASK-4 | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | RECONFIGURE  |  (-)  | Cannot update the virtual machine because IPs 'IP' are in quarantine. | VLAN-51 | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | RECONFIGURE  |  (-)  | Cannot update the virtual machine because IPs 'IP' are not available. | VLAN-68 | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | RECONFIGURE   |  (i)  | The virtual machine 'VIRTUAL_MACHINE_NAME' has been reconfigured successfully. The changes were: CPU CPUs, RAM RAM and CORES_PER_SOCKET cores per socket. EXTRA_RECONFIGURE_MESSAGE. |   | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | RECONFIGURE   |  (!)  | The Virtual Machine 'name' has two NICs using IPs in the same VLAN. VLAN: 'VLAN_NAME'. |   | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | RECONFIGURE   |  (!)  | Reconfigure (task ID 'TASK_ID') failed on virtual machine 'VIRTUAL_MACHINE_NAME'. The virtual machine is in state OFF. Hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. Reason: 'MESSAGE'. | TASK-3 | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | REFRESH  |  (-)  | Could not refresh the virtual machine 'name': 'EVENT'. |  | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | REFRESH  |  (-)  | Virtual factory task 'TASK_ID' on virtual machine ID 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') failed on the platform due to a communication problem with the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. The platform will perform a check on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | HYP-01 | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | REFRESH  |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the IDE controller is full. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-ED-1 | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | REFRESH  |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-0 | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | REFRESH  |  (-)  | Refresh resources (task ID 'TASK_ID') operation on virtual machine  'VIRTUAL_MACHINE_NAME' failed. On hypervisor 'MACHINE_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | TR-REFRESH-RESOURCES-VM | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | REFRESH RESOURCES |  (i)  | Resources of virtual machine 'name' have been refreshed. |   | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | REFRESH _RESOURCES |  (!)  | Refresh resources (task ID 'TASK_ID') operation on virtual machine  'VIRTUAL_MACHINE_NAME' failed. On hypervisor 'MACHINE_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. |   | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | RELEASE   |  (i)  | The captured virtual machine 'VIRTUAL_MACHINE_NAME' has been successfully released from the virtual appliance 'VAPP_NAME' of the virtual datacenter 'VDC_NAME'. It is now available again as an imported virtual machine on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_IP' - 'HYPERVISOR_TYPE'). |   | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| VIRTUAL_MACHINE | RESET  |  (-)  | Could not reset the state of the virtual machine 'name': 'EVENT'. |  | VAPP_PERFORM_ACTIONS | 
+| VIRTUAL_MACHINE | RESET  |  (-)  | Could not reset virtual machine 'VIRTUAL_MACHINE_NAME'. | HYP-01 | VAPP_PERFORM_ACTIONS | 
+| VIRTUAL_MACHINE | RESET  |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the IDE controller is full. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-ED-1 | VAPP_PERFORM_ACTIONS | 
+| VIRTUAL_MACHINE | RESET  |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-0 | VAPP_PERFORM_ACTIONS | 
+| VIRTUAL_MACHINE | RESET   |  (i)  | Operation to reset the virtual machine 'VIRTUAL_MACHINE_NAME' queued in the virtual factory successfully. The virtual machine is locked. |   | VAPP_PERFORM_ACTIONS | 
+| VIRTUAL_MACHINE | RESTORE_BACKUP   |  (i)  | Restore 'RESTORE_STATUS' for backup with id 'BACKUP_ID' name 'BACKUP_NAME' backup status 'BACKUP_STATUS' date 'BACKUP_DATE' size 'BACKUP_SIZE' type 'BACKUP_TYPE' |   | VDC_MANAGE_VAPP | 
+| VIRTUAL_MACHINE | RESUME  |  (-)  | Could not resume the virtual machine 'name': 'EVENT'. |  | VAPP_PERFORM_ACTIONS | 
+| VIRTUAL_MACHINE | RESUME  |  (-)  | Virtual factory task 'TASK_ID' on virtual machine ID 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') failed on the platform due to a communication problem with the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. The platform will perform a check on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | HYP-01 | VAPP_PERFORM_ACTIONS | 
+| VIRTUAL_MACHINE | RESUME  |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the IDE controller is full. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-ED-1 | VAPP_PERFORM_ACTIONS | 
+| VIRTUAL_MACHINE | RESUME  |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-0 | VAPP_PERFORM_ACTIONS | 
+| VIRTUAL_MACHINE | STATE CHANGE |  (i)  | Change state task ID 'TASK_ID' on virtual machine name 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') done on hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. |   | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | STATE CHANGE |  (!)  | Change state task ID 'TASK_ID' on virtual machine name 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') failed on hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. |   | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | STATE   |  (i)  | The operation to apply the state of the virtual machine 'name' in the hypervisor was successfully queued in the virtual factory. The virtual machine is now locked. |   | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | STORE_RUNLIST  |  (-)  | The run list for the Chef node 'name' could not be updated. Please verify that the 'abiquo' client on the Chef server has the appropriate permissions to perform this task. | CHEF-5 | VAPP_CUSTOMISE_SETTINGS | 
+| VIRTUAL_MACHINE | STORE_RUNLIST   |  (i)  | The run list for the Chef node 'name' has been updated with RUN_LIST_SIZE recipes. |   | VAPP_CUSTOMISE_SETTINGS | 
+|| h6. Virtual_machine_template || || || || || ||
+| VIRTUAL_MACHINE_TEMPLATE | AVAILABLE   |  (i)  | Virtual machine template 'VIRTUAL_MACHINE_TEMPLATE_NAME' available again. |   | APPLIB_ALLOW_MODIFY, APPLIB_UPLOAD_IMAGE | 
+| VIRTUAL_MACHINE_TEMPLATE | CONVERSION  |  (-)  | Could not send the conversion for ('TEMPLATE_NAME' to 'TEMPLATE_DISK_FORMAT_TYPE') to the BPM. Check connection and configuration. The conversion will be skipped. | CONVERSION-6 | APPLIB_ALLOW_MODIFY, APPLIB_UPLOAD_IMAGE | 
+| VIRTUAL_MACHINE_TEMPLATE | CONVERSION FINISH |  (-)  | Failed while converting the virtual machine template 'VMT_MASTER_NAME' from disk format 'CONVERSION_SOURCE_TYPE' to 'CONVERSION_TARGET_TYPE'. | JOB-2 | APPLIB_ALLOW_MODIFY, APPLIB_UPLOAD_IMAGE | 
+| VIRTUAL_MACHINE_TEMPLATE | CONVERSION FINISH |  (-)  | Failed while converting the virtual machine template 'VMT_MASTER_NAME' from disk format 'CONVERSION_SOURCE_TYPE' to 'CONVERSION_TARGET_TYPE'. | JOB-4 | APPLIB_ALLOW_MODIFY, APPLIB_UPLOAD_IMAGE | 
+| VIRTUAL_MACHINE_TEMPLATE | CONVERSION FINISH |  (i)  | Conversion from disk format 'CONVERSION_SOURCE_TYPE' to 'CONVERSION_TARGET_TYPE' finished successfully for template 'VMT_MASTER_NAME'. |   | APPLIB_ALLOW_MODIFY, APPLIB_UPLOAD_IMAGE | 
+| VIRTUAL_MACHINE_TEMPLATE | CONVERSION INSTANCE_FINISH |  (-)  | Failed to create conversion of instance template 'TEMPLATE_NAME'. | JOB-2 | APPLIB_ALLOW_MODIFY, APPLIB_UPLOAD_IMAGE | 
+| VIRTUAL_MACHINE_TEMPLATE | CONVERSION INSTANCE_FINISH |  (i)  | Conversion created of instance template 'TEMPLATE_NAME'. |   | APPLIB_ALLOW_MODIFY, APPLIB_UPLOAD_IMAGE | 
+| VIRTUAL_MACHINE_TEMPLATE | CONVERSION TASK_ENQUEUE |  (i)  | Task (task ID 'TASK_ID') queued successfully in the conversion manager. |   | APPLIB_ALLOW_MODIFY, APPLIB_UPLOAD_IMAGE | 
+| VIRTUAL_MACHINE_TEMPLATE | CONVERSION   |  (!)  | The virtual machine template was found in a different datacenter than expected ('DC_NAME' not 'DC_OLD_NAME'). The conversion will be skipped. |   | APPLIB_ALLOW_MODIFY, APPLIB_UPLOAD_IMAGE | 
+| VIRTUAL_MACHINE_TEMPLATE | CREATED_IN_REPO  |  (-)  | Cannot process virtual machine template creation event for path 'VIRTUAL_MACHINE_TEMPLATE_PATH' in datacenter 'DC_ID'. | VIMAGE-36 | APPLIB_ALLOW_MODIFY, APPLIB_MANAGE_REPOSITORY, APPLIB_UPLOAD_IMAGE | 
+| VIRTUAL_MACHINE_TEMPLATE | CREATED_IN_REPO   |  (i)  | New virtual machine template 'VIRTUAL_MACHINE_TEMPLATE_NAME' added at 'VIRTUAL_MACHINE_TEMPLATE_PATH'. |   | APPLIB_ALLOW_MODIFY, APPLIB_MANAGE_REPOSITORY, APPLIB_UPLOAD_IMAGE | 
+| VIRTUAL_MACHINE_TEMPLATE | CREATE_FROM_DEF_FINISH  |  (-)  | Virtual machine template 'name' download failed. | AM-3 | APPLIB_ALLOW_MODIFY, APPLIB_UPLOAD_IMAGE | 
+| VIRTUAL_MACHINE_TEMPLATE | CREATE_FROM_DEF_FINISH  |  (-)  | Virtual machine template 'name' download event processing failed. | VIMAGE-36 | APPLIB_ALLOW_MODIFY, APPLIB_UPLOAD_IMAGE | 
+| VIRTUAL_MACHINE_TEMPLATE | CREATE_FROM_DEF_FINISH   |  (i)  | Virtual machine template 'name' download completed. |   | APPLIB_ALLOW_MODIFY, APPLIB_UPLOAD_IMAGE | 
+| VIRTUAL_MACHINE_TEMPLATE | CREATE_FROM_DEF_START  |  (-)  | Failed to download virtual machine template from template definition URL 'OVFID' into datacenter 'DC_NAME'. | AM-3 | APPLIB_ALLOW_MODIFY, APPLIB_UPLOAD_IMAGE | 
+| VIRTUAL_MACHINE_TEMPLATE | CREATE_FROM_DEF_START  |  (-)  | Failed to download virtual machine template because it was not possible to save the associated task (Redis might be down or not configured). | REDIS-0 | APPLIB_ALLOW_MODIFY, APPLIB_UPLOAD_IMAGE | 
+| VIRTUAL_MACHINE_TEMPLATE | CREATE_FROM_DEF_START   |  (i)  | Requested download of the virtual machine template 'name' from template definition URL 'OVFID' into datacenter repository path 'path'. |   | APPLIB_ALLOW_MODIFY, APPLIB_UPLOAD_IMAGE | 
+| VIRTUAL_MACHINE_TEMPLATE | CREATE_FROM_INST_FINISH  |  (-)  | Virtual machine template 'name' promote failed. | AM-3 | APPLIB_ALLOW_MODIFY, VAPP_CREATE_INSTANCE | 
+| VIRTUAL_MACHINE_TEMPLATE | CREATE_FROM_INST_FINISH   |  (i)  | Virtual machine template 'name' promote completed. |   | APPLIB_ALLOW_MODIFY, VAPP_CREATE_INSTANCE | 
+| VIRTUAL_MACHINE_TEMPLATE | CREATE_FROM_INST_START  |  (-)  | Failed to promote virtual machine template from virtual machine template instance 'VIRTUAL_MACHINE_TEMPLATE_NAME' in datacenter 'DC_NAME'. | AM-3 | APPLIB_ALLOW_MODIFY, VAPP_CREATE_INSTANCE | 
+| VIRTUAL_MACHINE_TEMPLATE | CREATE_FROM_INST_START  |  (-)  | Failed to promote virtual machine template because it was not possible to save the associated task (Redis might be down or not configured). | REDIS-0 | APPLIB_ALLOW_MODIFY, VAPP_CREATE_INSTANCE | 
+| VIRTUAL_MACHINE_TEMPLATE | CREATE_FROM_INST_START   |  (i)  | Requested promotion of the virtual machine template 'name' from virtual machine template instance 'VIRTUAL_MACHINE_TEMPLATE_NAME' to datacenter repository path 'path'. |   | APPLIB_ALLOW_MODIFY, VAPP_CREATE_INSTANCE | 
+| VIRTUAL_MACHINE_TEMPLATE | DELETE   |  (i)  | Virtual machine template 'TEMPLATE_NAME' has been deleted. |   | APPLIB_ALLOW_MODIFY | 
+| VIRTUAL_MACHINE_TEMPLATE | MODIFY  |  (-)  | Virtual machine template 'name' (ID 'id') is shared and has virtual machines created. Therefore it cannot be modified to be not shared. | VIMAGE-11 | APPLIB_ALLOW_MODIFY, APPLIB_VM_COST_CODE | 
+| VIRTUAL_MACHINE_TEMPLATE | MODIFY   |  (i)  | Virtual machine template 'VIRTUAL_MACHINE_TEMPLATE_OLD_NAME' has been updated. |   | APPLIB_ALLOW_MODIFY, APPLIB_VM_COST_CODE | 
+| VIRTUAL_MACHINE_TEMPLATE | PERSISTENT_DELETE   |  (i)  | Persistent virtual machine template 'VMT_PERSISTENT_NAME' has been deleted. |   | VAPP_CREATE_STATEFUL | 
+| VIRTUAL_MACHINE_TEMPLATE | PERSISTENT_DUMP_FINISH  |  (-)  | Volume dump failed for persistent virtual machine template 'VMT_PERSISTENT_NAME'. | JOB-1 | VAPP_CREATE_STATEFUL | 
+| VIRTUAL_MACHINE_TEMPLATE | PERSISTENT_DUMP_FINISH   |  (i)  | Volume dump successfully completed for persistent virtual machine template 'VMT_PERSISTENT_NAME'. |   | VAPP_CREATE_STATEFUL | 
+| VIRTUAL_MACHINE_TEMPLATE | PERSISTENT_DUMP_START  |  (-)  | Could not get the initiator of the BPM machine: MESSAGE. | PERSISTENT-6 | VAPP_CREATE_STATEFUL | 
+| VIRTUAL_MACHINE_TEMPLATE | PERSISTENT_FINISH   |  (i)  | Persistent process finished for virtual machine template 'VMT_PERSISTENT_NAME'. |   | VAPP_CREATE_STATEFUL | 
+| VIRTUAL_MACHINE_TEMPLATE | PERSISTENT_INITIATOR_ADD  |  (-)  | Unable to create the initiator mapping for initiator 'INITIATORIQN' and volume 'VOLUME_NAME'. | PERSISTENT-13 | VAPP_CREATE_STATEFUL | 
+| VIRTUAL_MACHINE_TEMPLATE | PERSISTENT_INITIATOR_ADD   |  (i)  | Added initiator to the target storage technology 'INITIATORIQN' and volume 'VOLUME_NAME'. |   | VAPP_CREATE_STATEFUL | 
+| VIRTUAL_MACHINE_TEMPLATE | PERSISTENT_MODIFY   |  (i)  | Persistent virtual machine template 'VIRTUAL_MACHINE_TEMPLATE_OLD_NAME' has been updated. |   | VAPP_CREATE_STATEFUL | 
+| VIRTUAL_MACHINE_TEMPLATE | PERSISTENT_RAW_CREATE  |  (-)  | Dumps pending from raw conversion of template 'VMT_MASTER_NAME' have failed. | 500 | VAPP_CREATE_STATEFUL | 
+| VIRTUAL_MACHINE_TEMPLATE | PERSISTENT_RAW_CREATE   |  (i)  | Raw conversion finished successfully for virtual machine template 'VMT_MASTER_NAME'. |   | VAPP_CREATE_STATEFUL | 
+| VIRTUAL_MACHINE_TEMPLATE | PERSISTENT_START   |  (i)  | Persistent process started for template 'VMT_MASTER_NAME' with new name 'VMT_PERSISTENT_NAME'. |   | VAPP_CREATE_STATEFUL | 
+| VIRTUAL_MACHINE_TEMPLATE | PERSISTENT_TASK_ENQUEUE   |  (i)  | Task queued successfully in the conversion manager. |   | VAPP_CREATE_STATEFUL | 
+| VIRTUAL_MACHINE_TEMPLATE | PERSISTENT_VOLUME_ASSIGN  |  (-)  | The selected volume is not large enough to hold the persistent virtual machine template. | VOL-1 | VAPP_CREATE_STATEFUL | 
+| VIRTUAL_MACHINE_TEMPLATE | PERSISTENT_VOLUME_ASSIGN   |  (i)  | Using the selected volume 'VOLUME_NAME' to hold the persistent virtual machine template. |   | VAPP_CREATE_STATEFUL | 
+| VIRTUAL_MACHINE_TEMPLATE | PERSISTENT_VOLUME_CREATE   |  (i)  | Persistent volume created successfully for virtual machine template 'VMT_MASTER_NAME' in virtual datacenter 'VDC_NAME'. |   | VAPP_CREATE_STATEFUL | 
+| VIRTUAL_MACHINE_TEMPLATE | UNAVAILABLE   |  (!)  | Virtual machine template 'VIRTUAL_MACHINE_TEMPLATE_NAME' is not present in the datacenter repository. |   | APPLIB_ALLOW_MODIFY, APPLIB_UPLOAD_IMAGE | 
+|| h6. Virtual_machine || || || || || ||
+| VIRTUAL_MACHINE | UNDEPLOY  |  (-)  | Could not undeploy the virtual machine 'name': 'EVENT'. |  | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | UNDEPLOY  |  (-)  | The virtual machine is now in state UNKNOWN. Unexpected Error: 'MESSAGE'. | GEN-14 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | UNDEPLOY  |  (-)  | Virtual factory task 'TASK_ID' on virtual machine ID 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') failed on the platform due to a communication problem with the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. The platform will perform a check on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | HYP-01 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | UNDEPLOY  |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the IDE controller is full. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-ED-1 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | UNDEPLOY  |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-0 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | UNDEPLOY  |  (-)  | Could not free VLAN network 'VLAN_NAME' from virtual machine 'name' undeploy. | TAG-RELEASE | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | UNDEPLOY  |  (-)  | The virtual machine 'name' is now in the UNKNOWN state. Unexpected Error: 'MESSAGE'. | TR-UNDEPLOY-VM | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | UNDEPLOY FINISH |  (-)  | Undeploy of virtual machine ID 'TASK_ID' and owner 'TASK_OWNER_ID' failed on the platform. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. | TASK-4 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | UNDEPLOY FINISH |  (i)  | The virtual machine 'VIRTUAL_MACHINE_NAME' with task ID 'TASK_ID' was undeployed successfully in the virtual factory on hypervisor 'MACHINE_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. |   | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | UNDEPLOY HA |  (-)  | Could not undeploy the virtual machine 'name' for HA: 'EVENT'. |  | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | UNDEPLOY HA |  (-)  | Undeploy of virtual machine ID 'TASK_ID' and owner 'TASK_OWNER_ID' failed on the platform. Finished the task created at 'TASK_TIMESTAMP'. | -TASK-3 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | UNDEPLOY HA |  (-)  | Undeploy of virtual machine ID 'TASK_ID' and owner 'TASK_OWNER_ID' failed on the platform. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. | -TASK-4 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | UNDEPLOY HA |  (-)  | Virtual factory task 'TASK_ID' on virtual machine ID 'TASK_OWNER' ('VIRTUAL_MACHINE_NAME') failed on the platform due to a communication problem with the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine state to UNKNOWN. The platform will perform a check on the hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | HYP-01 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | UNDEPLOY HA |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the IDE controller is full. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-ED-1 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | UNDEPLOY HA |  (-)  | Virtual factory task on virtual machine ID 'TASK_ID' and owner 'TASK_OWNER' failed on the platform because the virtual machine does not exist on the hypervisor. Aborted the task created at 'TASK_TIMESTAMP'. Successfully updated virtual machine 'VIRTUAL_MACHINE_NAME' state to 'VIRTUAL_MACHINE_STATE'. On hypervisor 'HYPERVISOR_NAME' ('HYPERVISOR_TYPE') at IP 'HYPERVISOR_IP'. | PL-VAL-0 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | UNDEPLOY HA |  (-)  | The deploy task could not be queued in the virtual factory. RabbitMQ might be down or not properly configured. | TR-UNDEPLOY-VM | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | UNDEPLOY HA |  (i)  | The virtual machine 'VIRTUAL_MACHINE_NAME' with taskId 'TASK_ID' was undeployed successfully in the virtual factory. Finished the task created at 'TASK_TIMESTAMP'. |   | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | UNDEPLOY   |  (i)  | The undeploy of the virtual machine 'VIRTUAL_MACHINE_NAME' was successfully queued in the virtual factory. |   | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | VSM_CHANGE_STATE   |  (i)  | State of virtual machine 'VIRTUAL_MACHINE_NAME' updated to 'VIRTUAL_MACHINE_STATE'. |   | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| VIRTUAL_MACHINE | VSM_VM_DESTROYED   |  (i)  | Deleted virtual machine 'VIRTUAL_MACHINE_NAME'. |   | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| VIRTUAL_MACHINE | VSM_VM_MOVED  |  (-)  | Error processing MOVE event on virtual machine 'VIRTUAL_MACHINE_NAME'. VM was not found on the destination physical machine 'MACHINE_NAME'. | VSM-01 | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| VIRTUAL_MACHINE | VSM_VM_MOVED  |  (-)  | Error processing MOVE event on virtual machine 'VIRTUAL_MACHINE_NAME'. The destination datastore 'DC_NAME' does not exist. | VSM-02 | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| VIRTUAL_MACHINE | VSM_VM_MOVED  |  (-)  | Limits rule has been broken. Machine 'MACHINE_NAME' has virtual machine 'VIRTUAL_MACHINE_NAME' which exceeds limits 'MESSAGE'. | VSM-04 | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| VIRTUAL_MACHINE | VSM_VM_MOVED  |  (-)  | Oversubscription rule has been broken. Machine 'MACHINE_NAME' has virtual machine 'VIRTUAL_MACHINE_NAME' which exceeds oversubscription rules. | VSM-05 | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| VIRTUAL_MACHINE | VSM_VM_MOVED  |  (-)  | Enterprise reservation rule has been broken by moving a virtual machine 'VIRTUAL_MACHINE_NAME'. Machine 'MACHINE_NAME' has virtual machine 'VIRTUAL_MACHINE_NAME' of enterprise 'ENT_NAME'. | VSM-06 | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| VIRTUAL_MACHINE | VSM_VM_MOVED  |  (-)  | Enterprise exclusion rule has been broken by moving a virtual machine 'VIRTUAL_MACHINE_NAME'. Machine 'MACHINE_NAME' has virtual machine 'VIRTUAL_MACHINE_NAME' of enterprise 'ENT_NAME'. | VSM-07 | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| VIRTUAL_MACHINE | VSM_VM_MOVED  |  (-)  | Anti-affinity rule has been broken by moving a virtual machine 'VIRTUAL_MACHINE_NAME'. Machine 'MACHINE_NAME' has virtual machine 'VIRTUAL_MACHINE_NAME' of anti-affinity rule 'LAYER'. | VSM-08 | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| VIRTUAL_MACHINE | VSM_VM_MOVED  |  (-)  | Error processing MOVE event on virtual machine 'VIRTUAL_MACHINE_NAME'. Could not add the initiator mappings for the destination physical machine 'HYPERVISOR_NAME'; they must be manually added. | VSM-10 | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| VIRTUAL_MACHINE | VSM_VM_MOVED   |  (i)  | Virtual machine 'VIRTUAL_MACHINE_NAME' moved from source machine 'CLONED_VM_MACHINE_NAME' to machine 'MACHINE_NAME'. |   | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| VIRTUAL_MACHINE | VSM_VM_MOVED   |  (!)  | New datastore 'ROOT_PATH' added in physical machine 'MACHINE_NAME' while processing MOVE event on virtual machine 'VIRTUAL_MACHINE_NAME'. |   | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| VIRTUAL_MACHINE | VSM_VM_RETRIEVE  |  (-)  | Error processing MOVE event on virtual machine 'VIRTUAL_MACHINE_NAME'. VM was not found on the destination physical machine 'MACHINE_NAME'. | VSM-01 | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| VIRTUAL_MACHINE | VSM_VM_UNSUBSCRIBE  |  (-)  | Unable to unsubscribe virtual machine. | VSM-09 | PHYS_DC_ALLOW_MODIFY_SERVERS | 
+| VIRTUAL_MACHINE | WORKFLOW_DEPLOY_SEND  |  (-)  | Virtual machine 'name' workflow undeploy webhook request  for task 'TASK_ID' failed. | WKF-01 | VAPP_DEPLOY_UNDEPLOY, WORKFLOW_OVERRIDE | 
+| VIRTUAL_MACHINE | WORKFLOW_DEPLOY_SEND   |  (i)  | Virtual machine 'name' workflow deploy webhook for task 'TASK_ID' sent successfully. |   | VAPP_DEPLOY_UNDEPLOY, WORKFLOW_OVERRIDE | 
+| VIRTUAL_MACHINE | WORKFLOW_RECONFIGURE_SEND  |  (-)  | Virtual machine 'name' workflow undeploy webhook request for task 'TASK_ID' failed. | WKF-01 | VAPP_CUSTOMISE_SETTINGS, WORKFLOW_OVERRIDE | 
+| VIRTUAL_MACHINE | WORKFLOW_RECONFIGURE_SEND   |  (i)  | Virtual machine 'name' workflow reconfigure webhook for task 'TASK_ID' sent successfully. |   | VAPP_CUSTOMISE_SETTINGS, WORKFLOW_OVERRIDE | 
+| VIRTUAL_MACHINE | WORKFLOW_UNDEPLOY_SEND  |  (-)  | Virtual machine 'name' workflow undeploy webhook request for task 'TASK_ID' failed. | WKF-01 | VAPP_DEPLOY_UNDEPLOY | 
+| VIRTUAL_MACHINE | WORKFLOW_UNDEPLOY_SEND   |  (i)  | Virtual machine 'name' workflow undeploy webhook for task 'TASK_ID' sent successfully. |   | VAPP_DEPLOY_UNDEPLOY | 
+|| h6. Volume || || || || || ||
+| VOLUME | CREATE  |  (-)  | Could not create volume 'VOLUME_NAME' of size VOLUME_SIZE MB. | SSM-5 | PHYS_DC_ALLOW_MODIFY_STORAGE, VDC_MANAGE_STORAGE | 
+| VOLUME | CREATE  |  (-)  | Could not create volume 'VOLUME_NAME'. No candidate pools where found in tier 'TIER_NAME' to create the volume. | VOL-1 | PHYS_DC_ALLOW_MODIFY_STORAGE, VDC_MANAGE_STORAGE | 
+| VOLUME | CREATE  |  (-)  | Could not create volume 'VOLUME_NAME' of size VOLUME_SIZE MB: 'MESSAGE' | VOL-4 | PHYS_DC_ALLOW_MODIFY_STORAGE, VDC_MANAGE_STORAGE | 
+| VOLUME | CREATE   |  (i)  | Created volume 'name' of size sizeInMB MB. |   | PHYS_DC_ALLOW_MODIFY_STORAGE, VDC_MANAGE_STORAGE | 
+| VOLUME | DELETE  |  (-)  | Volume 'name' could not be deleted: 'MESSAGE' | 503-SERVICE-UNAVAILABLE | PHYS_DC_ALLOW_MODIFY_STORAGE, VDC_MANAGE_STORAGE | 
+| VOLUME | DELETE  |  (-)  | Could not roll back volume 'VOLUME_UUID' on the target device : 'MESSAGE' | 503-SERVICE-UNAVAILABLE_PERSISTENT | PHYS_DC_ALLOW_MODIFY_STORAGE, VDC_MANAGE_STORAGE | 
+| VOLUME | DELETE   |  (i)  | Deleted volume 'VOLUME_NAME'. |   | PHYS_DC_ALLOW_MODIFY_STORAGE, VDC_MANAGE_STORAGE | 
+| VOLUME | DELETE   |  (!)  | Volume 'VOLUME_NAME' could not be physically deleted from the target storage device: 'MESSAGE' | 503-SERVICE-UNAVAILABLE | PHYS_DC_ALLOW_MODIFY_STORAGE, VDC_MANAGE_STORAGE | 
+| VOLUME | MODIFY  |  (-)  | The size of the volume cannot be reduced. | VOL-10 | PHYS_DC_ALLOW_MODIFY_STORAGE, VDC_MANAGE_STORAGE | 
+| VOLUME | MODIFY  |  (-)  | An unexpected error occurred and the volume could not be updated. | VOL-15 | PHYS_DC_ALLOW_MODIFY_STORAGE, VDC_MANAGE_STORAGE | 
+| VOLUME | MODIFY   |  (i)  | Volume 'VOLUME_OLD_NAME' modified. |   | PHYS_DC_ALLOW_MODIFY_STORAGE, VDC_MANAGE_STORAGE | 
+| VOLUME | MOVE   |  (i)  | Volume 'VOLUME_NAME' of VOLUME_SIZE MB has been moved to virtual datacenter 'VDC_NAME'. |   | PHYS_DC_ALLOW_MODIFY_STORAGE, VDC_MANAGE_STORAGE | 
+| VOLUME | RESIZE  |  (-)  | Could not physically update volume 'name' on the target storage device. | SSM-7 | PHYS_DC_ALLOW_MODIFY_STORAGE, VDC_MANAGE_STORAGE | 
+| VOLUME | RESIZE   |  (i)  | Volume 'VOLUME_OLD_NAME' resized from VOLUME_OLD_SIZE MB to VOLUME_SIZE MB. |   | PHYS_DC_ALLOW_MODIFY_STORAGE, VDC_MANAGE_STORAGE | 
+|| h6. Workload || || || || || ||
+| WORKLOAD | HARD_LIMIT_EXCEEDED  |  (-)  | LIMIT_MESSAGE | LIMIT-1 | VAPP_DEPLOY_UNDEPLOY | 
+| WORKLOAD | SOFT_LIMIT_EXCEEDED   |  (i)  | LIMIT_MESSAGE | LIMIT-2 | VAPP_DEPLOY_UNDEPLOY | 
