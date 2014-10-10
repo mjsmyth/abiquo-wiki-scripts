@@ -7,6 +7,7 @@ import sys
 import re
 import os
 import requests
+import copy
 
 # DATACENTER.CREATE.addErrorkeys(new KEYS[] {KEYS.INITIATORIQN})),
 # http.client.responses[http.client.my_status_code] 
@@ -32,24 +33,59 @@ def main():
 	aero_physical_lines = aero.split("\n")
 
 	# search for items with leading comments and add ******** to front and end of line
-	for aerobit in aero_physical_lines:
-		if re.search("^\s*//",aerobit):
-			aerobit = "*******" + re.sub("^\s*//","",aerobit) + " *******"
-			print aerobit
-	# search for items with trailing comments and remove trailing comments
-		if re.search("//\s*$",aerobit):
-			aerobit = re.sub("//\s*$","",aerobit)
-			print aerobit
-		if re.search(";\s*$",aerobit):
-			aerobit = re.sub(";\s*$",",",aerobit)
-			print aerobit	
+
+	to_modify = {}
+	for AEI, aeropl in enumerate(aero_physical_lines):
+		aerobit = aeropl[:]
+		# remove leading spaces, trailing spaces
+		to_modify[AEI] = aerobit.strip()
+	
+		if AEI in to_modify.keys():
+			aerobit = to_modify[AEI]
+
+		# search for and remove leading comments and replace with header marks
+		if re.search("^//",aerobit):
+			to_modify[AEI] = "*******" + re.sub("^//","",aerobit) + " #######"
+
+		if AEI in to_modify.keys():	
+			aerobit = to_modify[AEI]
+
+		# replace trailing comments	
+		to_modify[AEI] = re.sub("//$","",aerobit)
+		
+		if AEI in to_modify.keys():	
+			aerobit = to_modify[AEI]	
+		# replace the semicolon at the end of the last record with a comma	
+		to_modify[AEI] = re.sub(";$",",",aerobit)
+	
+		if AEI in to_modify.keys():	
+			aerobit = to_modify[AEI]
+
+	for AE in to_modify.keys():
+		aero_physical_lines[AE] = to_modify[AE]
+
 	# join the list again
 	aero_whole = "".join(aero_physical_lines)
+	#aero_codes = re.sub("\\(fromStatus\\(([0-9][0-9][0-9])\\)\s*\\+\s*","\1",aero_whole)
+	#print aero_codes	
 	
-	# print aero_whole
+	status_code_line = re.finditer("fromStatus\\(([0-9][0-9][0-9])\\)\s*\\+*\s*",aero_whole)
+	aero_poo = aero_whole.strip()
+	if status_code_line:
+		for scl in status_code_line:
+			print "***" + scl.group(0) + "***"
+			print "***" + scl.group(1) + "***"
+			oldstring = scl.group(0).strip()
+			newstring = scl.group(1).strip()
+			aero_poo = aero_poo.replace(oldstring,newstring)
+	print aero_poo
+
+
 
 	pp = convertstatuscode(300)
 	print pp
+
+
 
 def convertstatuscode(status_code):	
 	# Convert status code into status code + status description
