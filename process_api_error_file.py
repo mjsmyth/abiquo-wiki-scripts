@@ -66,24 +66,43 @@ def main():
 
 	# join the list again
 	aero_whole = "".join(aero_physical_lines)
+	aero_poo = aero_whole.strip()
 	#aero_codes = re.sub("\\(fromStatus\\(([0-9][0-9][0-9])\\)\s*\\+\s*","\1",aero_whole)
 	#print aero_codes	
+	status_code_line_with_more = re.finditer("fromStatus\\(([0-9][0-9][0-9])\\)\s*\\++\s*\"*",aero_whole)
 	
-	status_code_line = re.finditer("fromStatus\\(([0-9][0-9][0-9])\\)\s*\\+*\s*",aero_whole)
-	aero_poo = aero_whole.strip()
+	if status_code_line_with_more:
+		for sclwm in status_code_line_with_more:
+			print "sclwm ***" + sclwm.group(0) + "***"
+			print "sclwm ***" + sclwm.group(1) + "***"
+			oldstring = sclwm.group(0).strip()
+			newstring = sclwm.group(1).strip()
+			converted_string = "\"" + convertstatuscode(newstring) 
+			print converted_string
+			aero_poo = aero_poo.replace(oldstring,converted_string)
+
+
+	status_code_line = re.finditer("fromStatus\\(([0-9][0-9][0-9])\\),",aero_whole)
 	if status_code_line:
 		for scl in status_code_line:
 			print "***" + scl.group(0) + "***"
 			print "***" + scl.group(1) + "***"
 			oldstring = scl.group(0).strip()
 			newstring = scl.group(1).strip()
-			aero_poo = aero_poo.replace(oldstring,newstring)
-	print aero_poo
+			converted_string = "\"" + convertstatuscode(newstring) + "\","
+			print converted_string
+			aero_poo = aero_poo.replace(oldstring,converted_string)
 
+# split into sections
+	aero_sections = aero_poo.split("*******")
+	for aeros in aerosections:
+		aero_headers_sections = aeros.split("########")
+		for aerohs in aero_headers:
+				
 
-
-	pp = convertstatuscode(300)
-	print pp
+#	print aero_poo[:1500]
+#	pp = convertstatuscode(300)
+#	print pp
 
 
 
