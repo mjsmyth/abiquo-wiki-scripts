@@ -66,7 +66,7 @@ def main():
 
 	# join the list again
 	aero_whole = "".join(aero_physical_lines)
-	aero_poo = aero_whole.strip()
+	aero_copy = aero_whole.strip()
 	#aero_codes = re.sub("\\(fromStatus\\(([0-9][0-9][0-9])\\)\s*\\+\s*","\1",aero_whole)
 	#print aero_codes	
 	status_code_line_with_more = re.finditer("fromStatus\\(([0-9][0-9][0-9])\\)\s*\\++\s*\"*",aero_whole)
@@ -77,9 +77,11 @@ def main():
 			print "sclwm ***" + sclwm.group(1) + "***"
 			oldstring = sclwm.group(0).strip()
 			newstring = sclwm.group(1).strip()
-			converted_string = "\"" + convertstatuscode(newstring) 
+
+#			converted_string = "\"" + convertstatuscode(newstring) 
+			converted_string = "\"" + newstring
 			print converted_string
-			aero_poo = aero_poo.replace(oldstring,converted_string)
+			aero_copy = aero_copy.replace(oldstring,converted_string)
 
 
 	status_code_line = re.finditer("fromStatus\\(([0-9][0-9][0-9])\\),",aero_whole)
@@ -89,20 +91,52 @@ def main():
 			print "***" + scl.group(1) + "***"
 			oldstring = scl.group(0).strip()
 			newstring = scl.group(1).strip()
-			converted_string = "\"" + convertstatuscode(newstring) + "\","
+#			converted_string = "\"" + convertstatuscode(newstring) + "\","
+			converted_string = "\"" + newstring + "\","
 			print converted_string
-			aero_poo = aero_poo.replace(oldstring,converted_string)
+			aero_copy = aero_copy.replace(oldstring,converted_string)
 
 # split into sections
-	aero_sections = aero_poo.split("*******")
-	for aeros in aerosections:
-		aero_headers_sections = aeros.split("########")
-		for aerohs in aero_headers:
-				
+	aero_sections = aero_copy.split("*******")
+	print aero_sections
+	for aeros in aero_sections:
+		aero_headers_sections = aeros.split("#######")
+		section_header = aero_headers_sections[0]
+		section_header = section_header.strip()
+		print section_header
+		
+		section = aero_headers_sections[1:]
 
-#	print aero_poo[:1500]
-#	pp = convertstatuscode(300)
-#	print pp
+		for rest_of_records in section:		
+			one_record = re.split("(?<!'\(')(\),)",rest_of_records)
+			print "OR: " + str(one_record)
+			new_record = one_record[0::2]
+			print "NR: " + str(new_record)
+
+			for newr in new_record:
+#				s = re.split(r',\s*(?=[^)]*(?:\(|$))', x)
+				newrec = re.sub ("String.format\\(","String.format",newr)
+				fields = re.split('\\(\\"',newrec)
+				label = fields[0]
+				label = label.strip()
+				print label
+				# Note this can be a heading ##
+				if len(fields) > 1:
+					id_message = fields[1]
+					print id_message
+					internal_message_id_message = re.split(',', id_message,1)
+					internal_message_id = internal_message_id_message[0]
+					internal_message_id = '"' + internal_message_id.strip()
+					print internal_message_id
+					message = internal_message_id_message[1]
+					message = message.strip()
+					if re.match("String.format\"",message):
+						final_message =	re.sub (r'String.format"','"String.format("',message)
+						message = final_message.strip() + ""+
+					print message
+
+
+
 
 
 
