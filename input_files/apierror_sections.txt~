@@ -1,0 +1,100 @@
+{
+	"Status Codes" : "[0-9][0-9][0-9]-",
+	"Generic" : "GEN-[0-9]|GEN-[1][0-6]|GEN-22",
+	"Plugin" : "GEN-1[7-9]|GEN-21|GEN-23",
+	"Link" : "LINK-",
+	"Datacenter" : "DC-",
+	"Enterprise" : "EN-|ENTERPRISE-|ENPROP-",
+	"Limits" : "LIMIT-[1][0-9]|LIMIT-[2][0-9]|LIMIT[3-9]",
+	"Virtual datacenter" : "VDC-",
+	"VLAN" : "VLAN-",
+	"Virtual appliance" : ""VAPP-|AAFFINITY-|LAYER-",
+	"Virtual conversion" : "VASC-",
+	"Rack" : "RACK-",
+	"Machine or hypervisor" : "MACHINE-|HYPERVISOR-",
+	"Network" : "NET-",
+	"Virtual machine" : "VM-",
+	"Role" : "ROLE-",
+	"Privilege" : "PRIVILEGE-",
+	"Role LDAP" : "ROLELDAP-",
+	"User" : "USER",
+	"User password" : "PSW-",
+	"Remote service"  : "RS-",
+	"Appliance manager" : "AM-",
+	"OVF package list" : "OVF-PACKAGE-LIST-",
+	"OVF package" : "OVF-PACKAGE-[0-9]",
+	"Virtual machine template" : "VIMAGE-",
+	"Conversion" : "CONVERSION-",
+	"Node collector" : "NC-",
+	"Storage pool" : "SP-",
+	"Datastore" : "DATASTORE-",
+	"System properties" : "SYSPROP",
+	"Allocator" : "LIMIT-1\"|LIMIT-2\"|ALLOC-",
+	"Edit" : "EDIT-",
+	"Virtual system monitor" : "VSM-",
+	"Cloud provider proxy" : "CPP-",
+	"License" : "LICENSE-",
+	"Tiers" : "TIER-",
+	"Storage devices" : "DEVICE-",
+	"Statistics" : "STATS-|NODECOLLECTOR-",
+	"Query paging standard errors" : "QUERY-",
+	"Volume errors" : "VOL-",
+	"Storage system manager" : "SSM-",
+	"Allocation and shared server rules" : "RULE-",
+	"Hard disk" : "HD-",
+	"Chef" : "CHEF-",
+	"Parsing links" : "LNK-",
+	"Category" : "CATEGORY-",
+	"Icons" : "ICON-",
+	"Tasks" : "TASK-",
+	"Pricing template" : "PRICINGTEMPLATE-",
+	"Currency" : "CURRENCY-",
+	"Cost code" : "COSTCODE-[0-9]",
+	"Cost code - currency" : "COSTCODE_CURRENCY-[0-9]",
+	"Pricing - Cost code" : "PRICING_COSTCODE",
+	"Pricing - Tier" : "PRICING_TIER-",
+	"Hypervisor type" : "HYPERVISOR_TYPE-",
+	"Region" : "REGION-",
+	"DHCP option" : "DHCP_OPTION-",
+	"Mail" : "MAIL-",
+	"DVD" : "DVD-",
+	"Redis" : "REDIS-",
+	"RabbitMQ" : "RABBITMQ-",
+	"Scope" : "SCOPE-",
+	"Persistent" : "PERSISTENT-|CONSTR-",
+	"Events" : "EVENT-",
+	"Network service type" : "NST-",
+	"Workflow" : "WKF-",
+	"Hypervisor plugin" : "HYP-",
+	"IDE controller" : "IDE",
+	"Backup" : "BC-",
+	"Public cloud" : "PUBLIC-",
+	"Hardware profile" : "PROFILE-",
+	"Public cloud region" : "PUBLICREGION-",
+	"Locations" : "LOCATION-",
+	"Availability zones" : "AVZONE-",
+	"Floating IPs" : "FLOATINGIP-",
+	"Cloud nodes" : "CLOUDNODE-",
+	"Firewall" : "FIREWALLPOLICY-|FIREWALLRULE-"
+	"Metrics" : "METRIC-",
+	"Load balancer" : "LOADBALANCER-"
+}
+	
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
