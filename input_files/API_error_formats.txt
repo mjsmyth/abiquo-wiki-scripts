@@ -421,13 +421,7 @@
 | PROFILE-2 | Cannot create the hardware profile because the requested datacenter is a public datacenter | HARDWARE_PROFILE_CANNOT_CREATE_IN_PUBLIC |
 | PROFILE-3 | Invalid link to the hardware profile; cannot get profile values | INVALID_HARDWARE_PROFILE_LINK |
 | PROFILE-5 | Missing hardware profile link | HARDWARE_PROFILE_LINK_NOT_FOUND |
-| PSW-1 | Passwords must contain characters from three of the following five categories: 
--Uppercase characters of European languages (A through Z, with diacritic marks, Greek and Cyrillic characters) 
--Lowercase characters of European languages (a through z, sharp-s, with diacritic marks, Greek and Cyrillic characters) 
--Base 10 digits (0 through 9)
--Nonalphanumeric characters: ~!@#$%^&*_-+=|`\(){}[]:;"'<>,.?/ 
--Any Unicode character that is categorized as an alphabetic character but is not uppercase or lowercase. This includes Unicode characters from Asian languages 
- | PASSWORD_NOT_STRONG |
+| PSW-1 | Passwords must contain characters from three of the following five categories: -Uppercase characters of European languages (A through Z, with diacritic marks, Greek and Cyrillic characters) -Lowercase characters of European languages (a through z, sharp-s, with diacritic marks, Greek and Cyrillic characters) -Base 10 digits (0 through 9) -Nonalphanumeric characters: ~!@#$%^&*_-+=|`\(){}[]:;"'<>,.?/ -Any Unicode character that is categorized as an alphabetic character but is not uppercase or lowercase. This includes Unicode characters from Asian languages  | PASSWORD_NOT_STRONG |
 | PSW-10 | Password must not contain the user's entire Username or entire First Name or entire Last Name. These checks are not case sensitive. | PASSWORD_CONTAINS_USERNAME |
 | PSW-2 | Password must be at least %s characters in length | USER_PASSWORD_LENGTH |
 | PSW-3 | Cannot repeat any of the last %s passwords | PASSWORD_HISTORY |
