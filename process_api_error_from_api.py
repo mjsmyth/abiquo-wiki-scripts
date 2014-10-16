@@ -34,19 +34,15 @@ class ApiErrorLine:
 	def string_admin(self):
 		wiki_label = self.label
 		wiki_internal_message_id = self.internal_message_id.strip("\"")
-		wiki_message = self.message.strip("\"")
-		wiki_message = re.sub("\|","\\\|",wiki_message)
-		wiki_message = re.sub("-","\\\-",wiki_message)
-	#	wiki_message = dowikimarkup(wiki_message)        
-	#  	print("| ",wiki.internal_message_id," | ",wiki.message," | ",wiki.label," |")
+		wiki_message = dowikimarkup(self.message)        
 		return '| %s | %s | %s | |' % (wiki_internal_message_id, wiki_message, wiki_label)
 
 	def string_user(self):
 		wiki_internal_message_id = self.internal_message_id.strip("\"")
-		wiki_message = self.message.strip("\"")
-		wiki_message = re.sub("\|","\\\|",wiki_message)
-		wiki_message = re.sub("-","\\\-",wiki_message)
-	#	wiki_message = dowikimarkup(wiki_message)        
+	#	wiki_message = self.message.strip("\"")
+	#	wiki_message = re.sub("\|","\\\|",wiki_message)
+	#	wiki_message = re.sub("-","\\\-",wiki_message)
+		wiki_message = dowikimarkup(self.message)        
 	# 	print("| ",wiki.internal_message_id," | ",wiki.message," |")
 		return '| %s | %s | |' % (wiki_internal_message_id, wiki_message)
 
@@ -59,10 +55,11 @@ def main():
 	error_sorted = {}
 	section_header = ""
 
-	api_error_file_user = "wiki_api_error_user_guide_2014-10-13.txt"
 	api_error_file_admin = "wiki_api_error_user_guide_2014-10-13.txt"
+	api_error_file_user = "wiki_api_error_user_guide_2014-10-13.txt"
 
-	print "|| Internal Message ID {color:#efefef}__________________{color}|| Message {color:#efefef}____________________________________________________________{color} ||  Label || Info ||"; 
+	admin_header = "|| Internal Message ID {color:#efefef}__________________{color}|| Message {color:#efefef}____________________________________________________________{color} ||  Label || Info ||"; 
+	user_header = admin_header = "|| Internal Message ID {color:#efefef}__________________{color}|| Message {color:#efefef}____________________________________________________________{color} || Info ||"; 
 
 	sections_json = "apierror_sections.json"		
 	api_error_sections_data = open(os.path.join(input_subdir,sections_json))
@@ -75,12 +72,14 @@ def main():
 
 	for apierr in apie_error_formats:
 #		count_records = count_records + 1	
-		apierr_replaced = apierr.replace("{","(")
-		apierr_replaced = apierr_replaced.replace("}",")")
-		apierr_replaced = apierr_replaced.replace("[","(")		
-		apierr_replaced = apierr_replaced.replace("]",")")
+		# apierr_replaced = apierr.replace("{","(")
+		# apierr_replaced = apierr_replaced.replace("}",")")
+		# apierr_replaced = apierr_replaced.replace("[","(")		
+		# apierr_replaced = apierr_replaced.replace("]",")")
 #		if re.match("=|",apierr_replaced):
-		apierr_line = re.split('(?<!=)\|',apierr_replaced)
+		
+
+		apierr_line = re.split('(?<!=)\|',apierr)
 
 #		print "apierr_line[1]" + apierr_line[1]
 #		print "apierr_line[2]" + apierr_line[2]
@@ -119,14 +118,15 @@ def main():
 #		print "ss: " + ss
 		# ab = re.sub("\D","",el)
 		# print ab
-		for hh in error_lines[ee]:
-			hi = re.sub("\D(\d)$","-0\\1",hh.internal_message_id,1)
-			print "hi: " + hi
-		
+#		for hh in error_lines[ee]:
+#			hi = re.sub("\D(\d{0-3})$","\\1",hh.internal_message_id)
+#			print "hi: " + hi
+#			new_key = padkey(hh)
+#			print new_key
 #			new_error_lines.setdefault(ee, []).append(ApiErrorLine(padkey(gg),gg.message,gg.label))
 
 		
-		ss_interest = sorted(error_lines[ee], key=lambda XX: re.sub("\D(\d)$","-0\\1",XX.internal_message_id,1))
+		ss_interest = sorted(error_lines[ee], key=lambda XX: padkey(XX.internal_message_id))
 #		ss_interest = sorted(error_lines[ss], key=sort_api_errors(error_lines[ss].internal_message_id))
 		print "|| h6. " + ee + " ||  ||  || ||"
 
@@ -138,18 +138,33 @@ def main():
 
 #		ae_admin = aeline.string_admin()
 #		ae_user = aeline.string_user()
-	
 
-def padkey(error_object):
-	print error_object.internal_message_id
-	error_msg_id = error_object.internal_message_id[:]
-	number_of_occurrences =	len(re.findall("\d",error_msg_id))
-	print "no: " + str(number_of_occurrences)
+def dowikimarkup(my_wiki_message):
+	a_wiki_message = my_wiki_message.replace(r"\\",r"\\\\")
+	a_wiki_message = re.sub("\|","\\\|",a_wiki_message)
+	a_wiki_message = re.sub("-","\\\-",a_wiki_message)
+#	a_wiki_message = a_wiki_message.strip("\"")
+#	a_wiki_message = re.sub(r"\\\\\|",r"\\\|",a_wiki_message)
+	a_wiki_message = a_wiki_message.replace("{",r"\{")
+	a_wiki_message = a_wiki_message.replace("}",r"\}")
+	a_wiki_message = a_wiki_message.replace("[",r"\[")		
+	a_wiki_message = a_wiki_message.replace("]",r"\]")
+	return a_wiki_message	
 
-	if number_of_occurrences == 1:
-		error_msg_id = re.sub("(\d)","0\\1",error_msg_id)
-		print error_msg_id
-	return error_msg_id
+def padkey(mg_id):
+	mynumber = re.sub("\D","",mg_id)
+#	print "my number: " + mynumber
+	if re.match("\d",mynumber):
+		realnumber = int(mynumber)
+#		print "real number: " + mynumber
+		hello = "{0:05d}".format(realnumber)
+#		print "hello: " + hello
+		finalmg = re.sub("\d+$",hello,mg_id)
+#		print "finalmg: " + finalmg
+	else:	
+		finalmg = mg_id
+#		print "no match: " + finalmg	
+	return finalmg
 
 
 # Calls the main() function
