@@ -22,6 +22,7 @@ import os
 import requests
 import copy
 import json
+from operator import itemgetter, attrgetter, methodcaller
 
 
 class ApiErrorLine:
@@ -95,7 +96,7 @@ def main():
 				error_lines.setdefault(skey, []).append(aeline)
 #				print "section_data[skey]: " + section_data[skey] + " skey: " + skey + " ae_id: " + ae_id
 
-
+	error_msg_id = ""
 
 	error_key_list = list(error_lines.keys()) 
 #	print error_key_list
@@ -113,26 +114,42 @@ def main():
 		# 	break
 		# else:
 		# 	x = None
+##	new_error_lines = {}	
 	for ee in error_key_list:
 #		print "ss: " + ss
 		# ab = re.sub("\D","",el)
 		# print ab
-#		for hh in error_lines[ss]:
-#			hi = re.sub("\D","",hh.internal_message_id)
-#			print "hi: " + hi
-		ss_interest = sorted(error_lines[ee], key=lambda XX: int("0" + (re.sub("\D","",XX.internal_message_id))))
+		for hh in error_lines[ee]:
+			hi = re.sub("\D(\d)$","-0\\1",hh.internal_message_id,1)
+			print "hi: " + hi
+		
+#			new_error_lines.setdefault(ee, []).append(ApiErrorLine(padkey(gg),gg.message,gg.label))
+
+		
+		ss_interest = sorted(error_lines[ee], key=lambda XX: re.sub("\D(\d)$","-0\\1",XX.internal_message_id,1))
 #		ss_interest = sorted(error_lines[ss], key=sort_api_errors(error_lines[ss].internal_message_id))
 		print "|| h6. " + ee + " ||  ||  || ||"
 
-		for ael in ss_interest:
-			print ael.string_admin()
+		for ii in ss_interest:
+			print ii.string_admin()
+#			print ael.string_admin()
 #			print ael.string_user()
 #	sorted(sk,key=lambda str: re.sub("\D","",str))
 
 #		ae_admin = aeline.string_admin()
 #		ae_user = aeline.string_user()
+	
 
+def padkey(error_object):
+	print error_object.internal_message_id
+	error_msg_id = error_object.internal_message_id[:]
+	number_of_occurrences =	len(re.findall("\d",error_msg_id))
+	print "no: " + str(number_of_occurrences)
 
+	if number_of_occurrences == 1:
+		error_msg_id = re.sub("(\d)","0\\1",error_msg_id)
+		print error_msg_id
+	return error_msg_id
 
 
 # Calls the main() function
