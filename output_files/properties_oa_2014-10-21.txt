@@ -1,0 +1,11 @@
+################################################################################
+#### This is a sample abiquo.properties file for OUTBOUND API               ####
+################################################################################
+
+
+# Identity that M should use to perform requests to the Abiquo Server (API)
+abiquo.m.identity=admin
+ 
+# Credentials that M should use to perform requests to the Abiquo Server (API)
+abiquo.m.credential=xabiquo
+ 

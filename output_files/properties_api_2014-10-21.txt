@@ -1,0 +1,278 @@
+################################################################################
+#### This is a sample abiquo.properties file for API / SERVER               ####
+################################################################################
+
+
+# Timeout for establishing a connection to RabbitMQ. The default value of 0
+# means to wait indefinitely until connection established or error
+# (milliseconds)
+#abiquo.rabbitmq.connectionTimeout=0
+ 
+# Address where RabbitMQ is located
+abiquo.rabbitmq.host=localhost
+ 
+# RabbitMQ password
+abiquo.rabbitmq.password=guest
+ 
+# Port where RabbitMQ is located
+abiquo.rabbitmq.port=5672
+ 
+# The initially requested heartbeat interval, in seconds. The default value
+# of 0 means no heartbeat
+#abiquo.rabbitmq.requestedHeartbeat=0
+ 
+# RabbitMQ username
+abiquo.rabbitmq.username=guest
+ 
+# Virtual host where RabbitMQ runs
+#abiquo.rabbitmq.virtualHost=/
+ 
+# This property must have the same value on all API and remote services servers.
+# If true, Abiquo will read the custom seed file at /etc/abiquo/.store
+# If you create the seed file, but the property is not true, Abiquo will use
+# the default seed. Abiquo requires access to the configured seed file to work
+# with passwords. If it is lost, you will need to regenerate ALL passwords stored
+# in Abiquo. Range: true, false
+#abiquo.security.encrypt=false
+ 
+# IP Address of HTTP proxy for Appliance Manager/API to Internet
+# communication (download template definition list, template definition, VM
+# disk file)
+#abiquo.httpProxy.host=
+ 
+# Password of HTTP proxy for Appliance Manager/API to Internet communication
+# (download template definition list, template definition, VM disk file)
+#abiquo.httpProxy.password=
+ 
+# Port of HTTP proxy for Appliance Manager/API to Internet communication
+# (download template definition list, template definition, VM disk file)
+#abiquo.httpProxy.port=
+ 
+# User of HTTP proxy for Appliance Manager/API to Internet communication
+# (download template definition list, template definition, VM disk file)
+#abiquo.httpProxy.user=
+ 
+# Address where Redis is located. By default Redis is installed on the Abiquo
+# Server in addition to the Remote Services machine. In a monolithic install,
+# the Redis host and port properties should point to the monolithic server.
+# When configuring API load balancing, only the Abiquo Server Redis property
+# should point to the central datanode
+abiquo.redis.host=localhost
+ 
+# Port where Redis is located. By default Redis is installed on the Abiquo
+# Server in addition to the Remote Services machine. In a monolithic install,
+# the Redis host and port properties should point to the monolithic
+# server. When configuring API load balancing, only the Abiquo Server Redis
+# property should point to the central datanode
+abiquo.redis.port=6379
+ 
+# Address where KairosDb is located for VM monitoring
+abiquo.kairosdb.host=localhost
+ 
+# Port where KairosDb is listening for VM monitoring
+abiquo.kairosdb.port=8080
+ 
+# If false (or any other value), allow only one NIC per VLAN on a
+# VirtualMachine
+abiquo.api.networking.allowMultipleNicsVlan=True
+ 
+# Limit of NICs per Virtual Machine. If this is set to 0, there are no limits
+abiquo.api.networking.nicspervm=0
+ 
+# Location where ZooKeeper is listening in format <IP address>:<port> for
+# example, 10.10.10.10:2181
+#abiquo.api.zk.serverConnection=
+ 
+# Whether Abiquo will authenticate only via database or it will also
+# authenticate against LDAP/Active Directory. Range: abiquo, ldap
+abiquo.auth.module=abiquo
+ 
+# Abiquo database host. Note that a remote database must also be set up with
+# the jdbc drivers in the api.xml file. See how to set up a remote MySQL
+# database server on the Abiquo wiki
+#abiquo.database.host=127.0.0.1
+ 
+# Password of the Abiquo database user
+#abiquo.database.password=
+ 
+# Username of the Abiquo database user. The user must be created in the DBMS
+# with the appropriate privileges on Abiquo databases. See How to set up a
+# remote MySQL database server on the Abiquo wiki
+#abiquo.database.user=root
+ 
+# Default value. Abiquo uses the property only if the disk controller
+# attribute is not set in the virtual machine template. ESXi only: if null,
+# the controller for primary disks on non-persistent VMs is ide and on
+# persistent VMs it is scsi. Values apply to both non-persistent and
+# persistent VMs. This property does not apply to Hard Disks on the VMware
+# datastore, which are always attached to a SCSI controller. Range: scsi, ide
+#abiquo.diskController.primary=
+ 
+# ESXi only: if null, the secondary disk controller will be scsi. If ide, you
+# may only add one persistent data volume. This property does not apply to
+# Hard Disks on the VMware datastore, which are always attached to a SCSI
+# controller. Range: scsi, ide
+#abiquo.diskController.secondary=
+ 
+# Delay between checks of all machines with state HA_IN_PROGRESS to determine
+# if HA tasks on all VMs are complete, and if so, then set machine state to
+# DISABLED_BY_HA (milliseconds) (Default value is 5 minutes)
+abiquo.ha.check.delay=300000
+ 
+# Number of failed infratructure checks on a machine before High Availability
+# is triggered and the machine is set to state HA_IN_PROGRESS
+#abiquo.ha.infcheck.cycles=2
+ 
+# Automatically start Abiquo heartbeat
+#abiquo.heartbeat.autostart=true
+ 
+# The attribute in LDAP/Active Directory to look up the Enterprise Name which
+# must be an Enterprise in Abiquo.
+abiquo.ldap.authentication.attribute.enterprise=organizationname
+ 
+# Whether Abiquo must create a user in Abiquo based on a successful login to
+# LDAP
+abiquo.ldap.authentication.autoUserCreation=true
+ 
+# Abiquo will perform an additional custom query against the specified schema
+# in the LDAP/Active Directory. This value is required. The default value
+# does not result in an additional query
+abiquo.ldap.authentication.custom.userDnPattern=cn={0},CN=Users
+ 
+# Base Distinguished Name of the LDAP/Active Directory
+abiquo.ldap.authentication.server.baseDN=DC=localhost,DC=local
+ 
+# LDAP/Active Directory port. In LDAP mode this property is required, even if
+# the server is listening at the default LDAP/Active Directory port
+abiquo.ldap.authentication.server.port=389
+ 
+# Protocol to be used when authenticating to a LDAP/Active Directory. Range:
+# ldap, ldaps
+abiquo.ldap.authentication.server.protocol=ldap
+ 
+# LDAP/Active Directory server URL
+abiquo.ldap.authentication.server.url=localhost
+ 
+# Timeout to establish the connections to the LDAP/Active Directory server
+# (milliseconds) Default value is 5000
+abiquo.ldap.connection.timeout=5000
+ 
+# Timeout to complete the connections to the LDAP/Active Directory server
+# (milliseconds) Default value is 10000
+abiquo.ldap.read.timeout=10000
+ 
+# Number of milliseconds the OAuth request tokens are valid.
+# A '0' value makes the tokens permanent so they don't expire.
+# Default value is 600000 (10 minutes)
+abiquo.oauth.requesttoken.validity=600000
+ 
+# Number of milliseconds the OAuth access tokens are valid.
+# A '0' value makes the tokens permanent so they don't expire.
+# Default value is 43200000 (12 hours)
+abiquo.oauth.accesstoken.validity=43200000
+ 
+# Timeout for Server/API connections to Nodecollector (Discovery manager)
+# (milliseconds)
+abiquo.nodecollector.timeout=180000
+ 
+# Address where the API is running. Used in Chef: must be the public IP of
+# the Abiquo API (or at least an address reachable from the deployed virtual
+# machines). For example: http://80.169.25.32/api/
+abiquo.server.api.location=http://localhost/api
+ 
+# If not supplied, it is set to false. When false, no action is taken if
+# multiple users are logged in with the same user account. The user who
+# logged in most recently will have true control of the session and actions
+# by other users may cause problems. When true, the most recent user has
+# control of the session and other users are warned and logged out
+abiquo.server.blockduplicatedsessions=false
+ 
+# Password for connecting to the mail server
+abiquo.server.mail.password=none
+ 
+# Address where the mail server is located
+abiquo.server.mail.server=10.60.1.4
+ 
+# System user with privileges for connecting to the mail server
+abiquo.server.mail.user=none@none.es
+ 
+# Default remote repository space (OVF package sources) attached to
+# all appliance libraries
+abiquo.server.remoteSpace.default=http://abiquo-repository.abiquo.com/ovfindex.xml
+ 
+# Time the server waits before marking a client session as expired (minutes)
+abiquo.server.sessionTimeout=30
+ 
+# Time the server waits for long requests (milliseconds) (Default value is 7
+# days)
+abiquo.server.timeout=600000000
+ 
+# Delay between checks of the storage infrastructure (milliseconds)
+#abiquo.storage.check.delay=900000
+ 
+# Records requests to ONTAP and responses in the Abiquo logs
+abiquo.storagemanager.netapp.debug=false
+ 
+# Optional initial initiator group will be created
+abiquo.storagemanager.netapp.initiatorGroupName=abiGroup
+ 
+# Optional ratio to allow a LUN of a provided size to fill on its container
+# volume (volSize = lunSize * volumelunratio). Range: 1.3 - 1.9
+abiquo.storagemanager.netapp.volumelunration=1.3
+ 
+# Recommended free space on NetApp aggregates. Range: 0 - 1
+abiquo.storagemanager.netapp.aggrfreespaceratio=0.05
+ 
+# Maximum length of task history in Redis for API/Server by owner
+abiquo.tasks.history.size=20
+ 
+# Delay between executions of the trimmer of task history in Redis for
+# API/Server (milliseconds)
+abiquo.tasks.trimmer.delay=86400000
+ 
+# Delay between executions of the virtual infrastructure check (milliseconds)
+abiquo.vi.check.delay=900000
+ 
+# Last port of the VNC range to be used when allocating virtual machines.
+# Note that VMware only recommends ports 5900 to 5964
+#abiquo.vncport.max=65534
+ 
+# First port of the VNC range to be used when allocating virtual machines
+#abiquo.vncport.min=5900
+ 
+# Used by the Flex UI to test connectivity to the backend API stub
+#client.SERVER_ADDRESS=127.0.0.1
+ 
+# Configures the AMF secure channel (0 for regular, 1 for secure). Range: 0,
+# 1
+#client.USE_SECURE_CHANNEL_LOGIN=0
+ 
+# Max login failures in a given a lapse (abiquo.api.login.failurelapse)
+#abiquo.api.login.maxtries=3
+ 
+# Lapse of time in seconds where abiquo.api.login.maxtries apply
+#abiquo.api.login.failurelapse=60
+ 
+# Maximum waiting time in milliseconds to establish a connection with workflow
+# endpoint
+#workflow.connect.timeout=60000
+ 
+# Maximum waiting time in milliseconds to receive data from workflow endpoint
+#workflow.read.timeout=10000
+ 
+# Maximum number of sessions per user in the API. The default value of -1 means
+# there is no limit and a value of 0 is invalid. Range: -1, >0
+#abiquo.api.max.sessions=-1
+ 
+# Delay between executions of stale sessions check (milliseconds)
+#abiquo.stale.sessions.check.delay=300000
+ 
+# Abiquo session cookie name. This session does not store anything.
+#abiquo.api.session.cookie.name=ABQSESSIONID
+ 
+# reCAPTCHA private key for user password reset. Obtain keys from Google
+# abiquo.captcha.private.key=
+ 
+# Path to email template and text .properties files for user password reset
+abiquo.mail.path=/opt/abiquo/config/mail
+ 
