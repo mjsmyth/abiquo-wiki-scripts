@@ -1,7 +1,7 @@
 #!/usr/bin/python3 -tt
 #
 # This script reads files from the input_files directory:
-# - UI labels file (get from /UI/app/lang/lang_en_US.json from current branch in your platform/ui repo
+# - UI labels file (get from /UI/app/lang/lang_en_US_labels.json from current branch in your platform/ui repo
 # - database privileges information (run process_privileges.sql on the latest Abiquo DB to create process_privileges_sql.txt)
 # - an extra text file (process_privileges_extratext.txt)
 # It creates wiki_privileges.txt - a wiki storage format table for pasting into Privileges page of the wiki
@@ -48,7 +48,7 @@ def main():
         extratext[extkey] = exttext
     sqllabels = {}
     sqlroles = {}
-    sqlfile = 'process_privileges_sql_20140806.txt'
+    sqlfile = 'process_privileges_sql_2014-10-21.txt'
     sqllines = (sqlline.rstrip() for sqlline in open(os.path.join(input_subdir,sqlfile)))
     for sql_orig in sqllines:
         #print (sql_orig)
@@ -76,7 +76,7 @@ def main():
     
     labelmatch = {'MANAGE_LOADBALANCERS': 'VDC', 'MANAGE_FIREWALLS': 'VDC', 'MANAGE_FLOATINGIPS': 'VDC', 'WORKFLOW_OVERRIDE': 'VAPP', 'MANAGE_HARD_DISKS': 'VAPP', 'ASSIGN_LOADBALANCERS': 'VAPP', 'ASSIGN_FIREWALLS': 'VAPP', 'APPLIB_VM_COST_CODE': 'PRICING'}
 
-    json_data = open(os.path.join(input_gitdir,'lang_en_US.json'))
+    json_data = open(os.path.join(input_gitdir,'lang_en_US_labels.json'))
     data = simplejson.load(json_data)
     privlabels = {}
     privnames = {}
@@ -101,7 +101,7 @@ def main():
                 privlabels[pd] = pd 
                 privnames[pd] = data[labelkey_orig] 
                 #print("privilege: ", labelkey)
-    output_file_name = 'wiki_privileges.txt'
+    output_file_name = 'wiki_privileges_2014-10-21.txt'
     out_file = open(os.path.join(output_subdir,output_file_name), 'w')
     out_file.write ("<table>\n<tbody>\n")            
     pgkeys = sorted(grouporder.keys())     
