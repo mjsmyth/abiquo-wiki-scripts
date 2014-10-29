@@ -35,7 +35,7 @@ class ApiErrorLine:
 		wiki_label = self.label
 		wiki_internal_message_id = self.internal_message_id.strip("\"")
 		wiki_message = dowikimarkup(self.message)        
-		return '| %s | %s | %s | |' % (wiki_internal_message_id, wiki_message, wiki_label)
+		return '| %s | %s | %s | | \n' % (wiki_internal_message_id, wiki_message, wiki_label)
 
 	def string_user(self):
 		wiki_internal_message_id = self.internal_message_id.strip("\"")
@@ -44,22 +44,23 @@ class ApiErrorLine:
 	#	wiki_message = re.sub("-","\\\-",wiki_message)
 		wiki_message = dowikimarkup(self.message)        
 	# 	print("| ",wiki.internal_message_id," | ",wiki.message," |")
-		return '| %s | %s | |' % (wiki_internal_message_id, wiki_message)
+		return '| %s | %s | | \n' % (wiki_internal_message_id, wiki_message)
 
 def main():
 	input_subdir = "input_files"
 	output_subdir = "output_files"
-	api_error_input_file = "API_error_formats.txt"
+	todays_date = "2014-10-28"
+	api_error_input_file = "process_api_errors_input_from_api_" + todays_date + ".txt"
 	FS = "|"
 	error_lines = {}
 	error_sorted = {}
 	section_header = ""
 
-	api_error_file_admin = "wiki_api_error_user_guide_2014-10-13.txt"
-	api_error_file_user = "wiki_api_error_user_guide_2014-10-13.txt"
+	api_error_file_admin = "wiki_api_error_admin_guide_" + todays_date + ".txt"
+	api_error_file_user = "wiki_api_error_user_guide_" + todays_date + ".txt"
 
-	admin_header = "|| Internal Message ID {color:#efefef}__________________{color}|| Message {color:#efefef}____________________________________________________________{color} ||  Label || Info ||"; 
-	user_header = admin_header = "|| Internal Message ID {color:#efefef}__________________{color}|| Message {color:#efefef}____________________________________________________________{color} || Info ||"; 
+	admin_header = "|| Internal Message ID {color:#efefef}__________________{color}|| Message {color:#efefef}____________________________________________________________{color} ||  Label || Info ||\n"; 
+	user_header = admin_header = "|| Internal Message ID {color:#efefef}__________________{color}|| Message {color:#efefef}____________________________________________________________{color} || Info ||\n"; 
 
 	sections_json = "apierror_sections.json"		
 	api_error_sections_data = open(os.path.join(input_subdir,sections_json))
@@ -113,7 +114,14 @@ def main():
 		# 	break
 		# else:
 		# 	x = None
-##	new_error_lines = {}	
+##	new_error_lines = {}
+
+	outfile_admin = open(os.path.join(output_subdir,api_error_file_admin), 'w')
+	outfile_user = open(os.path.join(output_subdir,api_error_file_user), 'w')
+
+	outfile_admin.write (admin_header)
+	outfile_user.write (user_header)
+
 	for ee in error_key_list:
 #		print "ss: " + ss
 		# ab = re.sub("\D","",el)
@@ -128,16 +136,24 @@ def main():
 		
 		ss_interest = sorted(error_lines[ee], key=lambda XX: padkey(XX.internal_message_id))
 #		ss_interest = sorted(error_lines[ss], key=sort_api_errors(error_lines[ss].internal_message_id))
-		print "|| h6. " + ee + " ||  ||  || ||"
-
+		admin_header_line =  "|| h6. " + ee + " ||  ||  || ||\n"
+		outfile_admin.write(admin_header_line)
+		user_header_line = "|| h6. " + ee + " ||  ||  ||\n"
+		outfile_user.write(user_header_line)
 		for ii in ss_interest:
-			print ii.string_admin()
+			outfile_admin.write(ii.string_admin())
+			outfile_user.write(ii.string_user())
 #			print ael.string_admin()
 #			print ael.string_user()
 #	sorted(sk,key=lambda str: re.sub("\D","",str))
 
 #		ae_admin = aeline.string_admin()
 #		ae_user = aeline.string_user()
+
+	outfile_admin.close()
+	outfile_user.close()
+
+
 
 def dowikimarkup(my_wiki_message):
 	a_wiki_message = my_wiki_message.replace(r"\\",r"\\\\")
