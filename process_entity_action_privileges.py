@@ -4,32 +4,22 @@ import sys
 import re
 import os
 
-# create a set of tables of events and actions 
+# create a set of tables of entities + actions + details + the privileges required to see each event
+# 
 # Input file should be platform/model/event-model-transport/src/main/java/com/abiquo/event/model/enumerations/EntityAction.java
-# Output file should be output_files/wiki_events.txt
-# Plus: entity_list.txt
 #
-# Note that I have hacked this program to make it leave out the java muck surrounding the enumerations!
+# Output file 1 should be output_files/wiki_entity_action_privileges_ + date + .txt
+# - use this file to create the "Events View" page of this wiki
+#
+# Output file 2 should be input_files/entity_list_ + date + .txt, which is an input to the file tracer processing file
+# Output file 3 should be input_files/entity_action_list_ + date + .txt, which is an input to the file tracer processing file
+#
+# Note that this program has a basic mechanism to skip the java surrounding the enumerations!
 # If there are any problems: it uses RS = Master, and checks for * in records, and doesn't print headers or details of the first record and last two records! 
-# NOTE that this script produces two other output files - entity_action_list.txt, which is an input to the tracer processing scripts
-# and entity_list.txt which is a list of all entities as a starting point for the events and tracer tables for users... 
-# actually now I think about it, the user events have "USER" maybe this isn't necessary... aagh
-# ./process_events.sh ../platform/model/event-model-transport/src/main/java/com/abiquo/event/model/enumerations/EntityAction.java output_files/wiki_events.txt
+# 
+# 
 #
-# Note that the following comments are out of date:
-# Convert EventType.java to Confluence Wiki Format
-# Note that it is best to cut the java code from the beginning and end of the file as that is not included in the scope of this script
-# Read EventType.java file $1 and write to wiki output $2
-# Mark comments starting with // as header records
-# Strip whitespace in the file
-# Set the record separator as "), "
-# Print the first field of lines with one field beginning with // as h5. in wiki format after stripping non-numerics, then print header table row with first letter only in caps
-# If header record, print header 
-# Note that the last record is not processed properly because of EOF or something
-# Print normal error message lines separated by | for wiki format
-## replace {} with ""
-## replace [] with ()
-# Leaves other // comments in file - check for these
+#
 
 def main():
 	FS="new KEYS"
@@ -49,6 +39,7 @@ def main():
 	KeySplit = {}
 	keyHappy = " "
 	event_list_with_privileges = {}
+	td = "2014-10-31"
 
 
 	git_events_security_dir = "../platform/api/src/main/resources/events"
@@ -58,10 +49,16 @@ def main():
 	entity_action_list_git_dir = "../platform/model/event-model-transport/src/main/java/com/abiquo/event/model/enumerations"
 	entity_action_git_file = "EntityAction.java"
 
-	entity_list = "input_files/entity_list.txt"
-
+	entity_list = "entity_list_" + td + ".txt"
+	entity_action_list = "entity_action_list_" + td + ".txt"
+	input_subdir = "input_files"
 	out_subdir = "output_files"
-	wiki_entity_action_privileges_file = "wiki_entity_action_privileges.txt"
+	wiki_entity_action_privileges_file = "wiki_entity_action_privileges_" + td + ".txt"
+
+#	Events security file in format: APPLIB_MANAGE_CATEGORIES= CATEGORY.CREATE, CATEGORY.DELETE, CATEGORY.MODIFY
+	# make a list of entities for printing
+	entity_entity = {}
+	entity_action = {}
 
 	for esi in events_security_file:
 #		print ("esi: ",esi)
@@ -71,9 +68,14 @@ def main():
 		es_event_list = esSplit[1]
 		elSplit = es_event_list.split(",")
 		for els in elSplit:		
+			elsa = els.strip()		
+#			write the entity_action to a file
+			entity_action[elsa] = elsa			
 #			substitute the dot for an underscore
 			event_list_event = re.sub("\.","_",els)
 			event_list_event = event_list_event.strip()
+
+			# Replace with setdefault when have time?
 			if event_list_event not in event_list_with_privileges:
 				event_list_with_privileges[event_list_event] = [es_privilege]
 			else:
@@ -81,10 +83,12 @@ def main():
 					event_list_with_privileges[event_list_event].append(es_privilege)
 
 
+
 	with open (os.path.join(entity_action_list_git_dir,entity_action_git_file), "r") as eafile:
 		eadata=eafile.read().replace('\n', '')
 
 	ea_records = re.split(RS,eadata)
+
 
 	for NR,ear in enumerate(ea_records):
 #		print ("NR: ", NR)
@@ -101,6 +105,9 @@ def main():
 
 			EntityName = re.sub("\<","",EntityName)
 			EntityName = re.sub("\>","",EntityName)
+
+			# Create a dictionary of entities for output as list
+			entity_entity[EntityName] = EntityName + ""
 
 			ActionName = EntityActionNames[1]
 			entity_space_action[NR] = EntityName + " " + ActionName
@@ -130,7 +137,9 @@ def main():
 			startout[NR] = "| " 
 			endout[NR] =  " | " + ActionName + " | " + thekeystring + " | " + privilege_list_string + " |" 
 #			print("endout[NR]: ",endout[NR])
-	 
+
+
+
 		if len(ea_fields) == 1:
 			eIndex = NR + 1
 			ENameHeading = ea_fields[0]
@@ -150,7 +159,18 @@ def main():
 			entityheader_for_sub = re.sub ("ldap","LDAP",entityheader_for_sub)
 			entityheader[NR] = entityheader_for_sub
 
-	 		
+
+	with open(os.path.join(input_subdir,entity_list), 'w') as g: 
+		for eno in sorted(entity_entity):
+			EntityNameOut = eno + "\n"
+			g.write(EntityNameOut)
+
+	with open(os.path.join(input_subdir,entity_action_list), 'w') as h: 
+		for eao in sorted(entity_action):
+			if re.match("[A-Z]",eao):
+				EntityActionOut = eao + "\n"
+				h.write(EntityActionOut)		
+
 	with open(os.path.join(out_subdir,wiki_entity_action_privileges_file), 'w') as f:
 		header = "|| Entity || Action || Additional Information || Privileges for Event || \n"
 		f.write(header)	 		
@@ -160,12 +180,14 @@ def main():
 				if s in entityout:
 					outline = startout[s] + entityout[s] + endout[s] + "\n"
 					f.write(outline)
+
 				else:
 					outline = startout[s] + endout[s] + "\n"
 					f.write(outline)
 			else:
 				outline = "|| h6. " + entityheader[s] + " || || || ||\n"
 				f.write(outline)
+
   
 # Calls the main() function
 if __name__ == '__main__':

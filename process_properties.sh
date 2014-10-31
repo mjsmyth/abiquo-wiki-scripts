@@ -7,7 +7,7 @@
 # This is a dodgy awk script that reads the property file from $1 and redirects print to a wiki storage format output and other output files and puts standard out in $2
 # Sample call: ./process_properties.sh ../platform/system-properties/src/main/resources/abiquo.properties pout.txt
 # Note that $2 (in above example pout.txt) will be an empty file. The redirected output files are in the output_files folder and they are:
-# wiki_properties_2014-10-21.txt - wiki storage format for pasting in the Abiquo Configuration Properties page
+# wiki_properties_2014-10-29.txt - wiki storage format for pasting in the Abiquo Configuration Properties page
 # properties_api.txt, properties_rs.txt, properties_v2v.txt, properties_oa.txt - sample properties files for the Abiquo install profiles
 # Attach the sample files to the Abiquo Configuration Properties page
 
@@ -29,7 +29,7 @@ cat $1 | gawk 'BEGIN{
   gitPropNameSplit[0] = "";
   gitPropNameCat[0] = "";
   headerProf[0] = "";
-  td = "2014-10-21"
+  td = "2014-10-29"
   
 
   fn_api = "properties_api_" td ".txt";
@@ -63,15 +63,15 @@ cat $1 | gawk 'BEGIN{
   linkOAA  = "<ac:link><ri:attachment ri:filename=\"" fn_oa "\" /><ac:link-body><ac:image ac:thumbnail=\"true\" ac:width=\"30\">";
   linkOAB  = "<ri:attachment ri:filename=\"v26_symbol_oa_transparent.png\" /></ac:image></ac:link-body></ac:link>";
   
-  print "<table>\n<tbody>\n<tr><th class=\"warning\" data-highlight-class=\"warning\">  <p>Property</p></th>" >> "output_files/wiki_properties_2014-10-21.txt";
-  print "<th class=\"warning\" data-highlight-class=\"warning\"><p>Default</p></th>" >> "output_files/wiki_properties_2014-10-21.txt";
-  print "<th class=\"warning\" data-highlight-class=\"warning\"><p>Range</p></th>" >> "output_files/wiki_properties_2014-10-21.txt";
-  print "<th class=\"warning\" data-highlight-class=\"warning\"><p>Description</p></th>" >> "output_files/wiki_properties_2014-10-21.txt";
-  print "<th class=\"warning\" colspan=\"1\" data-highlight-class=\"warning\">" linkAPIA linkAPIB "</th>" >> "output_files/wiki_properties_2014-10-21.txt";
-  print "<th class=\"warning\" colspan=\"1\" data-highlight-class=\"warning\">" linkRSA linkRSB "</th>" >> "output_files/wiki_properties_2014-10-21.txt";
-  print "<th class=\"warning\" colspan=\"1\" data-highlight-class=\"warning\">" linkV2VA linkV2VB "</th>" >> "output_files/wiki_properties_2014-10-21.txt";
-  print "<th class=\"warning\" colspan=\"1\" data-highlight-class=\"warning\">" linkOAA linkOAB "</th>" >> "output_files/wiki_properties_2014-10-21.txt";
-  print "<th class=\"warning\" colspan=\"1\" data-highlight-class=\"warning\">Info</th></tr>" >> "output_files/wiki_properties_2014-10-21.txt";
+  print "<table>\n<tbody>\n<tr><th class=\"warning\" data-highlight-class=\"warning\">  <p>Property</p></th>" >> "output_files/wiki_properties_2014-10-29.txt";
+  print "<th class=\"warning\" data-highlight-class=\"warning\"><p>Default</p></th>" >> "output_files/wiki_properties_2014-10-29.txt";
+  print "<th class=\"warning\" data-highlight-class=\"warning\"><p>Range</p></th>" >> "output_files/wiki_properties_2014-10-29.txt";
+  print "<th class=\"warning\" data-highlight-class=\"warning\"><p>Description</p></th>" >> "output_files/wiki_properties_2014-10-29.txt";
+  print "<th class=\"warning\" colspan=\"1\" data-highlight-class=\"warning\">" linkAPIA linkAPIB "</th>" >> "output_files/wiki_properties_2014-10-29.txt";
+  print "<th class=\"warning\" colspan=\"1\" data-highlight-class=\"warning\">" linkRSA linkRSB "</th>" >> "output_files/wiki_properties_2014-10-29.txt";
+  print "<th class=\"warning\" colspan=\"1\" data-highlight-class=\"warning\">" linkV2VA linkV2VB "</th>" >> "output_files/wiki_properties_2014-10-29.txt";
+  print "<th class=\"warning\" colspan=\"1\" data-highlight-class=\"warning\">" linkOAA linkOAB "</th>" >> "output_files/wiki_properties_2014-10-29.txt";
+  print "<th class=\"warning\" colspan=\"1\" data-highlight-class=\"warning\">Info</th></tr>" >> "output_files/wiki_properties_2014-10-29.txt";
   
   
   print gitPrintStars > "output_files/" fn_api;
@@ -298,12 +298,12 @@ END{
           myLine = propSort[indo];
           if (indo == 1)
           {
-            print "<tr><th class=\"warning\" colspan=\"9\" data-highlight-class=\"warning\"><p><h6>" gitPropNameCat[myLine] "</h6></p></th>" >> "output_files/wiki_properties_2014-10-21.txt" ;
+            print "<tr><th class=\"warning\" colspan=\"9\" data-highlight-class=\"warning\"><p><h6>" gitPropNameCat[myLine] "</h6></p></th>" >> "output_files/wiki_properties_2014-10-29.txt" ;
  #           for (j=1;j<5;j++)
  #              {
- #                print "<th class=\"warning\" data-highlight-class=\"warning\"><p><strong></strong></p></th><th class=\"warning\" data-highlight-class=\"warning\"><p><strong>" "</strong></p></th>" >> "output_files/wiki_properties_2014-10-21.txt" ;
+ #                print "<th class=\"warning\" data-highlight-class=\"warning\"><p><strong></strong></p></th><th class=\"warning\" data-highlight-class=\"warning\"><p><strong>" "</strong></p></th>" >> "output_files/wiki_properties_2014-10-29.txt" ;
  #              }
-            print "</tr>" >> "output_files/wiki_properties_2014-10-21.txt";
+            print "</tr>" >> "output_files/wiki_properties_2014-10-29.txt";
             }
           
           if (indo > 1)
@@ -311,15 +311,15 @@ END{
             myPrevLine = propSort[(indo-1)];
             if (gitPropNameCat[myLine] != gitPropNameCat[myPrevLine])
             {
-               print "<tr><th class=\"warning\" data-highlight-class=\"warning\"><p><h6>" gitPropNameCat[myLine] "</h6></p></th>" >> "output_files/wiki_properties_2014-10-21.txt";
+               print "<tr><th class=\"warning\" data-highlight-class=\"warning\"><p><h6>" gitPropNameCat[myLine] "</h6></p></th>" >> "output_files/wiki_properties_2014-10-29.txt";
                for (j=1;j<5;j++)
                {
-                 print "<th class=\"warning\" data-highlight-class=\"warning\"><p><strong></strong></p></th><th class=\"warning\" data-highlight-class=\"warning\"><p><strong>" "</strong></p></th>" >> "output_files/wiki_properties_2014-10-21.txt" ;
+                 print "<th class=\"warning\" data-highlight-class=\"warning\"><p><strong></strong></p></th><th class=\"warning\" data-highlight-class=\"warning\"><p><strong>" "</strong></p></th>" >> "output_files/wiki_properties_2014-10-29.txt" ;
                }
-              print "</tr>" >> "output_files/wiki_properties_2014-10-21.txt";
+              print "</tr>" >> "output_files/wiki_properties_2014-10-29.txt";
             }
           }     
-          print outputLine[myLine] >> "output_files/wiki_properties_2014-10-21.txt";     
+          print outputLine[myLine] >> "output_files/wiki_properties_2014-10-29.txt";     
       }
-    print "</tbody>\n</table>" >> "output_files/wiki_properties_2014-10-21.txt";
+    print "</tbody>\n</table>" >> "output_files/wiki_properties_2014-10-29.txt";
 }' >$2 

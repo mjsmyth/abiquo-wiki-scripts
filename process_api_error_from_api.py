@@ -1,19 +1,21 @@
 #!/usr/bin/python2 -tt
-## Process the APIErrors including the error codes
 #
-# Convert APIError in wiki format to a nice table
+# The input file to this program is created by running the main of APIError.java
+# The main outputs a wiki text and a JSON labels file
 #
-# For user's guide and developer's guide
+# Save the wiki text in a separate file 
+# Manually edit the APIError file to join the PSW-1 message lines
+#
+# For user's guide (User+Interface+Messages) and developer's guide (API+Error+Code+List)
 #
 # replace {} with ""
 # replace [] with ()
-#
 # read the sections file
 # put the error messages into a dict in sections
-# sort the sections based on the last part of the id
+# sort the sections based on the last part of the id (whatever it may be)
 # print a header for each section
-# note: also need to compare with previous version's table and mark changed lines and print a diff file
-#
+# TODO: also need to compare with previous version's table and mark changed lines and print a diff file
+# and/or diff markers
 #
 import sys
 import getopt
@@ -49,7 +51,7 @@ class ApiErrorLine:
 def main():
 	input_subdir = "input_files"
 	output_subdir = "output_files"
-	todays_date = "2014-10-28"
+	todays_date = "2014-10-31"
 	api_error_input_file = "process_api_errors_input_from_api_" + todays_date + ".txt"
 	FS = "|"
 	error_lines = {}
