@@ -1,0 +1,117 @@
+h3. Configuration 
+|| h6. General || Default || Notes || Info || 
+|   Logo file | themes/abicloudDefault/logo.png | Directory and filename of the tenant logo file. The directory is relative to the Abiquo installation directory. The logo file should be a .png, .jpg or other web compatible image file. The resolution should be 72 ppi and the image size should be 130 x 70 pixels | | 
+|   Enable tutorials | (/) | - | | 
+|   Elements per page in main lists | 25 | - | | 
+|   URL displayed when the enterprise logo is clicked | http://www.abiquo.com | This web page will be displayed when the Abiquo server has access to the URL | | 
+|   Display Report button linked to this URL (empty -> no Report button display) |  | To display the report button, enter the report URL here. Clicking the icon will open this page and pass the user's enterprise as a parameter (in the form ?enterprise=1). Users must also have the Access Reports privilege in order to display the report icon and access the report page. By default this privilege is assigned to the cloud admin role | | 
+|   Allow user to change their password | (/) | Mark this checkbox to enable users to open a popup to edit their personal details by clicking on the link in the top right corner of the screen. The user personal details include the password if platform authentication is used. The information that can be edited varies, depending on the user. If this option is disabled, the user details can only be edited in Users view | | 
+|   Allow user to logout | (/) | Allow users to log out by clicking on the "logout" link in the top right corner of the screen. Otherwise the link will not be displayed, and users will only be logged out when their browser session ends | | 
+|   Show virtual machine hard disk tab | (/) | Display the virtual machine hard disk tab. CHECK IF NOW USER PRIVILEGES | | 
+|   Redirect to this URL after logout (empty -> login screen) |  | If no URL is supplied, the login screen is opened after logout | | 
+|   Default view after login | 0 | Select from the pull-down list of Abiquo views - Home, Infrastructure, Virtual Datacenters, etc. The Home view is the system default. If another view is set as the system default and the user does not have enough privileges to open it, the Home view will open | | 
+|   Show details of soft limits when reached | (/) | If this option is not selected, the soft limits message will state that the limits have been reached and allow the user to decide if they want to continue | | 
+|   Show details of hard limit when reached | (/) | If this option is not selected, the hard limits message will state that the limits have been reached and that the operation cannot be performed | | 
+|   Workflow endpoint |  | Enter the URL endpoint for the workflow process. If workflow is enabled, Abiquo will send workflow requests to this URL. The workflow endpoint is the URL of the web application that connects to the workflow tool. If you do not have the URL for the workflow endpoint, check with your system administrator | | 
+|   Enable workflow | (x) | If workflow is enabled, in Virtual Datacenters view, the Workflow Tasks tab will display queued tasks. Before you enable workflow, enter the Workflow endpoint, otherwise tasks in progress will fail because of the missing endpoint | | 
+|   Enable firewall for private VDC | (x) | Firewall front end for datacenters with their own firewall integrations | | 
+|   Enable load balancer for private VDC | (x) | - | | 
+|| h6. Infrastructure || Default || Notes || Info || 
+|   Default Abiquo template repo (will not be created if empty) | http://abiquo-repository.abiquo.com/ovfindex.xml | - | | 
+|   Refresh interval for remote template download progress (seconds) | 10 | How often the background process will check the download to update the progress bar when you Add VM Template from Remote Repository to the appliance library of a datacenter. The update interval is indicated by a countdown timer in the lower right corner of the screen | | 
+|   Default latitude for datacenters map | 41.3825 | The decimal latitude of the map location you will see when OpenStreetMap opens in the Infrastructure view. The default value is for Barcelona | | 
+|   Default longitude for datacenters map | 2.176944 | The decimal longitude of the map location you will see when OpenStreetMap opens in the Infrastructure view. The default value is for Barcelona | | 
+|   Default zoom level for datacenters map | 4 | - | | 
+|   Refresh interval for infrastructure data (seconds) | 30 | More than one cloud administrator can work with the same Abiquo platform at the same time. Thus the infrastructure page is updated so that changes in datacenters are propagated to all servers. The update interval is indicated by a countdown timer in the lower right corner of the screen in Infrastructure view | | 
+|   Refresh interval for event log (seconds) | 10 | How often Abiquo updates the display of the event log in the Home View | | 
+|   Number of IP addresses in lists | 25 | - | | 
+|   Allow remote access to virtual machines | (/) | When enabled, you can click the eye icon for a virtual machine within a virtual datacenter to open a hypervisor shell window. This option does not affect remote shell access (e.g. ssh). Otherwise, the eye icon is disabled. For more information see Configure Remote Access to Virtual Machines | | 
+|   Refresh interval for virtual appliance deployment progress (seconds) | 5 | How often the background process checks the deployment of virtual appliances and updates the virtual appliance state. Indicated by a countdown timer in the bottom right corner of the screen on the Virtual Appliance page. For more information please see Manage Virtual Appliances | | 
+|   Refresh interval for virtual appliance (seconds) | 30 | How often the background process checks the state of virtual appliances and updates the state. Indicated by a countdown timer in the bottom right corner of the screen on the Virtual Appliance page. For more information please see Manage Virtual Appliances | | 
+|   Default hypervisor password | temporal | - | | 
+|   Default hypervisor port |  | - | | 
+|   Default Hypervisor user | root | - | | 
+|   Allowed virtual storage volume sizes (gigabytes) | 1,2,4,8,16,32,64,128,256 | Values displayed in gigabytes on the form for adding a new volume to a virtual datacenter. Enter values separated by commas with no spaces. You can enter values with decimal places and values lower than one | | 
+|   Default minimum VLAN ID | 2 | - | | 
+|   Default maximum VLAN ID | 4094 | - | | 
+|   Refresh interval for missing VM template conversions (seconds) | 5 | When you edit a virtual machine template in your appliance library (uploaded from local machine/downloaded from repository), you can launch a background process to generate all the missing template formats for other hypervisors. In the template formats list, the state of all template conversions is indicated and it gets refreshed by a background process. Because this is a pop-up screen, there is no countdown timer | | 
+|   Max quantity of IPs to create | 1022 | - | | 
+|| h6. Network || Default || Notes || Info || 
+||  Network|| || Default private VLAN for virtual datacenters  || || 
+|   Name | default_private_network | The name of the default private VLAN | | 
+|   Netmask | 2 | The network mask of the default private VLAN | | 
+|   Network address | 192.168.0.0 | The network address of the default private VLAN | | 
+|   Gateway | 192.168.0.1 | The gateway of the network. Make sure the gateway is an IP address inside the range defined by the network address and the network mask | | 
+|   Primary DNS |  | - | | 
+|   Secondary DNS |  | - | | 
+|   DNS suffix |  | - | | 
+|| h6. Dashboard || Default || Notes || Info || 
+|   URL of documentation home page | http://wiki.abiquo.com | - | | 
+|   Show Users button on main toolbar | (/) | If selected, the users button is displayed, and both cloud administrators and enterprise administrators can edit users. If not selected, no users icon is displayed and no one can edit users until the cloud administrator changes this option | | 
+|   Refresh interval for dashboard (seconds) | 30 | Time interval between updates of the monitoring dashboard of the Home View to allow multiple users to make and see changes. Indicated with a countdown timer in the lower right-hand corner of the screen | | 
+|   URL to purchase licenses | http://www.abiquo.com/license | URL that will be shown in Abiquo to enable users to purchase licenses | | 
+|| h6. Password || Default || Notes || Info || 
+|   Number of previous passwords that cannot be repeated | 1 | Set a history value to prevent users from repeating old passwords. The platform will check new passwords against the password history. The range of values is 0 to 100, and the default value of 1 password  means that users cannot repeat the previous password. To disable this check, set the value to 0 | | 
+|   Maximum password age (days) | 0 | Prevent users from keeping the same password for a long time by setting a maximum password age. The range of values is from 0 to 999 days. To disable this check, set the value to 0 | | 
+|   Minimum time until password can be changed (days) | 0 | Prevent users from quickly changing their password, especially back to an old password by setting a minimum password age. This is the minimum time from when a password is changed until the password can be changed again. The range of values is from 0 to 999 days. To disable this check, set the value to 0 | | 
+|   Minimum password length | 8 | Prevent users from creating short passwords that are easier to break by setting a minimum password length. The range of values is from 1 to 21 characters | | 
+|   Require complex password | (x) | If selected, the user must enter a complex password. A complex password must not contain the user's name and must include at least three of the following five categories - uppercase letters, lowercase letters, digits, non-alphanumeric characters and other unicode characters | | 
+|   Tries before user account is locked | 0 | Number of unsuccessful login attempts that a user can make before their account is locked. The range of values is 0 to 5 tries. The default value of 0 means that the check is disabled by default | | 
+|   Account lock duration (minutes) | 1 | Length of time in minutes that a user account is locked after the user has made too many unsuccessful login attempts. The range of values is from 1 to 60 minutes | | 
+|   Allow password reset | (x) | If selected, the platform will allow a user to reset their password | | 
+|   Reset password URI | http://localhost/ui/ | Enter a URI that the platform will redirect to when users request a password reset | | 
+|| h6. Wiki links || Default || Notes || Info || 
+|   Show help button | (/) | To display the help icon on all pop-ups, mark the Show help icon checkbox. This icon will take the user to the specific help page for the pop-up or the default help page | | 
+|   Show default help button | (x) | If there is no specific help page for a pop-up, show a default help page | | 
+|   Default help URL | http://wiki.abiquo.com/display/ABI32/Abiquo+Documentation+Home | To show the help icon on pop-ups without specific help pages. Otherwise, the default help icon will not display | | 
+ 
+ 
+h3. Wiki links
+|| h6. Infrastructure || Default || Info || 
+|  Create datacenter | http://wiki.abiquo.com/display/ABI32/Manage+Datacenters+and+Public+Cloud+Regions | | 
+|  Edit datacenter | http://wiki.abiquo.com/display/ABI32/Manage+Datacenters+and+Public+Cloud+Regions#ManageDatacentersandPublicCloudRegions-ModifyaDatacenteroraPublicCloudRegion | | 
+|  Manage remote services | http://wiki.abiquo.com/display/ABI32/Manage+Datacenters+and+Public+Cloud+Regions#ManageDatacentersandPublicCloudRegions-ManageRemoteServices | | 
+|  Edit remote service | http://wiki.abiquo.com/display/ABI32/Manage+Datacenters+and+Public+Cloud+Regions#ManageDatacentersandPublicCloudRegions-ModifyRemoteServices | | 
+|  Create physical machine | http://wiki.abiquo.com/display/ABI32/Compute+in+Datacenters#ComputeinDatacenters-CreateMachines | | 
+|  Manage datastores | http://wiki.abiquo.com/display/ABI31/Compute+in+Datacenters#ComputeinDatacenters-ManageDatastores | | 
+|  Create rack | http://wiki.abiquo.com/display/ABI32/Compute+in+Datacenters#ComputeinDatacenters-CreateRacks | | 
+|  Mail notification | http://wiki.abiquo.com/display/ABI32/Compute+in+Datacenters#ComputeinDatacenters-SendingEmailNotifications | | 
+|  Create public VLAN | http://wiki.abiquo.com/display/ABI32/Manage+Public+Networks | | 
+|  Create VLAN static routes | http://wiki.abiquo.com/display/ABI32/Manage+Public+Networks#ManagePublicNetworks-ConfigurestaticroutesusingDHCP | | 
+|  Create storage device | http://wiki.abiquo.com/display/ABI32/Storage#Storage-CreatePersistentStorageDevices | | 
+|  Create storage pools | http://wiki.abiquo.com/display/ABI32/Storage#Storage-AddStoragePools | | 
+|  Edit tiers | http://wiki.abiquo.com/display/ABI32/Storage#Storage-ManageStorageServiceLevelswithTiers | | 
+|  Set global allocation rules | http://wiki.abiquo.com/display/ABI32/Allocation+Rules#AllocationRules-GlobalRulesManagement | | 
+|  Set datacenter allocation rules | http://wiki.abiquo.com/display/ABI32/Allocation+Rules#AllocationRules-DatacenterRulesManagement | | 
+|| h6. Virtual datacenters || Default || Info || 
+|  Create virtual datacenter | http://wiki.abiquo.com/display/ABI32/Manage+Virtual+Datacenters#ManageVirtualDatacenters-Createavirtualdatacenter | | 
+|  Create virtual appliance | http://wiki.abiquo.com/display/ABI32/Manage+Virtual+Appliances#ManageVirtualAppliances-CreateaVirtualAppliance | | 
+|  Create private network | http://wiki.abiquo.com/display/ABI32/Manage+Networks#ManageNetworks-Createaprivatenetwork | | 
+|  Create public network | http://wiki.abiquo.com/display/ABI32/Manage+Networks#ManageNetworks-ObtainIPaddressesfrompublicnetworks | | 
+|  Create volume | http://wiki.abiquo.com/display/ABI32/Manage+Virtual+Storage+in+Datacenters#ManageVirtualStorageinDatacenters-CreatingaVolumeofManagedStorage | | 
+|  Edit virtual machine | http://wiki.abiquo.com/display/ABI32/Configure+Virtual+Machines | | 
+|  Use instances of virtual machines | http://wiki.abiquo.com/display/ABI32/Manage+Virtual+Machines#ManageVirtualMachines-AddInstancesofVirtualMachinesinDatacenter | | 
+|  Create VM network interface | http://wiki.abiquo.com/display/ABI32/Configure+Virtual+Machines#ConfigureVirtualMachines-ManageVMNetworkInterfaces | | 
+|  Create VM instance | http://wiki.abiquo.com/display/ABI32/Create+Virtual+Machine+Instances | | 
+|  Create persistent VM | http://wiki.abiquo.com/display/ABI32/Create+Persistent+Virtual+Machines+in+Datacenters | | 
+|  Capture VM | http://wiki.abiquo.com/display/ABI32/Import+and+Capture+Virtual+Machines | | 
+|  More info while deploying VApp |  | | 
+|  Create VM layer | http://wiki.abiquo.com/display/ABI32/Configure+VM+High+Availability#ConfigureVMHighAvailability-CreateanAnti-affinityLayer | | 
+|  Create/edit firewall | http://wiki.abiquo.com/display/ABI32/Manage+Firewalls#ManageFirewalls-Createafirewall | | 
+|  Edit firewall rules | http://wiki.abiquo.com/display/ABI32/Manage+Firewalls#ManageFirewalls-Editfirewallrules | | 
+|  Create/edit load balancer | http://wiki.abiquo.com/display/ABI31/Manage+Load+Balancers | | 
+|| h6. Apps library || Default || Info || 
+|  VM template upload | http://wiki.abiquo.com/display/ABI32/Add+VM+Templates+to+the+Apps+Library#AddVMTemplatestotheAppsLibrary-UploadingfromtheLocalFilesystem | | 
+|| h6. Users || Default || Info || 
+|  Create enterprise | http://wiki.abiquo.com/display/ABI32/Manage+Enterprises#ManageEnterprises-CreateanEnterprise | | 
+|  Datacenter limits | http://wiki.abiquo.com/display/ABI32/Manage+Enterprises#ManageEnterprises-LimitResourcesforanEnterpriseinaDatacenter | | 
+|  Create user | http://wiki.abiquo.com/display/ABI32/Manage+Users#ManageUsers-CreateorEditaUser | | 
+|  Create role | http://wiki.abiquo.com/display/ABI32/Manage+Roles | | 
+|  Create scope | http://wiki.abiquo.com/display/ABI32/Manage+Scopes | | 
+|| h6. Pricing || Default || Info || 
+|  Create currency creation | http://wiki.abiquo.com/display/ABI32/Pricing+View#PricingView-ManageCurrencies | | 
+|  Create cost code | http://wiki.abiquo.com/display/ABI32/Pricing+View#PricingView-ManageCostCodes | | 
+|  Create pricing template | http://wiki.abiquo.com/display/ABI32/Pricing+View#PricingView-ManagePricingModels | | 
+|| h6. Configuration || Default || Info || 
+|  Configuration tab | http://wiki.abiquo.com/display/ABI32/Configuration+View | | 
+|  License tab | http://wiki.abiquo.com/display/ABI32/Configuration+View#ConfigurationView-LicenseManagement | | 

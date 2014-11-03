@@ -98,7 +98,7 @@ client.passwordhistory = Set a history value to prevent users from repeating old
 
 client.passwordmaxage = Prevent users from keeping the same password for a long time by setting a maximum password age. The range of values is from 0 to 999 days. To disable this check, set the value to 0
 
-client.passwordminage = Prevent users from quickly changing their password, especially back to an old password by setting a minimum password age. The range of values is from 0 to 999 days. To disable this check, set the value to 0
+client.passwordminage = Prevent users from quickly changing their password, especially back to an old password by setting a minimum password age. This is the minimum time from when a password is changed until the password can be changed again. The range of values is from 0 to 999 days. To disable this check, set the value to 0
 
 client.passwordlength = Prevent users from creating short passwords that are easier to break by setting a minimum password length. The range of values is from 1 to 21 characters
 

@@ -13,17 +13,19 @@ import readline
 
 def main():
 	apiHeaders = {}
-	print ("Hello!")
+	td = "2014-11-03"
+
 # Enter path in filesystem to a file with the UI tags for fields cloned from github
 #	ui_path = input("Language file path: ").strip()
 	input_subdir = "input_files"
 	output_subdir = "output_files" 
-	output_file_name = "v32_wiki_config_view.txt"
+	output_file_name = "wiki_config_view_" + td + ".txt"
+	extra_text_file_name = 'process_config_view_extratext_' + td + '.txt'
 	ui_path = "../platform/ui/app/"
 	ui_path_lang = ui_path + "lang/"
 	ui_path_html = ui_path + "modules/configuration/partials/"
-	apiAuth = raw_input("Enter API authorization: ")
-	apiIP = raw_input("Enter API address: ")
+	apiAuth = raw_input("Enter API authorization, e.g. Basic XXXX: ")
+	apiIP = raw_input("Enter API address, e.g. api.abiquo.com: ")
 # Get system properties data from the API of a fresh Abiquo	
 #	apiAuth = input("Authorization: ").strip()
 #	apiIP = input("API IP address: ").strip()
@@ -134,7 +136,7 @@ def main():
 			store_ui_label[uikkey] = ui_data[uik]
 
 # Process the text file with the wiki notes about the system properties. It has lower case keys
-	with open(os.path.join(input_subdir,'v32_process_config_view_extratext.txt'), 'r') as extra_text_file:
+	with open(os.path.join(input_subdir,extra_text_file_name), 'r') as extra_text_file:
 		extra_text_all = extra_text_file.read()
 	extra_text_list = extra_text_all.split("\n\n")
 	
@@ -247,10 +249,10 @@ def main():
 			if tgso == "Wikilinks":
 				tgso = "Wiki links"
 #			subheader = "h4. " + tgso + " properties")	
-			subheader = "|| h6. " + tgso + " || Default || Notes || \n"
+			subheader = "|| h6. " + tgso + " || Default || Notes || Info || \n"
 			outfile.write (subheader)
 			if tgso == "Network":
-				subheader_network_extra = "||  " + tgso + "|| || Default private VLAN for virtual datacenters  || \n"
+				subheader_network_extra = "||  " + tgso + "|| || Default private VLAN for virtual datacenters  || || \n"
 				outfile.write(subheader_network_extra)
 
 		su = su.strip()	
@@ -273,7 +275,7 @@ def main():
 					if value_output == "0":
 						value_output = ("(x)")	
 		sp = str(sp + 1)
-		table_line = "|   " + ui_label_output + " | " + value_output + " | " + extra_text_output + " | \n"
+		table_line = "|   " + ui_label_output + " | " + value_output + " | " + extra_text_output + " | | \n"
 		outfile.write(table_line)
 				
 #				print ("| " + store_key[su] + " | " + store_group[su] + " | " + store_ui_label[su] + " | " + store_value[su] + " |") 
@@ -292,10 +294,10 @@ def main():
 				lgso = "Virtual datacenters"
 			if lgso == "Apps_library":
 				lgso = "Apps library"		
-			subheader_wiki_links =  "|| h6. " + lgso + " || Default || \n"
+			subheader_wiki_links =  "|| h6. " + lgso + " || Default || Info || \n"
 			outfile.write (subheader_wiki_links)
 		sgp = str(sgp + 1)
-		wiki_link_output = "|  "+store_ui_label[swgg]+" | "+store_value[swgg]+" | \n"
+		wiki_link_output = "|  "+store_ui_label[swgg]+" | "+store_value[swgg]+" | | \n"
 		outfile.write (wiki_link_output)
 
 
