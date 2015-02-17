@@ -30,17 +30,17 @@ class main():
 			print "space line"
 			property_description_list = []
 			property_name = ""
-			property_category = []
 			property_description = ""
 			property_type = ""
 			property_default = ""
-			continue
+		
 	
-		if re.match("#",property_line):
+		elif re.match("#",property_line):
 			print "matched comment"
 			print  property_line
 			if re.match("#####",property_line):
 				print "matched profiles"
+				property_category = []
 				if re.search("MULTIPLE PROFILES",property_line):
 					continue
 				if re.search("SERVER",property_line):
@@ -55,7 +55,7 @@ class main():
 				print "no matched comment"
 				print property_line
 		# 	Check for property name and value in an optional (commented property)
-				property_match = re.search("([\w.]+?)([=]{1,1})(\S+?)",property_line)
+				property_match = re.search("([\w.]+?)([\s]?)([=]{1,1})([\s]?)([\S]*)",property_line)
 #				property_match = re.search("(\w\.+?)(=)(\w)",property_line)
 				if property_match:
 					print "matched an optional property"
@@ -63,33 +63,35 @@ class main():
 					# the first group is the property name
 					property_name = property_match.group(1)
 					# the third group, if it exists, is the property default value
-					if property_match.group(3):
-						property_default = property_match.group(3)
+					if property_match.group(5):
+						print property_match.group(5)
+						property_default = property_match.group(5)
 					else:
 						property_default = ""	
 					print "property name: %s" % property_name	
 				else:	
 					print "property description added"
 					print "property_line 1: %s " % property_line[1:]
-					property_description_list.append(property_line[1:])
-		else:
-			property_description = " ".join(property_description_list)			
+					property_description_list.append(property_line[1:].strip()) 
+		else:	
 #			property_match = re.search("(\w\.+)(\=)(\S+)",property_line)
-			property_match = re.search("([\w.]+?)([=]{1,1})(\S+?)",property_line)
+			property_match = re.search("([\w.]+?)([\s]?)([=]{1,1})([\s]?)([\S]*)",property_line)
 			if property_match:
 				print "matched a mandatory property"
 				property_type = "mandatory"
 				# the first group is the property name
 				property_name = property_match.group(1)
-				# the third group, if it exists, is the property default value
-				if property_match.group(3):
-					property_default = property_match.group(3)
+				# the fourth group, if it exists, is the property default value
+				if property_match.group(5):
+					print property_match.group(5)
+					property_default = property_match.group(5)
 				else:
 					property_default = ""	
 				print property_name
-
-		aproperty = prop(property_name,property_category,property_type,property_description,property_default)
-		aproperty.pprint()
+		if property_name:	
+			property_description = " ".join(property_description_list)			
+			aproperty = prop(property_name,property_category,property_type,property_description,property_default)
+			aproperty.pprint()
 	
 	# Create a dictionary of properties
 	# Ask user what server profile they have
