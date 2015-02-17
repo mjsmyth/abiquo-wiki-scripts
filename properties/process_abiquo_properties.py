@@ -2,16 +2,17 @@
 import re
 
 class prop:
-	def __init__(self,apropName,apropCategory,apropType,apropDescription,apropDefault):
+	def __init__(self,apropName,apropCategory,apropType,apropDescription,apropDefault,apropRange):
 		self.pName = apropName
 		self.pCategory = apropCategory
 		self.pType = apropType
 		self.pDescription = apropDescription
 		self.pDefault = apropDefault
+		self.pRange = apropRange
 	
 	def pprint(self):
 		prCategory = " ".join(self.pCategory)
-		print "| %s | %s | %s | %s | %s |" % (self.pName,prCategory,self.pType,self.pDescription,self.pDefault)
+		print "| %s | %s | %s | %s | %s | %s |" % (self.pName,prCategory,self.pType,self.pDescription,self.pDefault,self.pRange)
 
 class main():
 	# Read git properties file line by line
@@ -24,22 +25,23 @@ class main():
 	property_description = ""
 	property_type = ""
 	property_default = ""
+	property_range = ""
 
 	for property_line in content:
 		if re.match("\n", property_line):
-			print "space line"
+#			print "space line"
 			property_description_list = []
 			property_name = ""
 			property_description = ""
 			property_type = ""
 			property_default = ""
+			property_range = ""
 		
-	
 		elif re.match("#",property_line):
-			print "matched comment"
-			print  property_line
+#			print "matched comment"
+#			print  property_line
 			if re.match("#####",property_line):
-				print "matched profiles"
+#				print "matched profiles"
 				property_category = []
 				if re.search("MULTIPLE PROFILES",property_line):
 					continue
@@ -52,45 +54,49 @@ class main():
 				if re.search("M OUTBOUND API",property_line):
 					property_category.append("OUTBOUNDAPI")
 			else:
-				print "no matched comment"
-				print property_line
+#				print "no matched comment"
+#				print property_line
 		# 	Check for property name and value in an optional (commented property)
-				property_match = re.search("([\w.]+?)([\s]?)([=]{1,1})([\s]?)([\S]*)",property_line)
+				property_match = re.search("([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)",property_line)
 #				property_match = re.search("(\w\.+?)(=)(\w)",property_line)
 				if property_match:
-					print "matched an optional property"
+#					print "matched an optional property"
 					property_type = "optional"
 					# the first group is the property name
 					property_name = property_match.group(1)
 					# the third group, if it exists, is the property default value
 					if property_match.group(5):
-						print property_match.group(5)
+#						print property_match.group(5)
 						property_default = property_match.group(5)
 					else:
 						property_default = ""	
-					print "property name: %s" % property_name	
+#					print "property name: %s" % property_name	
 				else:	
-					print "property description added"
-					print "property_line 1: %s " % property_line[1:]
+#					print "property description added"
+#					print "property_line 1: %s " % property_line[1:]
 					property_description_list.append(property_line[1:].strip()) 
 		else:	
 #			property_match = re.search("(\w\.+)(\=)(\S+)",property_line)
-			property_match = re.search("([\w.]+?)([\s]?)([=]{1,1})([\s]?)([\S]*)",property_line)
+			property_match = re.search("([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)",property_line)
 			if property_match:
-				print "matched a mandatory property"
+#				print "matched a mandatory property"
 				property_type = "mandatory"
 				# the first group is the property name
 				property_name = property_match.group(1)
 				# the fourth group, if it exists, is the property default value
 				if property_match.group(5):
-					print property_match.group(5)
+#					print property_match.group(5)
 					property_default = property_match.group(5)
 				else:
 					property_default = ""	
-				print property_name
-		if property_name:	
+#				print property_name
+		if property_name:				
 			property_description = " ".join(property_description_list)			
-			aproperty = prop(property_name,property_category,property_type,property_description,property_default)
+			property_range_search = re.search("(Range:[\s]*?)(.*)",property_description)
+			if property_range_search:
+				property_range = property_range_search.group(2) 
+				property_description = re.sub(property_range_search.group(0),"",property_description)
+			aproperty = prop(property_name,property_category,property_type,property_description,property_default,property_range)
 			aproperty.pprint()
 	
 	# Create a dictionary of properties
