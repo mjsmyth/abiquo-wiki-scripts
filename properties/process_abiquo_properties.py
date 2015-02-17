@@ -56,9 +56,8 @@ class main():
 			else:
 #				print "no matched comment"
 #				print property_line
-		# 	Check for property name and value in an optional (commented property)
+				# 	search for a property name and optional default value
 				property_match = re.search("([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)",property_line)
-#				property_match = re.search("(\w\.+?)(=)(\w)",property_line)
 				if property_match:
 #					print "matched an optional property"
 					property_type = "optional"
@@ -76,7 +75,7 @@ class main():
 #					print "property_line 1: %s " % property_line[1:]
 					property_description_list.append(property_line[1:].strip()) 
 		else:	
-#			property_match = re.search("(\w\.+)(\=)(\S+)",property_line)
+#			search for a property name and optional default value
 			property_match = re.search("([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)",property_line)
 			if property_match:
 #				print "matched a mandatory property"
