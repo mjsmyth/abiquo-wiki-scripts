@@ -17,19 +17,30 @@ class main():
 	# Read git properties file line by line
 	with open("abiquo.properties.txt") as f:
 		content = f.readlines()
+	
+	property_description_list = []
+	property_name = ""
+	property_category = []
+	property_description = ""
+	property_type = ""
+	property_default = ""
 
 	for property_line in content:
 		if re.match("\n", property_line):
+			print "space line"
+			property_description_list = []
+			property_name = ""
+			property_category = []
+			property_description = ""
+			property_type = ""
+			property_default = ""
 			continue
-		property_name = ""
-		property_category = []
-		property_description_list = []
-		property_description = ""
-		property_type = ""
-		property_default = ""
 	
 		if re.match("#",property_line):
+			print "matched comment"
+			print  property_line
 			if re.match("#####",property_line):
+				print "matched profiles"
 				if re.search("MULTIPLE PROFILES",property_line):
 					continue
 				if re.search("SERVER",property_line):
@@ -41,9 +52,13 @@ class main():
 				if re.search("M OUTBOUND API",property_line):
 					property_category.append("OUTBOUNDAPI")
 			else:
+				print "no matched comment"
+				print property_line
 		# 	Check for property name and value in an optional (commented property)
-				property_match = re.search("(\w\.+?)(=)(\w)",property_line)
+				property_match = re.search("([\w.]+?)([=]{1,1})(\S+?)",property_line)
+#				property_match = re.search("(\w\.+?)(=)(\w)",property_line)
 				if property_match:
+					print "matched an optional property"
 					property_type = "optional"
 					# the first group is the property name
 					property_name = property_match.group(1)
@@ -52,13 +67,17 @@ class main():
 						property_default = property_match.group(3)
 					else:
 						property_default = ""	
+					print "property name: %s" % property_name	
 				else:	
-					property_description_list.append(property_type[1:])
+					print "property description added"
+					print "property_line 1: %s " % property_line[1:]
+					property_description_list.append(property_line[1:])
 		else:
 			property_description = " ".join(property_description_list)			
 #			property_match = re.search("(\w\.+)(\=)(\S+)",property_line)
-			property_match = re.search("(\w\.+?)(=)(\w)",property_line)
+			property_match = re.search("([\w.]+?)([=]{1,1})(\S+?)",property_line)
 			if property_match:
+				print "matched a mandatory property"
 				property_type = "mandatory"
 				# the first group is the property name
 				property_name = property_match.group(1)
@@ -67,6 +86,8 @@ class main():
 					property_default = property_match.group(3)
 				else:
 					property_default = ""	
+				print property_name
+
 		aproperty = prop(property_name,property_category,property_type,property_description,property_default)
 		aproperty.pprint()
 	
