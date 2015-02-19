@@ -1,0 +1,43 @@
+<table>
+<tbody>
+
+<tr>
+<th class="warning" data-highlight-class="warning"><p>Property</p></th>
+<th class="warning" data-highlight-class="warning"><p>Default</p></th>
+<th class="warning" data-highlight-class="warning"><p>Range</p></th>
+<th class="warning" data-highlight-class="warning"><p>Description</p></th>
+{{#headingLinks}}
+<th class="warning" colspan="1" data-highlight-class="warning"><ac:link><ri:attachment ri:filename="{{profileExampleFile}}" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="{{profileExampleImage}}" /></ac:image></ac:link-body></ac:link></th>
+<th class="warning" colspan="1" data-highlight-class="warning">Info</th>
+</tr>
+{{/headingLinks}}
+
+{{#category}}
+<tr><th class="warning" data-highlight-class="warning"><p><h6>{{categoryName}}</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+{{#entry}}   
+<tr><td><p> {{propertyName}} </p></td><td><p> {{propertyDefault}} </p></td><td><p> {{propertyRange}} </p></td><td><p> {{propertyDescription}} </p></td>
+{{#profile}}
+<td><p>
+<td><p> <ac:link><ri:attachment ri:filename="{{profileExampleFile}}" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="{{profileExampleImage}}" /></ac:image></ac:link-body></ac:link> </p></td>
+</p></td> 
+{{/profile}}
+{{^profile}}
+<td><p>
+</p></td>
+{{/profile}}
+</tr>
+
+{{/entry}}
+
+{{/category}}
+</tbody>
+</table>
+
+<tr><td><p> abiquo.rabbitmq.connectionTimeout </p></td><td><p> 0 </p></td><td><p>   </p></td><td><p>  Timeout for establishing a connection to RabbitMQ. The default value of 0 means to wait indefinitely until connection established or error (milliseconds) </p></td><td><p> <ac:link><ri:attachment ri:filename="properties_api_2014-10-29.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td><td><p> <ac:link><ri:attachment ri:filename="properties_rs_2014-10-29.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td><td><p> <ac:link><ri:attachment ri:filename="properties_v2v_2014-10-29.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_v2v_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td><td><p>   </p></td><td><p></p></td></tr>
+<tr><td><p> abiquo.rabbitmq.host </p></td><td><p> 127.0.0.1 </p></td><td><p>   </p></td><td><p>  Address where RabbitMQ is located </p></td><td><p> <ac:link><ri:attachment ri:filename="properties_api_2014-10-29.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td><td><p> <ac:link><ri:attachment ri:filename="properties_rs_2014-10-29.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td><td><p> <ac:link><ri:attachment ri:filename="properties_v2v_2014-10-29.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_v2v_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td><td><p>   </p></td><td><p></p></td></tr>
+

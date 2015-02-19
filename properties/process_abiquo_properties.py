@@ -97,7 +97,10 @@ class main():
 				property_description = re.sub(property_range_search.group(0),"",property_description)
 			aproperty = prop(property_name,property_category,property_type,property_description,property_default,property_range)
 			aproperty.pprint()
+	# Use mustache
+	# Create a table like in the wiki
 	
+
 	# Create a dictionary of properties
 	# Ask user what server profile they have
 	# Ask for IP address of server?
