@@ -48,7 +48,7 @@ def wikiProperty(rawProp,profiles,filedetails):
 			property_profile_item['profileExampleFile'] = ""
 			property_profile_item['profileExampleImage'] = ""
 		property_entry['propertyProfiles'].append(property_profile_item)	
-
+	return property_entry	
 
 def main():
 	# Read git properties file line by line
@@ -70,7 +70,7 @@ def main():
 	property_type = ""
 	property_default = ""
 	property_range = ""
-	property_dict = tree()
+	property_wiki = {}
 
 	profiles = {"API": "SERVER","RS": "REMOTESERVICE","V2V": "V2VSERVICES","OA":"M OUTBOUND API"}
 
@@ -138,8 +138,9 @@ def main():
 				property_range = property_range_search.group(2) 
 				property_description = re.sub(property_range_search.group(0),"",property_description)
 			aproperty = prop(property_name,property_categories,property_type,property_description,property_default,property_range)
-
 			aproperty.pprint()
+			property_wiki = wikiProperty(aproperty,profiles,fdetails)
+			
 	# Use mustache
 	# Create a table like in the wiki
 	
