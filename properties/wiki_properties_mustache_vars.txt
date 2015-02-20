@@ -1,0 +1,19 @@
+{{#headingLink}}
+	{{ExampleFile}}
+	{{ExampleImage}}
+{{/headingLinks}}
+{{#category}}
+	{{categoryName}}
+	{{#entry}}   
+		{{propertyName}} 
+		{{propertyDefault}} 
+		{{propertyRange}} 
+ 		{{propertyDescription}} 
+		{{#propertyProfile}} 
+			{{profileExampleFile}}
+			{{profileExampleImage}}
+		{{/propertyProfile}}
+		{{^propertyProfile}}
+		{{/propertyProfile}}
+	{{/entry}}
+{{/category}}
