@@ -2,18 +2,18 @@
 	{{ExampleFile}}
 	{{ExampleImage}}
 {{/headingLinks}}
-{{#category}}
+{{#categories}}
 	{{categoryName}}
 	{{#entry}}   
 		{{propertyName}} 
 		{{propertyDefault}} 
 		{{propertyRange}} 
  		{{propertyDescription}} 
-		{{#propertyProfile}} 
+		{{#propertyProfiles}} 
 			{{profileExampleFile}}
 			{{profileExampleImage}}
-		{{/propertyProfile}}
-		{{^propertyProfile}}
-		{{/propertyProfile}}
+		{{/propertyProfiles}}
+		{{^propertyProfiles}}
+		{{/propertyProfiles}}
 	{{/entry}}
-{{/category}}
+{{/categories}}
