@@ -1,5 +1,6 @@
 #!/usr/bin/python2 -tt
 import sys
+import os
 import json
 import re
 import collections
@@ -26,23 +27,33 @@ class prop:
 		prCategories = " ".join(self.pCategories)
 		print "| %s | %s | %s | %s | %s | %s |" % (self.pName,self.pDefault,self.pRange,self.pDescription,prCategories,self.pType)
 
+def open_if_not_existing(filename):
+	try:
+		fd = os.open(filename, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+	except:
+		print ("File: %s already exists" % filename)
+		return None
+	fobj = os.fdopen(fd, "w")
+	return fobj
 
 def tree(): return collections.defaultdict(tree)
 
 def wikiProperty(rawProp,profiles,filedetails):
+	property_entry = {}
 	property_entry['propertyName'] = rawProp.pName
 	property_entry['propertyDefault'] = rawProp.pDefault
 	property_entry['propertyRange'] = rawProp.pRange
 	property_entry['propertyDescription'] = rawProp.pDescription
 	property_entry['propertyProfiles'] = []
-
-	fileName = filePrefix + "_"  + fileDate + "." + fileSuffix
-
-	for profile in profiles:
-		if profile in prCategories:
+	prtCategories = " ".join(rawProp.pCategories)
+	print ("categories: %s" % prtCategories) 
+	for prix, profile in profiles.viewitems():
+		print "prix %s profile %s " % (prix, profile)
+		if profile in rawProp.pCategories:
+			print ("Found category: %s " % profile)
 			property_profile_item = {}
-			property_profile_item['profileExampleFile'] = filedetails.fprefix + filedetails.fdate + profile.lower() + filedetails.fsuffix
-			property_profile_item['profileExampleImage'] = filedetails.iprefix + profile.lower + filedetails.isuffix
+			property_profile_item['profileExampleFile'] = filedetails.fprefix + profile.lower() + filedetails.fdate + filedetails.fsuffix
+			property_profile_item['profileExampleImage'] = filedetails.iprefix + profile.lower() + filedetails.isuffix
 		else:
 			property_profile_item = {}
 			property_profile_item['profileExampleFile'] = ""
@@ -60,7 +71,7 @@ def main():
 	fileSuffix = ".txt"
 	imagePrefix = "v26_symbol_"
 	imageSuffix = "_transparent.png"
-	fdetails = filedetails(fileDate,filePrefix,fileSuffix,imagePrefix,imageSuffix)
+	fdetails = filedetails(filePrefix,fileSuffix,fileDate,imagePrefix,imageSuffix)
 
 	property_description_list = []
 	
@@ -71,8 +82,8 @@ def main():
 	property_default = ""
 	property_range = ""
 	property_wiki = {}
-
-	profiles = {"API": "SERVER","RS": "REMOTESERVICE","V2V": "V2VSERVICES","OA":"M OUTBOUND API"}
+	wiki_property_dict = {}
+	profiles = {"SERVER": "API","REMOTESERVICE": "RS","V2VSERVICES": "V2V","M OUTBOUND API":"OA"}
 
 	for property_line in content:
 		if re.match("\n", property_line):
@@ -92,9 +103,10 @@ def main():
 				property_categories = []
 				if re.search("MULTIPLE PROFILES",property_line):
 					continue
-				for profile in profiles:
-					if re.search(profiles[profile],property_line):
-						property_categories.append(profile)
+				else:
+					for profile in profiles:
+						if re.search(profile,property_line):
+							property_categories.append(profiles[profile])
 			else:
 #				print "no matched comment"
 #				print property_line
@@ -140,8 +152,17 @@ def main():
 			aproperty = prop(property_name,property_categories,property_type,property_description,property_default,property_range)
 			aproperty.pprint()
 			property_wiki = wikiProperty(aproperty,profiles,fdetails)
+			wiki_property_dict[property_name] = property_wiki
+
+#	fwp = os.path.join(sbdir,filename)
+	jwf = open_if_not_existing("fwp.json")
+	# dump json
+	if jwf:
+		json.dump(wiki_property_dict, jwf)
+		jwf.close
+
 			
-	# Use mustache
+				# Use mustache
 	# Create a table like in the wiki
 	
 
