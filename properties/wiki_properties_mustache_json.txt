@@ -1,5 +1,5 @@
 {
-	"headingLink": [
+	"headingLinks": [
 		{ 
 			"ExampleFile": "properties_api_2015-03-31.txt"
 			"ExampleImage" : "v26_symbol_api_transparent.png"
@@ -17,9 +17,9 @@
 			"ExampleImage" : "v26_symbol_oa_transparent.png"
 		}
 	],	
-	"category": [	
+	"categories": [	
 		"categoryName": "happy",
-		"entry": [
+		"entries": [
 			{
 				"propertyName": "abiquo.happy.property.fun"
 				"propertyDefault": "0"

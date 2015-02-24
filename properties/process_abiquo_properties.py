@@ -65,6 +65,8 @@ def main():
 	# Read git properties file line by line
 	with open("abiquo.properties.txt") as f:
 		content = f.readlines()
+
+	entries = []	
 	
 	fileDate = "_2015-03-31"
 	filePrefix = "properties_"
@@ -75,6 +77,8 @@ def main():
 
 	property_description_list = []
 	
+	property_regex = re.compile('([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)')
+	range_regex = re.compile('(Range:[\s]*?)(.*)')
 	property_name = ""
 	property_categories = []
 	property_description = ""
@@ -111,7 +115,8 @@ def main():
 #				print "no matched comment"
 #				print property_line
 				# 	search for a property name and optional default value
-				property_match = re.search("([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)",property_line)
+#				property_match = re.search("([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)",property_line)
+				property_match = property_regex.search(property_line)
 				if property_match:
 #					print "matched an optional property"
 					property_type = "optional"
@@ -130,7 +135,8 @@ def main():
 					property_description_list.append(property_line[1:].strip()) 
 		else:	
 #			search for a property name and optional default value
-			property_match = re.search("([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)",property_line)
+#			property_match = re.search("([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)",property_line)
+			property_match = property_regex.search(property_line)
 			if property_match:
 #				print "matched a mandatory property"
 				property_type = "mandatory"
@@ -143,16 +149,20 @@ def main():
 				else:
 					property_default = ""	
 #				print property_name
+
 		if property_name:				
 			property_description = " ".join(property_description_list)			
-			property_range_search = re.search("(Range:[\s]*?)(.*)",property_description)
+#			property_range_search = re.search("(Range:[\s]*?)(.*)",property_description)
+			property_range_search = range_regex.search(property_description)
 			if property_range_search:
 				property_range = property_range_search.group(2) 
 				property_description = re.sub(property_range_search.group(0),"",property_description)
 			aproperty = prop(property_name,property_categories,property_type,property_description,property_default,property_range)
 			aproperty.pprint()
 			property_wiki = wikiProperty(aproperty,profiles,fdetails)
+			
 			wiki_property_dict[property_name] = property_wiki
+			entries.append(property_wiki)
 
 #	fwp = os.path.join(sbdir,filename)
 	jwf = open_if_not_existing("fwp.json")

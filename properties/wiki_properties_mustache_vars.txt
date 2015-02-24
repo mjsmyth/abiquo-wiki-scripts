@@ -1,10 +1,10 @@
-{{#headingLink}}
+{{#headingLinks}}
 	{{ExampleFile}}
 	{{ExampleImage}}
 {{/headingLinks}}
 {{#categories}}
 	{{categoryName}}
-	{{#entry}}   
+	{{#entries}}   
 		{{propertyName}} 
 		{{propertyDefault}} 
 		{{propertyRange}} 
@@ -15,5 +15,5 @@
 		{{/propertyProfiles}}
 		{{^propertyProfiles}}
 		{{/propertyProfiles}}
-	{{/entry}}
+	{{/entries}}
 {{/categories}}
