@@ -179,7 +179,7 @@ def main():
 			aproperty.pprint()
 			property_wiki = wikiProperty(aproperty,profiles,fdetails)
 			
-			wiki_property_dict[property_name] = property_wiki
+			wiki_property_dict[property_name] = property_wiki.copy()
 
 			property_category_list = property_name.split(".")
 			if property_category_list[1]:
