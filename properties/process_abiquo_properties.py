@@ -4,6 +4,7 @@ import os
 import json
 import re
 import collections
+import pystache
 
 class filedetails:
 	def __init__(self,aprefix,asuffix,adate,aiprefix,aisuffix):
@@ -83,7 +84,7 @@ def main():
 	last_category = ""
 	category_entries = []	
 
-	fileDate = "_2015-03-31"
+	fileDate = "_2015-03-30"
 	filePrefix = "properties_"
 	fileSuffix = ".txt"
 	imagePrefix = "v26_symbol_"
@@ -166,7 +167,7 @@ def main():
 				else:
 					property_default = ""	
 #				print property_name
-
+		property_category = ""
 		if property_name:				
 			property_description = " ".join(property_description_list)			
 #			property_range_search = re.search("(Range:[\s]*?)(.*)",property_description)
@@ -179,27 +180,44 @@ def main():
 			property_wiki = wikiProperty(aproperty,profiles,fdetails)
 			
 			wiki_property_dict[property_name] = property_wiki
-			property_category = ""
+
 			property_category_list = property_name.split(".")
 			if property_category_list[1]:
 				print ("property_category_list: %s " % property_category_list[1])
-				property_category = property_category_list[1]
+				property_category = property_category_list[1][:]
 	
-			if last_category == "":
-				last_category = property_category
+			if not last_category:
+				last_category = property_category[:]
 				# first run - create a new entry
-			elif last_category == property_category:
+				category_entries.append(property_wiki)
+			elif last_category in property_category:
+				print ("Matched category: %s " % property_category)
 				# accumulate entries until end of category
 				category_entries.append(property_wiki)
 			else:
-				category = {}
-				category['categoryName'] = property_category
+				print ("New category: %s" % property_category)
+				# append category to categories
+				category['categoryName'] = property_category[:]
 				category['entries'] = category_entries
 				categories.append(category)
+				# start new category
+				category_entries = []
+				# append existing entry to category
+				category_entries.append(property_wiki)
 				# reset the last category
-				last_category = property_category	
+				last_category = property_category[:]
+
 	wiki_output['headingLinks'] = wikiHeadings(profiles,fdetails)			
 	wiki_output['categories'] = categories			
+
+	#tfilepath = os.path.join(adminSubdir,template)
+	mustacheTemplate = open("wiki_properties_template.mustache", 'r').read()
+	efo = pystache.render(mustacheTemplate, wiki_output).encode('utf-8')
+	ef = open_if_not_existing("wiki_properties_page.txt")
+	if ef:
+		ef.write(efo)
+		ef.close()	
+
 #	fwp = os.path.join(sbdir,filename)
 	jwf = open_if_not_existing("fwp.json")
 	# dump json
