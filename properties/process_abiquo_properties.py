@@ -38,6 +38,17 @@ def open_if_not_existing(filename):
 
 def tree(): return collections.defaultdict(tree)
 
+def wikiHeadings(profiles,filedetails):
+	heading_links_list = []
+	for prix, profile in profiles.viewitems():
+		print "prix %s profile %s " % (prix, profile)
+		header_profile_item = {}
+		header_profile_item['ExampleFile'] = filedetails.fprefix + profile.lower() + filedetails.fdate + filedetails.fsuffix
+		header_profile_item['ExampleImage'] = filedetails.iprefix + profile.lower() + filedetails.isuffix
+		heading_links_list.append(header_profile_item)
+	return heading_links_list
+		
+
 def wikiProperty(rawProp,profiles,filedetails):
 	property_entry = {}
 	property_entry['propertyName'] = rawProp.pName
@@ -66,8 +77,12 @@ def main():
 	with open("abiquo.properties.txt") as f:
 		content = f.readlines()
 
-	entries = []	
-	
+	wiki_output = {}
+	categories = []
+	category = {}
+	last_category = ""
+	category_entries = []	
+
 	fileDate = "_2015-03-31"
 	filePrefix = "properties_"
 	fileSuffix = ".txt"
@@ -77,7 +92,7 @@ def main():
 
 	property_description_list = []
 	
-	property_regex = re.compile('([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)')
+	property_regex = re.compile('([#])?([\s]*)([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)')
 	range_regex = re.compile('(Range:[\s]*?)(.*)')
 	property_name = ""
 	property_categories = []
@@ -116,28 +131,30 @@ def main():
 #				print property_line
 				# 	search for a property name and optional default value
 #				property_match = re.search("([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)",property_line)
-				property_match = property_regex.search(property_line)
+				property_match = property_regex.match(property_line)
 				if property_match:
+	#				if re.search(r'.',property_match):
 #					print "matched an optional property"
 					property_type = "optional"
 					# the first group is the property name
-					property_name = property_match.group(1)
+					property_name = property_match.group(3)
 					# the third group, if it exists, is the property default value
-					if property_match.group(5):
+					if property_match.group(7):
 #						print property_match.group(5)
-						property_default = property_match.group(5)
+						property_default = property_match.group(7)
 					else:
 						property_default = ""	
 #					print "property name: %s" % property_name	
 				else:	
-#					print "property description added"
-#					print "property_line 1: %s " % property_line[1:]
+	#				print "property description added"
+	#				print "property_line 1: %s " % property_line[1:]
 					property_description_list.append(property_line[1:].strip()) 
 		else:	
 #			search for a property name and optional default value
 #			property_match = re.search("([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)",property_line)
-			property_match = property_regex.search(property_line)
+			property_match = property_regex.match(property_line)
 			if property_match:
+			#	if re.search(r'.',property_match):
 #				print "matched a mandatory property"
 				property_type = "mandatory"
 				# the first group is the property name
@@ -162,13 +179,32 @@ def main():
 			property_wiki = wikiProperty(aproperty,profiles,fdetails)
 			
 			wiki_property_dict[property_name] = property_wiki
-			entries.append(property_wiki)
-
+			property_category = ""
+			property_category_list = property_name.split(".")
+			if property_category_list[1]:
+				print ("property_category_list: %s " % property_category_list[1])
+				property_category = property_category_list[1]
+	
+			if last_category == "":
+				last_category = property_category
+				# first run - create a new entry
+			elif last_category == property_category:
+				# accumulate entries until end of category
+				category_entries.append(property_wiki)
+			else:
+				category = {}
+				category['categoryName'] = property_category
+				category['entries'] = category_entries
+				categories.append(category)
+				# reset the last category
+				last_category = property_category	
+	wiki_output['headingLinks'] = wikiHeadings(profiles,fdetails)			
+	wiki_output['categories'] = categories			
 #	fwp = os.path.join(sbdir,filename)
 	jwf = open_if_not_existing("fwp.json")
 	# dump json
 	if jwf:
-		json.dump(wiki_property_dict, jwf)
+		json.dump(wiki_output, jwf)
 		jwf.close
 
 			
