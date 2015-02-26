@@ -5,6 +5,7 @@ import json
 import re
 import collections
 import pystache
+import codecs
 
 class filedetails:
 	def __init__(self,aprefix,asuffix,adate,aiprefix,aisuffix):
@@ -82,6 +83,7 @@ def main():
 	categories = []
 	category = {}
 	last_category = ""
+	property_category_main = ""
 	category_entries = []	
 
 	fileDate = "_2015-03-30"
@@ -96,7 +98,7 @@ def main():
 	property_regex = re.compile('([#])?([\s]*)([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)')
 	range_regex = re.compile('(Range:[\s]*?)(.*)')
 	property_name = ""
-	property_categories = []
+	property_profiles = []
 	property_description = ""
 	property_type = ""
 	property_default = ""
@@ -108,7 +110,8 @@ def main():
 	for property_line in content:
 		if re.match("\n", property_line):
 #			print "space line"
-			property_description_list = []
+			del property_description_list [:]
+#			property_description_list = []
 			property_name = ""
 			property_description = ""
 			property_type = ""
@@ -120,13 +123,14 @@ def main():
 #			print  property_line
 			if re.match("#####",property_line):
 #				print "matched profiles"
-				property_categories = []
+				del property_profiles [:]
+#				property_profiles = []
 				if re.search("MULTIPLE PROFILES",property_line):
 					continue
 				else:
 					for profile in profiles:
 						if re.search(profile,property_line):
-							property_categories.append(profiles[profile])
+							property_profiles.append(profiles[profile])
 			else:
 #				print "no matched comment"
 #				print property_line
@@ -175,7 +179,7 @@ def main():
 			if property_range_search:
 				property_range = property_range_search.group(2) 
 				property_description = re.sub(property_range_search.group(0),"",property_description)
-			aproperty = prop(property_name,property_categories,property_type,property_description,property_default,property_range)
+			aproperty = prop(property_name,property_profiles,property_type,property_description,property_default,property_range)
 			aproperty.pprint()
 			property_wiki = wikiProperty(aproperty,profiles,fdetails)
 			
@@ -187,36 +191,49 @@ def main():
 				property_category = property_category_list[1][:]
 	
 			if not last_category:
+				print ("first run: %s" % property_category[:])
 				last_category = property_category[:]
 				# first run - create a new entry
-				category_entries.append(property_wiki)
-			elif last_category in property_category:
+				pwcopy = property_wiki.copy()
+				category_entries.append(pwcopy)
+			elif last_category == property_category:
 				print ("Matched category: %s " % property_category)
 				# accumulate entries until end of category
-				category_entries.append(property_wiki)
+#				category_entries.append(property_wiki)
+				pwcopy = property_wiki.copy()
+				category_entries.append(pwcopy)
+				property_category_main = property_category[:]
 			else:
 				print ("New category: %s" % property_category)
 				# append category to categories
-				category['categoryName'] = property_category[:]
-				category['entries'] = category_entries
-				categories.append(category)
+				category['categoryName'] = last_category[:]
+				category['entries'] = category_entries[:]
+
+				catcopy = category.copy()
+				if catcopy:
+					categories.append(catcopy)
 				# start new category
-				category_entries = []
+					del category_entries[:]
 				# append existing entry to category
-				category_entries.append(property_wiki)
+				if property_wiki:
+					print ("Adding to category_entries: %s " % property_wiki['propertyName'])
+					pwcopy = property_wiki.copy()
+					category_entries.append(pwcopy)
+#					category_entries.append(property_wiki)
 				# reset the last category
-				last_category = property_category[:]
-
+					last_category = property_category[:]
+					property_category_main = property_category[:]
+	print ("last_category: %s " % last_category)
+	print ("property_category_main: %s " % property_category_main)				
+	if last_category == property_category_main:
+		category['categoryName'] = last_category[:]
+		category['entries'] = category_entries[:]
+		catcopy = category.copy()
+		if catcopy:
+			categories.append(catcopy)
+#
 	wiki_output['headingLinks'] = wikiHeadings(profiles,fdetails)			
-	wiki_output['categories'] = categories			
-
-	#tfilepath = os.path.join(adminSubdir,template)
-	mustacheTemplate = open("wiki_properties_template.mustache", 'r').read()
-	efo = pystache.render(mustacheTemplate, wiki_output).encode('utf-8')
-	ef = open_if_not_existing("wiki_properties_page.txt")
-	if ef:
-		ef.write(efo)
-		ef.close()	
+	wiki_output['categories'] = categories[:]		
 
 #	fwp = os.path.join(sbdir,filename)
 	jwf = open_if_not_existing("fwp.json")
@@ -224,6 +241,14 @@ def main():
 	if jwf:
 		json.dump(wiki_output, jwf)
 		jwf.close
+
+	#tfilepath = os.path.join(adminSubdir,template)
+	mustacheTemplate = codecs.open("wiki_properties_template.mustache", 'r', 'utf-8').read()
+	efo = pystache.render(mustacheTemplate, wiki_output).encode('utf8', 'xmlcharrefreplace')
+	ef = open_if_not_existing("wiki_properties_page.txt")
+	if ef:
+		ef.write(efo)
+		ef.close()		
 
 			
 				# Use mustache
