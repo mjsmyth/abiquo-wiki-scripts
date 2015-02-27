@@ -16,18 +16,18 @@ class filedetails:
 		self.isuffix = aisuffix
 
 class prop:
-	def __init__(self,apropName,apropCategories,apropType,apropDescription,apropDefault,apropRange):
+	def __init__(self,apropName,apropProfiles,apropType,apropDescription,apropDefault,apropRange):
 		self.pName = apropName
 		self.pDefault = apropDefault
 		self.pDescription = apropDescription
 		self.pRange = apropRange
-		self.pCategories = apropCategories
+		self.pProfiles = apropProfiles
 		self.pType = apropType
 		
 	
 	def pprint(self):
-		prCategories = " ".join(self.pCategories)
-		print "| %s | %s | %s | %s | %s | %s |" % (self.pName,self.pDefault,self.pRange,self.pDescription,prCategories,self.pType)
+		prProfiles = " ".join(self.pProfiles)
+		print "| %s | %s | %s | %s | %s | %s |" % (self.pName,self.pDefault,self.pRange,self.pDescription,prProfiles,self.pType)
 
 def open_if_not_existing(filename):
 	try:
@@ -43,7 +43,7 @@ def tree(): return collections.defaultdict(tree)
 def wikiHeadings(profiles,filedetails):
 	heading_links_list = []
 	for prix, profile in profiles.viewitems():
-		print "prix %s profile %s " % (prix, profile)
+#		print "prix %s profile %s " % (prix, profile)
 		header_profile_item = {}
 		header_profile_item['ExampleFile'] = filedetails.fprefix + profile.lower() + filedetails.fdate + filedetails.fsuffix
 		header_profile_item['ExampleImage'] = filedetails.iprefix + profile.lower() + filedetails.isuffix
@@ -58,25 +58,23 @@ def wikiProperty(rawProp,profiles,filedetails):
 	property_entry['propertyRange'] = rawProp.pRange
 	property_entry['propertyDescription'] = rawProp.pDescription
 	property_entry['propertyProfiles'] = []
-	prtCategories = " ".join(rawProp.pCategories)
-	print ("categories: %s" % prtCategories) 
+	prtCategories = " ".join(rawProp.pProfiles)
+#	print ("categories: %s" % prtCategories) 
 	for prix, profile in profiles.viewitems():
-		print "prix %s profile %s " % (prix, profile)
-		if profile in rawProp.pCategories:
-			print ("Found category: %s " % profile)
-			property_profile_item = {}
-			property_profile_item['profileExampleFile'] = filedetails.fprefix + profile.lower() + filedetails.fdate + filedetails.fsuffix
-			property_profile_item['profileExampleImage'] = filedetails.iprefix + profile.lower() + filedetails.isuffix
-		else:
-			property_profile_item = {}
-			property_profile_item['profileExampleFile'] = ""
-			property_profile_item['profileExampleImage'] = ""
-		property_entry['propertyProfiles'].append(property_profile_item)	
+#		print "prix %s profile %s " % (prix, profile)
+		property_profile_item = {}
+		property_profile_item['profile'] = {}
+		if profile in rawProp.pProfiles:
+#			print ("Found profile: %s " % profile)
+			property_profile_item['profile']['profileExampleFile'] = filedetails.fprefix + profile.lower() + filedetails.fdate + filedetails.fsuffix
+			property_profile_item['profile']['profileExampleImage'] = filedetails.iprefix + profile.lower() + filedetails.isuffix	
+		property_entry['propertyProfiles'].append(property_profile_item.copy())	
 	return property_entry	
 
 def main():
 	# Read git properties file line by line
-	with open("abiquo.properties.txt") as f:
+#	codecs.open("wiki_properties_template.mustache", 'r', 'utf-8').read()
+	with codecs.open("abiquo.properties.txt", 'r', 'utf-8') as f:
 		content = f.readlines()
 
 	wiki_output = {}
@@ -95,7 +93,8 @@ def main():
 
 	property_description_list = []
 	
-	property_regex = re.compile('([#])?([\s]*)([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)')
+	property_regex_comment = re.compile('([#])?([\s]*)([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)')
+	property_regex_no_comment = re.compile('([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)')
 	range_regex = re.compile('(Range:[\s]*?)(.*)')
 	property_name = ""
 	property_profiles = []
@@ -107,36 +106,39 @@ def main():
 	wiki_property_dict = {}
 	profiles = {"SERVER": "API","REMOTESERVICE": "RS","V2VSERVICES": "V2V","M OUTBOUND API":"OA"}
 
-	for property_line in content:
+	for ix, property_line in enumerate(content):
+		# a blank line may mark the end of a property
 		if re.match("\n", property_line):
 #			print "space line"
-			del property_description_list [:]
+				del property_description_list [:]
 #			property_description_list = []
-			property_name = ""
-			property_description = ""
-			property_type = ""
-			property_default = ""
-			property_range = ""
+				property_name = "" 
+				property_description = ""
+				property_type = ""
+				property_default = ""
+				property_range = ""
 		
+		# if you get a comment line
 		elif re.match("#",property_line):
 #			print "matched comment"
 #			print  property_line
+			# Lots of hashes means a server specification
 			if re.match("#####",property_line):
 #				print "matched profiles"
 				del property_profiles [:]
 #				property_profiles = []
+				# Multiple profiles is for users editing the file
 				if re.search("MULTIPLE PROFILES",property_line):
 					continue
+				# set up the profiles for this section of properties	
 				else:
 					for profile in profiles:
 						if re.search(profile,property_line):
 							property_profiles.append(profiles[profile])
 			else:
-#				print "no matched comment"
-#				print property_line
-				# 	search for a property name and optional default value
+			# 	search for a property name and optional default value
 #				property_match = re.search("([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)",property_line)
-				property_match = property_regex.match(property_line)
+				property_match = property_regex_comment.match(property_line)
 				if property_match:
 	#				if re.search(r'.',property_match):
 #					print "matched an optional property"
@@ -155,9 +157,9 @@ def main():
 	#				print "property_line 1: %s " % property_line[1:]
 					property_description_list.append(property_line[1:].strip()) 
 		else:	
-#			search for a property name and optional default value
+#			mandatory property name and optional default value
 #			property_match = re.search("([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)",property_line)
-			property_match = property_regex.match(property_line)
+			property_match = property_regex_no_comment.match(property_line)
 			if property_match:
 			#	if re.search(r'.',property_match):
 #				print "matched a mandatory property"
@@ -187,24 +189,24 @@ def main():
 
 			property_category_list = property_name.split(".")
 			if property_category_list[1]:
-				print ("property_category_list: %s " % property_category_list[1])
+#				print ("property_category_list: %s " % property_category_list[1])
 				property_category = property_category_list[1][:]
 	
 			if not last_category:
-				print ("first run: %s" % property_category[:])
+#				print ("first run: %s" % property_category[:])
 				last_category = property_category[:]
 				# first run - create a new entry
 				pwcopy = property_wiki.copy()
 				category_entries.append(pwcopy)
 			elif last_category == property_category:
-				print ("Matched category: %s " % property_category)
+#				print ("Matched category: %s " % property_category)
 				# accumulate entries until end of category
 #				category_entries.append(property_wiki)
 				pwcopy = property_wiki.copy()
 				category_entries.append(pwcopy)
 				property_category_main = property_category[:]
 			else:
-				print ("New category: %s" % property_category)
+#				print ("New category: %s" % property_category)
 				# append category to categories
 				category['categoryName'] = last_category[:]
 				category['entries'] = category_entries[:]
@@ -216,7 +218,7 @@ def main():
 					del category_entries[:]
 				# append existing entry to category
 				if property_wiki:
-					print ("Adding to category_entries: %s " % property_wiki['propertyName'])
+#					print ("Adding to category_entries: %s " % property_wiki['propertyName'])
 					pwcopy = property_wiki.copy()
 					category_entries.append(pwcopy)
 #					category_entries.append(property_wiki)
@@ -225,12 +227,12 @@ def main():
 					property_category_main = property_category[:]
 	print ("last_category: %s " % last_category)
 	print ("property_category_main: %s " % property_category_main)				
-	if last_category == property_category_main:
-		category['categoryName'] = last_category[:]
-		category['entries'] = category_entries[:]
-		catcopy = category.copy()
-		if catcopy:
-			categories.append(catcopy)
+	
+	category['categoryName'] = last_category[:]
+	category['entries'] = category_entries[:]
+	catcopy = category.copy()
+	if catcopy:
+		categories.append(catcopy)
 #
 	wiki_output['headingLinks'] = wikiHeadings(profiles,fdetails)			
 	wiki_output['categories'] = categories[:]		
@@ -245,7 +247,7 @@ def main():
 	#tfilepath = os.path.join(adminSubdir,template)
 	mustacheTemplate = codecs.open("wiki_properties_template.mustache", 'r', 'utf-8').read()
 	efo = pystache.render(mustacheTemplate, wiki_output).encode('utf8', 'xmlcharrefreplace')
-	ef = open_if_not_existing("wiki_properties_page.txt")
+	ef = open_if_not_existing("properties_out.txt")
 	if ef:
 		ef.write(efo)
 		ef.close()		

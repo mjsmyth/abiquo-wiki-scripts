@@ -6,7 +6,7 @@
 <th class="warning" data-highlight-class="warning"><p>Range</p></th>
 <th class="warning" data-highlight-class="warning"><p>Description</p></th>
 {{#headingLinks}}
-<th class="warning" colspan="1" data-highlight-class="warning"><ac:link><ri:attachment ri:filename="{{profileExampleFile}}" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="{{profileExampleImage}}" /></ac:image></ac:link-body></ac:link></th>
+<th class="warning" colspan="1" data-highlight-class="warning"><ac:link><ri:attachment ri:filename="{{ExampleFile}}" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="{{ExampleImage}}" /></ac:image></ac:link-body></ac:link></th>
 {{/headingLinks}}
 <th class="warning" colspan="1" data-highlight-class="warning">Info</th>
 </tr>
@@ -24,11 +24,13 @@
 <td><p> {{propertyRange}} </p></td>
 <td><p> {{propertyDescription}} </p></td> 
 {{#propertyProfiles}}
+{{#profile}}
 <td><p> <ac:link><ri:attachment ri:filename="{{profileExampleFile}}" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="{{profileExampleImage}}" /></ac:image></ac:link-body></ac:link> </p></td>
-{{/propertyProfiles}}
-{{^propertyProfiles}}
+{{/profile}}
+{{^profile}}
 <td><p>
 </p></td>
+{{/profile}}
 {{/propertyProfiles}}
 <td><p>
 </p></td>
