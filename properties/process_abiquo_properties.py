@@ -51,6 +51,11 @@ def wikiHeadings(profiles,filedetails):
 	return heading_links_list
 		
 
+def getCategory(pName):
+	prop_cat = pName.split(".")
+	property_cat = prop_cat[1]
+	return property_cat
+
 def wikiProperty(rawProp,profiles,filedetails):
 	property_entry = {}
 	property_entry['propertyName'] = rawProp.pName
@@ -58,7 +63,7 @@ def wikiProperty(rawProp,profiles,filedetails):
 	property_entry['propertyRange'] = rawProp.pRange
 	property_entry['propertyDescription'] = rawProp.pDescription
 	property_entry['propertyProfiles'] = []
-	prtCategories = " ".join(rawProp.pProfiles)
+#	prtProfiles = " ".join(rawProp.pProfiles)
 #	print ("categories: %s" % prtCategories) 
 	for prix, profile in profiles.viewitems():
 #		print "prix %s profile %s " % (prix, profile)
@@ -69,55 +74,55 @@ def wikiProperty(rawProp,profiles,filedetails):
 			property_profile_item['profile']['profileExampleFile'] = filedetails.fprefix + profile.lower() + filedetails.fdate + filedetails.fsuffix
 			property_profile_item['profile']['profileExampleImage'] = filedetails.iprefix + profile.lower() + filedetails.isuffix	
 		property_entry['propertyProfiles'].append(property_profile_item.copy())	
-	return property_entry	
+	return property_entry
 
-def main():
-	# Read git properties file line by line
-#	codecs.open("wiki_properties_template.mustache", 'r', 'utf-8').read()
-	with codecs.open("abiquo.properties.txt", 'r', 'utf-8') as f:
-		content = f.readlines()
 
-	wiki_output = {}
-	categories = []
-	category = {}
-	last_category = ""
-	property_category_main = ""
-	category_entries = []	
+def wikiCategories(storage_dict):
+	catkeydict = {}
+	catkeys = {}
+	catkeyorder = collections.OrderedDict()
+	catdata = collections.OrderedDict()
+	catkeydict = collections.OrderedDict()
 
-	fileDate = "_2015-03-30"
-	filePrefix = "properties_"
-	fileSuffix = ".txt"
-	imagePrefix = "v26_symbol_"
-	imageSuffix = "_transparent.png"
-	fdetails = filedetails(filePrefix,fileSuffix,fileDate,imagePrefix,imageSuffix)
+	for prop in sorted(storage_dict,key=lambda s: s.lower()):
+		print ("prop: %s" % prop)
+		pn = storage_dict[prop]['propertyName']
+		property_category = getCategory(pn)
+		catkeydict[pn] = property_category
+	# build a list of categories and property names
+	for v,k in catkeydict.items(): 
+		if k in catkeyorder:
+			catkeyorder[k].append(storage_dict[v])
+		else:
+			catkeyorder[k] = [storage_dict[v]]				
+	catdata = [{'categoryName':k, 'entries':v} for k,v in (catkeyorder.items())]
+	return catdata
 
-	property_description_list = []
 	
-	property_regex_comment = re.compile('([#])?([\s]*)([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)')
-	property_regex_no_comment = re.compile('([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)')
-	range_regex = re.compile('(Range:[\s]*?)(.*)')
-	property_name = ""
+
+def storeProperties(content,property_regex_comment,property_regex_no_comment,range_regex,profiles,fdetails):
+	wiki_property_dict = {}
 	property_profiles = []
+	property_description_list = []
+	property_name = "" 
 	property_description = ""
 	property_type = ""
 	property_default = ""
 	property_range = ""
-	property_wiki = {}
-	wiki_property_dict = {}
-	profiles = {"SERVER": "API","REMOTESERVICE": "RS","V2VSERVICES": "V2V","M OUTBOUND API":"OA"}
 
-	for ix, property_line in enumerate(content):
+	for property_line in content:
+
 		# a blank line may mark the end of a property
 		if re.match("\n", property_line):
 #			print "space line"
-				del property_description_list [:]
-#			property_description_list = []
-				property_name = "" 
-				property_description = ""
-				property_type = ""
-				property_default = ""
-				property_range = ""
-		
+			del property_description_list [:]
+ 	#		property_description_list = []
+			property_name = "" 
+			property_description = ""
+			property_type = ""
+			property_default = ""
+			property_range = ""
+	
 		# if you get a comment line
 		elif re.match("#",property_line):
 #			print "matched comment"
@@ -183,59 +188,64 @@ def main():
 				property_description = re.sub(property_range_search.group(0),"",property_description)
 			aproperty = prop(property_name,property_profiles,property_type,property_description,property_default,property_range)
 			aproperty.pprint()
-			property_wiki = wikiProperty(aproperty,profiles,fdetails)
-			
+			property_wiki = wikiProperty(aproperty,profiles,fdetails)		
 			wiki_property_dict[property_name] = property_wiki.copy()
+	return wiki_property_dict		
 
-			property_category_list = property_name.split(".")
-			if property_category_list[1]:
-#				print ("property_category_list: %s " % property_category_list[1])
-				property_category = property_category_list[1][:]
-	
-			if not last_category:
-#				print ("first run: %s" % property_category[:])
-				last_category = property_category[:]
-				# first run - create a new entry
-				pwcopy = property_wiki.copy()
-				category_entries.append(pwcopy)
-			elif last_category == property_category:
-#				print ("Matched category: %s " % property_category)
-				# accumulate entries until end of category
-#				category_entries.append(property_wiki)
-				pwcopy = property_wiki.copy()
-				category_entries.append(pwcopy)
-				property_category_main = property_category[:]
-			else:
-#				print ("New category: %s" % property_category)
-				# append category to categories
-				category['categoryName'] = last_category[:]
-				category['entries'] = category_entries[:]
 
-				catcopy = category.copy()
-				if catcopy:
-					categories.append(catcopy)
-				# start new category
-					del category_entries[:]
-				# append existing entry to category
-				if property_wiki:
-#					print ("Adding to category_entries: %s " % property_wiki['propertyName'])
-					pwcopy = property_wiki.copy()
-					category_entries.append(pwcopy)
-#					category_entries.append(property_wiki)
-				# reset the last category
-					last_category = property_category[:]
-					property_category_main = property_category[:]
-	print ("last_category: %s " % last_category)
-	print ("property_category_main: %s " % property_category_main)				
+def main():
+	# Read git properties file line by line
+#	codecs.open("wiki_properties_template.mustache", 'r', 'utf-8').read()
+
+	wiki_output = {}
+	categories = []
+	category = {}
+	last_category = ""
+	property_category_main = ""
+	category_entries = []	
+
+	fileDate = "_2015-03-30"
+	filePrefix = "properties_"
+	fileSuffix = ".txt"
+	imagePrefix = "v26_symbol_"
+	imageSuffix = "_transparent.png"
+	fdetails = filedetails(filePrefix,fileSuffix,fileDate,imagePrefix,imageSuffix)
+
+	property_description_list = []
 	
-	category['categoryName'] = last_category[:]
-	category['entries'] = category_entries[:]
-	catcopy = category.copy()
-	if catcopy:
-		categories.append(catcopy)
+	property_regex_comment = re.compile('([#])?([\s]*)([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)')
+	property_regex_no_comment = re.compile('([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)')
+	range_regex = re.compile('(Range:[\s]*?)(.*)')
+	property_name = ""
+	property_profiles = []
+	property_description = ""
+	property_type = ""
+	property_default = ""
+	property_range = ""
+	property_wiki = {}
+	wiki_property_dict = {}
+
+	storage_dict = {}
+
+	profiles = {"SERVER": "API","REMOTESERVICE": "RS","V2VSERVICES": "V2V","M OUTBOUND API":"OA"}
+
+	with codecs.open("abiquo.properties.txt", 'r', 'utf-8') as f:
+		content = f.readlines()
+
+	storage_dict = storeProperties(content,property_regex_comment,property_regex_no_comment,range_regex,profiles,fdetails)
+	
+	categories = wikiCategories(storage_dict)
+
+	js = open_if_not_existing("stg.json")
+	# dump json
+	if js:
+		json.dump(storage_dict, js)
+		js.close
+# 
+	
 #
 	wiki_output['headingLinks'] = wikiHeadings(profiles,fdetails)			
-	wiki_output['categories'] = categories[:]		
+	wiki_output['categories'] = categories		
 
 #	fwp = os.path.join(sbdir,filename)
 	jwf = open_if_not_existing("fwp.json")
