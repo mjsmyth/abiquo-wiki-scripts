@@ -85,7 +85,7 @@ def wikiCategories(storage_dict):
 	catkeydict = collections.OrderedDict()
 
 	for prop in sorted(storage_dict,key=lambda s: s.lower()):
-		print ("prop: %s" % prop)
+#		print ("prop: %s" % prop)
 		pn = storage_dict[prop]['propertyName']
 		property_category = getCategory(pn)
 		catkeydict[pn] = property_category
@@ -145,15 +145,13 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 #				property_match = re.search("([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)",property_line)
 				property_match = property_regex_comment.match(property_line)
 				if property_match:
-	#				if re.search(r'.',property_match):
-#					print "matched an optional property"
 					property_type = "optional"
-					# the first group is the property name
-					property_name = property_match.group(3)
+					# the third group is the property name
+					property_name = property_match.group(2)
+					print ("Optional prop: %s" % property_name)
 					# the third group, if it exists, is the property default value
-					if property_match.group(7):
-#						print property_match.group(5)
-						property_default = property_match.group(7)
+					if property_match.group(6):
+						property_default = property_match.group(6)
 					else:
 						property_default = ""	
 #					print "property name: %s" % property_name	
@@ -171,6 +169,7 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 				property_type = "mandatory"
 				# the first group is the property name
 				property_name = property_match.group(1)
+				print ("Mandatory prop: %s " % property_name)
 				# the fourth group, if it exists, is the property default value
 				if property_match.group(5):
 #					print property_match.group(5)
@@ -187,7 +186,7 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 				property_range = property_range_search.group(2) 
 				property_description = re.sub(property_range_search.group(0),"",property_description)
 			aproperty = prop(property_name,property_profiles,property_type,property_description,property_default,property_range)
-			aproperty.pprint()
+#			aproperty.pprint()
 			property_wiki = wikiProperty(aproperty,profiles,fdetails)		
 			wiki_property_dict[property_name] = property_wiki.copy()
 	return wiki_property_dict		
@@ -213,7 +212,7 @@ def main():
 
 	property_description_list = []
 	
-	property_regex_comment = re.compile('([#])?([\s]*)([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)')
+	property_regex_comment = re.compile('([#]{1,1})([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)')
 	property_regex_no_comment = re.compile('([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)')
 	range_regex = re.compile('(Range:[\s]*?)(.*)')
 	property_name = ""
