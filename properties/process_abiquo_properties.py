@@ -42,7 +42,7 @@ def tree(): return collections.defaultdict(tree)
 
 def wikiHeadings(profiles,filedetails):
 	heading_links_list = []
-	for prix, profile in profiles.viewitems():
+	for prix, profile in profiles.items():
 #		print "prix %s profile %s " % (prix, profile)
 		header_profile_item = {}
 		header_profile_item['ExampleFile'] = filedetails.fprefix + profile.lower() + filedetails.fdate + filedetails.fsuffix
@@ -54,18 +54,39 @@ def wikiHeadings(profiles,filedetails):
 def getCategory(pName):
 	prop_cat = pName.split(".")
 	property_cat = prop_cat[1]
+	if prop_cat[0] == "workflow":
+		property_cat = "workflow"
+	if prop_cat[0] == "com":
+		property_cat = "virtualfactory"
+	if property_cat == "stale":
+		property_cat = "stale sessions"
+	if property_cat == "dvs":
+		property_cat = "dvs and vcenter"			
 	return property_cat
 
 def wikiProperty(rawProp,profiles,filedetails):
 	property_entry = {}
 	property_entry['propertyName'] = rawProp.pName
-	property_entry['propertyDefault'] = rawProp.pDefault
+
+	rawDefault = rawProp.pDefault
+	if re.search(r"{",rawDefault):
+		re.sub(r"{",r"\{",rawDefault) 
+	if rawProp.pName == "abiquo.datacenter.id":
+		rawDeafult = re.sub("default","Abiquo",rawDefault)
+	rawDefault = re.sub("127.0.0.1",r"<IP-repoLoc>",rawDefault)
+	rawDefault = re.sub("localhost",r"127.0.0.1",rawDefault)
+	rawDefault = re.sub("10.60.1.4",r"<IP-mail>",rawDefault);
+	rawDefault = re.sub("10.60.1.91",r"<IP-storagelink>",rawDefault)
+	print ("default %s " % rawDefault)
+#	property_entry['propertyDefault'] = rawProp.pDefault
+	property_entry['propertyDefault'] = rawDefault
+
 	property_entry['propertyRange'] = rawProp.pRange
 	property_entry['propertyDescription'] = rawProp.pDescription
 	property_entry['propertyProfiles'] = []
 #	prtProfiles = " ".join(rawProp.pProfiles)
 #	print ("categories: %s" % prtCategories) 
-	for prix, profile in profiles.viewitems():
+	for prix, profile in profiles.items():
 #		print "prix %s profile %s " % (prix, profile)
 		property_profile_item = {}
 		property_profile_item['profile'] = {}
@@ -148,7 +169,7 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 					property_type = "optional"
 					# the third group is the property name
 					property_name = property_match.group(2)
-					print ("Optional prop: %s" % property_name)
+#					print ("Optional prop: %s" % property_name)
 					# the third group, if it exists, is the property default value
 					if property_match.group(6):
 						property_default = property_match.group(6)
@@ -169,7 +190,7 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 				property_type = "mandatory"
 				# the first group is the property name
 				property_name = property_match.group(1)
-				print ("Mandatory prop: %s " % property_name)
+#				print ("Mandatory prop: %s " % property_name)
 				# the fourth group, if it exists, is the property default value
 				if property_match.group(5):
 #					print property_match.group(5)
@@ -178,17 +199,18 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 					property_default = ""	
 #				print property_name
 		property_category = ""
-		if property_name:				
-			property_description = " ".join(property_description_list)			
-#			property_range_search = re.search("(Range:[\s]*?)(.*)",property_description)
-			property_range_search = range_regex.search(property_description)
-			if property_range_search:
-				property_range = property_range_search.group(2) 
-				property_description = re.sub(property_range_search.group(0),"",property_description)
-			aproperty = prop(property_name,property_profiles,property_type,property_description,property_default,property_range)
-#			aproperty.pprint()
-			property_wiki = wikiProperty(aproperty,profiles,fdetails)		
-			wiki_property_dict[property_name] = property_wiki.copy()
+		if property_name:		
+			if not re.match("client",property_name): 		
+				property_description = " ".join(property_description_list)			
+	#			property_range_search = re.search("(Range:[\s]*?)(.*)",property_description)
+				property_range_search = range_regex.search(property_description)
+				if property_range_search:
+					property_range = property_range_search.group(2) 
+					property_description = re.sub(property_range_search.group(0),"",property_description)
+				aproperty = prop(property_name,property_profiles,property_type,property_description,property_default,property_range)
+	#			aproperty.pprint()
+				property_wiki = wikiProperty(aproperty,profiles,fdetails)		
+				wiki_property_dict[property_name] = property_wiki.copy()
 	return wiki_property_dict		
 
 
@@ -198,10 +220,10 @@ def main():
 
 	wiki_output = {}
 	categories = []
-	category = {}
-	last_category = ""
-	property_category_main = ""
-	category_entries = []	
+	# category = {}
+	# last_category = ""
+	# property_category_main = ""
+	# category_entries = []	
 
 	fileDate = "_2015-03-30"
 	filePrefix = "properties_"
@@ -215,18 +237,22 @@ def main():
 	property_regex_comment = re.compile('([#]{1,1})([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)')
 	property_regex_no_comment = re.compile('([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)')
 	range_regex = re.compile('(Range:[\s]*?)(.*)')
-	property_name = ""
-	property_profiles = []
-	property_description = ""
-	property_type = ""
-	property_default = ""
-	property_range = ""
-	property_wiki = {}
-	wiki_property_dict = {}
+	# property_name = ""
+	# property_profiles = []
+	# property_description = ""
+	# property_type = ""
+	# property_default = ""
+	# property_range = ""
+	# property_wiki = {}
+	# wiki_property_dict = {}
 
 	storage_dict = {}
 
-	profiles = {"SERVER": "API","REMOTESERVICE": "RS","V2VSERVICES": "V2V","M OUTBOUND API":"OA"}
+	profiles = collections.OrderedDict()
+	profiles["SERVER"] = "API"
+	profiles["REMOTESERVICE"] = "RS"
+	profiles["V2VSERVICES"] = "V2V"
+	profiles["M OUTBOUND API"] ="OA"
 
 	with codecs.open("abiquo.properties.txt", 'r', 'utf-8') as f:
 		content = f.readlines()
@@ -240,20 +266,18 @@ def main():
 	if js:
 		json.dump(storage_dict, js)
 		js.close
-# 
-	
-#
+
 	wiki_output['headingLinks'] = wikiHeadings(profiles,fdetails)			
 	wiki_output['categories'] = categories		
-
 #	fwp = os.path.join(sbdir,filename)
 	jwf = open_if_not_existing("fwp.json")
 	# dump json
+
 	if jwf:
 		json.dump(wiki_output, jwf)
 		jwf.close
-
 	#tfilepath = os.path.join(adminSubdir,template)
+	
 	mustacheTemplate = codecs.open("wiki_properties_template.mustache", 'r', 'utf-8').read()
 	efo = pystache.render(mustacheTemplate, wiki_output).encode('utf8', 'xmlcharrefreplace')
 	ef = open_if_not_existing("properties_out.txt")
@@ -261,18 +285,6 @@ def main():
 		ef.write(efo)
 		ef.close()		
 
-			
-				# Use mustache
-	# Create a table like in the wiki
-	
-
-	# Create a dictionary of properties
-	# Ask user what server profile they have
-	# Ask for IP address of server?
-	# Read user properties file
-	# Check it for extra spaces
-	# Check for any properties that are unknown
-	# Check for any values that are out of range
 
 # Calls the main() function
 if __name__ == '__main__':
