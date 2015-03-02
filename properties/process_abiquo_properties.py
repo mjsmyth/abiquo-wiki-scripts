@@ -35,7 +35,7 @@ def open_if_not_existing(filename):
 	except:
 		print ("File: %s already exists" % filename)
 		return None
-	fobj = os.fdopen(fd, "w", "utf-8")
+	fobj = os.fdopen(fd, "w")
 	return fobj
 
 def tree(): return collections.defaultdict(tree)
@@ -119,7 +119,22 @@ def wikiCategories(storage_dict):
 	catdata = [{'categoryName':k, 'entries':v} for k,v in (catkeyorder.items())]
 	return catdata
 
-	
+def getSampleMessage(profile,version):
+	profile_print_info = {}
+	profile_print_info["API"] = "API / SERVER / UI"
+	profile_print_info["V2V"] = "V2V (REMOTE SERVICES)"
+	profile_print_info["RS"] = "REMOTE SERVICES"
+	profile_print_info["OA"] = "OUTBOUND API"
+	sampleMessage = []
+	swPrintStars = "################################################################################\n"
+	swPrintIntro = "#### This is a sample abiquo.properties file for "  
+	swPrintEnd =   "     ####\n"	
+	swPrintLine = swPrintIntro + profile_print_info[profile] + swPrintEnd 
+	sampleMessage.append(swPrintStars)
+	sampleMessage.append(swPrintLine)
+	sampleMessage.append(swPrintStars)
+	return sampleMessage
+
 
 def storeProperties(content,property_regex_comment,property_regex_no_comment,range_regex,profiles,fdetails,sample_files):
 	wiki_property_dict = {}
@@ -216,9 +231,9 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 							pk = "# " + pd + "\n"							
 							sample_files[pro].append(pk)
 					if property_type == "mandatory":			
-						sample_property = "#" + property_name + " = " + property_default + "\n"	
+						sample_property = "#" + property_name + " = " + property_default + "\n\n"	
 					else:	
-						sample_property = property_name + " = " + property_default + "\n"	
+						sample_property = property_name + " = " + property_default + "\n\n"	
 					sample_files[pro].append(sample_property)
 
 			# prepare for wiki	
@@ -245,6 +260,8 @@ def main():
 	# last_category = ""
 	# property_category_main = ""
 	# category_entries = []	
+
+	wikiVersion = "ABI34"
 
 	fileDate = "_2015-03-29"
 	filePrefix = "properties_"
@@ -275,6 +292,7 @@ def main():
 	profiles["V2VSERVICES"] = "V2V"
 	profiles["M OUTBOUND API"] ="OA"
 
+
 	with codecs.open("abiquo.properties.txt", 'r', 'utf-8') as f:
 		content = f.readlines()
 
@@ -286,9 +304,13 @@ def main():
 		pf_sample = fdetails.fprefix + profiles[pf].lower() + fdetails.fdate + fdetails.fsuffix	
 		ps = open_if_not_existing(pf_sample)
 		if ps:
+			sample_message_list = getSampleMessage(profiles[pf],wikiVersion)
+			for sw in sample_message_list:
+				ps.write(sw)
+			ps.write("\n")
 			for pl in sample_files[profiles[pf]]:
-				write(sample_files[pl])
-			ps.close	
+				ps.write(pl.encode('utf8'))
+			ps.close
 
 	js = open_if_not_existing("stg.json")
 	# dump json
