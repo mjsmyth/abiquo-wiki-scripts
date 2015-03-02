@@ -61,7 +61,11 @@ def getCategory(pName):
 	if property_cat == "stale":
 		property_cat = "stale sessions"
 	if property_cat == "dvs":
-		property_cat = "dvs and vcenter"			
+		property_cat = "dvs and vcenter"
+	if property_cat == "vi":
+		property_cat = "virtual infrastructure"		
+	if property_cat == "USE_SECURE_CHANNEL_LOGIN":
+		property_cat = "client"			
 	return property_cat
 
 def wikiProperty(rawProp,profiles,filedetails):
@@ -77,7 +81,7 @@ def wikiProperty(rawProp,profiles,filedetails):
 	rawDefault = re.sub("localhost",r"127.0.0.1",rawDefault)
 	rawDefault = re.sub("10.60.1.4",r"<IP-mail>",rawDefault);
 	rawDefault = re.sub("10.60.1.91",r"<IP-storagelink>",rawDefault)
-	print ("default %s " % rawDefault)
+	print ("%s default %s " % (rawProp.pName,rawDefault))
 #	property_entry['propertyDefault'] = rawProp.pDefault
 	property_entry['propertyDefault'] = rawDefault
 
@@ -128,7 +132,7 @@ def getSampleMessage(profile,version):
 	sampleMessage = []
 	swPrintStars = "################################################################################\n"
 	swPrintIntro = "#### This is a sample abiquo.properties file for "  
-	swPrintEnd =   "     ####\n"	
+	swPrintEnd =   "            ####\n"	
 	swPrintLine = swPrintIntro + profile_print_info[profile] + swPrintEnd 
 	sampleMessage.append(swPrintStars)
 	sampleMessage.append(swPrintLine)
@@ -183,13 +187,13 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 				if property_match:
 					property_type = "optional"
 					# the third group is the property name
-					property_name = property_match.group(2)
+					property_name = property_match.group(3)
 #					print ("Optional prop: %s" % property_name)
 					# the third group, if it exists, is the property default value
 					if property_match.group(6):
-						property_default = property_match.group(6)
+						property_default = property_match.group(6).strip()
 					else:
-						property_default = ""	
+						property_default = ""
 #					print "property name: %s" % property_name	
 				else:	
 	#				print "property description added"
@@ -207,34 +211,33 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 				property_name = property_match.group(1)
 #				print ("Mandatory prop: %s " % property_name)
 				# the fourth group, if it exists, is the property default value
-				if property_match.group(5):
+				if property_match.group(4):
 #					print property_match.group(5)
-					property_default = property_match.group(5)
+					property_default = property_match.group(4).strip()
 				else:
 					property_default = ""	
 #				print property_name
 		property_category = ""
 		if property_name:		
-			if not re.search("SERVER_ADDRESS",property_name): 	
 			# write to sample files as appropriate
 			# sample file data structure is a dictionary with profile names
 			# sample file is a list of lines with a blank line after each entry
-				for pro in property_profiles:
-					sample_property = ""
-					if pro in sample_files:
-						for pd in property_description_list:
-							pk = "# " + pd + "\n"
-							sample_files[pro].append(pk)
-					else:
-						sample_files[pro] = []	
-						for pd in property_description_list:
-							pk = "# " + pd + "\n"							
-							sample_files[pro].append(pk)
-					if property_type == "mandatory":			
-						sample_property = "#" + property_name + " = " + property_default + "\n\n"	
-					else:	
-						sample_property = property_name + " = " + property_default + "\n\n"	
-					sample_files[pro].append(sample_property)
+			for pro in property_profiles:
+				sample_property = ""
+				if pro in sample_files:
+					for pd in property_description_list:
+						pk = "# " + pd + "\n"
+						sample_files[pro].append(pk)
+				else:
+					sample_files[pro] = []	
+					for pd in property_description_list:
+						pk = "# " + pd + "\n"							
+						sample_files[pro].append(pk)
+				if property_type == "mandatory":			
+					sample_property = "#" + property_name + " = " + property_default + "\n\n"	
+				else:	
+					sample_property = property_name + " = " + property_default + "\n\n"	
+				sample_files[pro].append(sample_property)
 
 			# prepare for wiki	
 				property_description = " ".join(property_description_list)			
@@ -263,7 +266,7 @@ def main():
 
 	wikiVersion = "ABI34"
 
-	fileDate = "_2015-03-29"
+	fileDate = "_2015-03-28"
 	filePrefix = "properties_"
 	fileSuffix = ".txt"
 	imagePrefix = "v26_symbol_"
@@ -272,8 +275,8 @@ def main():
 
 	property_description_list = []
 	
-	property_regex_comment = re.compile('([#]{1,1})([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)')
-	property_regex_no_comment = re.compile('([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)')
+	property_regex_comment = re.compile('([#]{1,1})([\s]*)([\w.]+?)([\s]*)([=]{1,1})(.*)',re.S)
+	property_regex_no_comment = re.compile('([\w.]+?)([\s]*)([=]{1,1})(.*)',re.S)
 	range_regex = re.compile('(Range:[\s]*?)(.*)')
 	# property_name = ""
 	# property_profiles = []
@@ -312,7 +315,7 @@ def main():
 				ps.write(pl.encode('utf8'))
 			ps.close
 
-	js = open_if_not_existing("stg.json")
+	js = open_if_not_existing("fwg.json")
 	# dump json
 	if js:
 		json.dump(storage_dict, js)
