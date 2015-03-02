@@ -35,7 +35,7 @@ def open_if_not_existing(filename):
 	except:
 		print ("File: %s already exists" % filename)
 		return None
-	fobj = os.fdopen(fd, "w")
+	fobj = os.fdopen(fd, "w", "utf-8")
 	return fobj
 
 def tree(): return collections.defaultdict(tree)
@@ -121,7 +121,7 @@ def wikiCategories(storage_dict):
 
 	
 
-def storeProperties(content,property_regex_comment,property_regex_no_comment,range_regex,profiles,fdetails):
+def storeProperties(content,property_regex_comment,property_regex_no_comment,range_regex,profiles,fdetails,sample_files):
 	wiki_property_dict = {}
 	property_profiles = []
 	property_description_list = []
@@ -200,7 +200,28 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 #				print property_name
 		property_category = ""
 		if property_name:		
-			if not re.match("client",property_name): 		
+			if not re.search("SERVER_ADDRESS",property_name): 	
+			# write to sample files as appropriate
+			# sample file data structure is a dictionary with profile names
+			# sample file is a list of lines with a blank line after each entry
+				for pro in property_profiles:
+					sample_property = ""
+					if pro in sample_files:
+						for pd in property_description_list:
+							pk = "# " + pd + "\n"
+							sample_files[pro].append(pk)
+					else:
+						sample_files[pro] = []	
+						for pd in property_description_list:
+							pk = "# " + pd + "\n"							
+							sample_files[pro].append(pk)
+					if property_type == "mandatory":			
+						sample_property = "#" + property_name + " = " + property_default + "\n"	
+					else:	
+						sample_property = property_name + " = " + property_default + "\n"	
+					sample_files[pro].append(sample_property)
+
+			# prepare for wiki	
 				property_description = " ".join(property_description_list)			
 	#			property_range_search = re.search("(Range:[\s]*?)(.*)",property_description)
 				property_range_search = range_regex.search(property_description)
@@ -211,13 +232,13 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 	#			aproperty.pprint()
 				property_wiki = wikiProperty(aproperty,profiles,fdetails)		
 				wiki_property_dict[property_name] = property_wiki.copy()
-	return wiki_property_dict		
+	return (wiki_property_dict,sample_files)		
 
 
 def main():
 	# Read git properties file line by line
 #	codecs.open("wiki_properties_template.mustache", 'r', 'utf-8').read()
-
+	sample_files = {}
 	wiki_output = {}
 	categories = []
 	# category = {}
@@ -225,7 +246,7 @@ def main():
 	# property_category_main = ""
 	# category_entries = []	
 
-	fileDate = "_2015-03-30"
+	fileDate = "_2015-03-29"
 	filePrefix = "properties_"
 	fileSuffix = ".txt"
 	imagePrefix = "v26_symbol_"
@@ -257,9 +278,17 @@ def main():
 	with codecs.open("abiquo.properties.txt", 'r', 'utf-8') as f:
 		content = f.readlines()
 
-	storage_dict = storeProperties(content,property_regex_comment,property_regex_no_comment,range_regex,profiles,fdetails)
+	(storage_dict,sample_files) = storeProperties(content,property_regex_comment,property_regex_no_comment,range_regex,profiles,fdetails,sample_files)
 	
 	categories = wikiCategories(storage_dict)
+
+	for pf in profiles:
+		pf_sample = fdetails.fprefix + profiles[pf].lower() + fdetails.fdate + fdetails.fsuffix	
+		ps = open_if_not_existing(pf_sample)
+		if ps:
+			for pl in sample_files[profiles[pf]]:
+				write(sample_files[pl])
+			ps.close	
 
 	js = open_if_not_existing("stg.json")
 	# dump json
