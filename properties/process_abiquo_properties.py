@@ -43,7 +43,6 @@ def tree(): return collections.defaultdict(tree)
 def wikiHeadings(profiles,filedetails):
 	heading_links_list = []
 	for prix, profile in profiles.items():
-#		print "prix %s profile %s " % (prix, profile)
 		header_profile_item = {}
 		header_profile_item['ExampleFile'] = filedetails.fprefix + profile.lower() + filedetails.fdate + filedetails.fsuffix
 		header_profile_item['ExampleImage'] = filedetails.iprefix + profile.lower() + filedetails.isuffix
@@ -76,26 +75,20 @@ def wikiProperty(rawProp,profiles,filedetails):
 	if re.search(r"{",rawDefault):
 		re.sub(r"{",r"\{",rawDefault) 
 	if rawProp.pName == "abiquo.datacenter.id":
-		rawDeafult = re.sub("default","Abiquo",rawDefault)
+		rawDefault = re.sub("default","Abiquo",rawDefault)
 	rawDefault = re.sub("127.0.0.1",r"<IP-repoLoc>",rawDefault)
 	rawDefault = re.sub("localhost",r"127.0.0.1",rawDefault)
 	rawDefault = re.sub("10.60.1.4",r"<IP-mail>",rawDefault);
 	rawDefault = re.sub("10.60.1.91",r"<IP-storagelink>",rawDefault)
-	print ("%s default %s " % (rawProp.pName,rawDefault))
-#	property_entry['propertyDefault'] = rawProp.pDefault
 	property_entry['propertyDefault'] = rawDefault
 
 	property_entry['propertyRange'] = rawProp.pRange
 	property_entry['propertyDescription'] = rawProp.pDescription
 	property_entry['propertyProfiles'] = []
-#	prtProfiles = " ".join(rawProp.pProfiles)
-#	print ("categories: %s" % prtCategories) 
 	for prix, profile in profiles.items():
-#		print "prix %s profile %s " % (prix, profile)
 		property_profile_item = {}
 		property_profile_item['profile'] = {}
 		if profile in rawProp.pProfiles:
-#			print ("Found profile: %s " % profile)
 			property_profile_item['profile']['profileExampleFile'] = filedetails.fprefix + profile.lower() + filedetails.fdate + filedetails.fsuffix
 			property_profile_item['profile']['profileExampleImage'] = filedetails.iprefix + profile.lower() + filedetails.isuffix	
 		property_entry['propertyProfiles'].append(property_profile_item.copy())	
@@ -108,13 +101,13 @@ def wikiCategories(storage_dict):
 	catkeyorder = collections.OrderedDict()
 	catdata = collections.OrderedDict()
 	catkeydict = collections.OrderedDict()
-
+	# sort properties by names in lower case
 	for prop in sorted(storage_dict,key=lambda s: s.lower()):
-#		print ("prop: %s" % prop)
+		# create a dictionary of property names : categories
 		pn = storage_dict[prop]['propertyName']
 		property_category = getCategory(pn)
 		catkeydict[pn] = property_category
-	# build a list of categories and property names
+	# from the above dictionary, go through the categories and make them the key to a new dictionary that stores the whole property
 	for v,k in catkeydict.items(): 
 		if k in catkeyorder:
 			catkeyorder[k].append(storage_dict[v])
@@ -151,12 +144,9 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 	property_range = ""
 
 	for property_line in content:
-
 		# a blank line may mark the end of a property
 		if re.match("\n", property_line):
-#			print "space line"
 			del property_description_list [:]
- 	#		property_description_list = []
 			property_name = "" 
 			property_description = ""
 			property_type = ""
@@ -165,14 +155,11 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 	
 		# if you get a comment line
 		elif re.match("#",property_line):
-#			print "matched comment"
-#			print  property_line
-			# Lots of hashes means a server specification
+			# Lots of hashes means a server profile specification
 			if re.match("#####",property_line):
 #				print "matched profiles"
 				del property_profiles [:]
-#				property_profiles = []
-				# Multiple profiles is for users editing the file
+				# Multiple profiles comment is for users editing the file
 				if re.search("MULTIPLE PROFILES",property_line):
 					continue
 				# set up the profiles for this section of properties	
@@ -182,46 +169,35 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 							property_profiles.append(profiles[profile])
 			else:
 			# 	search for a property name and optional default value
-#				property_match = re.search("([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)",property_line)
 				property_match = property_regex_comment.match(property_line)
 				if property_match:
 					property_type = "optional"
 					# the third group is the property name
-					property_name = property_match.group(3)
-#					print ("Optional prop: %s" % property_name)
-					# the third group, if it exists, is the property default value
+					property_name = property_match.group(3))
+					# the sixth group, if it exists, is the property default value
 					if property_match.group(6):
 						property_default = property_match.group(6).strip()
 					else:
 						property_default = ""
-#					print "property name: %s" % property_name	
 				else:	
-	#				print "property description added"
-	#				print "property_line 1: %s " % property_line[1:]
+	#				add property description to a list
 					property_description_list.append(property_line[1:].strip()) 
 		else:	
-#			mandatory property name and optional default value
-#			property_match = re.search("([\w.]+?)([\s]*)([=]{1,1})([\s]*)([\S]*)",property_line)
+#			mandatory property name and optional default value, commented out - note may have space after comment
 			property_match = property_regex_no_comment.match(property_line)
 			if property_match:
-			#	if re.search(r'.',property_match):
-#				print "matched a mandatory property"
 				property_type = "mandatory"
 				# the first group is the property name
 				property_name = property_match.group(1)
-#				print ("Mandatory prop: %s " % property_name)
 				# the fourth group, if it exists, is the property default value
 				if property_match.group(4):
-#					print property_match.group(5)
 					property_default = property_match.group(4).strip()
 				else:
 					property_default = ""	
-#				print property_name
 		property_category = ""
 		if property_name:		
-			# write to sample files as appropriate
-			# sample file data structure is a dictionary with profile names
-			# sample file is a list of lines with a blank line after each entry
+			# create a sample_files dictionary organised by profile names
+			# sample file is similar to the main input file but it only contains properties of one profile
 			for pro in property_profiles:
 				sample_property = ""
 				if pro in sample_files:
@@ -241,7 +217,7 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 
 			# prepare for wiki	
 				property_description = " ".join(property_description_list)			
-	#			property_range_search = re.search("(Range:[\s]*?)(.*)",property_description)
+	#			search for Range: x-x type info in wiki properties and store it separately
 				property_range_search = range_regex.search(property_description)
 				if property_range_search:
 					property_range = property_range_search.group(2) 
@@ -254,18 +230,25 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 
 
 def main():
-	# Read git properties file line by line
-#	codecs.open("wiki_properties_template.mustache", 'r', 'utf-8').read()
+
 	sample_files = {}
 	wiki_output = {}
 	categories = []
-	# category = {}
-	# last_category = ""
-	# property_category_main = ""
-	# category_entries = []	
 
+	prevWikiVersion = "ABI32"
 	wikiVersion = "ABI34"
+	# Directories and file names
 
+    input_subdir = 'input_files'
+    output_subdir = 'output_files'
+
+    compFile = prevWikiVersion + output_subdir
+
+    propertyFile = 'abiquo.properties.txt'
+    inputDir = wikiVersion + "/" + input_subdir
+    outputDir = wikiVersion + "/" + output_subdir
+    
+	# These are the details of the sample files and the images that link to the sample files on the wiki
 	fileDate = "_2015-03-28"
 	filePrefix = "properties_"
 	fileSuffix = ".txt"
@@ -278,14 +261,6 @@ def main():
 	property_regex_comment = re.compile('([#]{1,1})([\s]*)([\w.]+?)([\s]*)([=]{1,1})(.*)',re.S)
 	property_regex_no_comment = re.compile('([\w.]+?)([\s]*)([=]{1,1})(.*)',re.S)
 	range_regex = re.compile('(Range:[\s]*?)(.*)')
-	# property_name = ""
-	# property_profiles = []
-	# property_description = ""
-	# property_type = ""
-	# property_default = ""
-	# property_range = ""
-	# property_wiki = {}
-	# wiki_property_dict = {}
 
 	storage_dict = {}
 
@@ -295,14 +270,16 @@ def main():
 	profiles["V2VSERVICES"] = "V2V"
 	profiles["M OUTBOUND API"] ="OA"
 
-
-	with codecs.open("abiquo.properties.txt", 'r', 'utf-8') as f:
+	# Read git properties file line by line
+	with codecs.open(os.path.json(inputDir,propertyFile), 'r', 'utf-8') as f:
 		content = f.readlines()
-
+	# Prepare the properties for wiki output and sample files	
 	(storage_dict,sample_files) = storeProperties(content,property_regex_comment,property_regex_no_comment,range_regex,profiles,fdetails,sample_files)
-	
+
+	# Reorganise the storage dict by categories for the wiki
 	categories = wikiCategories(storage_dict)
 
+	# output the sample files
 	for pf in profiles:
 		pf_sample = fdetails.fprefix + profiles[pf].lower() + fdetails.fdate + fdetails.fsuffix	
 		ps = open_if_not_existing(pf_sample)
@@ -315,23 +292,24 @@ def main():
 				ps.write(pl.encode('utf8'))
 			ps.close
 
+	# output a storage dict with the properties indexed by property name		
 	js = open_if_not_existing("fwg.json")
-	# dump json
 	if js:
 		json.dump(storage_dict, js)
 		js.close
 
+	# prepare the json dict for mustache output	
 	wiki_output['headingLinks'] = wikiHeadings(profiles,fdetails)			
 	wiki_output['categories'] = categories		
-#	fwp = os.path.join(sbdir,filename)
-	jwf = open_if_not_existing("fwp.json")
-	# dump json
 
+	# output a json file with the full mustache format
+	jwf = open_if_not_existing("fwp.json")
 	if jwf:
 		json.dump(wiki_output, jwf)
 		jwf.close
 	#tfilepath = os.path.join(adminSubdir,template)
 	
+	# Render the wiki file with mustache
 	mustacheTemplate = codecs.open("wiki_properties_template.mustache", 'r', 'utf-8').read()
 	efo = pystache.render(mustacheTemplate, wiki_output).encode('utf8', 'xmlcharrefreplace')
 	ef = open_if_not_existing("properties_out.txt")
