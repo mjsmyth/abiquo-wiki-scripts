@@ -1,0 +1,114 @@
+<ac:macro ac:name="section">
+  <ac:rich-text-body>
+    <ac:macro ac:name="div">
+      <ac:parameter ac:name="class">landsc smallcode</ac:parameter>
+      <ac:rich-text-body>
+        <table>
+          <tbody>
+            <tr>
+              <td class="highlight info" data-highlight-class="info">
+                <strong> Home Privileges</strong>
+              </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+            </tr>
+            <tr>
+              <th>
+                <p>GUI Label <span style="color: rgb(239,239,239);">_________________</span>
+                </p>
+              </th>
+              <th>
+                <p>Application Tag</p>
+              </th>
+              <th>
+                <p>Privilege<span style="color: rgb(239,239,239);">____________________________________</span>
+                </p>
+              </th>
+              <th class="warning" data-highlight-class="warning">
+                <p>Cloud Admin</p>
+              </th>
+              <th class="note" data-highlight-class="note">
+                <p>Ent Admin</p>
+              </th>
+              <th class="success" data-highlight-class="success">
+                <p>Ent User</p>
+              </th>
+              <th class="info" data-highlight-class="info">
+                <p>Outbound API</p>
+              </th>
+              <th>
+                <p>Info</p>
+              </th>
+            </tr>
+            <tr>
+              <td>Allow user to switch enterprise</td>
+              <td>ENTERPRISE_ADMINISTER_ALL</td>
+              <td>This privilege allows a user to change to another enterprise, in order to administer it, by clicking the switch user button in the Enterprises list</td>
+              <td class="highlight warning" data-highlight-class="warning">
+                <p>X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight success" data-highlight-class="success"> </td>
+              <td class="highlight info" data-highlight-class="info">
+                <p>X</p>
+              </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td>List enterprises within scope</td>
+              <td>ENTERPRISE_ENUMERATE</td>
+              <td>This privilege allows a user to view the list of enterprises within scope and to view statistics for those enterprises</td>
+              <td class="highlight warning" data-highlight-class="warning">
+                <p>X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight success" data-highlight-class="success"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td>Display enterprise statistics</td>
+              <td>ENTERPRISE_RESOURCE_SUMMARY_ENT</td>
+              <td>This privilege allows a user to filter statistics by enterprise to display the resources used by an enterprise in the enterprise resources panel</td>
+              <td class="highlight warning" data-highlight-class="warning">
+                <p>X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note">
+                <p>X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"> </td>
+              <td class="highlight info" data-highlight-class="info">
+                <p>X</p>
+              </td>
+              <td> </td>
+            </tr>
+         <tr>
+              <td>Manage virtual machine metrics</td>
+              <td>USERS_ENABLE_DISABLE_VM_METRICS</td>
+              <td>This privilege allows a user to active monitoring for virtual machine</td>
+              <td class="highlight warning" data-highlight-class="warning">
+                <p>X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note">
+                <p>X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success">
+                <p>X</p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td>
+                <ac:emoticon ac:name="yellow-star"/>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ac:rich-text-body>
+    </ac:macro>
+  </ac:rich-text-body>
+</ac:macro>
+            

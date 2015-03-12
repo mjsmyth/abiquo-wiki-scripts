@@ -10,10 +10,12 @@
 		{{propertyRange}} 
  		{{propertyDescription}} 
 		{{#propertyProfiles}} 
-			{{profileExampleFile}}
-			{{profileExampleImage}}
-		{{/propertyProfiles}}
-		{{^propertyProfiles}}
+			{{#profile}}
+				{{profileExampleFile}}
+				{{profileExampleImage}}
+			{{/profile}}
+			{{^profile}}
+			{{/profile}}	
 		{{/propertyProfiles}}
 	{{/entries}}
 {{/categories}}

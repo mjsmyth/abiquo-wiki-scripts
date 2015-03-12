@@ -1,0 +1,20 @@
+{
+	"categories": [	
+		"categoryName": "Home",
+		"entries": [
+			{
+				"guiLabel": ""
+				"appTag": "0"
+				"privilege": "0-2",
+				"cloudAdmin": "X",
+				"entAdmin": "X",
+				"entUser": "X",
+				"outboundApi": "X",
+				"info":
+					{
+						"infoMark": "N"
+					}
+			}
+		]
+	]
+}		
