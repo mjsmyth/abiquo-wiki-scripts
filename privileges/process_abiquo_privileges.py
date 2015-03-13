@@ -17,7 +17,7 @@ import collections
 import pystache
 import codecs
 
-class role:
+class rolec:
 	def __init__(self,akey,aname,ainitials,aformat):
 		self.rkey = akey
 		self.rname = aname
@@ -60,9 +60,11 @@ def getCategory(labelmatch,plk_orig):
 	else:	
 		plk_split = plk_orig.split("_")
 		plk = plk_split[0]
+	return plk	
 
 def get_extra_text(input_subdir,extfile):
 	extlines = (extline.rstrip() for extline in open(os.path.join(input_subdir,extfile)))
+	extratext = {}
 	for ext_orig in extlines:
 		#print (ext_orig)
 		extlist = ext_orig.split("|")
@@ -77,18 +79,24 @@ def get_sql(input_subdir,sqlfile):
 	sqllines = (sqlline.rstrip() for sqlline in open(os.path.join(input_subdir,sqlfile)))
 	sqlroles = {}
 	for sql_orig in sqllines:
-		#print (sql_orig)
+		print ("sql_orig: %s" % sql_orig)
 		sqllist = re.findall(r'([\w_]+)', sql_orig)
-	for sq in sqllist:
-		if sq[0] in sqlroles:
-			sqlroles[sq[0]].append(sq[1])
-		else
-			sqlroles[sq[0]] = [sq[1]]
+		print ("sql_list: %s" % sqllist)
+		if sqllist[0] in sqlroles:
+			sqlroles[sqllist[0]].append(sqllist[1])
+		else:
+			sqlroles[sqllist[0]] = [sqllist[1]]		 	
+	for r in sqlroles:
+		print ("r: %s" % r)		
 	return sqlroles
 
 def get_gui_labels(input_gitdir,UIlabelfile):
+	privlabels = {}
+	privnames = {}
+	privdescs = {}
+	privgroups = {}
 	json_data = open(os.path.join(input_gitdir,UIlabelfile))
-	data = simplejson.load(json_data)
+	data = json.load(json_data)
 	labelkeys = sorted(data.keys())
 	for labelkey_orig in labelkeys: 
 		labelkey = labelkey_orig.split(".")
@@ -115,10 +123,10 @@ def createRoles():
 		# This could be read in from a file
 	rollers = collections.OrderedDict()
  	# r = role(akey,aname,ainitials,aformat)
- 	rollers["CLOUD_ADMIN"] = role("CLOUD_ADMIN","Cloud Admin","CA","warning")
- 	rollers["ENTERPRISE_ADMIN"] = role("ENTERPRISE_ADMIN","Ent Admin","EA","note")
- 	rollers["USER"] = role("USER","Ent User","EU","success")
- 	rollers["OUTBOUND_API_EVENTS"] = role("OUTBOUND_API_EVENTS","Outbound API","OA","info")
+ 	rollers["CLOUD_ADMIN"] = rolec("CLOUD_ADMIN","Cloud Admin","CA","warning")
+ 	rollers["ENTERPRISE_ADMIN"] = rolec("ENTERPRISE_ADMIN","Ent Admin","EA","note")
+ 	rollers["USER"] = rolec("USER","Ent User","EU","success")
+ 	rollers["OUTBOUND_API_EVENTS"] = rolec("OUTBOUND_API_EVENTS","Outbound API","OA","info")
  	return rollers
 
 def createRoleHeader(rollers):
@@ -140,10 +148,7 @@ def main():
 	rollers = createRoles()
 	rheaders = createRoleHeader(rollers)
 
-	sql_total = 0
-	privs_processed = 0
-
-	input_gitdir = '../platform/ui/app/lang'
+	input_gitdir = '../../platform/ui/app/lang'
 	input_subdir = 'input_files'
 	output_subdir = 'output_files'
 
@@ -157,104 +162,123 @@ def main():
 
 	sqlroles = get_sql(input_subdir,sqlfile)
 
+ 	
+ 	groupmatch = collections.OrderedDict()
+ 	gmatch = collections.OrderedDict()
+	#grouporder = {1: 'home', 2: 'infrastructure', 3: 'virtualDatacenters', 4: 'virtualAppliances', 5: 'appsLibrary', 6: 'users', 7: 'systemConfiguration', 8: 'events', 9: 'pricing'}
 
-	#orderlabels = {}
-	#orderroles = {}
-	#orderfile = 'order_brief.txt'
-	#orderlines = (orderline.rstrip() for orderline in open(orderfile))
-	#for order_orig in orderlines:
-		#print (sql_orig)
-	#	ordernum = re.search(r'([\d_]+)', order_orig)
-	#	orderkey = re.search(r'([\w_]+)', order_orig)
-	#	orderlist_joinkey = ordernum + "=" + orderkey[1]
-	#	orderlabels[orderlist_joinkey] = ordernum
-	#	orderroles[orderlist_joinkey] = orderkey
- 
-	grouporder = {1: 'home', 2: 'infrastructure', 3: 'virtualDatacenters', 4: 'virtualAppliances', 5: 'appsLibrary', 6: 'users', 7: 'systemConfiguration', 8: 'events', 9: 'pricing'}
+	groupord = {'home','infrastructure','virtualDatacenters','virtualAppliances','appsLibrary','users','systemConfiguration','events','pricing'}
+
+	gmatch = {'ENTERPRISE':'home','PHYS':'infrastructure','VDC':'virtualDatacenters','VAPP':'virtualAppliances','APPLIB':'appsLibrary','USERS':'users','SYSCONFIG':'systemConfiguration','EVENTLOG':'events','PRICING':'pricing'}
 	groupmatch = {'home': 'ENTERPRISE', 'infrastructure': 'PHYS', 'virtualDatacenters': 'VDC', 'virtualAppliances': 'VAPP','appsLibrary': 'APPLIB', 'users': 'USERS', 'systemConfiguration': 'SYSCONFIG', 'events': 'EVENTLOG', 'pricing': 'PRICING'}
-	
-	labelmatch = {'MANAGE_LOADBALANCERS': 'VDC', 'MANAGE_FIREWALLS': 'VDC', 'MANAGE_FLOATINGIPS': 'VDC', 'WORKFLOW_OVERRIDE': 'VAPP', 'MANAGE_HARD_DISKS': 'VAPP', 'ASSIGN_LOADBALANCERS': 'VAPP', 'ASSIGN_FIREWALLS': 'VAPP', 'APPLIB_VM_COST_CODE': 'PRICING'}
 
-	privlabels = {}
-	privnames = {}
-	privdescs = {}
-	privgroups = {}
+	labelmatch = {'VM_PROTECT_ACTION': 'VAPP', 'MANAGE_LOADBALANCERS': 'VDC', 'MANAGE_FIREWALLS': 'VDC', 'MANAGE_FLOATINGIPS': 'VDC', 'WORKFLOW_OVERRIDE': 'VAPP', 'MANAGE_HARD_DISKS': 'VAPP', 'ASSIGN_LOADBALANCERS': 'VAPP', 'ASSIGN_FIREWALLS': 'VAPP', 'APPLIB_VM_COST_CODE': 'PRICING'}
+
+
 	UIlabelfile = 'lang_en_US_labels.json'
 	(privlabels,privnames,privdescs,privgroups) = get_gui_labels(input_gitdir,UIlabelfile)
 
+	print ("privdescs assign_firewalls: %s " % privdescs["ASSIGN_FIREWALLS"])
+	print ("privnames assign_firewalls: %s " % privnames["ASSIGN_FIREWALLS"])
+	for pi in privlabels:
+		print ("privlabels: %s" % pi)
+	for pg in privgroups:
+		print ("privgroups: %s" % pg)
 
-	output_file_name = 'wiki_privileges_2014-10-21.txt'
-	out_file = open(os.path.join(output_subdir,output_file_name), 'w')
-
-	pgkeys = collections.OrderedDict()
-	plkeys = collections.OrderedDict()
-	pgkeys = sorted(grouporder.keys())	 
-	plkeys = sorted(privlabels.keys())
-
-	privjson = {}
-	privcatlist = []
-	privlist = []
-
-	entries = []
 	categories = []
-	
-	for pgk in pgkeys:
-		pgkordered = grouporder[pgk]
-		current_group = groupmatch[pgkordered]
-		privgroupindexed = privgroups[pgkordered]
 
+	# output_file_name = 'wiki_privileges_2014-10-21.txt'
+	# out_file = open(os.path.join(output_subdir,output_file_name), 'w')
+	# out_file.close()
+
+ 	priv_cats = {}
+	ppdict = {}
+	for pp in sqlroles:
+		print ("pp: %s" % pp)
+	for pp in sqlroles:	
+		# create a privilege data object
+		if pp in privdescs:
+		 	priv_desc = privdescs[pp]
+		if pp in extratext:
+			priv_desc = priv_desc + extratext[pp]  
+	 	roleslist = []
+		for ro in rollers:
+			if ro in sqlroles[pp]:
+	 			roleslist.append(ro)
+	 	info = ""
+
+	 	priv_group = getCategory(labelmatch,pp)
+	 	print ("group: %s" % priv_group)
+
+
+	 	group = gmatch[priv_group]
+	 	print ("priv_group: %s" % priv_group)
+
+		privo = priv(priv_group,privnames[pp],pp,priv_desc,roleslist,info)
+	 	privo.pprint()
+	 	
+	 	if priv_group in priv_cats:
+			priv_cats[priv_group].append(pp)
+		else:
+			priv_cats[priv_group] = [pp]
+
+		for poo in priv_cats:
+			boo = priv_cats[poo]
+			print("boo: %s " % boo)	
+
+		# create a privilege json
+		privi = {}
+		privi["guiLabel"] = privo.pGuiLabel
+		privi["appTag"] = privo.pAppTag
+		privi["privilege"] = privo.pPrivilege
+		privi["roles"] = []
+		for rx in rollers:
+			role = {}
+			role['role'] = {}
+			rolex = {}
+			rolex["roleformat"] = rollers[rx].rformat
+			roleMark = {}
+			if rx in privo.pRoles:
+				roleMark["roleMark"] = "X"
+				rolex["rolehas"] = roleMark
+			role['role'] = rolex	
+			privi["roles"].append(role)		
+		privi["info"] = {}	
+		ppdict[pp] = privi
+
+
+
+
+	# process all the groups in order
+	for g in groupord:
+		gr = groupmatch[g]
 		category = {}
+		category["category"] = g
+		category["roleheader"] = rheaders
+		category['entries'] = []
+		for p in priv_cats[gr]:
+			category["entries"].append(ppdict[p])	
+		categories.append(category)		
 
-		# write a header
-		category["category"]=	privgroupindexed
-		category["roleheaders"] = rheaders
+	privilege_out = {}		
+	privilege_out["categories"] = categories
 
-
-		for plk_orig in plkeys:
-			plk = getCategory(plk_orig)
-
-			if current_group == plk:			
-				# create a privilege data object
-				priv_desc = privdescs[plk_orig]
-				if plk_orig in extratext:
-					priv_desc = priv_desc + extratext[plk_orig])   
-				roleslist = []
-				for ro in rollers:
-					if ro in sqlroles[plk_orig]:
-						roleslist.append(ro)
-				info = ""
-				privo = priv(current_group,privnames[plk_orig],plk_orig,privdescs,roleslist,info)
-
-				# create a privilege json
-				privi = {}
-				privi["guiLabel"] = privo.pGuiLabel
-				privi["appTag"] = privo.pAppTag
-				privi["privilege"] = privo.pPrivilege
-				for rx in rollers:
-					rolex = {}
-					rolex["roleformat"] = rollers[rx].rformat
-					if rx in privo.pRoles:
-						rolex["rolehas"] = "X"
-					privi["roles"].append(rolex) 
-				privi["info"] = {}	
-
-				# add the entry to the list of entries for the category
-				entries.append(privi)
-
-		category["category"] = entries
-		categories.append(category)
-	privilout = {}
-	privilout["categories"] = categories
-
-	# write a json file with the privileges for the mustache render
+	# write a json file with the privileges with the privilege key as the index
 	js = open_if_not_existing("cats.json")
 	if js:
-		json.dump(privilout, js)
-		js.close
+	 	json.dump(ppdict, js)
+	 	js.close
+
+	# write a json file with the privileges for the mustache render
+	jm = open_if_not_existing("camu.json")
+	if jm:
+	 	json.dump(categories, jm)
+	 	jm.close
+
 
 	# do the mustache render
 	mustacheTemplate = codecs.open("wiki_privileges_template.mustache", 'r', 'utf-8').read()
-	efo = pystache.render(mustacheTemplate, privilout).encode('utf8', 'xmlcharrefreplace')
+	efo = pystache.render(mustacheTemplate, privilege_out).encode('utf8', 'xmlcharrefreplace')
 	ef = open_if_not_existing("privileges_out.txt")
 	if ef:
 		ef.write(efo)
