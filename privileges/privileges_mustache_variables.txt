@@ -1,13 +1,26 @@
-          {{#categories}}
+           {{#categories}}
               {{categoryName}}
+              {{#roleheaders}}
+                {{#rolehead}}
+                  {{rolename}}
+                  {{roleheadform}}
+                {{/rolehead}}
+              {{/roleheaders}}
               {{#entries}}  
                 {{guiLabel}}
                 {{appTag}} 
                 {{privilege}}
-                {{cloudAdmin}}
-                {{entAdmin}}
-                {{entUser}}
-                {{outboundApi}}
+                {{#roles}}
+                {{#role}}
+                <td class="highlight {{roleformat}}" data-highlight-class="{{roleformat}}">
+                {{#rolehas}}
+                <p>{{roleMark}}</p>
+                {{/rolehas}}
+                {{^rolehas}}
+                <p></p>
+                {{/rolehas}}
+                </td>
+                {{/role}} 
               {{#info}}
                 <td><p>{{infoMark}}</p></td>
               {{/info}}

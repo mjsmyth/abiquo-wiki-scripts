@@ -3,9 +3,9 @@
 		"categoryName": "Home",
 		"entries": [
 			{
-				"guiLabel": ""
-				"appTag": "0"
-				"privilege": "0-2",
+				"guiLabel": "Allow user to switch enterprise"
+				"appTag": "ENTERPRISE_ADMINISTER_ALL"
+				"privilege": "This privilege allows a user to change to another enterprise, in order to administer it, by clicking the switch user button in the Enterprises list",
 				"cloudAdmin": "X",
 				"entAdmin": "X",
 				"entUser": "X",

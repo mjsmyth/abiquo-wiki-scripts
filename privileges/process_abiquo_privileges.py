@@ -17,6 +17,13 @@ import collections
 import pystache
 import codecs
 
+class role:
+	def __init__(self,akey,aname,ainitials,aformat):
+		self.rkey = akey
+		self.rname = aname
+		self.rinitials = ainitials
+		self.rformat = aformat
+
 class filedetails:
 	def __init__(self,aprefix,asuffix,adate,aiprefix,aisuffix):
 		self.fprefix = aprefix
@@ -68,13 +75,16 @@ def get_extra_text(input_subdir,extfile):
 
 def get_sql(input_subdir,sqlfile):
 	sqllines = (sqlline.rstrip() for sqlline in open(os.path.join(input_subdir,sqlfile)))
+	sqlroles = {}
 	for sql_orig in sqllines:
 		#print (sql_orig)
 		sqllist = re.findall(r'([\w_]+)', sql_orig)
-		sqllist_joinkey = sqllist[0] + "=" + sqllist[1]
-		sqllabels[sqllist_joinkey] = sqllist[0]
-		sqlroles[sqllist_joinkey] = sqllist[1]
-	return (sqllabels,sqlroles)
+	for sq in sqllist:
+		if sq[0] in sqlroles:
+			sqlroles[sq[0]].append(sq[1])
+		else
+			sqlroles[sq[0]] = [sq[1]]
+	return sqlroles
 
 def get_gui_labels(input_gitdir,UIlabelfile):
 	json_data = open(os.path.join(input_gitdir,UIlabelfile))
@@ -100,14 +110,35 @@ def get_gui_labels(input_gitdir,UIlabelfile):
 				#print("privilege: ", labelkey)  
 	return (privlabels,privnames,privdescs,privgroups)			
 
+
+def createRoles():	
+		# This could be read in from a file
+	rollers = collections.OrderedDict()
+ 	# r = role(akey,aname,ainitials,aformat)
+ 	rollers["CLOUD_ADMIN"] = role("CLOUD_ADMIN","Cloud Admin","CA","warning")
+ 	rollers["ENTERPRISE_ADMIN"] = role("ENTERPRISE_ADMIN","Ent Admin","EA","note")
+ 	rollers["USER"] = role("USER","Ent User","EU","success")
+ 	rollers["OUTBOUND_API_EVENTS"] = role("OUTBOUND_API_EVENTS","Outbound API","OA","info")
+ 	return rollers
+
+def createRoleHeader(rollers):
+	roleheading = []
+ 	for rrr in rollers:
+ 		rhd = {}
+ 		rhd["roleheadform"]=rollers[rrr].rformat 
+ 		rhd["rolename"]=rollers[rrr].rname
+ 		roleheading.append(rhd)
+ 	return roleheading	
+
+
 def main():
-	infoMarkNew = '<ac:emoticon ac:name="yellow-star"/>'
-	infoMarkCha = '<ac:emoticon ac:name="warning"/>'
+	infoprint = {}
+	infoprint["N"] = '<ac:emoticon ac:name="yellow-star"/>'
+	infoprint["C"] = '<ac:emoticon ac:name="warning"/>'
 	infoMarkDep = '<ac:emoticon ac:name="minus"/>'
 
-	infoNew = "N"
-	infoCha = "C"
-	infoDep = "D"
+	rollers = createRoles()
+	rheaders = createRoleHeader(rollers)
 
 	sql_total = 0
 	privs_processed = 0
@@ -120,12 +151,11 @@ def main():
 	extratext = {}
 	extratext = get_extra_text(input_subdir,extfile)
 
-
 	sqllabels = {}
 	sqlroles = {}
 	sqlfile = 'process_privileges_sql_2014-10-21.txt'
 
-	(sqllabels,sqlroles) = get_sql(input_subdir,sqlfile)
+	sqlroles = get_sql(input_subdir,sqlfile)
 
 
 	#orderlabels = {}
@@ -156,80 +186,80 @@ def main():
 	output_file_name = 'wiki_privileges_2014-10-21.txt'
 	out_file = open(os.path.join(output_subdir,output_file_name), 'w')
 
-    pgkeys = collections.OrderedDict()
-    plkeys = collections.OrderedDict()
+	pgkeys = collections.OrderedDict()
+	plkeys = collections.OrderedDict()
 	pgkeys = sorted(grouporder.keys())	 
 	plkeys = sorted(privlabels.keys())
 
-    prioo = {}
+	privjson = {}
+	privcatlist = []
+	privlist = []
 
-
+	entries = []
+	categories = []
+	
 	for pgk in pgkeys:
 		pgkordered = grouporder[pgk]
 		current_group = groupmatch[pgkordered]
 		privgroupindexed = privgroups[pgkordered]
 
+		category = {}
+
+		# write a header
+		category["category"]=	privgroupindexed
+		category["roleheaders"] = rheaders
+
+
 		for plk_orig in plkeys:
 			plk = getCategory(plk_orig)
-                # create a category json entry
-                
-			if current_group == plk:
 
-                # create a privilege object
-
-                # write a privilege json entry
-
-				output_row = "<tr> \n <td> \n " + privnames[plk_orig] + "</td> \n <td> \n " + plk_orig + "</td> \n <td> \n " + privdescs[plk_orig] 
-				out_file.write (output_row)
-				privs_processed = privs_processed + 1
-				#print (privnames[plk_orig],": ",privdescs[plk_orig])
+			if current_group == plk:			
+				# create a privilege data object
+				priv_desc = privdescs[plk_orig]
 				if plk_orig in extratext:
-					out_file.write (". " + extratext[plk_orig])   
-				out_file.write ("</td>\n")	
-				key_cloud_admin = plk_orig + "=CLOUD_ADMIN"
-				key_ent_admin = plk_orig + "=ENTERPRISE_ADMIN"
-				key_user = plk_orig + "=USER"
-				key_muser = plk_orig + "=OUTBOUND_API_EVENTS"
-				outroles = {}
-				oca = " "
-				oea = " "
-				oeu = " "
-				omu = " "
-				if key_cloud_admin in sqlroles:
-					#print ("CLOUD_ADMIN")
-					oca = "X"
-				if key_ent_admin in sqlroles:
-					#print ("ENT_ADMIN")  
-					oea = "X"  
-				if key_user in sqlroles:
-					#print ("USER")				   
-					oeu = "X"
-				if key_muser in sqlroles:
-					omu = "X"
+					priv_desc = priv_desc + extratext[plk_orig])   
+				roleslist = []
+				for ro in rollers:
+					if ro in sqlroles[plk_orig]:
+						roleslist.append(ro)
+				info = ""
+				privo = priv(current_group,privnames[plk_orig],plk_orig,privdescs,roleslist,info)
 
-				outroles[1] = "<td class=\"highlight warning\" data-highlight-class=\"warning\"> <p> " + oca + " </p> </td>\n"
-				outroles[2] = "<td class=\"highlight note\" data-highlight-class=\"note\"> <p> " + oea + " </p> </td>\n"
-				outroles[3] = "<td class=\"highlight success\" data-highlight-class=\"success\"> <p> " + oeu + " </p> </td> \n"
-				outroles[4] = "<td class=\"highlight info\" data-highlight-class=\"info\"> <p> " + omu + " </p> </td> \n"
-				outroles[5] = "<td > </td></tr>\n"
-				#okeys = sorted(outroles.keys())
-				#for okey in okeys:
-				for okey in range (1, 6):
-					out_file.write (outroles[okey])
-	out_file.write ("</tbody>\n</table>\n")
-	print("privs_processed: ",privs_processed)
+				# create a privilege json
+				privi = {}
+				privi["guiLabel"] = privo.pGuiLabel
+				privi["appTag"] = privo.pAppTag
+				privi["privilege"] = privo.pPrivilege
+				for rx in rollers:
+					rolex = {}
+					rolex["roleformat"] = rollers[rx].rformat
+					if rx in privo.pRoles:
+						rolex["rolehas"] = "X"
+					privi["roles"].append(rolex) 
+				privi["info"] = {}	
 
+				# add the entry to the list of entries for the category
+				entries.append(privi)
+
+		category["category"] = entries
+		categories.append(category)
+	privilout = {}
+	privilout["categories"] = categories
+
+	# write a json file with the privileges for the mustache render
+	js = open_if_not_existing("cats.json")
+	if js:
+		json.dump(privilout, js)
+		js.close
+
+	# do the mustache render
 	mustacheTemplate = codecs.open("wiki_privileges_template.mustache", 'r', 'utf-8').read()
-	efo = pystache.render(mustacheTemplate, wiki_output).encode('utf8', 'xmlcharrefreplace')
+	efo = pystache.render(mustacheTemplate, privilout).encode('utf8', 'xmlcharrefreplace')
 	ef = open_if_not_existing("privileges_out.txt")
 	if ef:
 		ef.write(efo)
 		ef.close()	  
 
-	json_data.close()
-	out_file.close()
-
-		
   
 # Calls the main() function
 if __name__ == '__main__':

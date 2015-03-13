@@ -30,18 +30,13 @@
                 <p>Privilege<span style="color: rgb(239,239,239);">____________________________________</span>
                 </p>
               </th>
-              <th class="warning" data-highlight-class="warning">
-                <p>Cloud Admin</p>
+              {{#roleheaders}}
+              {{#rolehead}} 
+              <th class="{{roleformat}}" data-highlight-class="{{roleformat}}">
+                <p>{{rolename}}</p>
               </th>
-              <th class="note" data-highlight-class="note">
-                <p>Ent Admin</p>
-              </th>
-              <th class="success" data-highlight-class="success">
-                <p>Ent User</p>
-              </th>
-              <th class="info" data-highlight-class="info">
-                <p>Outbound API</p>
-              </th>
+              {{/rolehead}}
+              {{/roleheaders}}
               <th>
                 <p>Info</p>
               </th>
@@ -51,7 +46,17 @@
               <td>{{guiLabel}}</td>
               <td>{{applicationTag}}</td>
               <td>{{privilege}}</td>
-              <td class="highlight warning" data-highlight-class="warning"><p>{{cloudAdmin}}</p></td>
+              {{#roles}}
+              {{#role}}
+              <td class="highlight {{roleformat}}" data-highlight-class="{{roleformat}}">
+              {{#rolehas}}
+              <p>{{roleMark}}</p>
+              {{/rolehas}}
+              {{^rolehas}}
+              <p></p>
+              {{/rolehas}}
+              </td>
+              {{/role}}
               <td class="highlight note" data-highlight-class="note"><p>{{entAdmin}}</p></td>
               <td class="highlight success" data-highlight-class="success"><p>{{entUser}}</p></td>
               <td class="highlight info" data-highlight-class="info"><p>{{outboundApi}}</p></td>
