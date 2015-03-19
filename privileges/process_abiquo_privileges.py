@@ -168,12 +168,16 @@ def main():
 	#grouporder = {1: 'home', 2: 'infrastructure', 3: 'virtualDatacenters', 4: 'virtualAppliances', 5: 'appsLibrary', 6: 'users', 7: 'systemConfiguration', 8: 'events', 9: 'pricing'}
 
 	groupord = {'home','infrastructure','virtualDatacenters','virtualAppliances','appsLibrary','users','systemConfiguration','events','pricing'}
+	groupheaders = {'home': 'Home', 'infrastructure': 'Infrastructure', 'virtualDatacenters': 'Virtual datacenters', 'virtualAppliances': 'Virtual appliances','appsLibrary': 'Apps library', 'users': 'User', 'systemConfiguration': 'Configuration', 'events': 'Events', 'pricing': 'Pricing'}
 
 	gmatch = {'ENTERPRISE':'home','PHYS':'infrastructure','VDC':'virtualDatacenters','VAPP':'virtualAppliances','APPLIB':'appsLibrary','USERS':'users','SYSCONFIG':'systemConfiguration','EVENTLOG':'events','PRICING':'pricing'}
+
 	groupmatch = {'home': 'ENTERPRISE', 'infrastructure': 'PHYS', 'virtualDatacenters': 'VDC', 'virtualAppliances': 'VAPP','appsLibrary': 'APPLIB', 'users': 'USERS', 'systemConfiguration': 'SYSCONFIG', 'events': 'EVENTLOG', 'pricing': 'PRICING'}
 
 	labelmatch = {'VM_PROTECT_ACTION': 'VAPP', 'MANAGE_LOADBALANCERS': 'VDC', 'MANAGE_FIREWALLS': 'VDC', 'MANAGE_FLOATINGIPS': 'VDC', 'WORKFLOW_OVERRIDE': 'VAPP', 'MANAGE_HARD_DISKS': 'VAPP', 'ASSIGN_LOADBALANCERS': 'VAPP', 'ASSIGN_FIREWALLS': 'VAPP', 'APPLIB_VM_COST_CODE': 'PRICING'}
 
+	vapp_privs = {'VM_PROTECT_ACTION', 'WORKFLOW_OVERRIDE', 'MANAGE_HARD_DISKS', 'ASSIGN_LOADBALANCERS','ASSIGN_FIREWALLS', }
+	vdc_privs = {'MANAGE_LOADBALANCERS', 'MANAGE_FIREWALLS', 'MANAGE_FLOATINGIPS'}
 
 	UIlabelfile = 'lang_en_US_labels.json'
 	(privlabels,privnames,privdescs,privgroups) = get_gui_labels(input_gitdir,UIlabelfile)
@@ -252,8 +256,9 @@ def main():
 	# process all the groups in order
 	for g in groupord:
 		gr = groupmatch[g]
+		gh = groupheaders[g]
 		category = {}
-		category["category"] = g
+		category["category"] = gh
 		category["roleheader"] = rheaders
 		category['entries'] = []
 		for p in priv_cats[gr]:
