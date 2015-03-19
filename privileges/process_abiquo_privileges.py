@@ -16,6 +16,7 @@ import os
 import collections
 import pystache
 import codecs
+import logging
 
 class rolec:
 	def __init__(self,akey,aname,ainitials,aformat):
@@ -44,6 +45,58 @@ class priv:
 	def pprint(self):
 		prRoles = " ".join(self.pRoles)
 		print "| %s | %s | %s | %s | %s | %s |" % (self.pCategory,self.pGuiLabel,self.pAppTag,self.pPrivilege,prRoles,self.pInfo)
+
+
+
+def get_options_file():
+	# Load properties for the scripts, including wiki properties that can't be stored in a public repo
+	options = {}
+	with open("../../scripts_properties.json.txt") as opfile:
+		opt_file = opfile.read().replace('\n', '')	
+		opt_file = opt_file.replace('\t', " ")
+		options = json.loads(opt_file)
+		for ick in (options):
+			logging.info("Options: %s : %s " % (ick,options[ick]))
+		input_subdir = options['input_subdir']
+		output_subdir = options['output_subdir']	
+		fileDate = options['fileDate']	
+		filePrefix = options['filePrefix']
+		fileSuffix = options['fileSuffix']
+		imagePrefix = options['imagePrefix']
+		imageSuffix = options['imageSuffix']
+		fdetails = filedetails(filePrefix,fileSuffix,fileDate,imagePrefix,imageSuffix)
+#		overwriteFiles = proc_strbool(owFiles)
+		return (fdetails,input_subdir,output_subdir)
+	# These are the details of the sample files and the images that link to the sample files on the wiki
+	# fileDate = "_2015-03-28"
+	# filePrefix = "properties_"
+	# fileSuffix = ".txt"
+	# imagePrefix = "v26_symbol_"
+	# imageSuffix = "_transparent.png"
+
+def processprivgroups(input_subdir,privUIFile):
+	groupswithprivs = collections.OrderedDict()
+	privswithgroups = collections.OrderedDict()
+	with codecs.open(os.path.join(input_subdir,privUIFile), 'r', 'utf-8') as f:
+		data=f.read().replace('\n', '')
+
+	names = re.findall('\sis([\w]*?)\s{1,1}([^,]*?),',data,re.U) 
+
+	for n in names:
+		groupswithprivs[n[0]] = []
+		print ("Event group: %s " % n[0])
+		privs = re.findall("(?<=self.name.indexOf\(\')([\w_]*?)(\')",n[1],re.U)
+		for p in privs:
+			print("ho: %s" % p[0])
+			groupswithprivs[n[0]].append(p[0])
+
+	for x in groupswithprivs:
+		for y in groupswithprivs[x]:
+			print("x: %s" % x)
+			print("privgroupnames: %s" % y)
+			privswithgroups[y] = x
+	return (groupswithprivs,privswithgroups)	
+
 	
 def open_if_not_existing(filename):
 	try:
@@ -54,13 +107,14 @@ def open_if_not_existing(filename):
 	fobj = os.fdopen(fd, "w")
 	return fobj
 
-def getCategory(labelmatch,plk_orig):
-	if plk_orig in labelmatch.keys():
-		plk = labelmatch[plk_orig]
-	else:	
-		plk_split = plk_orig.split("_")
-		plk = plk_split[0]
-	return plk	
+def getGroup(privswithgroups,privilege_key):
+	priv_group = ""
+	for p in privswithgroups:
+		if re.match (p, privilege_key):	
+			priv_group = privswithgroups[p]
+	if not priv_group:		
+		priv_group = error	
+	return priv_group
 
 def get_extra_text(input_subdir,extfile):
 	extlines = (extline.rstrip() for extline in open(os.path.join(input_subdir,extfile)))
@@ -140,10 +194,18 @@ def createRoleHeader(rollers):
 
 
 def main():
+	privUIFile = "privilegesMgr.js"
+	thisscript = "privileges"
+
+	(fdetails,input_subdir,output_subdir) = get_options_file()
+	(groupswithprivs,privswithgroups) = processprivgroups(input_subdir,privUIFile)
+
+	logging.basicConfig(filename='api_examples.log',level=logging.DEBUG)
+
 	infoprint = {}
 	infoprint["N"] = '<ac:emoticon ac:name="yellow-star"/>'
 	infoprint["C"] = '<ac:emoticon ac:name="warning"/>'
-	infoMarkDep = '<ac:emoticon ac:name="minus"/>'
+	infoprint["D"] = '<ac:emoticon ac:name="minus"/>'
 
 	rollers = createRoles()
 	rheaders = createRoleHeader(rollers)
@@ -168,7 +230,9 @@ def main():
 	#grouporder = {1: 'home', 2: 'infrastructure', 3: 'virtualDatacenters', 4: 'virtualAppliances', 5: 'appsLibrary', 6: 'users', 7: 'systemConfiguration', 8: 'events', 9: 'pricing'}
 
 	groupord = {'home','infrastructure','virtualDatacenters','virtualAppliances','appsLibrary','users','systemConfiguration','events','pricing'}
-	groupheaders = {'home': 'Home', 'infrastructure': 'Infrastructure', 'virtualDatacenters': 'Virtual datacenters', 'virtualAppliances': 'Virtual appliances','appsLibrary': 'Apps library', 'users': 'User', 'systemConfiguration': 'Configuration', 'events': 'Events', 'pricing': 'Pricing'}
+
+#	groupheaders = {'home': 'Home', 'infrastructure': 'Infrastructure', 'virtualDatacenters': 'Virtual datacenters', 'virtualAppliances': 'Virtual appliances','appsLibrary': 'Apps library', 'users': 'User', 'systemConfiguration': 'Configuration', 'events': 'Events', 'pricing': 'Pricing'}
+	groupheaders = {'Home': 'Home', 'Infrastructure': 'Infrastructure', 'VirtualDatacenter': 'Virtual datacenter', 'VirtualAppliance': 'Virtual appliance','AppsLibrary': 'Apps library', 'Users': 'User', 'SystemConfiguration': 'System configuration', 'Pricing': 'Pricing', 'Events': 'Event'}
 
 	gmatch = {'ENTERPRISE':'home','PHYS':'infrastructure','VDC':'virtualDatacenters','VAPP':'virtualAppliances','APPLIB':'appsLibrary','USERS':'users','SYSCONFIG':'systemConfiguration','EVENTLOG':'events','PRICING':'pricing'}
 
@@ -176,7 +240,7 @@ def main():
 
 	labelmatch = {'VM_PROTECT_ACTION': 'VAPP', 'MANAGE_LOADBALANCERS': 'VDC', 'MANAGE_FIREWALLS': 'VDC', 'MANAGE_FLOATINGIPS': 'VDC', 'WORKFLOW_OVERRIDE': 'VAPP', 'MANAGE_HARD_DISKS': 'VAPP', 'ASSIGN_LOADBALANCERS': 'VAPP', 'ASSIGN_FIREWALLS': 'VAPP', 'APPLIB_VM_COST_CODE': 'PRICING'}
 
-	vapp_privs = {'VM_PROTECT_ACTION', 'WORKFLOW_OVERRIDE', 'MANAGE_HARD_DISKS', 'ASSIGN_LOADBALANCERS','ASSIGN_FIREWALLS', }
+#	grouplist['virtualAppliances'] = {'VAPP_','VM_PROTECT_ACTION', 'WORKFLOW_OVERRIDE', 'MANAGE_HARD_DISKS', 'ASSIGN_LOADBALANCERS','ASSIGN_FIREWALLS'}
 	vdc_privs = {'MANAGE_LOADBALANCERS', 'MANAGE_FIREWALLS', 'MANAGE_FLOATINGIPS'}
 
 	UIlabelfile = 'lang_en_US_labels.json'
@@ -211,12 +275,12 @@ def main():
 	 			roleslist.append(ro)
 	 	info = ""
 
-	 	priv_group = getCategory(labelmatch,pp)
+	 	priv_group = getGroup(privswithgroups,pp)
 	 	print ("group: %s" % priv_group)
 
 
-	 	group = gmatch[priv_group]
-	 	print ("priv_group: %s" % priv_group)
+	 	# group = gmatch[priv_group]
+	 	# print ("priv_group: %s" % priv_group)
 
 		privo = priv(priv_group,privnames[pp],pp,priv_desc,roleslist,info)
 	 	privo.pprint()
@@ -226,8 +290,8 @@ def main():
 		else:
 			priv_cats[priv_group] = [pp]
 
-		for poo in priv_cats:
-			boo = priv_cats[poo]
+		for blah in priv_cats:
+			boo = priv_cats[blah]
 			print("boo: %s " % boo)	
 
 		# create a privilege json
@@ -254,14 +318,14 @@ def main():
 
 
 	# process all the groups in order
-	for g in groupord:
-		gr = groupmatch[g]
+	for g in groupswithprivs:
+		print ("g: %s" % g)
 		gh = groupheaders[g]
 		category = {}
 		category["category"] = gh
 		category["roleheader"] = rheaders
 		category['entries'] = []
-		for p in priv_cats[gr]:
+		for p in priv_cats[g]:
 			category["entries"].append(ppdict[p])	
 		categories.append(category)		
 
@@ -284,10 +348,11 @@ def main():
 	# do the mustache render
 	mustacheTemplate = codecs.open("wiki_privileges_template.mustache", 'r', 'utf-8').read()
 	efo = pystache.render(mustacheTemplate, privilege_out).encode('utf8', 'xmlcharrefreplace')
-	ef = open_if_not_existing("privileges_out.txt")
+
+	ef = open_if_not_existing(os.path.join(output_subdir,"v32_privileges_out.txt"))
 	if ef:
 		ef.write(efo)
-		ef.close()	  
+		ef.close()	 
 
   
 # Calls the main() function
