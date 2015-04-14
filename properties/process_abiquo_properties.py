@@ -67,21 +67,20 @@ def getCategory(pName):
 		property_cat = "client"			
 	return property_cat
 
-def wikiProperty(rawProp,profiles,filedetails):
-	property_entry = {}
-	property_entry['propertyName'] = rawProp.pName
-
-	rawDefault = rawProp.pDefault
+def subPropertyDefault(rawDefault):
 	if re.search(r"{",rawDefault):
-		re.sub(r"{",r"\{",rawDefault) 
+		rawDefault = re.sub(r"{",r"\{",rawDefault) 
 	if rawProp.pName == "abiquo.datacenter.id":
 		rawDefault = re.sub("default","Abiquo",rawDefault)
 	rawDefault = re.sub("127.0.0.1",r"<IP-repoLoc>",rawDefault)
 	rawDefault = re.sub("localhost",r"127.0.0.1",rawDefault)
-	rawDefault = re.sub("10.60.1.4",r"<IP-mail>",rawDefault);
-	rawDefault = re.sub("10.60.1.91",r"<IP-storagelink>",rawDefault)
-	property_entry['propertyDefault'] = rawDefault
+	rawDefault = re.sub("10.60.1.4",r"127.0.0.1",rawDefault);
+	return rawDefault
 
+def wikiProperty(rawProp,profiles,filedetails):
+	property_entry = {}
+	property_entry['propertyName'] = rawProp.pName
+	property_entry['propertyDefault'] = rawProp.pDefault
 	property_entry['propertyRange'] = rawProp.pRange
 	property_entry['propertyDescription'] = rawProp.pDescription
 	property_entry['propertyProfiles'] = []
@@ -177,6 +176,7 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 					# the sixth group, if it exists, is the property default value
 					if property_match.group(6):
 						property_default = property_match.group(6).strip()
+						property_default = subPropertyDefault(property_default)
 					else:
 						property_default = ""
 				else:	
@@ -192,6 +192,7 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 				# the fourth group, if it exists, is the property default value
 				if property_match.group(4):
 					property_default = property_match.group(4).strip()
+					property_default = subPropertyDefault(property_default)
 				else:
 					property_default = ""	
 		property_category = ""
