@@ -10,9 +10,9 @@
 # default values as set by Abiquo. The default values for properties are used
 # within the Abiquo platform if you do not set the properties. However, some
 # default configuration options may also be set outside of the Abiquo
-# platform, for example, in the hypervisor. 
+# platform, for example, in the hypervisor. 
 # After modifying this file, check carefully to ensure you have the correct
-# values and no unnecessary whitespace around the properties. For the changes
+# values and no unnecessary whitespace around the properties. For the changes
 # to take effect, restart the abiquo-tomcat service using "service
 # abiquo-tomcat restart"
 
@@ -49,8 +49,8 @@ abiquo.rabbitmq.username=guest
 # If true, Abiquo will read the custom seed file at /etc/abiquo/.store
 # If you create the seed file, but the property is not true, Abiquo will use
 # the default seed. Abiquo requires access to the configured seed file to work
-# with passwords. If it is lost, you will need to regenerate ALL passwords stored
-# in Abiquo. Range: true, false
+# with passwords. If it is lost, you will need to regenerate ALL passwords 
+# stored in Abiquo. Range: true, false
 #abiquo.security.encrypt=false
 
 ##########################  SERVER REMOTESERVICES  ##########################
@@ -82,7 +82,7 @@ abiquo.redis.host=localhost
 # Port where Redis is located. By default Redis is installed on the Abiquo
 # Server in addition to the Remote Services machine. In a monolithic install,
 # the Redis host and port properties should point to the monolithic
-# server. When configuring API load balancing, only the Abiquo Server Redis
+# server. When configuring API load balancing, only the Abiquo Server Redis
 # property should point to the central datanode
 abiquo.redis.port=6379
 
@@ -92,10 +92,16 @@ abiquo.kairosdb.host=localhost
 # Port where KairosDb is listening for VM monitoring
 abiquo.kairosdb.port=8080
 
+# Address where the API is running. For example: http://80.169.25.32/api/
+# Required for Remote Services (for Appliance manager, the address must be 
+# reachable by cloud users). Recommended for Abiquo API Server (for Chef, the 
+# address must be reachable from deployed VMs).
+abiquo.server.api.location=http://localhost/api
+
 #######################  REMOTESERVICES V2VSERVICES  #######################
 
 # Identify the AMQP datacenter queues. The Datacenter ID is used for building
-# routing keys and queue names, so that they are unique for each datacenter. 
+# routing keys and queue names, so that they are unique for each datacenter. 
 # Warning: Do not change this property! This property is required and the
 # value is generated at installation. You can recover the property's value
 # through the API with Get Datacenter
@@ -135,8 +141,8 @@ abiquo.auth.module=abiquo
 # remote MySQL database server on the Abiquo wiki
 #abiquo.database.user=root
 
-# Default value. Abiquo uses the property only if the disk controller
-# attribute is not set in the virtual machine template. ESXi only: if null,
+# Default value. Abiquo uses the property only if the disk controller
+# attribute is not set in the virtual machine template. ESXi only: if null,
 # the controller for primary disks on non-persistent VMs is ide and on
 # persistent VMs it is scsi. Values apply to both non-persistent and
 # persistent VMs. This property does not apply to Hard Disks on the VMware
@@ -169,16 +175,16 @@ abiquo.ldap.authentication.attribute.enterprise=organizationname
 # LDAP
 abiquo.ldap.authentication.autoUserCreation=true
 
-# Abiquo will perform an additional custom query against the specified schema
-# in the LDAP/Active Directory. This value is required. The default value
-# does not result in an additional query
+# Abiquo will perform an additional custom query against the specified schema
+# in the LDAP/Active Directory. This value is required. The default value
+# does not result in an additional query
 abiquo.ldap.authentication.custom.userDnPattern=cn={0},CN=Users
 
 # Base Distinguished Name of the LDAP/Active Directory
 abiquo.ldap.authentication.server.baseDN=DC=localhost,DC=local
 
 # LDAP/Active Directory port. In LDAP mode this property is required, even if
-# the server is listening at the default LDAP/Active Directory port
+# the server is listening at the default LDAP/Active Directory port
 abiquo.ldap.authentication.server.port=389
 
 # Protocol to be used when authenticating to a LDAP/Active Directory. Range:
@@ -210,11 +216,6 @@ abiquo.oauth.accesstoken.validity=43200000
 # (milliseconds)
 abiquo.nodecollector.timeout=180000
 
-# Address where the API is running. Used in Chef: must be the public IP of
-# the Abiquo API (or at least an address reachable from the deployed virtual
-# machines). For example: http://80.169.25.32/api/
-abiquo.server.api.location=http://localhost/api
-
 # If not supplied, it is set to false. When false, no action is taken if
 # multiple users are logged in with the same user account. The user who
 # logged in most recently will have true control of the session and actions
@@ -232,13 +233,13 @@ abiquo.server.mail.server=10.60.1.4
 abiquo.server.mail.user=none@none.es
 
 # Default remote repository space (OVF package sources) attached to
-# all appliance libraries
+# all appliance libraries
 abiquo.server.remoteSpace.default=http://abiquo-repository.abiquo.com/ovfindex.xml
 
 # Time the server waits before marking a client session as expired (minutes)
 abiquo.server.sessionTimeout=30
 
-# Time the server waits for long requests (milliseconds) (Default value is 7
+# Time the server waits for long requests (milliseconds) (Default value is 7
 # days)
 abiquo.server.timeout=600000000
 
@@ -251,7 +252,7 @@ abiquo.storagemanager.netapp.debug=false
 # Optional initial initiator group will be created
 abiquo.storagemanager.netapp.initiatorGroupName=abiGroup
 
-# Optional ratio to allow a LUN of a provided size to fill on its container
+# Optional ratio to allow a LUN of a provided size to fill on its container
 # volume (volSize = lunSize * volumelunratio). Range: 1.3 - 1.9
 abiquo.storagemanager.netapp.volumelunration=1.3
 
@@ -268,12 +269,19 @@ abiquo.tasks.trimmer.delay=86400000
 # Delay between executions of the virtual infrastructure check (milliseconds)
 abiquo.vi.check.delay=900000
 
+# Number of virtual infrastructure check executions that a locked virtual
+# machine with a pending task can pass before it will be marked as failed.
+#abiquo.abiquo.task.ttl=
+
 # Last port of the VNC range to be used when allocating virtual machines.
 # Note that VMware only recommends ports 5900 to 5964
 #abiquo.vncport.max=65534
 
 # First port of the VNC range to be used when allocating virtual machines
 #abiquo.vncport.min=5900
+
+# Used by the Flex UI to test connectivity to the backend API stub
+#client.SERVER_ADDRESS=127.0.0.1
 
 # Configures the AMF secure channel (0 for regular, 1 for secure). Range: 0,
 # 1
@@ -303,7 +311,7 @@ abiquo.vi.check.delay=900000
 #abiquo.api.session.cookie.name=ABQSESSIONID
 
 # reCAPTCHA private key for user password reset. Obtain keys from Google
-# abiquo.captcha.private.key=
+#abiquo.captcha.private.key=
 
 # Path to email template and text .properties files for user password reset
 abiquo.mail.path=/opt/abiquo/config/mail
@@ -327,7 +335,7 @@ abiquo.mail.path=/opt/abiquo/config/mail
 # (milliseconds)
 #abiquo.appliancemanager.fstimeoutms=7000
 
-# Folder where the abiquo.appliancemanager.repositoryLocation is mounted on
+# Folder where the abiquo.appliancemanager.repositoryLocation is mounted on
 # the remote services node
 abiquo.appliancemanager.localRepositoryPath=/opt/vm_repository
 
@@ -361,12 +369,13 @@ abiquo.appliancemanager.repositoryLocation=127.0.0.1:/opt/vm_repository
 # (milliseconds)
 #abiquo.appliancemanager.deploy.idle=600000
 
-# Timeout for HTTP connections to be stablished when downloading a virtual machine template
-# (milliseconds)
+# Timeout for HTTP connections to be established when downloading a virtual 
+# machine template (milliseconds)
 #abiquo.appliancemanager.deploy.connection=120000
 
 # Timeout for HTTP connections to the ApplianceManager Server when using the
-# ApplianceManager Client, this property configures read and connection timeout. (milliseconds)
+# ApplianceManager Client, this property configures read and connection timeout
+# (milliseconds)
 #abiquo.appliancemanager.client.timeoutInMilliseconds=60000
 
 # Enable DVS. Note that the vCenter login and password can be used when DVS
@@ -374,19 +383,19 @@ abiquo.appliancemanager.repositoryLocation=127.0.0.1:/opt/vm_repository
 #abiquo.dvs.enabled=false
 
 # Network adapter teaming policy in DVS port groups. This property controls
-# the algorithm used for network adapter load balancing when multiple NICs
-# are used in 'teaming mode'. Range: loadbalance_ip, loadbalance_srcid
+# the algorithm used for network adapter load balancing when multiple NICs
+# are used in 'teaming mode'. Range: loadbalance_ip, loadbalance_srcid
 abiquo.dvs.portgroup.loadsharingmechanism=loadbalance_ip
 
 # Number of available ports in each port group
 abiquo.dvs.portgroup.maxsize=48
 
-# Password of the vCenter user account. The underscore character "_" is not
+# Password of the vCenter user account. The underscore character "_" is not
 # allowed in this field. Create a user with the same password in the vCenter
-# in order to use the DVS or vCenter with Abiquo. In vSphere 5.1, you must
+# in order to use the DVS or vCenter with Abiquo. In vSphere 5.1, you must
 # create this account in an Active Directory domain or using a VMware Single
 # Sign-on system, NOT as a local Windows account on the vCenter. If
-# 'abiquo.dvs.enabled' is set to true, this property is required. The DVS
+# 'abiquo.dvs.enabled' is set to true, this property is required. The DVS
 # vCenter user and password properties are also used for connecting to
 # vCenter even if DVS is not used, for example, when deleting orphans. So the
 # user and password properties can be used even when abiquo.dvs.enabled is
@@ -395,10 +404,10 @@ abiquo.dvs.portgroup.maxsize=48
 #abiquo.dvs.vcenter.password=change-me
 
 # Username of the vCenter user account. Create a user account with the same
-# password in the vCenter in order to use the DVS or vCenter with Abiquo. In
+# password in the vCenter in order to use the DVS or vCenter with Abiquo. In
 # vSphere 5.1, you must create this account in an Active Directory domain or
 # using a VMware Single Sign-on system, NOT as a local Windows account on the
-# vCenter. If 'abiquo.dvs.enabled' is set to true, the property is required.
+# vCenter. If 'abiquo.dvs.enabled' is set to true, the property is required.
 # The DVS vCenter user and password properties are also used for connecting
 # to vCenter even if DVS is not used, for example, when deleting orphans. So
 # the user and password properties can be used even when abiquo.dvs.enabled
@@ -498,6 +507,43 @@ abiquo.virtualfactory.xenserver.repositoryLocation=127.0.0.1:/opt/vm_repository
 # on Amazon plugin
 #abiquo.vsm.vmsyncfrequency.amazon=180000
 
+# The delay in milliseconds added between the creation of actors for ESX
+# plugin type on VSM start up.
+#abiquo.vsm.actor.creation.delay.vmx_04=0
+
+# The delay in milliseconds added between the creation of actors for KVM
+# plugin type on VSM start up.
+#abiquo.vsm.actor.creation.delay.kvm=0
+
+# The delay in milliseconds added between the creation of actors for HYPER-V
+# plugin type on VSM start up.
+#abiquo.vsm.actor.creation.delay.hyperv_301=0
+
+# The delay in milliseconds added between the creation of actors for ORACLE VM
+# plugin type on VSM start up.
+#abiquo.vsm.actor.creation.delay.oracle_vm=0
+
+# The delay in milliseconds added between the creation of actors for XEN SERVER
+# plugin type on VSM start up.
+#abiquo.vsm.actor.creation.delay.xenserver=0
+
+# The delay in milliseconds added between the creation of actors for Amazon
+# plugin type on VSM start up.
+#abiquo.vsm.actor.creation.delay.amazon=0
+
+# The heartbeat frequency of measures pusher in milliseconds. Or the delay
+# between reconnection process to Kairos.
+#abiquo.vsm.measures.pusher.frequency=10000
+
+# Maximum backoff time in seconds between connection errors to reduce load and 
+# logging of these errors. A counter has been added to register the number of 
+# failed attempts to connect to the hypervisor or public cloud to perform any 
+# type of operation. When rescheduling operations, Abiquo will multiply the 
+# maximum backoff time by the number of failed connection attempts to determine
+# the wait time until the next try. If a connection is established, the error 
+# counter is reset.
+#abiquo.vsm.max.backoff=3600
+
 # Time to wait to establish the connection to ESX (milliseconds)
 #com.abiquo.virtualfactory.esxi.timeoutConnectionMs=10000
 
@@ -576,19 +622,22 @@ abiquo.virtualfactory.xenserver.repositoryLocation=127.0.0.1:/opt/vm_repository
 # false. Range: true, false
 #abiquo.openstack.autoAllocateFloatingIps=true
 
-# Enable automatic generation of key pairs. This enables the automatic generation
-# of key pairs, to make sure that the owner of the virtual machine will have SSH
-# access to the virtual machines that are deployed. Range: true, false
+# Enable automatic generation of key pairs. This enables the automatic 
+# generation of key pairs, to make sure that the owner of the virtual machine 
+# will have SSH access to the virtual machines that are deployed. 
+# Range: true, false
 #abiquo.openstack.autoGenerateKeyPairs=true
 
-# Configures the authentication type. In OpenStack installations, the standard method
-# of authentication is using a password is using a password. However, if the RAX_KSKEY extension
+# Configures the authentication type. In OpenStack installations, the standard 
+# method of authentication is using a password is using a password. However, 
+# if the RAX_KSKEY extension
 # (see http://docs.openstack.org/api/openstack-identity-service/2.0/content/Admin_API_Service_Developer_Operations-RAX-KSKEY-admin.html)
 # is installed, users might be able to use an API key to authenticate.
 # Range: passwordCredentials, apiAccessKeyCredentials
 #abiquo.openstack.credentialType=passwordCredentials
 
-# Azure Storage account name prefix (one per region) created for Deployments
+# Prefix of the name of the Azure Storage account created for deployments (one 
+# account per region) 
 #abiquo.virtualfactory.azure.storageAccountPrefix = abiquostorage
 
 # Timeout waiting for an operation to complete, e.g deploy / undeploy
@@ -609,16 +658,16 @@ abiquo.virtualfactory.xenserver.repositoryLocation=127.0.0.1:/opt/vm_repository
 # Default password for virtual machines if not found in the template
 #abiquo.virtualfactory.azure.defaultLoginPassword = abqazure0!
 
-# The URL of the Docker Registry Abiquo will use to pull images. For
-# example: http://localhost:5000
-# abiquo.docker.registry=
+# The URL of the Docker Registry that Abiquo will use to pull images. 
+# For example: http://localhost:5000
+#abiquo.docker.registry=
 
 # Comma separated list of tag patterns allowed. Existing tags in the
 # Docker registry will be matched against these patterns and Abiquo will
 # only show the ones that match. The format of the pattern is defined
 # by the Java pattern: http://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html
 # Example: ^fixedtag$,^tagswithprefix
-# abiquo.docker.registry.tags=
+#abiquo.docker.registry.tags=
 
 # Specifies the block size in KB for the volumes created in Nexenta storage
 # devices. Abiquo does not validate this property. Abiquo supports values

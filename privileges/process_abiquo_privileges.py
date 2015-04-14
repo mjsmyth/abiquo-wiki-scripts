@@ -315,8 +315,6 @@ def main():
 		ppdict[pp] = privi
 
 
-
-
 	# process all the groups in order
 	for g in groupswithprivs:
 		print ("g: %s" % g)

@@ -173,7 +173,7 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 				if property_match:
 					property_type = "optional"
 					# the third group is the property name
-					property_name = property_match.group(3))
+					property_name = property_match.group(3)
 					# the sixth group, if it exists, is the property default value
 					if property_match.group(6):
 						property_default = property_match.group(6).strip()
@@ -235,21 +235,22 @@ def main():
 	wiki_output = {}
 	categories = []
 
-	prevWikiVersion = "ABI32"
+	# prevWikiVersion = "ABI32"
 	wikiVersion = "ABI34"
-	# Directories and file names
+	# # Directories and file names
 
-    input_subdir = 'input_files'
-    output_subdir = 'output_files'
+ #    input_subdir = 'input_files'
+ #    output_subdir = 'output_files'
 
-    compFile = prevWikiVersion + output_subdir
+ #    compFile = prevWikiVersion + output_subdir
+    # inputDir = wikiVersion + "/" + input_subdir
+    # outputDir = wikiVersion + "/" + output_subdir
 
-    propertyFile = 'abiquo.properties.txt'
-    inputDir = wikiVersion + "/" + input_subdir
-    outputDir = wikiVersion + "/" + output_subdir
+	propertyFile = 'abiquo.properties_2015_04_13'
+
     
 	# These are the details of the sample files and the images that link to the sample files on the wiki
-	fileDate = "_2015-03-28"
+	fileDate = "_2015-04-13"
 	filePrefix = "properties_"
 	fileSuffix = ".txt"
 	imagePrefix = "v26_symbol_"
@@ -271,7 +272,8 @@ def main():
 	profiles["M OUTBOUND API"] ="OA"
 
 	# Read git properties file line by line
-	with codecs.open(os.path.json(inputDir,propertyFile), 'r', 'utf-8') as f:
+#	with codecs.open(os.path.json(inputDir,propertyFile), 'r', 'utf-8') as f:
+	with codecs.open(propertyFile, 'r', 'utf-8') as f:
 		content = f.readlines()
 	# Prepare the properties for wiki output and sample files	
 	(storage_dict,sample_files) = storeProperties(content,property_regex_comment,property_regex_no_comment,range_regex,profiles,fdetails,sample_files)
@@ -312,7 +314,7 @@ def main():
 	# Render the wiki file with mustache
 	mustacheTemplate = codecs.open("wiki_properties_template.mustache", 'r', 'utf-8').read()
 	efo = pystache.render(mustacheTemplate, wiki_output).encode('utf8', 'xmlcharrefreplace')
-	ef = open_if_not_existing("properties_out.txt")
+	ef = open_if_not_existing("properties_out_2015_04_13.txt")
 	if ef:
 		ef.write(efo)
 		ef.close()		

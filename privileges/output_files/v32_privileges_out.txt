@@ -1,0 +1,1653 @@
+<ac:macro ac:name="section">
+  <ac:rich-text-body>
+    <ac:macro ac:name="div">
+      <ac:parameter ac:name="class">landsc smallcode</ac:parameter>
+      <ac:rich-text-body>
+        <table>
+          <tbody>
+            <tr>
+              <td class="highlight info" data-highlight-class="info">
+                <p><h6>Home privileges</h6></p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+            </tr>
+            <tr>
+              <th>
+                <p>GUI Label <span style="color: rgb(239,239,239);">_________________</span></p>
+              </th>
+              <th>
+                <p>Application Tag</p>
+              </th>
+              <th>
+                <p>Privilege<span style="color: rgb(239,239,239);">____________________________________</span></p>
+              </th>
+              <th class="warning" data-highlight-class="warning"><p>Cloud Admin</p></th>
+              <th class="note" data-highlight-class="note"><p>Ent Admin</p></th>
+              <th class="success" data-highlight-class="success"><p>Ent User</p></th>
+              <th class="info" data-highlight-class="info"><p>Outbound API</p></th>
+              <th><p>Info</p></th>
+            </tr> 
+              
+            <tr>
+              <td>Display enterprise statistics</td>
+              <td>ENTERPRISE_RESOURCE_SUMMARY_ENT</td>
+              <td>This privilege allows a user to filter statistics by enterprise to display the resources used by an enterprise in the enterprise resources panel</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>List enterprises within scope</td>
+              <td>ENTERPRISE_ENUMERATE</td>
+              <td>This privilege allows a user to view the list of enterprises within scope and to view statistics for those enterprises</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Allow user to switch enterprise</td>
+              <td>ENTERPRISE_ADMINISTER_ALL</td>
+              <td>This privilege allows a user to change to another enterprise, in order to administer it, by clicking the switch user button in the Enterprises list</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Display enterprise limits in statistics</td>
+              <td>ENTERPRISE_SHOW_STATS_LIMITS</td>
+              <td>This privilege allows a user to view enterprise limits in addition to resources used in the enterprise resources panel if the user has the Display enterprise statistics privilege</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              X</p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+                      <tr>
+              <td class="highlight info" data-highlight-class="info">
+                <p><h6>Infrastructure privileges</h6></p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+            </tr>
+            <tr>
+              <th>
+                <p>GUI Label <span style="color: rgb(239,239,239);">_________________</span></p>
+              </th>
+              <th>
+                <p>Application Tag</p>
+              </th>
+              <th>
+                <p>Privilege<span style="color: rgb(239,239,239);">____________________________________</span></p>
+              </th>
+              <th class="warning" data-highlight-class="warning"><p>Cloud Admin</p></th>
+              <th class="note" data-highlight-class="note"><p>Ent Admin</p></th>
+              <th class="success" data-highlight-class="success"><p>Ent User</p></th>
+              <th class="info" data-highlight-class="info"><p>Outbound API</p></th>
+              <th><p>Info</p></th>
+            </tr> 
+              
+            <tr>
+              <td>Manage storage elements</td>
+              <td>PHYS_DC_ALLOW_MODIFY_STORAGE</td>
+              <td>This privilege allows a user to manage storage elements (add, edit and delete storage devices, pools, tiers and volumes)</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage datacenter backup configuration</td>
+              <td>PHYS_DC_ALLOW_BACKUP_CONFIG</td>
+              <td>This privilege allows a user to manage backup configuration at datacenter level</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>View datacenter details</td>
+              <td>PHYS_DC_RETRIEVE_DETAILS</td>
+              <td>This privilege allows a user to go inside a datacenter and view its details (racks, physical machines, VLANs, storage and allocation rules)</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage datacenter</td>
+              <td>PHYS_DC_MANAGE</td>
+              <td>This privilege allows a user to manage datacenters (add, edit and delete). Without it, the datacenter's properties will be read only</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage allocation rules</td>
+              <td>PHYS_DC_ALLOW_MODIFY_ALLOCATION</td>
+              <td>This privilege allows a user to manage allocation rules (add and delete rules)</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Display resource usage panel</td>
+              <td>PHYS_DC_RETRIEVE_RESOURCE_USAGE</td>
+              <td>This privilege allows a user to view the resource usage panel in the Infrastructure view</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Access Infrastructure view</td>
+              <td>PHYS_DC_ENUMERATE</td>
+              <td>This privilege allows a user to access the Infrastructure view and list the physical datacenters</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage infrastructure elements</td>
+              <td>PHYS_DC_ALLOW_MODIFY_SERVERS</td>
+              <td>This privilege allows a user to manage infrastructure elements (add, edit and delete racks and physical machines)</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage network elements</td>
+              <td>PHYS_DC_ALLOW_MODIFY_NETWORK</td>
+              <td>This privilege allows a user to manage network elements (add, edit and delete public VLANs)</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+                      <tr>
+              <td class="highlight info" data-highlight-class="info">
+                <p><h6>Virtual datacenters privileges</h6></p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+            </tr>
+            <tr>
+              <th>
+                <p>GUI Label <span style="color: rgb(239,239,239);">_________________</span></p>
+              </th>
+              <th>
+                <p>Application Tag</p>
+              </th>
+              <th>
+                <p>Privilege<span style="color: rgb(239,239,239);">____________________________________</span></p>
+              </th>
+              <th class="warning" data-highlight-class="warning"><p>Cloud Admin</p></th>
+              <th class="note" data-highlight-class="note"><p>Ent Admin</p></th>
+              <th class="success" data-highlight-class="success"><p>Ent User</p></th>
+              <th class="info" data-highlight-class="info"><p>Outbound API</p></th>
+              <th><p>Info</p></th>
+            </tr> 
+              
+            <tr>
+              <td>Manage virtual datacenters</td>
+              <td>VDC_MANAGE</td>
+              <td>This privilege allows a user to manage virtual datacenters (add, edit and delete). Without it, the virtual datacenter details are read only</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage virtual appliances</td>
+              <td>VDC_MANAGE_VAPP</td>
+              <td>This privilege allows a user to manage virtual appliances (add, edit and delete) </td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              X</p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage load balancers</td>
+              <td>MANAGE_LOADBALANCERS</td>
+              <td>This privilege allows a user to manage load balancers (add, edit and delete) for virtual datacenters</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage firewalls</td>
+              <td>MANAGE_FIREWALLS</td>
+              <td>This privilege allows a user to manage firewalls (add, edit and delete) for virtual datacenters</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Access virtual datacenters view</td>
+              <td>VDC_ENUMERATE</td>
+              <td>This privilege allows a user to access the Virtual Datacenters view</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              X</p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage floating IPs</td>
+              <td>MANAGE_FLOATINGIPS</td>
+              <td>This privilege allows a user to manage floating IPs (add and delete)</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage virtual network elements</td>
+              <td>VDC_MANAGE_NETWORK</td>
+              <td>This privilege allows a user to manage private and public VLANS (add, edit and delete)</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage virtual storage elements</td>
+              <td>VDC_MANAGE_STORAGE</td>
+              <td>This privilege allows a user to manage storage volumes (add, edit and delete)</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+                      <tr>
+              <td class="highlight info" data-highlight-class="info">
+                <p><h6>Virtual appliances privileges</h6></p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+            </tr>
+            <tr>
+              <th>
+                <p>GUI Label <span style="color: rgb(239,239,239);">_________________</span></p>
+              </th>
+              <th>
+                <p>Application Tag</p>
+              </th>
+              <th>
+                <p>Privilege<span style="color: rgb(239,239,239);">____________________________________</span></p>
+              </th>
+              <th class="warning" data-highlight-class="warning"><p>Cloud Admin</p></th>
+              <th class="note" data-highlight-class="note"><p>Ent Admin</p></th>
+              <th class="success" data-highlight-class="success"><p>Ent User</p></th>
+              <th class="info" data-highlight-class="info"><p>Outbound API</p></th>
+              <th><p>Info</p></th>
+            </tr> 
+              
+            <tr>
+              <td>Access persistent templates view</td>
+              <td>VAPP_STATEFUL_VIEW</td>
+              <td>This privilege allows a user to access the persistent virtual machine templates view</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              X</p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage virtual machine backup disks</td>
+              <td>VAPP_MANAGE_BACKUP_DISKS</td>
+              <td>This privilege allows a user to specify disks and disk backup types (snapshot and complete)</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Protect/unprotect virtual machines</td>
+              <td>VM_PROTECT_ACTION</td>
+              <td>This privilege allows a user to protect/unprotect a virtual machine</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Delete unknown virtual machines</td>
+              <td>VAPP_DELETE_UNKNOWN_VM</td>
+              <td>This privilege allows a user to delete virtual machines in unknown state</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Assign firewalls to virtual machines</td>
+              <td>ASSIGN_FIREWALLS</td>
+              <td>This privilege allows a user to assign already created firewalls to virtual machines</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage virtual machine hard disks</td>
+              <td>MANAGE_HARD_DISKS</td>
+              <td>This privilege allows a user to access the virtual machine hard disk tab and manage hard disks (add and delete)</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Perform virtual machine actions</td>
+              <td>VAPP_PERFORM_ACTIONS</td>
+              <td>This privilege allows a user to perform virtual machine actions (power on/off, pause, reboot, remote access)</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              X</p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Restore virtual machine backups</td>
+              <td>VAPP_RESTORE_BACKUP</td>
+              <td>This privilege allows a user to restore virtual machine backups</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Deploy and undeploy virtual appliances</td>
+              <td>VAPP_DEPLOY_UNDEPLOY</td>
+              <td>This privilege allows a user to deploy/undeploy virtual appliances</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              X</p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage workflow tasks</td>
+              <td>WORKFLOW_OVERRIDE</td>
+              <td>This privilege allows a user to start or cancel queued tasks if workflow is enabled</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Create instance</td>
+              <td>VAPP_CREATE_INSTANCE</td>
+              <td>This privilege allows a user to create instance templates of a virtual machine within a virtual appliance</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              X</p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Assign load balancers</td>
+              <td>ASSIGN_LOADBALANCERS</td>
+              <td>This privilege allows a user to assign load balancers</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage virtual machine backup schedule</td>
+              <td>VAPP_DEFINE_BACKUP_INFO</td>
+              <td>This privilege allows a user to specify an additional option for backup configuration by setting backup dates and times</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage virtual machine backup configuration</td>
+              <td>VAPP_MANAGE_BACKUP</td>
+              <td>This privilege allows a user to access the backup configuration at virtual machine level and set the backup type and contents</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Edit virtual appliance details</td>
+              <td>VAPP_CUSTOMISE_SETTINGS</td>
+              <td>This privilege allows a user to edit virtual appliance details (name, CPUs, etc.), go inside virtual appliances and view their details</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              X</p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage persistent templates</td>
+              <td>VAPP_CREATE_STATEFUL</td>
+              <td>This privilege allows a user to manage persistent virtual machine templates (create in VApp; create, edit and delete in virtual datacenter)</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              X</p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage layers</td>
+              <td>VAPP_MANAGE_LAYERS</td>
+              <td>This privilege allows a user to manage anti-affinity layers in virtual appliances (create, edit and delete layers)</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              X</p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+                      <tr>
+              <td class="highlight info" data-highlight-class="info">
+                <p><h6>Apps library privileges</h6></p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+            </tr>
+            <tr>
+              <th>
+                <p>GUI Label <span style="color: rgb(239,239,239);">_________________</span></p>
+              </th>
+              <th>
+                <p>Application Tag</p>
+              </th>
+              <th>
+                <p>Privilege<span style="color: rgb(239,239,239);">____________________________________</span></p>
+              </th>
+              <th class="warning" data-highlight-class="warning"><p>Cloud Admin</p></th>
+              <th class="note" data-highlight-class="note"><p>Ent Admin</p></th>
+              <th class="success" data-highlight-class="success"><p>Ent User</p></th>
+              <th class="info" data-highlight-class="info"><p>Outbound API</p></th>
+              <th><p>Info</p></th>
+            </tr> 
+              
+            <tr>
+              <td>Upload virtual machine template</td>
+              <td>APPLIB_UPLOAD_IMAGE</td>
+              <td>This privilege allows a user to upload virtual machine templates from a local file into the Apps library</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage VM template global categories</td>
+              <td>APPLIB_MANAGE_GLOBAL_CATEGORIES</td>
+              <td>This privilege allows a user to manage categories of virtual machine templates that are common and available to all enterprises (add and delete)Global categories are also called system categories.</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage VM template categories</td>
+              <td>APPLIB_MANAGE_CATEGORIES</td>
+              <td>This privilege allows a user to manage categories of virtual machine templates that belong to their enterprise (add and delete)</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Access Apps library view</td>
+              <td>APPLIB_VIEW</td>
+              <td>This privilege allows a user to access the Appliance library view</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Download virtual machine template</td>
+              <td>APPLIB_DOWNLOAD_IMAGE</td>
+              <td>This privilege allows a user to download virtual machine templates from the Appliance library to their hard disk</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Display datacenter capacity and free space</td>
+              <td>APPLIB_SHOW_DC_CAPACITY</td>
+              <td>This privilege allows a user to view the capacity and remaining space of a datacenter</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage VM templates from Apps library</td>
+              <td>APPLIB_ALLOW_MODIFY</td>
+              <td>This privilege allows a user to view the Appliance library contents, modify virtual machine templates (download from remote repositories, edit and delete) and promote instances</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage repository</td>
+              <td>APPLIB_MANAGE_REPOSITORY</td>
+              <td>This privilege allows a user to manage repositories (add and delete repositories)</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+                      <tr>
+              <td class="highlight info" data-highlight-class="info">
+                <p><h6>User privileges</h6></p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+            </tr>
+            <tr>
+              <th>
+                <p>GUI Label <span style="color: rgb(239,239,239);">_________________</span></p>
+              </th>
+              <th>
+                <p>Application Tag</p>
+              </th>
+              <th>
+                <p>Privilege<span style="color: rgb(239,239,239);">____________________________________</span></p>
+              </th>
+              <th class="warning" data-highlight-class="warning"><p>Cloud Admin</p></th>
+              <th class="note" data-highlight-class="note"><p>Ent Admin</p></th>
+              <th class="success" data-highlight-class="success"><p>Ent User</p></th>
+              <th class="info" data-highlight-class="info"><p>Outbound API</p></th>
+              <th><p>Info</p></th>
+            </tr> 
+              
+            <tr>
+              <td>Associate role with enterprise</td>
+              <td>USERS_MANAGE_ROLES_OTHER_ENTERPRISES</td>
+              <td>This privilege allows a user to associate a role with any enterprise</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Access Users view</td>
+              <td>USERS_VIEW</td>
+              <td>This privilege allows a user to access the Users view </td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Access Roles screen</td>
+              <td>USERS_VIEW_PRIVILEGES</td>
+              <td>This privilege allows a user to access the Roles screen</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage scopes</td>
+              <td>USERS_MANAGE_SCOPES</td>
+              <td>This privilege allows a user to manage scopes (add, edit and delete scopes)</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage users of all enterprises</td>
+              <td>USERS_MANAGE_OTHER_ENTERPRISES</td>
+              <td>This privilege allows a user to manage users of more than one enterprise and move users between enterprises. Without it, the Enterprise list is not shown in Users view</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage enterprises</td>
+              <td>USERS_MANAGE_ENTERPRISE</td>
+              <td>This privilege allows a user to manage enterprises (add, edit and delete)</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Modify enterprise theme</td>
+              <td>USERS_MANAGE_ENTERPRISE_BRANDING</td>
+              <td>This privilege allows a user to manage enterprise branding (select a specific theme for an enterprise)</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage roles</td>
+              <td>USERS_MANAGE_ROLES</td>
+              <td>This privilege allows a user to manage roles (add, edit and delete roles; modify privileges assigned to roles; assign scopes to roles)</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage Chef enterprises</td>
+              <td>USERS_MANAGE_CHEF_ENTERPRISE</td>
+              <td>This privilege allows a user to enable and manage Chef for enterprises</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage users</td>
+              <td>USERS_MANAGE_USERS</td>
+              <td>This privilege allows a user to manage users (add, edit and delete)</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage enterprise reserved servers</td>
+              <td>USERS_MANAGE_RESERVED_MACHINES</td>
+              <td>This privilege allows a user to manage reserved servers at enterprise level</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Specify LDAP group</td>
+              <td>USERS_MANAGE_LDAP_GROUP</td>
+              <td>This privilege allows a user to associate a role with an LDAP group. When LDAP authentication is activated, a user's role will be determined by the LDAP group that they are a member of</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Access virtual machine metrics</td>
+              <td>USERS_SHOW_VM_METRICS</td>
+              <td>This privilege allows a user to manage monitoring</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              X</p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Display connected users</td>
+              <td>USERS_ENUMERATE_CONNECTED</td>
+              <td>This privilege allows a user to display connected users</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage global role</td>
+              <td>USERS_MANAGE_SYSTEM_ROLES</td>
+              <td>This privilege allows a user to manage roles that are common and available to all enterprises, rather than being constrained to a single enterpriseGlobal roles are also called system roles.</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Allow user to push own VM metrics</td>
+              <td>USERS_PUSH_VM_METRICS</td>
+              <td>This privilege allows a user to push their own VM metrics</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              X</p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage virtual machine metrics</td>
+              <td>USERS_ENABLE_DISABLE_VM_METRICS</td>
+              <td>This privilege allows a user to activate monitoring of virtual machines</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              X</p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Define enterprise manager</td>
+              <td>USERS_DEFINE_AS_MANAGER</td>
+              <td>This privilege defines a user as an enterprise manager. Enterprise managers receive physical machine notification emails</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>No VDC restriction</td>
+              <td>USERS_PROHIBIT_VDC_RESTRICTION</td>
+              <td>Normally a user within an enterprise can have a list of VDCs assigned and these will be the only VDCs that they will be able to see. Setting this privilege exempts a user from having their VDC list restricted and they will be able to see all VDCs in their enterprise</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+                      <tr>
+              <td class="highlight info" data-highlight-class="info">
+                <p><h6>System configuration privileges</h6></p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+            </tr>
+            <tr>
+              <th>
+                <p>GUI Label <span style="color: rgb(239,239,239);">_________________</span></p>
+              </th>
+              <th>
+                <p>Application Tag</p>
+              </th>
+              <th>
+                <p>Privilege<span style="color: rgb(239,239,239);">____________________________________</span></p>
+              </th>
+              <th class="warning" data-highlight-class="warning"><p>Cloud Admin</p></th>
+              <th class="note" data-highlight-class="note"><p>Ent Admin</p></th>
+              <th class="success" data-highlight-class="success"><p>Ent User</p></th>
+              <th class="info" data-highlight-class="info"><p>Outbound API</p></th>
+              <th><p>Info</p></th>
+            </tr> 
+              
+            <tr>
+              <td>Access Configuration view</td>
+              <td>SYSCONFIG_VIEW</td>
+              <td>This privilege allows a user to access the Configuration view</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Modify configuration data</td>
+              <td>SYSCONFIG_ALLOW_MODIFY</td>
+              <td>This privilege allows a user to edit all system-wide configuration settings</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Allow access to reports</td>
+              <td>SYSCONFIG_SHOW_REPORTS</td>
+              <td>This privilege allows a user to access external reports by clicking the Reports button. The button will only be visible if the 'Reports URL' system property is not empty (Configuration -&gt; System Properties -&gt; General -&gt; Reports URL)</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+                      <tr>
+              <td class="highlight info" data-highlight-class="info">
+                <p><h6>Pricing privileges</h6></p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+            </tr>
+            <tr>
+              <th>
+                <p>GUI Label <span style="color: rgb(239,239,239);">_________________</span></p>
+              </th>
+              <th>
+                <p>Application Tag</p>
+              </th>
+              <th>
+                <p>Privilege<span style="color: rgb(239,239,239);">____________________________________</span></p>
+              </th>
+              <th class="warning" data-highlight-class="warning"><p>Cloud Admin</p></th>
+              <th class="note" data-highlight-class="note"><p>Ent Admin</p></th>
+              <th class="success" data-highlight-class="success"><p>Ent User</p></th>
+              <th class="info" data-highlight-class="info"><p>Outbound API</p></th>
+              <th><p>Info</p></th>
+            </tr> 
+              
+            <tr>
+              <td>Access Pricing view</td>
+              <td>PRICING_VIEW</td>
+              <td>This privilege allows a user to access the Pricing view</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              X</p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Manage pricing</td>
+              <td>PRICING_MANAGE</td>
+              <td>This privilege allows a user to manage pricing components (add, edit and delete currencies, pricing models and cost codes)</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Add a cost code when editing a VM template</td>
+              <td>APPLIB_VM_COST_CODE</td>
+              <td>This privilege allows a user to select a cost code when editing a virtual machine template</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+                      <tr>
+              <td class="highlight info" data-highlight-class="info">
+                <p><h6>Events privileges</h6></p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight info" data-highlight-class="info"> </td>
+            </tr>
+            <tr>
+              <th>
+                <p>GUI Label <span style="color: rgb(239,239,239);">_________________</span></p>
+              </th>
+              <th>
+                <p>Application Tag</p>
+              </th>
+              <th>
+                <p>Privilege<span style="color: rgb(239,239,239);">____________________________________</span></p>
+              </th>
+              <th class="warning" data-highlight-class="warning"><p>Cloud Admin</p></th>
+              <th class="note" data-highlight-class="note"><p>Ent Admin</p></th>
+              <th class="success" data-highlight-class="success"><p>Ent User</p></th>
+              <th class="info" data-highlight-class="info"><p>Outbound API</p></th>
+              <th><p>Info</p></th>
+            </tr> 
+              
+            <tr>
+              <td>Display all events</td>
+              <td>EVENTLOG_VIEW_ALL</td>
+              <td>This privilege allows a user to display all events</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              </p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              </p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+  
+            <tr>
+              <td>Display all events for current enterprise</td>
+              <td>EVENTLOG_VIEW_ENTERPRISE</td>
+              <td>This privilege allows a user to display all events related to the current enterprise</td>
+              <td class="highlight warning" data-highlight-class="warning"><p>
+              X</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"><p>
+              X</p>
+              </td>
+              <td class="highlight success" data-highlight-class="success"><p>
+              X</p>
+              </td>
+              <td class="highlight info" data-highlight-class="info"><p>
+              </p>
+              </td>
+                <td> </td>
+            </tr>
+             
+          </tbody>
+        </table>
+      </ac:rich-text-body>
+    </ac:macro>
+  </ac:rich-text-body>
+</ac:macro>

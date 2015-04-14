@@ -1,0 +1,291 @@
+| abiquo.rabbitmq.connectionTimeout | 0 |  | Timeout for establishing a connection to RabbitMQ. The default value of 0 means to wait indefinitely until connection established or error (milliseconds) | V2V RS API | optional |
+categories: V2V RS API
+property_category_list: rabbitmq 
+first run: rabbitmq
+| abiquo.rabbitmq.requestedHeartbeat | 0 |  | The initially requested heartbeat interval, in seconds. The default value of 0 means no heartbeat | V2V RS API | optional |
+categories: V2V RS API
+property_category_list: rabbitmq 
+Matched category: rabbitmq 
+| abiquo.rabbitmq.virtualHost | / |  | Virtual host where RabbitMQ runs | V2V RS API | optional |
+categories: V2V RS API
+property_category_list: rabbitmq 
+Matched category: rabbitmq 
+| abiquo.security.encrypt | false |  true, false | This property must have the same value on all API and remote services servers. If true, Abiquo will read the custom seed file at /etc/abiquo/.store If you create the seed file, but the property is not true, Abiquo will use the default seed. Abiquo requires access to the configured seed file to work with passwords. If it is lost, you will need to regenerate ALL passwords stored in Abiquo.  | V2V RS API | optional |
+categories: V2V RS API
+property_category_list: security 
+New category: security
+Adding to category_entries: abiquo.security.encrypt 
+| abiquo.httpProxy.host |  |  | IP Address of HTTP proxy for Appliance Manager/API to Internet communication (download template definition list, template definition, VM disk file) | RS API | optional |
+categories: RS API
+property_category_list: httpProxy 
+New category: httpProxy
+Adding to category_entries: abiquo.httpProxy.host 
+| abiquo.httpProxy.password |  |  | Password of HTTP proxy for Appliance Manager/API to Internet communication (download template definition list, template definition, VM disk file) | RS API | optional |
+categories: RS API
+property_category_list: httpProxy 
+Matched category: httpProxy 
+| abiquo.httpProxy.port |  |  | Port of HTTP proxy for Appliance Manager/API to Internet communication (download template definition list, template definition, VM disk file) | RS API | optional |
+categories: RS API
+property_category_list: httpProxy 
+Matched category: httpProxy 
+| abiquo.httpProxy.user |  |  | User of HTTP proxy for Appliance Manager/API to Internet communication (download template definition list, template definition, VM disk file) | RS API | optional |
+categories: RS API
+property_category_list: httpProxy 
+Matched category: httpProxy 
+| abiquo.api.zk.serverConnection |  |  | Location where ZooKeeper is listening in format <IP address>:<port> for example, 10.10.10.10:2181 | API | optional |
+categories: API
+property_category_list: api 
+New category: api
+Adding to category_entries: abiquo.api.zk.serverConnection 
+| abiquo.database.host | 127.0.0.1 |  | Abiquo database host. Note that a remote database must also be set up with the jdbc drivers in the api.xml file. See how to set up a remote MySQL database server on the Abiquo wiki | API | optional |
+categories: API
+property_category_list: database 
+New category: database
+Adding to category_entries: abiquo.database.host 
+| abiquo.database.password |  |  | Password of the Abiquo database user | API | optional |
+categories: API
+property_category_list: database 
+Matched category: database 
+| abiquo.database.user | root |  | Username of the Abiquo database user. The user must be created in the DBMS with the appropriate privileges on Abiquo databases. See How to set up a remote MySQL database server on the Abiquo wiki | API | optional |
+categories: API
+property_category_list: database 
+Matched category: database 
+| abiquo.diskController.primary |  |  scsi, ide | Default value. Abiquo uses the property only if the disk controller attribute is not set in the virtual machine template. ESXi only: if null, the controller for primary disks on non-persistent VMs is ide and on persistent VMs it is scsi. Values apply to both non-persistent and persistent VMs. This property does not apply to Hard Disks on the VMware datastore, which are always attached to a SCSI controller.  | API | optional |
+categories: API
+property_category_list: diskController 
+New category: diskController
+Adding to category_entries: abiquo.diskController.primary 
+| abiquo.diskController.secondary |  |  scsi, ide | ESXi only: if null, the secondary disk controller will be scsi. If ide, you may only add one persistent data volume. This property does not apply to Hard Disks on the VMware datastore, which are always attached to a SCSI controller.  | API | optional |
+categories: API
+property_category_list: diskController 
+Matched category: diskController 
+| abiquo.ha.infcheck.cycles | 2 |  | Number of failed infratructure checks on a machine before High Availability is triggered and the machine is set to state HA_IN_PROGRESS | API | optional |
+categories: API
+property_category_list: ha 
+New category: ha
+Adding to category_entries: abiquo.ha.infcheck.cycles 
+| abiquo.heartbeat.autostart | true |  | Automatically start Abiquo heartbeat | API | optional |
+categories: API
+property_category_list: heartbeat 
+New category: heartbeat
+Adding to category_entries: abiquo.heartbeat.autostart 
+| abiquo.storage.check.delay | 900000 |  | Delay between checks of the storage infrastructure (milliseconds) | API | optional |
+categories: API
+property_category_list: storage 
+New category: storage
+Adding to category_entries: abiquo.storage.check.delay 
+| abiquo.vncport.max | 65534 |  | Last port of the VNC range to be used when allocating virtual machines. Note that VMware only recommends ports 5900 to 5964 | API | optional |
+categories: API
+property_category_list: vncport 
+New category: vncport
+Adding to category_entries: abiquo.vncport.max 
+| abiquo.vncport.min | 5900 |  | First port of the VNC range to be used when allocating virtual machines | API | optional |
+categories: API
+property_category_list: vncport 
+Matched category: vncport 
+| client.SERVER_ADDRESS | 127.0.0.1 |  | Used by the Flex UI to test connectivity to the backend API stub | API | optional |
+categories: API
+property_category_list: SERVER_ADDRESS 
+New category: SERVER_ADDRESS
+Adding to category_entries: client.SERVER_ADDRESS 
+| client.USE_SECURE_CHANNEL_LOGIN | 0 |  0, 1 | Configures the AMF secure channel (0 for regular, 1 for secure).  | API | optional |
+categories: API
+property_category_list: USE_SECURE_CHANNEL_LOGIN 
+New category: USE_SECURE_CHANNEL_LOGIN
+Adding to category_entries: client.USE_SECURE_CHANNEL_LOGIN 
+| abiquo.api.login.maxtries | 3 |  | Max login failures in a given a lapse (abiquo.api.login.failurelapse) | API | optional |
+categories: API
+property_category_list: api 
+New category: api
+Adding to category_entries: abiquo.api.login.maxtries 
+| abiquo.api.login.failurelapse | 60 |  | Lapse of time in seconds where abiquo.api.login.maxtries apply | API | optional |
+categories: API
+property_category_list: api 
+Matched category: api 
+| workflow.connect.timeout | 60000 |  | Maximum waiting time in milliseconds to establish a connection with workflow endpoint | API | optional |
+categories: API
+property_category_list: connect 
+New category: connect
+Adding to category_entries: workflow.connect.timeout 
+| workflow.read.timeout | 10000 |  | Maximum waiting time in milliseconds to receive data from workflow endpoint | API | optional |
+categories: API
+property_category_list: read 
+New category: read
+Adding to category_entries: workflow.read.timeout 
+| abiquo.api.max.sessions | -1 |  -1, >0 | Maximum number of sessions per user in the API. The default value of -1 means there is no limit and a value of 0 is invalid.  | API | optional |
+categories: API
+property_category_list: api 
+New category: api
+Adding to category_entries: abiquo.api.max.sessions 
+| abiquo.stale.sessions.check.delay | 300000 |  | Delay between executions of stale sessions check (milliseconds) | API | optional |
+categories: API
+property_category_list: stale 
+New category: stale
+Adding to category_entries: abiquo.stale.sessions.check.delay 
+| abiquo.api.session.cookie.name | ABQSESSIONID |  | Abiquo session cookie name. This session does not store anything. | API | optional |
+categories: API
+property_category_list: api 
+New category: api
+Adding to category_entries: abiquo.api.session.cookie.name 
+| abiquo.captcha.private.key |  |  | reCAPTCHA private key for user password reset. Obtain keys from Google | API | optional |
+categories: API
+property_category_list: captcha 
+New category: captcha
+Adding to category_entries: abiquo.captcha.private.key 
+| abiquo.appliancemanager.checkMountedRepository | true |  | Perform the repository check against /etc/mtab. Set to false for local NFS Server installations in testing environment: Monolithic, Cloud in a Box, NFS on V2V Server or NFS on Remote Services | RS | optional |
+categories: RS
+property_category_list: appliancemanager 
+New category: appliancemanager
+Adding to category_entries: abiquo.appliancemanager.checkMountedRepository 
+| abiquo.appliancemanager.downloadingPublishInterval | 1500 |  | Frequency of download progress notification (milliseconds) | RS | optional |
+categories: RS
+property_category_list: appliancemanager 
+Matched category: appliancemanager 
+| abiquo.appliancemanager.downloads | -1 |  | Maximum number of concurrent template downloads. The default value of -1 means unlimited | RS | optional |
+categories: RS
+property_category_list: appliancemanager 
+Matched category: appliancemanager 
+| abiquo.appliancemanager.fstimeoutms | 7000 |  | Maximum time for the appliance manager to perform a complete rescan of the repository filesystem (milliseconds) | RS | optional |
+categories: RS
+property_category_list: appliancemanager 
+Matched category: appliancemanager 
+| abiquo.appliancemanager.upload.progressInterval | 5000 |  | Refresh virtual machine template upload progress (milliseconds) | RS | optional |
+categories: RS
+property_category_list: appliancemanager 
+Matched category: appliancemanager 
+| abiquo.appliancemanager.check.repository | 600000 |  | Datacenter NFS repository refresh interval (milliseconds) | RS | optional |
+categories: RS
+property_category_list: appliancemanager 
+Matched category: appliancemanager 
+| abiquo.appliancemanager.repository.ignoredPathSuffix |  |  | Path names suffixes to be ignored in the repository refresh (Comma separate value) | RS | optional |
+categories: RS
+property_category_list: appliancemanager 
+Matched category: appliancemanager 
+| abiquo.appliancemanager.repository.ignoredPathPrefix |  |  | Path names prefixes to be ignored in the repository refresh (Comma separate value) | RS | optional |
+categories: RS
+property_category_list: appliancemanager 
+Matched category: appliancemanager 
+| abiquo.appliancemanager.repository.ignoredPathRegex |  |  | Path names suffixes to be ignored in the repository refresh (java Regular Expression format) | RS | optional |
+categories: RS
+property_category_list: appliancemanager 
+Matched category: appliancemanager 
+| abiquo.appliancemanager.deploy.totalTimeout | 86400000 |  | Timeout for HTTP connections when downloading a virtual machine template (milliseconds) | RS | optional |
+categories: RS
+property_category_list: appliancemanager 
+Matched category: appliancemanager 
+| abiquo.appliancemanager.deploy.idle | 600000 |  | Timeout for idle HTTP connections when downloading a virtual machine template (milliseconds) | RS | optional |
+categories: RS
+property_category_list: appliancemanager 
+Matched category: appliancemanager 
+| abiquo.appliancemanager.deploy.connection | 120000 |  | Timeout for HTTP connections to be stablished when downloading a virtual machine template (milliseconds) | RS | optional |
+categories: RS
+property_category_list: appliancemanager 
+Matched category: appliancemanager 
+| abiquo.appliancemanager.client.timeoutInMilliseconds | 60000 |  | Timeout for HTTP connections to the ApplianceManager Server when using the ApplianceManager Client, this property configures read and connection timeout. (milliseconds) | RS | optional |
+categories: RS
+property_category_list: appliancemanager 
+Matched category: appliancemanager 
+| abiquo.dvs.enabled | false |  | Enable DVS. Note that the vCenter login and password can be used when DVS is disabled | RS | optional |
+categories: RS
+property_category_list: dvs 
+New category: dvs
+Adding to category_entries: abiquo.dvs.enabled 
+| abiquo.dvs.vcenter.password | change-me |  | Password of the vCenter user account. The underscore character "_" is not allowed in this field. Create a user with the same password in the vCenter in order to use the DVS or vCenter with Abiquo. In vSphere 5.1, you must create this account in an Active Directory domain or using a VMware Single Sign-on system, NOT as a local Windows account on the vCenter. If 'abiquo.dvs.enabled' is set to true, this property is required. The DVS vCenter user and password properties are also used for connecting to vCenter even if DVS is not used, for example, when deleting orphans. So the user and password properties can be used even when abiquo.dvs.enabled is set to 'false'. Set these parameters if vCenter is used, even if DVS is not used | RS | optional |
+categories: RS
+property_category_list: dvs 
+Matched category: dvs 
+| abiquo.dvs.vcenter.user | change-me |  | Username of the vCenter user account. Create a user account with the same password in the vCenter in order to use the DVS or vCenter with Abiquo. In vSphere 5.1, you must create this account in an Active Directory domain or using a VMware Single Sign-on system, NOT as a local Windows account on the vCenter. If 'abiquo.dvs.enabled' is set to true, the property is required. The DVS vCenter user and password properties are also used for connecting to vCenter even if DVS is not used, for example, when deleting orphans. So the user and password properties can be used even when abiquo.dvs.enabled is set to 'false'. Set these parameters if vCenter is used, even if DVS is not used | RS | optional |
+categories: RS
+property_category_list: dvs 
+Matched category: dvs 
+| abiquo.esxi.datastoreRdm |  |  | When using volumes, a VMFS datastore is required (Raw Device Mapping), if the provided target datastore is not VMFS, then try to use the configured datastore | RS | optional |
+categories: RS
+property_category_list: esxi 
+New category: esxi
+Adding to category_entries: abiquo.esxi.datastoreRdm 
+| abiquo.nodecollector.infcheck | 5 |  | Time between executions of infrastructure check (minutes) | RS | optional |
+categories: RS
+property_category_list: nodecollector 
+New category: nodecollector
+Adding to category_entries: abiquo.nodecollector.infcheck 
+| abiquo.nodecollector.infcheck.threads | 5 |  | Infrastructure check concurrent machine checks This number should be tied to the number of cores of the machine running discovery manager service | RS | optional |
+categories: RS
+property_category_list: nodecollector 
+Matched category: nodecollector 
+| abiquo.nodecollector.infcheck.timeout | 300 |  | Infrastructure check timeout in seconds | RS | optional |
+categories: RS
+property_category_list: nodecollector 
+Matched category: nodecollector 
+| abiquo.repository.timeoutSeconds | 10 |  | Time to wait for checking if the .abiquo_repository file mark is present in the NFS repository filesystem (helps in finding a slow NFS repository) (seconds) | RS | optional |
+categories: RS
+property_category_list: repository 
+New category: repository
+Adding to category_entries: abiquo.repository.timeoutSeconds 
+| abiquo.virtualfactory.openSession | 2 |  | Maximum number of simultaneous operations on a single hypervisor | RS | optional |
+categories: RS
+property_category_list: virtualfactory 
+New category: virtualfactory
+Adding to category_entries: abiquo.virtualfactory.openSession 
+| abiquo.vsm.pollingfrequency.vmx_04 | 5000 |  | The delay between VSM polling of virtual machines in milliseconds on ESX plugin | RS | optional |
+categories: RS
+property_category_list: vsm 
+New category: vsm
+Adding to category_entries: abiquo.vsm.pollingfrequency.vmx_04 
+| abiquo.vsm.pollingfrequency.kvm | 5000 |  | The delay between VSM polling of virtual machines in milliseconds on KVM plugin | RS | optional |
+categories: RS
+property_category_list: vsm 
+Matched category: vsm 
+| abiquo.vsm.pollingfrequency.hyperv_301 | 5000 |  | The delay between VSM polling of virtual machines in milliseconds on HYPER-V plugin | RS | optional |
+categories: RS
+property_category_list: vsm 
+Matched category: vsm 
+| abiquo.vsm.pollingfrequency.oracle_vm | 5000 |  | The delay between VSM polling of virtual machines in milliseconds on ORACLE VM plugin | RS | optional |
+categories: RS
+property_category_list: vsm 
+Matched category: vsm 
+| abiquo.vsm.pollingfrequency.xenserver | 5000 |  | The delay between VSM polling of virtual machines in milliseconds on XEN SERVER plugin | RS | optional |
+categories: RS
+property_category_list: vsm 
+Matched category: vsm 
+| abiquo.vsm.pollingfrequency.amazon | 5000 |  | The delay between VSM polling of virtual machines in milliseconds on Amazon plugin | RS | optional |
+categories: RS
+property_category_list: vsm 
+Matched category: vsm 
+| abiquo.vsm.vmsyncfrequency.vmx_04 | 180000 |  | The delay between virtual machine synchronizer operations in milliseconds on ESX plugin | RS | optional |
+categories: RS
+property_category_list: vsm 
+Matched category: vsm 
+| abiquo.vsm.vmsyncfrequency.kvm | 180000 |  | The delay between virtual machine synchronizer operations in milliseconds on KVM plugin | RS | optional |
+categories: RS
+property_category_list: vsm 
+Matched category: vsm 
+| abiquo.vsm.vmsyncfrequency.hyperv_301 | 180000 |  | The delay between virtual machine synchronizer operations in milliseconds on HYPER-V plugin | RS | optional |
+categories: RS
+property_category_list: vsm 
+Matched category: vsm 
+| abiquo.vsm.vmsyncfrequency.oracle_vm | 180000 |  | The delay between virtual machine synchronizer operations in milliseconds on ORACLE VM plugin | RS | optional |
+categories: RS
+property_category_list: vsm 
+Matched category: vsm 
+| abiquo.vsm.vmsyncfrequency.xenserver | 180000 |  | The delay between virtual machine synchronizer operations in milliseconds on XEN SERVER plugin | RS | optional |
+categories: RS
+property_category_list: vsm 
+Matched category: vsm 
+| abiquo.vsm.vmsyncfrequency.amazon | 180000 |  | The delay between virtual machine synchronizer operations in milliseconds on Amazon plugin | RS | optional |
+categories: RS
+property_category_list: vsm 
+Matched category: vsm 
+| com.abiquo.virtualfactory.esxi.timeoutConnectionMs | 10000 |  | Time to wait to establish the connection to ESX (milliseconds) | RS | optional |
+categories: RS
+property_category_list: abiquo 
+New category: abiquo
+Adding to category_entries: com.abiquo.virtualfactory.esxi.timeoutConnectionMs 
+| com.abiquo.virtualfactory.esxi.timeoutReadMs | 30000 |  | Time to wait to read from the connection to ESX (milliseconds) | RS | optional |
+categories: RS
+property_category_list: abiquo 
+Matched category: abiquo 
+| RemoteDisplay.vnc.keyMap |  |  | ESX and ESXi only: When using a virtual machine as a VNC server, specify the language to use for the keyboard when VNC clients connect. If this property does not exist, the hypervisor will use the first value in the client-config.xml.jsp in webapps/client-premium/config and the default in this case is the US101 keyboard map (US English). This property is now the default setting to complement the Virtual Machine configuration popup. See Configuring Remote Access to Virtual Machines | RS | optional |
+categories: RS
+property_category_list: vnc 
+New category: vnc
+Adding to category_entries: RemoteDisplay.vnc.keyMap 
