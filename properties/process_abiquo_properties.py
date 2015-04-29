@@ -64,14 +64,20 @@ def getCategory(pName):
 	if property_cat == "vi":
 		property_cat = "virtual infrastructure"		
 	if property_cat == "USE_SECURE_CHANNEL_LOGIN":
-		property_cat = "client"			
+		property_cat = "client"
+	if property_cat == "vi"
+		property_cat = "virtual infrastructure"
+	if property_cat == "m"
+		property_cat == "m outbound api"					
 	return property_cat
 
-def subPropertyDefault(rawDefault):
-	if re.search(r"{",rawDefault):
-		rawDefault = re.sub(r"{",r"\{",rawDefault) 
-	if rawProp.pName == "abiquo.datacenter.id":
+def subPropertyDefault(rawDefault,rawName):
+#	if re.search(r"{",rawDefault):
+#		rawDefault = re.sub(r"{",r"\{",rawDefault) 
+	if rawName == "abiquo.datacenter.id":
 		rawDefault = re.sub("default","Abiquo",rawDefault)
+	if rawName == "abiquo.kairosdb.host":
+		rawDefault = re.sub("127.0.0.1","<KairosdbLoc>",rawDefault)	
 	rawDefault = re.sub("127.0.0.1",r"<IP-repoLoc>",rawDefault)
 	rawDefault = re.sub("localhost",r"127.0.0.1",rawDefault)
 	rawDefault = re.sub("10.60.1.4",r"127.0.0.1",rawDefault);
@@ -176,7 +182,7 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 					# the sixth group, if it exists, is the property default value
 					if property_match.group(6):
 						property_default = property_match.group(6).strip()
-						property_default = subPropertyDefault(property_default)
+						property_default = subPropertyDefault(property_default,property_name)
 					else:
 						property_default = ""
 				else:	
@@ -192,7 +198,7 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 				# the fourth group, if it exists, is the property default value
 				if property_match.group(4):
 					property_default = property_match.group(4).strip()
-					property_default = subPropertyDefault(property_default)
+					property_default = subPropertyDefault(property_default,property_name)
 				else:
 					property_default = ""	
 		property_category = ""
@@ -247,11 +253,12 @@ def main():
     # inputDir = wikiVersion + "/" + input_subdir
     # outputDir = wikiVersion + "/" + output_subdir
 
-	propertyFile = 'abiquo.properties_2015_04_13'
+#    inputDir = '~/platform/system-properties/src/main/resources'
+	propertyFile = 'abiquo.properties_2015_04_29'
 
     
 	# These are the details of the sample files and the images that link to the sample files on the wiki
-	fileDate = "_2015-04-13"
+	fileDate = "_2015-04-29"
 	filePrefix = "properties_"
 	fileSuffix = ".txt"
 	imagePrefix = "v26_symbol_"
@@ -315,7 +322,7 @@ def main():
 	# Render the wiki file with mustache
 	mustacheTemplate = codecs.open("wiki_properties_template.mustache", 'r', 'utf-8').read()
 	efo = pystache.render(mustacheTemplate, wiki_output).encode('utf8', 'xmlcharrefreplace')
-	ef = open_if_not_existing("properties_out_2015_04_13.txt")
+	ef = open_if_not_existing("properties_out_2015_04_29.txt")
 	if ef:
 		ef.write(efo)
 		ef.close()		

@@ -1,0 +1,454 @@
+################################################################################
+#### This is a sample abiquo.properties file for REMOTE SERVICES            ####
+################################################################################
+
+# Timeout for establishing a connection to RabbitMQ. The default value of 0
+# means to wait indefinitely until connection established or error
+# (milliseconds)
+abiquo.rabbitmq.connectionTimeout = 0
+
+# Address where RabbitMQ is located
+#abiquo.rabbitmq.host = 127.0.0.1
+
+# RabbitMQ password
+#abiquo.rabbitmq.password = guest
+
+# Port where RabbitMQ is located
+#abiquo.rabbitmq.port = 5672
+
+# The initially requested heartbeat interval, in seconds. The default value
+# of 0 means no heartbeat
+abiquo.rabbitmq.requestedHeartbeat = 0
+
+# RabbitMQ username
+#abiquo.rabbitmq.username = guest
+
+# Virtual host where RabbitMQ runs
+abiquo.rabbitmq.virtualHost = /
+
+# This property must have the same value on all API and remote services servers.
+# If true, Abiquo will read the custom seed file at /etc/abiquo/.store
+# If you create the seed file, but the property is not true, Abiquo will use
+# the default seed. Abiquo requires access to the configured seed file to work
+# with passwords. If it is lost, you will need to regenerate ALL passwords
+# stored in Abiquo. Range: true, false
+abiquo.security.encrypt = false
+
+# IP Address of HTTP proxy for Appliance Manager/API to Internet
+# communication (download template definition list, template definition, VM
+# disk file)
+abiquo.httpProxy.host = 
+
+# Password of HTTP proxy for Appliance Manager/API to Internet communication
+# (download template definition list, template definition, VM disk file)
+abiquo.httpProxy.password = 
+
+# Port of HTTP proxy for Appliance Manager/API to Internet communication
+# (download template definition list, template definition, VM disk file)
+abiquo.httpProxy.port = 
+
+# User of HTTP proxy for Appliance Manager/API to Internet communication
+# (download template definition list, template definition, VM disk file)
+abiquo.httpProxy.user = 
+
+# Address where Redis is located. By default Redis is installed on the Abiquo
+# Server in addition to the Remote Services machine. In a monolithic install,
+# the Redis host and port properties should point to the monolithic server.
+# When configuring API load balancing, only the Abiquo Server Redis property
+# should point to the central datanode
+#abiquo.redis.host = 127.0.0.1
+
+# Port where Redis is located. By default Redis is installed on the Abiquo
+# Server in addition to the Remote Services machine. In a monolithic install,
+# the Redis host and port properties should point to the monolithic
+# server. When configuring API load balancing, only the Abiquo Server Redis
+# property should point to the central datanode
+#abiquo.redis.port = 6379
+
+# Address where KairosDb is located for VM monitoring
+#abiquo.kairosdb.host = 127.0.0.1
+
+# Port where KairosDb is listening for VM monitoring
+#abiquo.kairosdb.port = 8080
+
+# Address where the API is running. For example: http://80.169.25.32/api/.
+# Required for Remote Services (for Appliance manager, the address must be
+# reachable by cloud users). Recommended for Abiquo API Server (for Chef, the
+# address must be reachable from deployed VMs)
+#abiquo.server.api.location = http://127.0.0.1/api
+
+# The URL of the Docker Registry that Abiquo will use to pull images.
+# For example: http://localhost:5000
+abiquo.docker.registry = 
+
+# Comma separated list of tag patterns allowed. Existing tags in the
+# Docker registry will be matched against these patterns and Abiquo will
+# only show the ones that match. The format of the pattern is defined
+# by the Java pattern: http://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html
+# Example: ^fixedtag$,^tagswithprefix
+abiquo.docker.registry.tags = 
+
+# Identify the AMQP datacenter queues. The Datacenter ID is used for building
+# routing keys and queue names, so that they are unique for each datacenter.
+# Warning: Do not change this property! This property is required and the
+# value is generated at installation. You can recover the property's value
+# through the API with Get Datacenter
+#abiquo.datacenter.id = Abiquo
+
+# Perform the repository check against /etc/mtab. Set to false for local NFS
+# Server installations in testing environment: Monolithic, Cloud in a Box,
+# NFS on V2V Server or NFS on Remote Services
+abiquo.appliancemanager.checkMountedRepository = true
+
+# Frequency of download progress notification (milliseconds)
+abiquo.appliancemanager.downloadingPublishInterval = 1500
+
+# Maximum number of concurrent template downloads. The default value of -1
+# means unlimited
+abiquo.appliancemanager.downloads = -1
+
+# Maximum time for the appliance manager to perform a complete rescan of the
+# repository filesystem
+# (milliseconds)
+abiquo.appliancemanager.fstimeoutms = 7000
+
+# Folder where the abiquo.appliancemanager.repositoryLocation is mounted on
+# the remote services node
+#abiquo.appliancemanager.localRepositoryPath = /opt/vm_repository
+
+# Local Appliance Library, NFS repository location denoted by
+# nfs-server-address:exportpath
+#abiquo.appliancemanager.repositoryLocation = <IP-repoLoc>:/opt/vm_repository
+
+# Refresh virtual machine template upload progress (milliseconds)
+abiquo.appliancemanager.upload.progressInterval = 5000
+
+# Datacenter NFS repository refresh interval (milliseconds)
+abiquo.appliancemanager.check.repository = 600000
+
+# Path names suffixes to be ignored in the repository refresh
+# (Comma separate value)
+abiquo.appliancemanager.repository.ignoredPathSuffix = 
+
+# Path names prefixes to be ignored in the repository refresh
+# (Comma separate value)
+abiquo.appliancemanager.repository.ignoredPathPrefix = 
+
+# Path names suffixes to be ignored in the repository refresh
+# (java Regular Expression format)
+abiquo.appliancemanager.repository.ignoredPathRegex = 
+
+# Timeout for HTTP connections when downloading a virtual machine template
+# (milliseconds)
+abiquo.appliancemanager.deploy.totalTimeout = 86400000
+
+# Timeout for idle HTTP connections when downloading a virtual machine template
+# (milliseconds)
+abiquo.appliancemanager.deploy.idle = 600000
+
+# Timeout for HTTP connections to be established when downloading a virtual
+# machine template (milliseconds)
+abiquo.appliancemanager.deploy.connection = 120000
+
+# Timeout for HTTP connections to the ApplianceManager Server when using the
+# ApplianceManager Client, this property configures read and connection timeout
+# (milliseconds)
+abiquo.appliancemanager.client.timeoutInMilliseconds = 60000
+
+# Enable DVS. Note that the vCenter login and password can be used when DVS
+# is disabled
+abiquo.dvs.enabled = false
+
+# Network adapter teaming policy in DVS port groups. This property controls
+# the algorithm used for network adapter load balancing when multiple NICs
+# are used in 'teaming mode'. Range: loadbalance_ip, loadbalance_srcid
+#abiquo.dvs.portgroup.loadsharingmechanism = loadbalance_ip
+
+# Number of available ports in each port group
+#abiquo.dvs.portgroup.maxsize = 48
+
+# Password of the vCenter user account. The underscore character "_" is not
+# allowed in this field. Create a user with the same password in the vCenter
+# in order to use the DVS or vCenter with Abiquo. In vSphere 5.1, you must
+# create this account in an Active Directory domain or using a VMware Single
+# Sign-on system, NOT as a local Windows account on the vCenter. If
+# 'abiquo.dvs.enabled' is set to true, this property is required. The DVS
+# vCenter user and password properties are also used for connecting to
+# vCenter even if DVS is not used, for example, when deleting orphans. So the
+# user and password properties can be used even when abiquo.dvs.enabled is
+# set to 'false'. Set these parameters if vCenter is used, even if DVS is not
+# used
+abiquo.dvs.vcenter.password = change-me
+
+# Username of the vCenter user account. Create a user account with the same
+# password in the vCenter in order to use the DVS or vCenter with Abiquo. In
+# vSphere 5.1, you must create this account in an Active Directory domain or
+# using a VMware Single Sign-on system, NOT as a local Windows account on the
+# vCenter. If 'abiquo.dvs.enabled' is set to true, the property is required.
+# The DVS vCenter user and password properties are also used for connecting
+# to vCenter even if DVS is not used, for example, when deleting orphans. So
+# the user and password properties can be used even when abiquo.dvs.enabled
+# is set to 'false'. Set these parameters if vCenter is used, even if DVS is
+# not used
+abiquo.dvs.vcenter.user = change-me
+
+# When using volumes, a VMFS datastore is required (Raw Device Mapping), if
+# the provided target datastore is not VMFS, then try to use the configured
+# datastore
+abiquo.esxi.datastoreRdm = 
+
+# Time between executions of infrastructure check (minutes)
+abiquo.nodecollector.infcheck = 5
+
+# Infrastructure check concurrent machine checks
+# This number should be tied to the number of cores
+# of the machine running discovery manager service
+abiquo.nodecollector.infcheck.threads = 5
+
+# Infrastructure check timeout in seconds
+abiquo.nodecollector.infcheck.timeout = 300
+
+# Time to wait for checking if the .abiquo_repository file mark is present in
+# the NFS repository filesystem (helps in finding a slow NFS repository)
+# (seconds)
+abiquo.repository.timeoutSeconds = 10
+
+# Port for connection to vCenter
+#abiquo.vcenter.port.connection = 443
+
+# The CIFS address //IP/resource/ where Windows can locate the virtual disk
+# repository
+#abiquo.virtualfactory.hyperv.repositoryLocation = //<IP-repoLoc>/vm_repository
+
+# If set to false, libvirt machines will be created in KVM using PC emulation
+# (software emulation, slower). Emulation only works with x86 64-bit based
+# hosts, including virtual machines. Range: true, false
+#abiquo.virtualfactory.kvm.fullVirt = true
+
+# Prefix to name used to identify the VLAN bridge in the KVM, XEN, VBOX
+# hypevisor nodes
+#abiquo.virtualfactory.networking.bridgePrefix = abiquo
+
+# Maximum number of simultaneous operations on a single hypervisor
+abiquo.virtualfactory.openSession = 2
+
+# The Storage Area network datastore location where the virtual disks are
+# stored (usually the same as abiquo.appliancemanager.repositoryLocation)
+#abiquo.virtualfactory.xenserver.repositoryLocation = <IP-repoLoc>:/opt/vm_repository
+
+# The delay between VSM polling of virtual machines in milliseconds in ESX
+# plugin
+abiquo.vsm.pollingfrequency.vmx_04 = 5000
+
+# The delay between VSM polling of virtual machines in milliseconds in KVM
+# plugin
+abiquo.vsm.pollingfrequency.kvm = 5000
+
+# The delay between VSM polling of virtual machines in milliseconds in
+# Hyper-V plugin
+abiquo.vsm.pollingfrequency.hyperv_301 = 5000
+
+# The delay between VSM polling of virtual machines in milliseconds in
+# Oracle VM plugin
+abiquo.vsm.pollingfrequency.oracle_vm = 5000
+
+# The delay between VSM polling of virtual machines in milliseconds in
+# XenServer plugin
+abiquo.vsm.pollingfrequency.xenserver = 5000
+
+# The delay between VSM polling of virtual machines in milliseconds in
+# Amazon plugin
+abiquo.vsm.pollingfrequency.amazon = 5000
+
+# The delay between VSM polling of virtual machines in milliseconds in
+# Azure plugin
+abiquo.vsm.pollingfrequency.azure = 5000
+
+# The delay between virtual machine synchronizer operations in milliseconds
+# in ESX plugin
+abiquo.vsm.vmsyncfrequency.vmx_04 = 180000
+
+# The delay between virtual machine synchronizer operations in milliseconds
+# in KVM plugin
+abiquo.vsm.vmsyncfrequency.kvm = 180000
+
+# The delay between virtual machine synchronizer operations in milliseconds
+# in Hyper-V plugin
+abiquo.vsm.vmsyncfrequency.hyperv_301 = 180000
+
+# The delay between virtual machine synchronizer operations in milliseconds
+# in Oracle VM plugin
+abiquo.vsm.vmsyncfrequency.oracle_vm = 180000
+
+# The delay between virtual machine synchronizer operations in milliseconds
+# on XenServer plugin
+abiquo.vsm.vmsyncfrequency.xenserver = 180000
+
+# The delay between virtual machine synchronizer operations in milliseconds
+# on Amazon plugin
+abiquo.vsm.vmsyncfrequency.amazon = 180000
+
+# The delay between virtual machine synchronizer operations in milliseconds
+# on Azure plugin
+abiquo.vsm.vmsyncfrequency.azure = 180000
+
+# The delay in milliseconds added between the creation of actors for ESX
+# plugin type on VSM startup.
+abiquo.vsm.actor.creation.delay.vmx_04 = 0
+
+# The delay in milliseconds added between the creation of actors for KVM
+# plugin type on VSM startup.
+abiquo.vsm.actor.creation.delay.kvm = 0
+
+# The delay in milliseconds added between the creation of actors for HYPER-V
+# plugin type on VSM startup.
+abiquo.vsm.actor.creation.delay.hyperv_301 = 0
+
+# The delay in milliseconds added between the creation of actors for ORACLE VM
+# plugin type on VSM startup.
+abiquo.vsm.actor.creation.delay.oracle_vm = 0
+
+# The delay in milliseconds added between the creation of actors for XEN SERVER
+# plugin type on VSM startup.
+abiquo.vsm.actor.creation.delay.xenserver = 0
+
+# The delay in milliseconds added between the creation of actors for Amazon
+# plugin type on VSM startup.
+abiquo.vsm.actor.creation.delay.amazon = 0
+
+# The delay in milliseconds added between the creation of actors for Azure
+# plugin type on VSM startup.
+abiquo.vsm.actor.creation.delay.azure = 0
+
+# The heartbeat frequency of measures pusher in milliseconds. Or the delay
+# between reconnection process to Kairos.
+abiquo.vsm.measures.pusher.frequency = 10000
+
+# Maximum backoff time in seconds between connection errors to reduce load and
+# logging of these errors. A counter has been added to register the number of
+# failed attempts to connect to the hypervisor or public cloud to perform any
+# type of operation. When rescheduling operations, Abiquo will multiply the
+# maximum backoff time by the number of failed connection attempts to determine
+# the wait time until the next try. If a connection is established, the error
+# counter is reset.
+abiquo.vsm.max.backoff = 3600
+
+# Time to wait to establish the connection to ESX (milliseconds)
+com.abiquo.virtualfactory.esxi.timeoutConnectionMs = 10000
+
+# Time to wait to read from the connection to ESX (milliseconds)
+com.abiquo.virtualfactory.esxi.timeoutReadMs = 30000
+
+# ESX and ESXi only: When using a virtual machine as a VNC server, specify
+# the language to use for the keyboard when VNC clients connect. If this
+# property does not exist, the hypervisor will use the first value in the
+# client-config.xml.jsp in webapps/client-premium/config and the default in
+# this case is the US101 keyboard map (US English). This property is now the
+# default setting to complement the Virtual Machine configuration popup. See
+# Configuring Remote Access to Virtual Machines
+RemoteDisplay.vnc.keyMap = 
+
+# NFS Repository location denoted by nfs-server-address:exportpath used by
+# Oracle VM.   Defaults to the value of
+# ‘abiquo.appliancemanager.repositoryLocation’ if not explicitly specified
+# in the abiquo.properties file.
+abiquo.virtualfactory.oraclevm.repositoryLocation = 
+
+# The maximum length of time the Oracle VM Hypervisor Plugin will wait for
+# an individual API-based job to complete (milliseconds). The default is
+# 8 hours, but the valid range is 1 minute to 1 week.
+# Range: 60000 - 604800000
+abiquo.virtualfactory.oraclevm.jobTimeoutMs = 28800000
+
+# Polling period for the job status check to monitor the status of
+# asynchronous hypervisor jobs (milliseconds). Defaults to 1 second, with a
+# valid range of 0.1 second to 1 minute. Range: 100 - 60000
+abiquo.virtualfactory.oraclevm.jobStatusCheckDelayMs = 1000
+
+# Enable Oracle VM Hard Partitioning support (CPU pinning). The default value
+# is ‘false’. Range: true, false
+abiquo.virtualfactory.oraclevm.hardPartitioning = false
+
+# Expected ratio of virtual CPUs to Physical CPU cores (integer). For best
+# performance, set to 1. To reduce physical CPUs per VM and thus licensing
+# costs, set to a higher value. For example, A value of 1 means a 4xCPU VM
+# will be pinned to 4 physical CPUs whereas a value of 4 means a 4xCPU VM
+# will be pinned to one physical CPU. Range: 1 - 64
+abiquo.virtualfactory.oraclevm.hardPartitioningCPURatio = 1
+
+# Create additional hard disks on the datastore as sparse. The default value
+# is ‘true’. Range: true, false
+abiquo.virtualfactory.oraclevm.createSparseDisks = true
+
+# This setting controls whether VMs created by Abiquo are configured within
+# Oracle VM for ‘High Availability’.   The default value is ‘false’ (no HA
+# support).   If set to ‘true’, then Abiquo will deploy a VM for HA if the
+# Oracle VM Server hosting the VM is part of a Clustered Server Pool.
+# Note that when a VM is re-configured, Abiquo will NOT update the HA status
+# of the VM.
+# Please note that some manual configuration of Oracle VM may be required for
+# HA to be performed successfully - please review Oracle VM details in the
+# Abiquo wiki for more details. Range: true, false
+abiquo.virtualfactory.oraclevm.ha = false
+
+# Create all Oracle VMs with this domain type. Options are (Hardware
+# Virtualized [HVM], Paravirtualized [PVM], Hardware Virtualized with
+# Paravirtualized drivers [PVHVM]).
+# Range: HVM, PVM, PVHVM
+abiquo.virtualfactory.oraclevm.defaultVMDomain = HVM
+
+# Specifies the number of consecutive health probe successes required before
+# moving the instance to the Healthy state.
+# Range: 2-10
+abiquo.amazon.loadbalancer.healthcheck.healthythreshold = 3
+
+# Enable automatic Floating IP allocation. This property configures how
+# public IP addresses are assigned to the virtual machines deployed in
+# OpenStack clouds. If the virtual machines are not directly attached to a
+# public network, enabling this property will automatically allocate a
+# floating IP for the virtual machines. If virtual machines are deployed and
+# attached directly to a public network, then this property should be set to
+# false. Range: true, false
+abiquo.openstack.autoAllocateFloatingIps = true
+
+# Enable automatic generation of key pairs. This enables the automatic
+# generation of key pairs, to make sure that the owner of the virtual machine
+# will have SSH access to the virtual machines that are deployed.
+# Range: true, false
+abiquo.openstack.autoGenerateKeyPairs = true
+
+# Configures the authentication type. In OpenStack installations, the standard
+# method of authentication is using a password. However, if the RAX_KSKEY extension
+# (see http://docs.openstack.org/api/openstack-identity-service/2.0/content/Admin_API_Service_Developer_Operations-RAX-KSKEY-admin.html)
+# is installed, users might be able to use an API key to authenticate.
+# Range: passwordCredentials, apiAccessKeyCredentials
+abiquo.openstack.credentialType = passwordCredentials
+
+# Prefix of the name of the Azure Storage account created for deployments (one
+# account per region)
+abiquo.virtualfactory.azure.storageAccountPrefix = abiquostorage
+
+# Timeout waiting for an operation to complete, e.g deploy / undeploy
+abiquo.virtualfactory.azure.wait.timeoutInSeconds = 900
+
+# Time to wait between polls during an operation wait
+abiquo.virtualfactory.azure.wait.timeBetweenTriesInSeconds = 30
+
+# Timeout retrying an operation
+abiquo.virtualfactory.azure.retry.timeoutInSeconds = 900
+
+# Time to wait between polls during a retry
+abiquo.virtualfactory.azure.retry.timeBetweenTriesInSeconds = 30
+
+# Default login for virtual machines if not found in the template
+abiquo.virtualfactory.azure.defaultLoginUser = abiquo
+
+# Default password for virtual machines if not found in the template
+abiquo.virtualfactory.azure.defaultLoginPassword = abqazure0!
+
+# Specifies the block size in KB for the volumes created in Nexenta storage
+# devices. Abiquo does not validate this property. Abiquo supports values
+# from 8 to 128 KB inclusive but Nexenta requires the value to be a power of 2
+# Range: 8, 16, 32, 64, 128
+#abiquo.storagemanager.nexenta.blocksize = 8
+
