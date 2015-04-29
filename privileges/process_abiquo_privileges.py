@@ -74,10 +74,10 @@ def get_options_file():
 	# imagePrefix = "v26_symbol_"
 	# imageSuffix = "_transparent.png"
 
-def processprivgroups(input_subdir,privUIFile):
+def processprivgroups(input_gitdir,privUIFile):
 	groupswithprivs = collections.OrderedDict()
 	privswithgroups = collections.OrderedDict()
-	with codecs.open(os.path.join(input_subdir,privUIFile), 'r', 'utf-8') as f:
+	with codecs.open(os.path.join(input_gitdir,privUIFile), 'r', 'utf-8') as f:
 		data=f.read().replace('\n', '')
 
 	names = re.findall('\sis([\w]*?)\s{1,1}([^,]*?),',data,re.U) 
@@ -198,14 +198,18 @@ def main():
 	thisscript = "privileges"
 
 	(fdetails,input_subdir,output_subdir) = get_options_file()
-	(groupswithprivs,privswithgroups) = processprivgroups(input_subdir,privUIFile)
+	input_gitdir = '../../platform/ui/app/lang'
+	input_gitdir2 = '../../platform/ui/app/js/services'
+	input_subdir = 'input_files'
+	output_subdir = 'output_files'
+	(groupswithprivs,privswithgroups) = processprivgroups(input_gitdir2,privUIFile)
 
 	logging.basicConfig(filename='api_examples.log',level=logging.DEBUG)
 
-	infoprint = {}
-	infoprint["N"] = '<ac:emoticon ac:name="yellow-star"/>'
-	infoprint["C"] = '<ac:emoticon ac:name="warning"/>'
-	infoprint["D"] = '<ac:emoticon ac:name="minus"/>'
+	# infoprint = {}
+	# infoprint["N"] = '<ac:emoticon ac:name="yellow-star"/>'
+	# infoprint["C"] = '<ac:emoticon ac:name="warning"/>'
+	# infoprint["D"] = '<ac:emoticon ac:name="minus"/>'
 
 	rollers = createRoles()
 	rheaders = createRoleHeader(rollers)
@@ -248,10 +252,10 @@ def main():
 
 	print ("privdescs assign_firewalls: %s " % privdescs["ASSIGN_FIREWALLS"])
 	print ("privnames assign_firewalls: %s " % privnames["ASSIGN_FIREWALLS"])
-	for pi in privlabels:
-		print ("privlabels: %s" % pi)
-	for pg in privgroups:
-		print ("privgroups: %s" % pg)
+	# for pi in privlabels:
+	# 	print ("privlabels: %s" % pi)
+	# for pg in privgroups:
+	# 	print ("privgroups: %s" % pg)
 
 	categories = []
 
@@ -261,8 +265,8 @@ def main():
 
  	priv_cats = {}
 	ppdict = {}
-	for pp in sqlroles:
-		print ("pp: %s" % pp)
+	# for pp in sqlroles:
+	# 	print ("pp: %s" % pp)
 	for pp in sqlroles:	
 		# create a privilege data object
 		if pp in privdescs:
@@ -276,7 +280,7 @@ def main():
 	 	info = ""
 
 	 	priv_group = getGroup(privswithgroups,pp)
-	 	print ("group: %s" % priv_group)
+	 	# print ("group: %s" % priv_group)
 
 
 	 	# group = gmatch[priv_group]
@@ -290,9 +294,9 @@ def main():
 		else:
 			priv_cats[priv_group] = [pp]
 
-		for blah in priv_cats:
-			boo = priv_cats[blah]
-			print("boo: %s " % boo)	
+		# for blah in priv_cats:
+		# 	boo = priv_cats[blah]
+		# 	print("boo: %s " % boo)	
 
 		# create a privilege json
 		privi = {}
@@ -347,7 +351,7 @@ def main():
 	mustacheTemplate = codecs.open("wiki_privileges_template.mustache", 'r', 'utf-8').read()
 	efo = pystache.render(mustacheTemplate, privilege_out).encode('utf8', 'xmlcharrefreplace')
 
-	ef = open_if_not_existing(os.path.join(output_subdir,"v32_privileges_out.txt"))
+	ef = open_if_not_existing(os.path.join(output_subdir,"privileges_out_2015_04_29.txt"))
 	if ef:
 		ef.write(efo)
 		ef.close()	 
