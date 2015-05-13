@@ -1,0 +1,60 @@
+|  DELETE  |  /admin/datacenters/(dc)/remoteservices/(rs)  |    |    |
+|  DELETE  |  /admin/publiccloudregions/(pcr)/remoteservices/(rs)  |    |    |
+|  DELETE  |  /admin/remoteservices/(rs)  |    |    |
+|  DELETE  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)  |    |    |
+|  DELETE  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/healthchecks/(healthcheck)  |    |    |
+|  DELETE  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/routingrules/(routingrule)  |    |    |
+|  GET  |  /admin/datacenters/(dc)/remoteservices/(rs)/action/check  |    |    |
+|  GET  |  /admin/publiccloudregions/(pcr)/remoteservices/(rs)/action/check  |    |    |
+|  GET  |  /admin/remoteservices  |    |   remoteservices (*b)  (*r)   |
+|  GET  |  /admin/remoteservices/(rs)/action/check  |    |    |
+|  GET  |  /admin/remoteservices/(rs)  |    |   remoteservice (*b)  (*r)   |
+|  GET  |  /cloud/locations/(loc)/loadbalancers/addresses  |    |   loadbalanceraddresses (*r)  (*b)   |
+|  GET  |  /cloud/locations/(loc)/loadbalancers/addresses/(loadbalanceraddress)  |    |   loadbalanceraddress (*r)  (*b)   |
+|  GET  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/addresses  |    |   loadbalanceraddresses (*r)  (*b)   |
+|  GET  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/healthchecks/(healthcheck)  |    |   healthcheck (*b)  (*r)   |
+|  GET  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/healthchecks  |    |   healthchecks (*r)  (*b)   |
+|  GET  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/healthstates  |    |   healthstates (*r)  (*b)   |
+|  GET  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)  |    |   loadbalancer (*r)  (*b)   |
+|  GET  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/routingrules/(routingrule)  |    |   routingrule (*r)  (*b)   |
+|  GET  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/routingrules  |    |   routingrules (*r)  (*b)   |
+|  GET  |  /cloud/locations/(loc)/loadbalancers  |    |   loadbalancers (*r)  (*b)   |
+|  GET  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/virtualmachines  |    |   links (*b)  (*r)   |
+|  GET  |  /cloud/locations/(loc)/sslcertificates  |    |   sslcertificates (*r)  (*b)   |
+|  GET  |  /cloud/locations/(loc)/sslcertificates/(sslcertificate)  |    |   sslcertificate (*r)  (*b)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/action/virtualmachines  |    |   virtualmachines (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/loadbalancers  |    |   loadbalancers (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/privatenetworks/(privatenw)/loadbalancers  |    |   loadbalancers (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/loadbalancers  |    |   loadbalancers (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/metrics/(metric)  |    |   metric (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/metrics/(metric)  |    |   metricmetadata (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/metrics  |    |   metrics (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/metrics  |    |   metricsmetadata (*b)  (*r)   |
+|  GET  |  /config/hypervisortypes/(hypervisortype)/monitoring/levels  |    |   monitoringlevel (*b)  (*r)   |
+|  GET  |  /config/hypervisortypes/(hypervisortype)/monitoring/levels  |    |   monitoringlevels (*b)  (*r)   |
+|  POST  |  /admin/datacenters/(dc)/network/(publicnw)/ips  |   ipsbulkcreation (*b)  (*r)   |   publicips (*b)  (*r)   |
+|  POST  |  /admin/datacenters/(dc)/remoteservices  |   remoteservice (*b)  (*r)   |   remoteservice (*b)  (*r)   |
+|  POST  |  /admin/publiccloudregions/(pcr)/remoteservices  |   remoteservice (*b)  (*r)   |   remoteservice (*b)  (*r)   |
+|  POST  |  /admin/remoteservices  |   remoteservice (*b)  (*r)   |   remoteservice (*b)  (*r)   |
+|  POST  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/healthchecks  |   healthcheck (*r)  (*b)   |   healthcheck (*r)  (*b)   |
+|  POST  |  /cloud/locations/(loc)/loadbalancers  |   loadbalancer (*r)  (*b)   |   loadbalancer (*r)  (*b)   |
+|  POST  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/routingrules  |   routingrule (*r)  (*b)   |   routingrule (*r)  (*b)   |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/privatenetworks/(privatenw)/ips  |   ipsbulkcreation (*b)  (*r)   |   privateips (*b)  (*r)   |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/action/protect  |   textplain  |    |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/action/restorebackup  |   restore (*b)  (*r)   |    |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/action/unprotect  |    |    |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/disablemonitoring  |    |    |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/enablemonitoring  |    |    |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/enablemonitoringlevel  |   monitoringlevel (*b)  (*r)   |    |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/metrics  |   custommetric (*b)  (*r)   |   custommetric (*b)  (*r)   |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/metrics/(metric)  |   datapoints (*b)  (*r)   |    |
+|  POST  |  /login/action/newpassword  |    |    |
+|  POST  |  /login/action/reset  |    |    |
+|  PUT  |  /admin/datacenters/(dc)/remoteservices/(rs)  |   remoteservice (*b)  (*r)   |   remoteservice (*b)  (*r)   |
+|  PUT  |  /admin/publiccloudregions/(pcr)/remoteservices/(rs)  |   remoteservice (*b)  (*r)   |   remoteservice (*b)  (*r)   |
+|  PUT  |  /admin/remoteservices/(rs)  |   remoteservice (*b)  (*r)   |   remoteservice (*b)  (*r)   |
+|  PUT  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/healthchecks/(healthcheck)  |   healthcheck (*b)  (*r)   |   healthcheck (*b)  (*r)   |
+|  PUT  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)  |   loadbalancer (*r)  (*b)   |   loadbalancer (*r)  (*b)   |
+|  PUT  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/routingrules/(routingrule)  |   routingrule (*r)  (*b)   |   routingrule (*r)  (*b)   |
+|  PUT  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/virtualmachines  |   links (*b)  (*r)   |   links (*b)  (*r)   |
+|  PUT  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/metrics/(metric)  |   custommetric (*b)  (*r)   |   custommetric (*b)  (*r)   |
