@@ -21,6 +21,7 @@ def main():
 	tracer_messages = []
 	tracers = []
 
+	td = "2015-04-30"
 	indexed_messages = {}
 	tkey_errors = {}
 	tkey_severities = {}
@@ -34,12 +35,13 @@ def main():
 	groupkey = {}
 	previous_key = " "
 	out_subdir = "output_files"
-	wiki_event_tracer_user_file = "wiki_event_tracer_user.txt"
+	wiki_event_tracer_user_file = "wiki_event_tracer_user_" + td + ".txt"
 	git_dir = "../platform/m/src/main/resources/messages"
 	input_subdir = "input_files"
-	user_file = "entity_user_list.txt"
+
+	user_file = "entity_user_list_"+ td + ".txt"
 	prop_file = "tracer.properties"
-	entity_action_file = "entity_action_list.txt"
+	entity_action_file = "entity_action_list_" + td + ".txt"
 	entity_actions_file = [ea.strip() for ea in open(os.path.join(input_subdir,entity_action_file))]
 	header = "|| Entity || Action || Severity || Tracer || API Error ||\n"
 
@@ -53,7 +55,7 @@ def main():
     	
 	for eai in entity_actions_file:
 		print ("eai: ",eai)
-		eaSplit = eai.split(" ")
+		eaSplit = eai.split(".")
 		print ("eaSplit: ",eaSplit)
 		entity_compound = eaSplit[0] + "_" + eaSplit[1]
 		entity_compounds.append(entity_compound)
