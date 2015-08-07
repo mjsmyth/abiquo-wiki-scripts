@@ -187,14 +187,22 @@ def main():
 #				outputline[tkey] = "| " + entity_names[eci] + " | " + entity_actions[eci] + " " + extra_text[tkey] + " " + extra_bit[tkey] + " | " + tkey_severities[tkey] + " | " + tracer_texts[tki] + " | "  + tkey_errors[tkey]  + " | \n"
 				groupkey[tkey] = eci
 
+
 	with open(os.path.join(out_subdir,wiki_event_tracer_all_file), 'w') as f:
+# This is a terrible mess but I don't have time to fix it right now
+
 		f.write(header)
+		for si in thesorter:
+			print("thesorter: ",si)
 
-		sorted(thesorter, key=operator.itemgetter(1,2))
+		thesorted = []
+		thesorted =	sorted(thesorter, key=operator.itemgetter(1,2))
+		for s in thesorted:
+			print("sorted: ",s)
+		mysorted = []	
+		mysorted = [x[0] for x in thesorted]
 
-		ol_keys = sorted(outputline.keys())
-
-		for olk in ol_keys:
+		for olk in mysorted:
 #			print ("olk: ",olk," \t| groupkey-olk: ",groupkey[olk]," \t | entity_names-g-o: ",entity_names[groupkey[olk]])
 			if entity_names[groupkey[olk]] != previous_key:
 				entity_name_fix_case = entity_names[groupkey[olk]]
