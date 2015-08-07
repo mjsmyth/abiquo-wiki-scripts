@@ -13,6 +13,7 @@ import sys
 import re
 import os
 import operator
+from collections import OrderedDict
 
 def main():
 	entity_actions_file = []
@@ -34,6 +35,7 @@ def main():
 	indexed_messages = {}
 	tkey_errors = {}
 	tkey_severities = {}
+	tkey_sev = {}
 	eaindex = 0
 	tmindex = 0
 	tindex = 0
@@ -77,6 +79,7 @@ def main():
 	sorted(enco, key=operator.itemgetter(1,2))
 	for ec in enco:
 		print ("ec: ",ec)
+	addtmi = 0	
 
 	for tmi in tracer_messages:
 		if not re.search("^\#",tmi):
@@ -98,7 +101,8 @@ def main():
 				midex = tracerSplit[0].strip()
 #				indexed_messages[midex]=tracer_text
 				indexed_messages[midex]=tracer_text
-
+				addtmi = addtmi + 1
+	print("addtmi: ", addtmi)
 	entity_compounds.sort()
 	entity_compounds.sort(key=len, reverse=True)	
 
@@ -106,6 +110,7 @@ def main():
 	tracer_keys.sort(key=len, reverse=True)
 
 	thesorter = []
+	added = 0
 	for eck,eci in enumerate(entity_compounds):
 #		print ("eci: ",eci)
 		ecix = "^" + eci
@@ -114,8 +119,8 @@ def main():
 				print ("tracer_keys: ",tkey)
 				tracer_keys_matched.append(tkey)
 				print ("tracer_keys_matched: ",tkey," name:",entity_names[eci]," action: ",entity_actions[eci])
-				thesorter.append ((tkey,entity_names[eci],entity_actions[eci]))
 
+				added = added + 1
 				tkey_sub = re.sub(ecix,"",tkey)
 				tkey_sub = re.sub("^_","",tkey_sub)
 				tkey_sub = re.sub("_$","",tkey_sub)
@@ -130,6 +135,7 @@ def main():
 				if re.search("INFO",tkey_sub):
 					info_split = tkey_sub.split("INFO")
 					tkey_severities[tkey] = " (i) "
+					tkey_sev[tkey] = 2
 					if re.search("[A-Z]+",info_split[0]):
 						extra_texts = info_split[0]
 						extra_text[tkey] = re.sub("_$","",extra_texts)
@@ -143,6 +149,7 @@ def main():
 				if re.search("WARN",tkey_sub):
 					info_split = tkey_sub.split("WARN")
 					tkey_severities[tkey] = " (!) "
+					tkey_sev[tkey] = 1
 					if re.search("[A-Z]+",info_split[0]):
 						extra_texts = info_split[0]
 						extra_text[tkey] = re.sub("_$","",extra_texts)				
@@ -155,7 +162,8 @@ def main():
 
 				if re.search("ERROR",tkey_sub):
 					info_split = tkey_sub.split("ERROR")
-					tkey_severities[tkey] = " (-) "	
+					tkey_severities[tkey] = " (-) "
+					tkey_sev[tkey] = 0
 					tkey_error = info_split[1]
 					tkey_error = re.sub("^_","",tkey_error)
 					tkey_error = re.sub("_$","",tkey_error)
@@ -166,7 +174,7 @@ def main():
 
 				tkey_sub = re.sub("^_","",tkey_sub)
 				tkey_sub = re.sub("_$","",tkey_sub)
-
+				thesorter.append ((tkey,entity_names[eci],entity_actions[eci],extra_text[tkey],tkey_sev[tkey],indexed_messages[tkey]))
 				tracer_keys_subbed.append(tkey_sub)
 				print ("tkey_sub: ",tkey_sub)
 #				print ("eci: ",eci," \t | tkey: ",tkey," \t |",tki) 
@@ -187,22 +195,29 @@ def main():
 #				outputline[tkey] = "| " + entity_names[eci] + " | " + entity_actions[eci] + " " + extra_text[tkey] + " " + extra_bit[tkey] + " | " + tkey_severities[tkey] + " | " + tracer_texts[tki] + " | "  + tkey_errors[tkey]  + " | \n"
 				groupkey[tkey] = eci
 
-
+	print("added: ",added)
 	with open(os.path.join(out_subdir,wiki_event_tracer_all_file), 'w') as f:
 # This is a terrible mess but I don't have time to fix it right now
 
 		f.write(header)
+		tot = 0
 		for si in thesorter:
 			print("thesorter: ",si)
-
+			tot = tot + 1
+		print("tot:",tot)	
 		thesorted = []
-		thesorted =	sorted(thesorter, key=operator.itemgetter(1,2))
+		thesorted =	sorted(thesorter, key=operator.itemgetter(1,2,3,4))
+		tots = 0
 		for s in thesorted:
 			print("sorted: ",s)
+			tots = tots + 1
+		print("tots: ",tots)	
 		mysorted = []	
 		mysorted = [x[0] for x in thesorted]
-
-		for olk in mysorted:
+		print("mysorted: ",len(mysorted))
+		ok = list(OrderedDict.fromkeys(mysorted))
+		print("lengthok",len(ok))
+		for olk in ok:
 #			print ("olk: ",olk," \t| groupkey-olk: ",groupkey[olk]," \t | entity_names-g-o: ",entity_names[groupkey[olk]])
 			if entity_names[groupkey[olk]] != previous_key:
 				entity_name_fix_case = entity_names[groupkey[olk]]
