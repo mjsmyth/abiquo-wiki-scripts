@@ -39,7 +39,7 @@ def main():
 	KeySplit = {}
 	keyHappy = " "
 	event_list_with_privileges = {}
-	td = "2014-10-31"
+	td = "2015-08-06"
 
 
 	git_events_security_dir = "../platform/api/src/main/resources/events"
