@@ -77,7 +77,8 @@
 	"Cloud node" : "CLOUDNODE",
 	"Firewall" : "FIREWALLPOLICY|FIREWALLRULE",
 	"Metrics" : "METRIC",
-	"Load balancer" : "LOADBALANCER"
+	"Load balancer" : "LOADBALANCER",
+	"Disk" : "DISK-[0-9]"
 }
 	
 

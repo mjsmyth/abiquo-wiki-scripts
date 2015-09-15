@@ -1,0 +1,101 @@
+./AllocationRulesResource-25809456:Resource URI: <strong>/admin/rules/enterpriseExclusions/{enterpriseExclusion}</strong>
+./AllocationRulesResource-25809456:Resource URI: <strong>/admin/rules/enterpriseExclusions</strong>
+./AllocationRulesResource-25809456:Resource URI: <strong>/admin/rules/fitsPolicy/{fitPolicy}</strong>
+./AllocationRulesResource-25809456:Resource URI: <strong>/admin/rules/fitsPolicy</strong>
+./AllocationRulesResource-25809456:Resource URI: <strong>/admin/rules/machineLoadLevel/{loadLevel}</strong>
+./AllocationRulesResource-25809456:Resource URI: <strong>/admin/rules/machineLoadLevel</strong>
+./AllocationRulesResource-25809456:Resource URI: <strong>/admin/rules</strong>
+./AllVirtualMachinesResource-25809475:Resource URI: <strong>/cloud/virtualmachines</strong>
+./AvailabilityZoneResource-25809478:Resource URI:&nbsp;<strong>/cloud/location/{id}/availabilityzones</strong>
+./Backup Resource-25809427:Resource URI:&nbsp;<strong>/config/backups/{backup}</strong>
+./Backup Resource-25809427:Resource URI:&nbsp;<strong>/config/backups</strong>
+./CategoryResource-25809417:Resource URI: <strong>/config/categories/{category}</strong>
+./CategoryResource-25809417:Resource URI: <strong>/config/categories</strong>
+./ConversionResource-25809455:Resource URI: <strong>/admin/enterprises/{enterprise}/datacenterrepositories/{datacenterrepository}/virtualmachinetemplates/{virtualmachinetemplate}/disks/{disk}/conversions/{conversion}</strong>
+./ConversionResource-25809455:Resource URI: <strong>/admin/enterprises/{enterprise}/datacenterrepositories/{datacenterrepository}/virtualmachinetemplates/{virtualmachinetemplate}/disks/{disk}/conversions</strong>
+./CostCodeCurrencyResource-25809419:Resource URI: <strong>/config/costcodes/{costcode}/currencies/{currency}</strong>
+./CostCodeCurrencyResource-25809419:Resource URI: <strong>/config/costcodes/{costcode}/currencies</strong>
+./CostCodeResource-25809418:Resource URI: <strong>/config/costcodes/{costcode}</strong>
+./CostCodeResource-25809418:Resource URI: <strong>/config/costcodes</strong>
+./CurrencyResource-25809420:Resource URI: <strong>/config/currencies/{currency}</strong>
+./CurrencyResource-25809420:Resource URI: <strong>/config/currencies</strong>
+./DatacenterLimitsResource-25809444:Resource URI: <strong>/admin/enterprises/{enterprise}/limits</strong>
+./DatacenterRepositoryResource-25809453:Resource URI: <strong>/admin/enterprises/{enterprise}/datacenterrepositories</strong>
+./DatacenterResource-25809429:Resource URI: <strong>/admin/datacenters/{datacenter}/action/getlimits</strong>
+./DatacenterResource-25809429:Resource URI: <strong>/admin/datacenters/{datacenter}</strong>
+./DatacenterResource-25809429:Resource URI: <strong>/admin/datacenters</strong>
+./DiskControllerType Resource-25814231:Resource URI: <strong>/config/diskcontrollertypes/{diskcontrollertype}</strong>
+./DiskControllerType Resource-25814231:Resource URI: <strong>/config/diskcontrollertypes</strong>
+./DiskFormatTypesResource-25809424:Resource URI: <strong>/config/diskformattypes/{diskformattype}</strong>
+./DiskFormatTypesResource-25809424:Resource URI: <strong>/config/diskformattypes</strong>
+./DisksResource-25813205:Resource URI: <strong>/admin/enterprises/{enterprise}/datacenterrepositories/{datacenterrepository}/virtualmachinetemplates/{virtualmachinetemplate}/disks</strong>
+./EnterprisePropertiesResource-25809452:Resource URI: <strong>/admin/enterprises/{enterprise}/properties</strong>
+./EnterpriseResource-25809442:Resource URI: <strong>/admin/enterprises/{enterprise}</strong>
+./EnterpriseResource-25809442:Resource URI: <strong>/admin/enterprises</strong>
+./EthernetDriverType Resource-25814236:Resource URI: <strong>/config/ethernetdrivertypes/{ethernetdrivertype}</strong>
+./EthernetDriverType Resource-25814236:Resource URI: <strong>/config/ethernetdrivertypes</strong>
+./EventsResource-25809488:Resource URI: <strong>/events</strong>
+./Example Test PublicIpResource-25810733:Resource URI: <strong>/admin/datacenters/{datacenter}/network/{publicnetwork}/ips</strong>
+./ExternalNetworksResource-25809445:Resource URI: <strong>/admin/enterprises/{enterprise}/limits/{limit}/externalnetworks/action/default</strong>
+./ExternalNetworksResource-25809445:Resource URI: <strong>/admin/enterprises/{enterprise}/limits/{limit}/externalnetworks/{externalnetwork}</strong>
+./ExternalNetworksResource-25809445:Resource URI: <strong>/admin/enterprises/{enterprise}/limits/{limit}/externalnetworks</strong>
+./FirewallPoliciesResource-25809479:Resource URI:&nbsp;<strong>/cloud/locations/{location}/firewalls</strong>
+./FirewallRulesResource-25809480:Resource URI:&nbsp;<strong>/cloud/locations/{location}/firewalls/{firewall}/rules</strong>
+./HardDiskResource-25809467:Resource URI: <strong>/cloud/virtualdatacenters/{virtualdatacenter}/disks/{disk}</strong>
+./HardDiskResource-25809467:Resource URI: <strong>/cloud/virtualdatacenters/{virtualdatacenter}/disks</strong>
+./HypervisorTypeResource-25809426:Resource URI:&nbsp;<strong>/config/hypervisortypes</strong>
+./IPsResource-25809477:Resource URI:&nbsp;<strong>/cloud/locations/{id}/ips</strong>
+./LayersResource-25809474:Resource URI: <strong>/cloud/virtualdatacenters/{virtualdatacenter}/virtualappliances/{virtualappliance}/layers</strong>
+./LicenseResource-25809425:Resource URI: <strong>/config/licenses</strong>
+./LocationsResource-25809476:Resource URI:&nbsp;<strong>/cloud/locations</strong>
+./LoginResource-25809414:Resource URI: <strong>/login</strong>
+./MachineDatastoresResource-25809433:Resource URI: <strong>/admin/datacenters/{datacenter}/racks/{rack}/machines/{machine}/datastores</strong>
+./MachineResource-25809432:Resource URI: <strong>/admin/datacenters/{datacenter}/racks/{rack}/machines</strong>
+./NetworkServiceTypeResource-25809430:Resource URI: <strong>/admin/datacenters/{datacenter}/networkservicetypes</strong>
+./OSType Resource-25814247:Resource URI: <strong>/config/ostypes/{ostype}</strong>
+./OSType Resource-25814247:Resource URI: <strong>/config/ostypes</strong>
+./PricingTemplateResource-25809421:Resource URI: <strong>/config/pricingtemplates/{pricingtemplate}/costcodes</strong>
+./PricingTemplateResource-25809421:Resource URI: <strong>/config/pricingtemplates/{pricingtemplate}/tiers</strong>
+./PricingTemplateResource-25809421:Resource URI: <strong>/config/pricingtemplates</strong>
+./PrivateNetworksResource-25809465:Resource URI: <strong>/cloud/virtualdatacenters/{virtualdatacenter}/privatenetworks/{privatenetwork}/ips</strong>
+./PrivateNetworksResource-25809465:Resource URI: <strong>/cloud/virtualdatacenters/{virtualdatacenter}/privatenetworks</strong>
+./PrivilegeResource-25809422:Resource URI: <strong>/config/privileges</strong>
+./PublicCloudCredentialsResource-25809446:Resource URI:&nbsp;<strong>/admin/enterprises/{enterprise}/credentials</strong>
+./PublicCloudRegionResource-25809460:Resource URI:&nbsp;<strong>/admin/publiccloudregions</strong>
+./PublicIpResource-25809437:Resource URI: <strong>/admin/datacenters/{datacenter}/network/{publicnetwork}/ips</strong>
+./PublicNetworkResource-25809436:Resource URI: <strong>/admin/datacenters/{datacenter}/network</strong>
+./RackResource-25809431:Resource URI: <strong>/admin/datacenters/{datacenter}/racks</strong>
+./RemoteServiceResource-25809435:Resource URI: <strong>/admin/datacenters/{datacenter}/remoteservices</strong>
+./RemoteServiceResourceForRegions-25809461:Resource URI:&nbsp;<strong>/admin/publiccloudregions/{publiccloudregion}/remoteservices</strong>
+./Remote Services Resource-25809462:Resource URI:&nbsp;<strong>/admin/remoteservices</strong>
+./ReservedMachinesResource-25809443:Resource URI: <strong>/admin/enterprises/{enterprise}/reservedmachines</strong>
+./RolesLDAPResource-25809458:Resource URI: <strong>/admin/rolesldap</strong>
+./RolesResource-25809457:Resource URI: <strong>/admin/roles</strong>
+./Scopes Resource-25809459:Resource URI: <strong>/admin/scopes</strong>
+./SessionResource-25809415:Resource URI: <strong>/login/sessions</strong>
+./StatisticsResource-25809490:Resource URI: <strong>/statistics/cloudusage</strong>
+./StatisticsResource-25809490:Resource URI: <strong>/statistics/enterpriseresources</strong>
+./StatisticsResource-25809490:Resource URI: <strong>/statistics</strong>
+./StatisticsResource-25809490:Resource URI: <strong>/statistics/vappsresources</strong>
+./StatisticsResource-25809490:Resource URI: <strong>/statistics/vdcsresources</strong>
+./StorageDeviceResource-25809439:Resource URI: <strong>/admin/datacenters/{datacenter}/storage/devices</strong>
+./StoragePoolResource-25809440:Resource URI: <strong>/admin/datacenters/{datacenter}/storage/devices/{device}/pools</strong>
+./SystemPropertyResource-25809423:Resource URI: <strong>/config/properties</strong>
+./TemplateDefinitionListResource-25809448:Resource URI: <strong>/admin/enterprises/{enterprise}/appslib/templateDefinitionLists</strong>
+./TemplateDefinitionResource-25809449:Resource URI: <strong>/admin/enterprises/{enterprise}/appslib/templateDefinitions</strong>
+./TierResource-25809441:Resource URI: <strong>/admin/datacenters/{datacenter}/storage/tiers</strong>
+./UserResource-25809450:Resource URI: <strong>/admin/enterprises/{enterprise}/users</strong>
+./VersionResource-25809489:Resource URI: <strong>/version</strong>
+./VirtualApplianceResource-25809469:Resource URI: <strong>/cloud/virtualdatacenters/{virtualdatacenter}/virtualappliances</strong>
+./VirtualApplianceResource-25809469:Resource URI: <strong>/cloud/virtualdatacenters/{virtualdatacenter}/virtualappliances/{virtualappliance}</strong>
+./VirtualDatacenterResource-25809464:Resource URI: <strong>/cloud/virtualdatacenters</strong>
+./VirtualDatacenterResource-25809464:Resource URI: <strong>/cloud/virtualdatacenters/{virtualdatacenter}</strong>
+./VirtualDatacenterTiersResource-25809466:Resource URI: <strong>/cloud/virtualdatacenters/{virtualdatacenter}/tiers</strong>
+./VirtualMachineChefRunlistResource-25809471:Resource URI: <strong>/cloud/virtualdatacenters/{virtualdatacenter}/virtualappliances/{virtualappliance}/virtualmachines/{virtualmachine}/config/runlist</strong>
+./VirtualMachineConfigurationResource-25809472:Resource URI: <strong>/cloud/virtualdatacenters/{virtualdatacenter}/virtualappliances/{virtualappliance}/virtualmachines/{virtualmachine}/network</strong>
+./VirtualMachineConfigurationResource-25809472:Resource URI: <strong>/cloud/virtualdatacenters/{virtualdatacenter}/virtualappliances/{virtualappliance}/virtualmachines/{virtualmachine}/storage</strong>
+./VirtualMachineResource-25809470:Resource URI: <strong>/cloud/virtualdatacenters/{virtualdatacenter}/virtualappliances/{virtualappliance}/virtualmachines</strong>
+./VirtualMachinesFromInfrastructureResource-25809434:Resource URI: <strong>/admin/datacenters/{datacenter}/racks/{rack}/machines/{machine}/virtualmachines</strong>
+./VirtualMachineTemplateResource-25809454:Resource URI: <strong>/admin/enterprises/{enterprise}/datacenterrepositories/{datacenterrepository}/virtualmachinetemplates</strong>
+./VolumeResource-25809468:Resource URI: <strong>/cloud/virtualdatacenters/{virtualdatacenter}/volumes</strong>
+./VolumeResource-25809468:Resource URI: <strong>/cloud/virtualdatacenters/{virtualdatacenter}/volumes/{volume}</strong>

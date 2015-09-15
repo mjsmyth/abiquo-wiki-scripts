@@ -44,7 +44,7 @@ def wikiHeadings(profiles,filedetails):
 	heading_links_list = []
 	for prix, profile in profiles.items():
 		header_profile_item = {}
-		header_profile_item['ExampleFile'] = filedetails.fprefix + profile.lower() + filedetails.fdate + filedetails.fsuffix
+		header_profile_item['ExampleFile'] = filedetails.fprefix + profile.lower() + "_" + filedetails.fdate + filedetails.fsuffix
 		header_profile_item['ExampleImage'] = filedetails.iprefix + profile.lower() + filedetails.isuffix
 		heading_links_list.append(header_profile_item)
 	return heading_links_list
@@ -65,9 +65,9 @@ def getCategory(pName):
 		property_cat = "virtual infrastructure"		
 	if property_cat == "USE_SECURE_CHANNEL_LOGIN":
 		property_cat = "client"
-	if property_cat == "vi"
+	if property_cat == "vi":
 		property_cat = "virtual infrastructure"
-	if property_cat == "m"
+	if property_cat == "m":
 		property_cat == "m outbound api"					
 	return property_cat
 
@@ -243,7 +243,7 @@ def main():
 	categories = []
 
 	# prevWikiVersion = "ABI32"
-	wikiVersion = "ABI34"
+	wikiVersion = "ABI36"
 	# # Directories and file names
 
  #    input_subdir = 'input_files'
@@ -252,18 +252,18 @@ def main():
  #    compFile = prevWikiVersion + output_subdir
     # inputDir = wikiVersion + "/" + input_subdir
     # outputDir = wikiVersion + "/" + output_subdir
+	td = "2015-08-11"
 
 #    inputDir = '~/platform/system-properties/src/main/resources'
-	propertyFile = 'abiquo.properties_2015_04_29'
+	propertyFile = 'abiquo.properties_' + td
 
     
 	# These are the details of the sample files and the images that link to the sample files on the wiki
-	fileDate = "_2015-04-29"
 	filePrefix = "properties_"
 	fileSuffix = ".txt"
 	imagePrefix = "v26_symbol_"
 	imageSuffix = "_transparent.png"
-	fdetails = filedetails(filePrefix,fileSuffix,fileDate,imagePrefix,imageSuffix)
+	fdetails = filedetails(filePrefix,fileSuffix,td,imagePrefix,imageSuffix)
 
 	property_description_list = []
 	
@@ -291,7 +291,7 @@ def main():
 
 	# output the sample files
 	for pf in profiles:
-		pf_sample = fdetails.fprefix + profiles[pf].lower() + fdetails.fdate + fdetails.fsuffix	
+		pf_sample = fdetails.fprefix + profiles[pf].lower() + "_" + fdetails.fdate + fdetails.fsuffix	
 		ps = open_if_not_existing(pf_sample)
 		if ps:
 			sample_message_list = getSampleMessage(profiles[pf],wikiVersion)
@@ -322,7 +322,8 @@ def main():
 	# Render the wiki file with mustache
 	mustacheTemplate = codecs.open("wiki_properties_template.mustache", 'r', 'utf-8').read()
 	efo = pystache.render(mustacheTemplate, wiki_output).encode('utf8', 'xmlcharrefreplace')
-	ef = open_if_not_existing("properties_out_2015_04_29.txt")
+	pof = "properties_out_" + td + ".txt"
+	ef = open_if_not_existing(pof)
 	if ef:
 		ef.write(efo)
 		ef.close()		

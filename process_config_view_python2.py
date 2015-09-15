@@ -13,7 +13,7 @@ import readline
 
 def main():
 	apiHeaders = {}
-	td = "2015-04-30"
+	td = "2015-08-11"
 
 # Enter path in filesystem to a file with the UI tags for fields cloned from github
 #	ui_path = input("Language file path: ").strip()

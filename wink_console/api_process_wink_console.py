@@ -31,7 +31,7 @@ def main():
     table_row_list = []
 
 #   tree = etree.parse("sample.xml")
-    tree = etree.parse("v320_wink_console_resources.xml")
+    tree = etree.parse("v36_wink_console_resources.xml")
 #    print("version: ",tree.docinfo.xml_version)
     root = tree.getroot()
     for resource in root:

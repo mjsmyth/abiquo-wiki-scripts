@@ -132,6 +132,7 @@ def get_extra_text(input_subdir,extfile):
 def get_sql(input_subdir,sqlfile):
 	sqllines = (sqlline.rstrip() for sqlline in open(os.path.join(input_subdir,sqlfile)))
 	sqlroles = {}
+# Apparently this will be a dictionary in the format {priv : [role, role, role], priv2 : [ role, role, role]}
 	for sql_orig in sqllines:
 		print ("sql_orig: %s" % sql_orig)
 		sqllist = re.findall(r'([\w_]+)', sql_orig)
@@ -224,7 +225,7 @@ def main():
 
 	sqllabels = {}
 	sqlroles = {}
-	sqlfile = 'process_privileges_sql_2014-10-21.txt'
+	sqlfile = 'process_privileges_sql_2015-08-04.txt'
 
 	sqlroles = get_sql(input_subdir,sqlfile)
 
