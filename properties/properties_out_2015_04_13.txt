@@ -1,0 +1,2613 @@
+<table>
+<tbody>
+<tr>
+<th class="warning" data-highlight-class="warning"><p>Property</p></th>
+<th class="warning" data-highlight-class="warning"><p>Default</p></th>
+<th class="warning" data-highlight-class="warning"><p>Range</p></th>
+<th class="warning" data-highlight-class="warning"><p>Description</p></th>
+<th class="warning" colspan="1" data-highlight-class="warning"><ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link></th>
+<th class="warning" colspan="1" data-highlight-class="warning"><ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link></th>
+<th class="warning" colspan="1" data-highlight-class="warning"><ac:link><ri:attachment ri:filename="properties_v2v_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_v2v_transparent.png" /></ac:image></ac:link-body></ac:link></th>
+<th class="warning" colspan="1" data-highlight-class="warning"><ac:link><ri:attachment ri:filename="properties_oa_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_oa_transparent.png" /></ac:image></ac:link-body></ac:link></th>
+<th class="warning" colspan="1" data-highlight-class="warning">Info</th>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>abiquo</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.abiquo.task.ttl </p></td>
+<td><p>  </p></td>
+<td><p>  </p></td>
+<td><p> Number of virtual infrastructure check executions that a locked virtual machine with a pending task can pass before it will be marked as failed. </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>amazon</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.amazon.loadbalancer.healthcheck.healthythreshold </p></td>
+<td><p> 3 </p></td>
+<td><p>  2-10 </p></td>
+<td><p> Specifies the number of consecutive health probe successes required before moving the instance to the Healthy state.  </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>api</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.api.login.failurelapse </p></td>
+<td><p> 60 </p></td>
+<td><p>  </p></td>
+<td><p> Lapse of time in seconds where abiquo.api.login.maxtries apply </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.api.login.maxtries </p></td>
+<td><p> 3 </p></td>
+<td><p>  </p></td>
+<td><p> Max login failures in a given a lapse (abiquo.api.login.failurelapse) </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.api.max.sessions </p></td>
+<td><p> -1 </p></td>
+<td><p>  -1, &gt;0 </p></td>
+<td><p> Maximum number of sessions per user in the API. The default value of -1 means there is no limit and a value of 0 is invalid.  </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.api.networking.allowMultipleNicsVlan </p></td>
+<td><p> True </p></td>
+<td><p>  </p></td>
+<td><p> If false (or any other value), allow only one NIC per VLAN on a VirtualMachine </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.api.networking.nicspervm </p></td>
+<td><p> 0 </p></td>
+<td><p>  </p></td>
+<td><p> Limit of NICs per Virtual Machine. If this is set to 0, there are no limits </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.api.session.cookie.name </p></td>
+<td><p> ABQSESSIONID </p></td>
+<td><p>  </p></td>
+<td><p> Abiquo session cookie name. This session does not store anything. </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.api.zk.serverConnection </p></td>
+<td><p>  </p></td>
+<td><p>  </p></td>
+<td><p> Location where ZooKeeper is listening in format &lt;IP address&gt;:&lt;port&gt; for example, 10.10.10.10:2181 </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>appliancemanager</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.appliancemanager.check.repository </p></td>
+<td><p> 600000 </p></td>
+<td><p>  </p></td>
+<td><p> Datacenter NFS repository refresh interval (milliseconds) </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.appliancemanager.checkMountedRepository </p></td>
+<td><p> true </p></td>
+<td><p>  </p></td>
+<td><p> Perform the repository check against /etc/mtab. Set to false for local NFS Server installations in testing environment: Monolithic, Cloud in a Box, NFS on V2V Server or NFS on Remote Services </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.appliancemanager.client.timeoutInMilliseconds </p></td>
+<td><p> 60000 </p></td>
+<td><p>  </p></td>
+<td><p> Timeout for HTTP connections to the ApplianceManager Server when using the ApplianceManager Client, this property configures read and connection timeout (milliseconds) </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.appliancemanager.deploy.connection </p></td>
+<td><p> 120000 </p></td>
+<td><p>  </p></td>
+<td><p> Timeout for HTTP connections to be established when downloading a virtual machine template (milliseconds) </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.appliancemanager.deploy.idle </p></td>
+<td><p> 600000 </p></td>
+<td><p>  </p></td>
+<td><p> Timeout for idle HTTP connections when downloading a virtual machine template (milliseconds) </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.appliancemanager.deploy.totalTimeout </p></td>
+<td><p> 86400000 </p></td>
+<td><p>  </p></td>
+<td><p> Timeout for HTTP connections when downloading a virtual machine template (milliseconds) </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.appliancemanager.downloadingPublishInterval </p></td>
+<td><p> 1500 </p></td>
+<td><p>  </p></td>
+<td><p> Frequency of download progress notification (milliseconds) </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.appliancemanager.downloads </p></td>
+<td><p> -1 </p></td>
+<td><p>  </p></td>
+<td><p> Maximum number of concurrent template downloads. The default value of -1 means unlimited </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.appliancemanager.fstimeoutms </p></td>
+<td><p> 7000 </p></td>
+<td><p>  </p></td>
+<td><p> Maximum time for the appliance manager to perform a complete rescan of the repository filesystem (milliseconds) </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.appliancemanager.localRepositoryPath </p></td>
+<td><p> /opt/vm_repository </p></td>
+<td><p>  </p></td>
+<td><p> Folder where the abiquo.appliancemanager.repositoryLocation is mounted on the remote services node </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.appliancemanager.repository.ignoredPathPrefix </p></td>
+<td><p>  </p></td>
+<td><p>  </p></td>
+<td><p> Path names prefixes to be ignored in the repository refresh (Comma separate value) </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.appliancemanager.repository.ignoredPathRegex </p></td>
+<td><p>  </p></td>
+<td><p>  </p></td>
+<td><p> Path names suffixes to be ignored in the repository refresh (java Regular Expression format) </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.appliancemanager.repository.ignoredPathSuffix </p></td>
+<td><p>  </p></td>
+<td><p>  </p></td>
+<td><p> Path names suffixes to be ignored in the repository refresh (Comma separate value) </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.appliancemanager.repositoryLocation </p></td>
+<td><p> &lt;IP-repoLoc&gt;:/opt/vm_repository </p></td>
+<td><p>  </p></td>
+<td><p> Local Appliance Library, NFS repository location denoted by nfs-server-address:exportpath </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.appliancemanager.upload.progressInterval </p></td>
+<td><p> 5000 </p></td>
+<td><p>  </p></td>
+<td><p> Refresh virtual machine template upload progress (milliseconds) </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>auth</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.auth.module </p></td>
+<td><p> abiquo </p></td>
+<td><p>  abiquo, ldap </p></td>
+<td><p> Whether Abiquo will authenticate only via database or it will also authenticate against LDAP/Active Directory.  </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>captcha</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.captcha.private.key </p></td>
+<td><p>  </p></td>
+<td><p>  </p></td>
+<td><p> reCAPTCHA private key for user password reset. Obtain keys from Google </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>database</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.database.host </p></td>
+<td><p> &lt;IP-repoLoc&gt; </p></td>
+<td><p>  </p></td>
+<td><p> Abiquo database host. Note that a remote database must also be set up with the jdbc drivers in the api.xml file. See how to set up a remote MySQL database server on the Abiquo wiki </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.database.password </p></td>
+<td><p>  </p></td>
+<td><p>  </p></td>
+<td><p> Password of the Abiquo database user </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.database.user </p></td>
+<td><p> root </p></td>
+<td><p>  </p></td>
+<td><p> Username of the Abiquo database user. The user must be created in the DBMS with the appropriate privileges on Abiquo databases. See How to set up a remote MySQL database server on the Abiquo wiki </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>datacenter</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.datacenter.id </p></td>
+<td><p> Abiquo </p></td>
+<td><p>  </p></td>
+<td><p> Identify the AMQP datacenter queues. The Datacenter ID is used for building routing keys and queue names, so that they are unique for each datacenter. Warning: Do not change this property! This property is required and the value is generated at installation. You can recover the property's value through the API with Get Datacenter </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_v2v_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_v2v_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>diskController</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.diskController.primary </p></td>
+<td><p>  </p></td>
+<td><p>  scsi, ide </p></td>
+<td><p> Default value. Abiquo uses the property only if the disk controller attribute is not set in the virtual machine template. ESXi only: if null, the controller for primary disks on non-persistent VMs is ide and on persistent VMs it is scsi. Values apply to both non-persistent and persistent VMs. This property does not apply to Hard Disks on the VMware datastore, which are always attached to a SCSI controller.  </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.diskController.secondary </p></td>
+<td><p>  </p></td>
+<td><p>  scsi, ide </p></td>
+<td><p> ESXi only: if null, the secondary disk controller will be scsi. If ide, you may only add one persistent data volume. This property does not apply to Hard Disks on the VMware datastore, which are always attached to a SCSI controller.  </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>docker</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.docker.registry </p></td>
+<td><p>  </p></td>
+<td><p>  </p></td>
+<td><p> The URL of the Docker Registry that Abiquo will use to pull images. For example: http://localhost:5000 </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.docker.registry.tags </p></td>
+<td><p>  </p></td>
+<td><p>  </p></td>
+<td><p> Comma separated list of tag patterns allowed. Existing tags in the Docker registry will be matched against these patterns and Abiquo will only show the ones that match. The format of the pattern is defined by the Java pattern: http://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html Example: ^fixedtag$,^tagswithprefix </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>dvs and vcenter</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.dvs.enabled </p></td>
+<td><p> false </p></td>
+<td><p>  </p></td>
+<td><p> Enable DVS. Note that the vCenter login and password can be used when DVS is disabled </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.dvs.portgroup.loadsharingmechanism </p></td>
+<td><p> loadbalance_ip </p></td>
+<td><p>  loadbalance_ip, loadbalance_srcid </p></td>
+<td><p> Network adapter teaming policy in DVS port groups. This property controls the algorithm used for network adapter load balancing when multiple NICs are used in 'teaming mode'.  </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.dvs.portgroup.maxsize </p></td>
+<td><p> 48 </p></td>
+<td><p>  </p></td>
+<td><p> Number of available ports in each port group </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.dvs.vcenter.password </p></td>
+<td><p> change-me </p></td>
+<td><p>  </p></td>
+<td><p> Password of the vCenter user account. The underscore character &quot;_&quot; is not allowed in this field. Create a user with the same password in the vCenter in order to use the DVS or vCenter with Abiquo. In vSphere 5.1, you must create this account in an Active Directory domain or using a VMware Single Sign-on system, NOT as a local Windows account on the vCenter. If 'abiquo.dvs.enabled' is set to true, this property is required. The DVS vCenter user and password properties are also used for connecting to vCenter even if DVS is not used, for example, when deleting orphans. So the user and password properties can be used even when abiquo.dvs.enabled is set to 'false'. Set these parameters if vCenter is used, even if DVS is not used </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.dvs.vcenter.user </p></td>
+<td><p> change-me </p></td>
+<td><p>  </p></td>
+<td><p> Username of the vCenter user account. Create a user account with the same password in the vCenter in order to use the DVS or vCenter with Abiquo. In vSphere 5.1, you must create this account in an Active Directory domain or using a VMware Single Sign-on system, NOT as a local Windows account on the vCenter. If 'abiquo.dvs.enabled' is set to true, the property is required. The DVS vCenter user and password properties are also used for connecting to vCenter even if DVS is not used, for example, when deleting orphans. So the user and password properties can be used even when abiquo.dvs.enabled is set to 'false'. Set these parameters if vCenter is used, even if DVS is not used </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>esxi</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.esxi.datastoreRdm </p></td>
+<td><p>  </p></td>
+<td><p>  </p></td>
+<td><p> When using volumes, a VMFS datastore is required (Raw Device Mapping), if the provided target datastore is not VMFS, then try to use the configured datastore </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>ha</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.ha.check.delay </p></td>
+<td><p> 300000 </p></td>
+<td><p>  </p></td>
+<td><p> Delay between checks of all machines with state HA_IN_PROGRESS to determine if HA tasks on all VMs are complete, and if so, then set machine state to DISABLED_BY_HA (milliseconds) (Default value is 5 minutes) </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.ha.infcheck.cycles </p></td>
+<td><p> 2 </p></td>
+<td><p>  </p></td>
+<td><p> Number of failed infratructure checks on a machine before High Availability is triggered and the machine is set to state HA_IN_PROGRESS </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>heartbeat</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.heartbeat.autostart </p></td>
+<td><p> true </p></td>
+<td><p>  </p></td>
+<td><p> Automatically start Abiquo heartbeat </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>httpProxy</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.httpProxy.host </p></td>
+<td><p>  </p></td>
+<td><p>  </p></td>
+<td><p> IP Address of HTTP proxy for Appliance Manager/API to Internet communication (download template definition list, template definition, VM disk file) </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.httpProxy.password </p></td>
+<td><p>  </p></td>
+<td><p>  </p></td>
+<td><p> Password of HTTP proxy for Appliance Manager/API to Internet communication (download template definition list, template definition, VM disk file) </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.httpProxy.port </p></td>
+<td><p>  </p></td>
+<td><p>  </p></td>
+<td><p> Port of HTTP proxy for Appliance Manager/API to Internet communication (download template definition list, template definition, VM disk file) </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.httpProxy.user </p></td>
+<td><p>  </p></td>
+<td><p>  </p></td>
+<td><p> User of HTTP proxy for Appliance Manager/API to Internet communication (download template definition list, template definition, VM disk file) </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>kairosdb</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.kairosdb.host </p></td>
+<td><p> 127.0.0.1 </p></td>
+<td><p>  </p></td>
+<td><p> Address where KairosDb is located for VM monitoring </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.kairosdb.port </p></td>
+<td><p> 8080 </p></td>
+<td><p>  </p></td>
+<td><p> Port where KairosDb is listening for VM monitoring </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>ldap</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.ldap.authentication.attribute.enterprise </p></td>
+<td><p> organizationname </p></td>
+<td><p>  </p></td>
+<td><p> The attribute in LDAP/Active Directory to look up the Enterprise Name which must be an Enterprise in Abiquo. </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.ldap.authentication.autoUserCreation </p></td>
+<td><p> true </p></td>
+<td><p>  </p></td>
+<td><p> Whether Abiquo must create a user in Abiquo based on a successful login to LDAP </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.ldap.authentication.custom.userDnPattern </p></td>
+<td><p> cn={0},CN=Users </p></td>
+<td><p>  </p></td>
+<td><p> Abiquo will perform an additional custom query against the specified schema in the LDAP/Active Directory. This value is required. The default value does not result in an additional query </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.ldap.authentication.server.baseDN </p></td>
+<td><p> DC=127.0.0.1,DC=local </p></td>
+<td><p>  </p></td>
+<td><p> Base Distinguished Name of the LDAP/Active Directory </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.ldap.authentication.server.port </p></td>
+<td><p> 389 </p></td>
+<td><p>  </p></td>
+<td><p> LDAP/Active Directory port. In LDAP mode this property is required, even if the server is listening at the default LDAP/Active Directory port </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.ldap.authentication.server.protocol </p></td>
+<td><p> ldap </p></td>
+<td><p>  ldap, ldaps </p></td>
+<td><p> Protocol to be used when authenticating to a LDAP/Active Directory.  </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.ldap.authentication.server.url </p></td>
+<td><p> 127.0.0.1 </p></td>
+<td><p>  </p></td>
+<td><p> LDAP/Active Directory server URL </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.ldap.connection.timeout </p></td>
+<td><p> 5000 </p></td>
+<td><p>  </p></td>
+<td><p> Timeout to establish the connections to the LDAP/Active Directory server (milliseconds) Default value is 5000 </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.ldap.read.timeout </p></td>
+<td><p> 10000 </p></td>
+<td><p>  </p></td>
+<td><p> Timeout to complete the connections to the LDAP/Active Directory server (milliseconds) Default value is 10000 </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>m</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.m.credential </p></td>
+<td><p> xabiquo </p></td>
+<td><p>  </p></td>
+<td><p> Credentials that M should use to perform requests to the Abiquo Server (API) </p></td> 
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_oa_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_oa_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.m.identity </p></td>
+<td><p> admin </p></td>
+<td><p>  </p></td>
+<td><p> Identity that M should use to perform requests to the Abiquo Server (API) </p></td> 
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_oa_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_oa_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>mail</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.mail.path </p></td>
+<td><p> /opt/abiquo/config/mail </p></td>
+<td><p>  </p></td>
+<td><p> Path to email template and text .properties files for user password reset </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>nodecollector</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.nodecollector.infcheck </p></td>
+<td><p> 5 </p></td>
+<td><p>  </p></td>
+<td><p> Time between executions of infrastructure check (minutes) </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.nodecollector.infcheck.threads </p></td>
+<td><p> 5 </p></td>
+<td><p>  </p></td>
+<td><p> Infrastructure check concurrent machine checks This number should be tied to the number of cores of the machine running discovery manager service </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.nodecollector.infcheck.timeout </p></td>
+<td><p> 300 </p></td>
+<td><p>  </p></td>
+<td><p> Infrastructure check timeout in seconds </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.nodecollector.timeout </p></td>
+<td><p> 180000 </p></td>
+<td><p>  </p></td>
+<td><p> Timeout for Server/API connections to Nodecollector (Discovery manager) (milliseconds) </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>oauth</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.oauth.accesstoken.validity </p></td>
+<td><p> 43200000 </p></td>
+<td><p>  </p></td>
+<td><p> Number of milliseconds the OAuth access tokens are valid. A '0' value makes the tokens permanent so they don't expire. Default value is 43200000 (12 hours) </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.oauth.requesttoken.validity </p></td>
+<td><p> 600000 </p></td>
+<td><p>  </p></td>
+<td><p> Number of milliseconds the OAuth request tokens are valid. A '0' value makes the tokens permanent so they don't expire. Default value is 600000 (10 minutes) </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>openstack</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.openstack.autoAllocateFloatingIps </p></td>
+<td><p> true </p></td>
+<td><p>  true, false </p></td>
+<td><p> Enable automatic Floating IP allocation. This property configures how public IP addresses are assigned to the virtual machines deployed in OpenStack clouds. If the virtual machines are not directly attached to a public network, enabling this property will automatically allocate a floating IP for the virtual machines. If virtual machines are deployed and attached directly to a public network, then this property should be set to false.  </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.openstack.autoGenerateKeyPairs </p></td>
+<td><p> true </p></td>
+<td><p>  true, false </p></td>
+<td><p> Enable automatic generation of key pairs. This enables the automatic generation of key pairs, to make sure that the owner of the virtual machine will have SSH access to the virtual machines that are deployed.  </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.openstack.credentialType </p></td>
+<td><p> passwordCredentials </p></td>
+<td><p>  passwordCredentials, apiAccessKeyCredentials </p></td>
+<td><p> Configures the authentication type. In OpenStack installations, the standard method of authentication is using a password is using a password. However, if the RAX_KSKEY extension (see http://docs.openstack.org/api/openstack-identity-service/2.0/content/Admin_API_Service_Developer_Operations-RAX-KSKEY-admin.html) is installed, users might be able to use an API key to authenticate.  </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>rabbitmq</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.rabbitmq.connectionTimeout </p></td>
+<td><p> 0 </p></td>
+<td><p>  </p></td>
+<td><p> Timeout for establishing a connection to RabbitMQ. The default value of 0 means to wait indefinitely until connection established or error (milliseconds) </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_v2v_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_v2v_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.rabbitmq.host </p></td>
+<td><p> 127.0.0.1 </p></td>
+<td><p>  </p></td>
+<td><p> Address where RabbitMQ is located </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_v2v_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_v2v_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.rabbitmq.password </p></td>
+<td><p> guest </p></td>
+<td><p>  </p></td>
+<td><p> RabbitMQ password </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_v2v_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_v2v_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.rabbitmq.port </p></td>
+<td><p> 5672 </p></td>
+<td><p>  </p></td>
+<td><p> Port where RabbitMQ is located </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_v2v_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_v2v_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.rabbitmq.requestedHeartbeat </p></td>
+<td><p> 0 </p></td>
+<td><p>  </p></td>
+<td><p> The initially requested heartbeat interval, in seconds. The default value of 0 means no heartbeat </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_v2v_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_v2v_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.rabbitmq.username </p></td>
+<td><p> guest </p></td>
+<td><p>  </p></td>
+<td><p> RabbitMQ username </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_v2v_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_v2v_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.rabbitmq.virtualHost </p></td>
+<td><p> / </p></td>
+<td><p>  </p></td>
+<td><p> Virtual host where RabbitMQ runs </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_v2v_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_v2v_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>redis</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.redis.host </p></td>
+<td><p> 127.0.0.1 </p></td>
+<td><p>  </p></td>
+<td><p> Address where Redis is located. By default Redis is installed on the Abiquo Server in addition to the Remote Services machine. In a monolithic install, the Redis host and port properties should point to the monolithic server. When configuring API load balancing, only the Abiquo Server Redis property should point to the central datanode </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.redis.port </p></td>
+<td><p> 6379 </p></td>
+<td><p>  </p></td>
+<td><p> Port where Redis is located. By default Redis is installed on the Abiquo Server in addition to the Remote Services machine. In a monolithic install, the Redis host and port properties should point to the monolithic server. When configuring API load balancing, only the Abiquo Server Redis property should point to the central datanode </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>repository</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.repository.timeoutSeconds </p></td>
+<td><p> 10 </p></td>
+<td><p>  </p></td>
+<td><p> Time to wait for checking if the .abiquo_repository file mark is present in the NFS repository filesystem (helps in finding a slow NFS repository) (seconds) </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>security</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.security.encrypt </p></td>
+<td><p> false </p></td>
+<td><p>  true, false </p></td>
+<td><p> This property must have the same value on all API and remote services servers. If true, Abiquo will read the custom seed file at /etc/abiquo/.store If you create the seed file, but the property is not true, Abiquo will use the default seed. Abiquo requires access to the configured seed file to work with passwords. If it is lost, you will need to regenerate ALL passwords stored in Abiquo.  </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_v2v_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_v2v_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>server</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.server.api.location </p></td>
+<td><p> http://127.0.0.1/api </p></td>
+<td><p>  </p></td>
+<td><p> Address where the API is running. For example: http://80.169.25.32/api/ Required for Remote Services (for Appliance manager, the address must be reachable by cloud users). Recommended for Abiquo API Server (for Chef, the address must be reachable from deployed VMs). </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.server.blockduplicatedsessions </p></td>
+<td><p> false </p></td>
+<td><p>  </p></td>
+<td><p> If not supplied, it is set to false. When false, no action is taken if multiple users are logged in with the same user account. The user who logged in most recently will have true control of the session and actions by other users may cause problems. When true, the most recent user has control of the session and other users are warned and logged out </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.server.mail.password </p></td>
+<td><p> none </p></td>
+<td><p>  </p></td>
+<td><p> Password for connecting to the mail server </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.server.mail.server </p></td>
+<td><p> &lt;IP-mail&gt; </p></td>
+<td><p>  </p></td>
+<td><p> Address where the mail server is located </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.server.mail.user </p></td>
+<td><p> none@none.es </p></td>
+<td><p>  </p></td>
+<td><p> System user with privileges for connecting to the mail server </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.server.remoteSpace.default </p></td>
+<td><p> http://abiquo-repository.abiquo.com/ovfindex.xml </p></td>
+<td><p>  </p></td>
+<td><p> Default remote repository space (OVF package sources) attached to all appliance libraries </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.server.sessionTimeout </p></td>
+<td><p> 30 </p></td>
+<td><p>  </p></td>
+<td><p> Time the server waits before marking a client session as expired (minutes) </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.server.timeout </p></td>
+<td><p> 600000000 </p></td>
+<td><p>  </p></td>
+<td><p> Time the server waits for long requests (milliseconds) (Default value is 7 days) </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>stale sessions</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.stale.sessions.check.delay </p></td>
+<td><p> 300000 </p></td>
+<td><p>  </p></td>
+<td><p> Delay between executions of stale sessions check (milliseconds) </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>storage</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.storage.check.delay </p></td>
+<td><p> 900000 </p></td>
+<td><p>  </p></td>
+<td><p> Delay between checks of the storage infrastructure (milliseconds) </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>storagemanager</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.storagemanager.netapp.aggrfreespaceratio </p></td>
+<td><p> 0.05 </p></td>
+<td><p>  0 - 1 </p></td>
+<td><p> Recommended free space on NetApp aggregates.  </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.storagemanager.netapp.debug </p></td>
+<td><p> false </p></td>
+<td><p>  </p></td>
+<td><p> Records requests to ONTAP and responses in the Abiquo logs </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.storagemanager.netapp.initiatorGroupName </p></td>
+<td><p> abiGroup </p></td>
+<td><p>  </p></td>
+<td><p> Optional initial initiator group will be created </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.storagemanager.netapp.volumelunration </p></td>
+<td><p> 1.3 </p></td>
+<td><p>  1.3 - 1.9 </p></td>
+<td><p> Optional ratio to allow a LUN of a provided size to fill on its container volume (volSize = lunSize * volumelunratio).  </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.storagemanager.nexenta.blocksize </p></td>
+<td><p> 8 </p></td>
+<td><p>  8, 16, 32, 64, 128 </p></td>
+<td><p> Specifies the block size in KB for the volumes created in Nexenta storage devices. Abiquo does not validate this property. Abiquo supports values from 8 to 128 KB inclusive but Nexenta requires the value to be a power of 2  </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>tasks</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.tasks.history.size </p></td>
+<td><p> 20 </p></td>
+<td><p>  </p></td>
+<td><p> Maximum length of task history in Redis for API/Server by owner </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.tasks.trimmer.delay </p></td>
+<td><p> 86400000 </p></td>
+<td><p>  </p></td>
+<td><p> Delay between executions of the trimmer of task history in Redis for API/Server (milliseconds) </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>vcenter</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.vcenter.port.connection </p></td>
+<td><p> 443 </p></td>
+<td><p>  </p></td>
+<td><p> Port for connection to vCenter </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>virtual infrastructure</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.vi.check.delay </p></td>
+<td><p> 900000 </p></td>
+<td><p>  </p></td>
+<td><p> Delay between executions of the virtual infrastructure check (milliseconds) </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>virtualfactory</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.virtualfactory.azure.defaultLoginPassword </p></td>
+<td><p> abqazure0! </p></td>
+<td><p>  </p></td>
+<td><p> Default password for virtual machines if not found in the template </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.virtualfactory.azure.defaultLoginUser </p></td>
+<td><p> abiquo </p></td>
+<td><p>  </p></td>
+<td><p> Default login for virtual machines if not found in the template </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.virtualfactory.azure.retry.timeBetweenTriesInSeconds </p></td>
+<td><p> 30 </p></td>
+<td><p>  </p></td>
+<td><p> Time to wait between polls during a retry </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.virtualfactory.azure.retry.timeoutInSeconds </p></td>
+<td><p> 900 </p></td>
+<td><p>  </p></td>
+<td><p> Timeout retrying an operation </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.virtualfactory.azure.storageAccountPrefix </p></td>
+<td><p> abiquostorage </p></td>
+<td><p>  </p></td>
+<td><p> Prefix of the name of the Azure Storage account created for deployments (one account per region) </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.virtualfactory.azure.wait.timeBetweenTriesInSeconds </p></td>
+<td><p> 30 </p></td>
+<td><p>  </p></td>
+<td><p> Time to wait between polls during an operation wait </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.virtualfactory.azure.wait.timeoutInSeconds </p></td>
+<td><p> 900 </p></td>
+<td><p>  </p></td>
+<td><p> Timeout waiting for an operation to complete, e.g deploy / undeploy </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.virtualfactory.hyperv.repositoryLocation </p></td>
+<td><p> //&lt;IP-repoLoc&gt;/vm_repository </p></td>
+<td><p>  </p></td>
+<td><p> The CIFS address //IP/resource/ where Windows can locate the virtual disk repository </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.virtualfactory.kvm.fullVirt </p></td>
+<td><p> true </p></td>
+<td><p>  true, false </p></td>
+<td><p> If set to false, libvirt machines will be created in KVM using PC emulation (software emulation, slower). Emulation only works with x86 64-bit based hosts, including virtual machines.  </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.virtualfactory.networking.bridgePrefix </p></td>
+<td><p> abiquo </p></td>
+<td><p>  </p></td>
+<td><p> Prefix to name used to identify the VLAN bridge in the KVM, XEN, VBOX hypevisor nodes </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.virtualfactory.openSession </p></td>
+<td><p> 2 </p></td>
+<td><p>  </p></td>
+<td><p> Maximum number of simultaneous operations on a single hypervisor </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.virtualfactory.oraclevm.createSparseDisks </p></td>
+<td><p> true </p></td>
+<td><p>  true, false </p></td>
+<td><p> Create additional hard disks on the datastore as sparse. The default value is ‘true’.  </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.virtualfactory.oraclevm.defaultVMDomain </p></td>
+<td><p> HVM </p></td>
+<td><p>  HVM, PVM, PVHVM </p></td>
+<td><p> Create all Oracle VMs with this domain type. Options are (Hardware Virtualized [HVM], Paravirtualized [PVM], Hardware Virtualized with Paravirtualized drivers [PVHVM]).  </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.virtualfactory.oraclevm.ha </p></td>
+<td><p> false </p></td>
+<td><p>  true, false </p></td>
+<td><p> This setting controls whether VMs created by Abiquo are configured within Oracle VM for ‘High Availability’.   The default value is ‘false’ (no HA support).   If set to ‘true’, then Abiquo will deploy a VM for HA if the Oracle VM Server hosting the VM is part of a Clustered Server Pool. Note that when a VM is re-configured, Abiquo will NOT update the HA status of the VM. Please note that some manual configuration of Oracle VM may be required for HA to be performed successfully - please review Oracle VM details in the Abiquo wiki for more details.  </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.virtualfactory.oraclevm.hardPartitioning </p></td>
+<td><p> false </p></td>
+<td><p>  true, false </p></td>
+<td><p> Enable Oracle VM Hard Partitioning support (CPU pinning). The default value is ‘false’.  </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.virtualfactory.oraclevm.hardPartitioningCPURatio </p></td>
+<td><p> 1 </p></td>
+<td><p>  1 - 64 </p></td>
+<td><p> Expected ratio of virtual CPUs to Physical CPU cores (integer). For best performance, set to 1. To reduce physical CPUs per VM and thus licensing costs, set to a higher value. For example, A value of 1 means a 4xCPU VM will be pinned to 4 physical CPUs whereas a value of 4 means a 4xCPU VM will be pinned to one physical CPU.  </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.virtualfactory.oraclevm.jobStatusCheckDelayMs </p></td>
+<td><p> 1000 </p></td>
+<td><p>  100 - 60000 </p></td>
+<td><p> Polling period for the job status check to monitor the status of asynchronous hypervisor jobs (milliseconds). Defaults to 1 second, with a valid range of 0.1 second to 1 minute.  </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.virtualfactory.oraclevm.jobTimeoutMs </p></td>
+<td><p> 28800000 </p></td>
+<td><p>  60000 - 604800000 </p></td>
+<td><p> The maximum length of time the Oracle VM Hypervisor Plugin will wait for an individual API-based job to complete (milliseconds). The default is 8 hours, but the valid range is 1 minute to 1 week.  </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.virtualfactory.oraclevm.repositoryLocation </p></td>
+<td><p>  </p></td>
+<td><p>  </p></td>
+<td><p> NFS Repository location denoted by nfs-server-address:exportpath used by Oracle VM.   Defaults to the value of ‘abiquo.appliancemanager.repositoryLocation’ if not explicitly specified in the abiquo.properties file. </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.virtualfactory.xenserver.repositoryLocation </p></td>
+<td><p> &lt;IP-repoLoc&gt;:/opt/vm_repository </p></td>
+<td><p>  </p></td>
+<td><p> The Storage Area network datastore location where the virtual disks are stored (usually the same as abiquo.appliancemanager.repositoryLocation) </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> com.abiquo.virtualfactory.esxi.timeoutConnectionMs </p></td>
+<td><p> 10000 </p></td>
+<td><p>  </p></td>
+<td><p> Time to wait to establish the connection to ESX (milliseconds) </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> com.abiquo.virtualfactory.esxi.timeoutReadMs </p></td>
+<td><p> 30000 </p></td>
+<td><p>  </p></td>
+<td><p> Time to wait to read from the connection to ESX (milliseconds) </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>vncport</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.vncport.max </p></td>
+<td><p> 65534 </p></td>
+<td><p>  </p></td>
+<td><p> Last port of the VNC range to be used when allocating virtual machines. Note that VMware only recommends ports 5900 to 5964 </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.vncport.min </p></td>
+<td><p> 5900 </p></td>
+<td><p>  </p></td>
+<td><p> First port of the VNC range to be used when allocating virtual machines </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>vsm</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> abiquo.vsm.actor.creation.delay.amazon </p></td>
+<td><p> 0 </p></td>
+<td><p>  </p></td>
+<td><p> The delay in milliseconds added between the creation of actors for Amazon plugin type on VSM start up. </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.vsm.actor.creation.delay.hyperv_301 </p></td>
+<td><p> 0 </p></td>
+<td><p>  </p></td>
+<td><p> The delay in milliseconds added between the creation of actors for HYPER-V plugin type on VSM start up. </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.vsm.actor.creation.delay.kvm </p></td>
+<td><p> 0 </p></td>
+<td><p>  </p></td>
+<td><p> The delay in milliseconds added between the creation of actors for KVM plugin type on VSM start up. </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.vsm.actor.creation.delay.oracle_vm </p></td>
+<td><p> 0 </p></td>
+<td><p>  </p></td>
+<td><p> The delay in milliseconds added between the creation of actors for ORACLE VM plugin type on VSM start up. </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.vsm.actor.creation.delay.vmx_04 </p></td>
+<td><p> 0 </p></td>
+<td><p>  </p></td>
+<td><p> The delay in milliseconds added between the creation of actors for ESX plugin type on VSM start up. </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.vsm.actor.creation.delay.xenserver </p></td>
+<td><p> 0 </p></td>
+<td><p>  </p></td>
+<td><p> The delay in milliseconds added between the creation of actors for XEN SERVER plugin type on VSM start up. </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.vsm.max.backoff </p></td>
+<td><p> 3600 </p></td>
+<td><p>  </p></td>
+<td><p> Maximum backoff time in seconds between connection errors to reduce load and logging of these errors. A counter has been added to register the number of failed attempts to connect to the hypervisor or public cloud to perform any type of operation. When rescheduling operations, Abiquo will multiply the maximum backoff time by the number of failed connection attempts to determine the wait time until the next try. If a connection is established, the error counter is reset. </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.vsm.measures.pusher.frequency </p></td>
+<td><p> 10000 </p></td>
+<td><p>  </p></td>
+<td><p> The heartbeat frequency of measures pusher in milliseconds. Or the delay between reconnection process to Kairos. </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.vsm.pollingfrequency.amazon </p></td>
+<td><p> 5000 </p></td>
+<td><p>  </p></td>
+<td><p> The delay between VSM polling of virtual machines in milliseconds on Amazon plugin </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.vsm.pollingfrequency.hyperv_301 </p></td>
+<td><p> 5000 </p></td>
+<td><p>  </p></td>
+<td><p> The delay between VSM polling of virtual machines in milliseconds on HYPER-V plugin </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.vsm.pollingfrequency.kvm </p></td>
+<td><p> 5000 </p></td>
+<td><p>  </p></td>
+<td><p> The delay between VSM polling of virtual machines in milliseconds on KVM plugin </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.vsm.pollingfrequency.oracle_vm </p></td>
+<td><p> 5000 </p></td>
+<td><p>  </p></td>
+<td><p> The delay between VSM polling of virtual machines in milliseconds on ORACLE VM plugin </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.vsm.pollingfrequency.vmx_04 </p></td>
+<td><p> 5000 </p></td>
+<td><p>  </p></td>
+<td><p> The delay between VSM polling of virtual machines in milliseconds on ESX plugin </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.vsm.pollingfrequency.xenserver </p></td>
+<td><p> 5000 </p></td>
+<td><p>  </p></td>
+<td><p> The delay between VSM polling of virtual machines in milliseconds on XEN SERVER plugin </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.vsm.vmsyncfrequency.amazon </p></td>
+<td><p> 180000 </p></td>
+<td><p>  </p></td>
+<td><p> The delay between virtual machine synchronizer operations in milliseconds on Amazon plugin </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.vsm.vmsyncfrequency.hyperv_301 </p></td>
+<td><p> 180000 </p></td>
+<td><p>  </p></td>
+<td><p> The delay between virtual machine synchronizer operations in milliseconds on HYPER-V plugin </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.vsm.vmsyncfrequency.kvm </p></td>
+<td><p> 180000 </p></td>
+<td><p>  </p></td>
+<td><p> The delay between virtual machine synchronizer operations in milliseconds on KVM plugin </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.vsm.vmsyncfrequency.oracle_vm </p></td>
+<td><p> 180000 </p></td>
+<td><p>  </p></td>
+<td><p> The delay between virtual machine synchronizer operations in milliseconds on ORACLE VM plugin </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.vsm.vmsyncfrequency.vmx_04 </p></td>
+<td><p> 180000 </p></td>
+<td><p>  </p></td>
+<td><p> The delay between virtual machine synchronizer operations in milliseconds on ESX plugin </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> abiquo.vsm.vmsyncfrequency.xenserver </p></td>
+<td><p> 180000 </p></td>
+<td><p>  </p></td>
+<td><p> The delay between virtual machine synchronizer operations in milliseconds on XEN SERVER plugin </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>SERVER_ADDRESS</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> client.SERVER_ADDRESS </p></td>
+<td><p> &lt;IP-repoLoc&gt; </p></td>
+<td><p>  </p></td>
+<td><p> Used by the Flex UI to test connectivity to the backend API stub </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>client</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> client.USE_SECURE_CHANNEL_LOGIN </p></td>
+<td><p> 0 </p></td>
+<td><p>  0, 1 </p></td>
+<td><p> Configures the AMF secure channel (0 for regular, 1 for secure).  </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>vnc</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> RemoteDisplay.vnc.keyMap </p></td>
+<td><p>  </p></td>
+<td><p>  </p></td>
+<td><p> ESX and ESXi only: When using a virtual machine as a VNC server, specify the language to use for the keyboard when VNC clients connect. If this property does not exist, the hypervisor will use the first value in the client-config.xml.jsp in webapps/client-premium/config and the default in this case is the US101 keyboard map (US English). This property is now the default setting to complement the Virtual Machine configuration popup. See Configuring Remote Access to Virtual Machines </p></td> 
+<td><p>
+</p></td>
+<td><p> <ac:link><ri:attachment ri:filename="properties_rs_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_rs_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+<tr><th class="warning" data-highlight-class="warning"><p><h6>workflow</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+   
+<tr>
+<td><p> workflow.connect.timeout </p></td>
+<td><p> 60000 </p></td>
+<td><p>  </p></td>
+<td><p> Maximum waiting time in milliseconds to establish a connection with workflow endpoint </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+   
+<tr>
+<td><p> workflow.read.timeout </p></td>
+<td><p> 10000 </p></td>
+<td><p>  </p></td>
+<td><p> Maximum waiting time in milliseconds to receive data from workflow endpoint </p></td> 
+<td><p> <ac:link><ri:attachment ri:filename="properties_api_2015-04-13.txt" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="v26_symbol_api_transparent.png" /></ac:image></ac:link-body></ac:link> </p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+<td><p>
+</p></td>
+</tr>
+</tbody>
+</table>

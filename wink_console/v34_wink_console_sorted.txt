@@ -1,0 +1,541 @@
+|  DELETE  |  /admin/datacenters/(dc)  |    |    |
+|  DELETE  |  /admin/datacenters/(dc)/backups/(bkp)  |    |    |
+|  DELETE  |  /admin/datacenters/(dc)/network/(publicnw)  |    |    |
+|  DELETE  |  /admin/datacenters/(dc)/networkservicetypes/(networkservicetype)  |    |    |
+|  DELETE  |  /admin/datacenters/(dc)/racks/(rack)  |    |    |
+|  DELETE  |  /admin/datacenters/(dc)/racks/(rack)/machines/(m)  |    |    |
+|  DELETE  |  /admin/datacenters/(dc)/racks/(rack)/machines/(m)/virtualmachines  |    |    |
+|  DELETE  |  /admin/datacenters/(dc)/storage/devices/(device)  |    |    |
+|  DELETE  |  /admin/datacenters/(dc)/storage/devices/(device)/pools/(pool)  |    |    |
+|  DELETE  |  /admin/enterprises/(ent)  |    |    |
+|  DELETE  |  /admin/enterprises/(ent)/appslib/templateDefinitionLists/(templateDefinitionList)  |    |    |
+|  DELETE  |  /admin/enterprises/(ent)/appslib/templateDefinitions/(tmpDef)  |    |    |
+|  DELETE  |  /admin/enterprises/(ent)/credentials/(credentials)  |    |    |
+|  DELETE  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)  |    |    |
+|  DELETE  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)/disks/(disk)  |    |    |
+|  DELETE  |  /admin/enterprises/(ent)/limits/(limit)  |    |    |
+|  DELETE  |  /admin/enterprises/(ent)/reservedmachines/(m)  |    |    |
+|  DELETE  |  /admin/enterprises/(ent)/users/(user)  |    |    |
+|  DELETE  |  /admin/enterprises/(ent)/users/(user)/applications/(application)  |    |    |
+|  DELETE  |  /admin/publiccloudregions/(pcr)  |    |    |
+|  DELETE  |  /admin/remoteservices/(rs)  |    |    |
+|  DELETE  |  /admin/rolesldap/(roleldap)  |    |    |
+|  DELETE  |  /admin/roles/(role)  |    |    |
+|  DELETE  |  /admin/rules/enterpriseExclusions/(enterpriseExclusion)  |    |    |
+|  DELETE  |  /admin/rules/fitsPolicy/(fitPolicy)  |    |    |
+|  DELETE  |  /admin/rules/machineLoadLevel/(loadLevel)  |    |    |
+|  DELETE  |  /admin/scopes/(scope)  |    |    |
+|  DELETE  |  /cloud/locations/(loc)/firewalls/(firewall)  |    |    |
+|  DELETE  |  /cloud/locations/(loc)/ips/(ip)  |    |    |
+|  DELETE  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)  |    |    |
+|  DELETE  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/healthchecks/(healthcheck)  |    |    |
+|  DELETE  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/routingrules/(routingrule)  |    |    |
+|  DELETE  |  /cloud/virtualdatacenters/(vdc)  |    |    |
+|  DELETE  |  /cloud/virtualdatacenters/(vdc)/disks/(disk)  |    |    |
+|  DELETE  |  /cloud/virtualdatacenters/(vdc)/privatenetworks/(privatenw)  |    |    |
+|  DELETE  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)  |    |    |
+|  DELETE  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/layers/(layer)  |    |    |
+|  DELETE  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)  |    |    |
+|  DELETE  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/metadata  |    |    |
+|  DELETE  |  /cloud/virtualdatacenters/(vdc)/volumes/(vol)  |    |    |
+|  DELETE  |  /config/categories/(category)  |    |    |
+|  DELETE  |  /config/costcodes/(costcode)  |    |    |
+|  DELETE  |  /config/costcodes/(costcode)/currencies  |    |    |
+|  DELETE  |  /config/costcodes/(costcode)/currencies/(currency)  |    |    |
+|  DELETE  |  /config/currencies/(currency)  |    |    |
+|  DELETE  |  /config/licenses/(license)  |    |    |
+|  DELETE  |  /config/pricingtemplates/(pricingtemplate)  |    |    |
+|  DELETE  |  /config/properties/(property)  |    |    |
+|  DELETE  |  /login/sessions/(session)/(user)  |    |    |
+|  DELETE  |  /login/sessions/users/(user)  |    |    |
+|  GET  |  /admin/datacenters  |    |   datacenters (*b)  (*r)   |
+|  GET  |  /admin/datacenters  |    |   datacenterslight (*b)  (*r)   |
+|  GET  |  /admin/datacenters  |    |   datacenters_rs (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/action/checkmachineipmistate  |    |   machineipmistate (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/action/checkmachinestate  |    |   machinestate (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/action/discover  |    |   machines (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/action/enterprises  |    |   enterprises (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/action/getlimits  |    |   limits (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/backups  |    |   backups (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/backups/(bkp)  |    |   backup (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)  |    |   datacenter (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/hypervisors  |    |   hypervisortypes (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/network/action/checkavailability  |    |   vlantagavailability (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/network/action/externalips  |    |   externalips (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/network/action/publicips  |    |   publicips (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/network/action/unmanagedips  |    |   unmanagedips (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/network/(publicnw)/configuration/(config)  |    |   networkconfiguration (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/network/(publicnw)/configuration  |    |   networkconfiguration (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/network/(publicnw)/ips  |    |   externalips (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/network/(publicnw)/ips/(ip)  |    |   externalip (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/network/(publicnw)/ips/(ip)  |    |   publicip (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/network/(publicnw)/ips/(ip)  |    |   unmanagedip (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/network/(publicnw)/ips  |    |   publicips (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/network/(publicnw)/ips  |    |   unmanagedips (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/network/(publicnw)  |    |   vlan (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/networkservicetypes/(networkservicetype)  |    |   networkservicetype (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/networkservicetypes  |    |   networkservicetypes (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/network  |    |   vlans (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/racks/(rack)/deployedvms  |    |   virtualmachines (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/racks/(rack)/machines/action/bookable  |    |   machines (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/racks/(rack)/machines  |    |   machines (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/racks/(rack)/machines/(m)//action/checkipmistate  |    |   machineipmistate (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/racks/(rack)/machines/(m)//action/checkstate  |    |   machinestate (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/racks/(rack)/machines/(m)//action/nics/refresh  |    |   machine (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/racks/(rack)/machines/(m)//action/reenableafterha  |    |   machine (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/racks/(rack)/machines/(m)/datastores//action/refresh  |    |    |
+|  GET  |  /admin/datacenters/(dc)/racks/(rack)/machines/(m)/datastores/(datastore)  |    |   datastore (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/racks/(rack)/machines/(m)/datastores  |    |   datastores (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/racks/(rack)/machines/(m)  |    |   machine (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/racks/(rack)/machines/(m)/virtualmachines  |    |   virtualmachines (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/racks/(rack)/machines/(m)/virtualmachines  |    |   virtualmachinesflat (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/racks/(rack)/machines/(m)/virtualmachines/(vm)/action/disk  |    |   harddisks (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/racks/(rack)/machines/(m)/virtualmachines/(vm)/action/nics  |    |   nics (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/racks/(rack)/machines/(m)/virtualmachines/(vm)/action/volumes  |    |   volumes (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/racks/(rack)/machines/(m)/virtualmachines/(vm)/config/rdpaccess  |    |   textplain  |
+|  GET  |  /admin/datacenters/(dc)/racks/(rack)/machines/(m)/virtualmachines/(vm)  |    |   virtualmachine (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/racks/(rack)/machines/(m)/virtualmachines/(vm)  |    |   virtualmachineflat (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/racks/(rack)  |    |   rack (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/racks  |    |   racks (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/remoteservices  |    |   remoteservices (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/remoteservices/(rs)  |    |   remoteservice (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/storage/devices/action/supported  |    |   storagedevicesmetadata (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/storage/devices/(device)/pools/(pool)/action/volumes  |    |   volumes (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/storage/devices/(device)/pools/(pool)/action/volumes  |    |   volumeswithvirtualmachine (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/storage/devices/(device)/pools/(pool)  |    |   storagepool (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/storage/devices/(device)/pools  |    |   storagepools (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/storage/devices/(device)/pools  |    |   storagepoolswithtier (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/storage/devices/(device)  |    |   storagedevice (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/storage/devices  |    |   storagedevices (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/storage/tiers/(tier)/enterprises  |    |   enterprises (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/storage/tiers/(tier)/pools  |    |   storagepools (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/storage/tiers/(tier)/pools  |    |   storagepoolswithdevice (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/storage/tiers  |    |   tiers (*b)  (*r)   |
+|  GET  |  /admin/datacenters/(dc)/storage/tiers/(tier)  |    |   tier (*b)  (*r)   |
+|  GET  |  /admin/enterprises/action/requestdownload  |    |    |
+|  GET  |  /admin/enterprises/(ent)//action/chefelements  |    |   runlistelements (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/action/externalnetworks/(externalnw)  |    |   vlan (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/action/externalnetworks  |    |   vlans (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/action/ips  |    |   privateips (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)//action/pendingtasks  |    |   tasks (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)//action/publicnetworks/(publicnw)  |    |   vlan (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)//action/publicnetworks  |    |   vlans (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)//action/requestupload  |    |    |
+|  GET  |  /admin/enterprises/(ent)/action/virtualappliances  |    |   virtualappliances (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/action/virtualdatacenters  |    |   virtualdatacenters (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/action/virtualmachines  |    |   virtualmachines (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/action/volumes  |    |   volumes (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/action/volumes  |    |   volumeswithvirtualmachine (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/appslib/templateDefinitionLists/(templateDefinitionList)/actions/repositoryStatus  |    |   templatestates (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/appslib/templateDefinitionLists  |    |   templatedefinitionlists (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/appslib/templateDefinitionLists  |    |   templatedefinitionlists (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/appslib/templateDefinitionLists/(templateDefinitionList)  |    |   templatedefinitionlist (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/appslib/templateDefinitionLists/(templateDefinitionList)  |    |   templatedefinitionlist (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/appslib/templateDefinitions  |    |   templatedefinitions (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/appslib/templateDefinitions  |    |   templatedefinitions (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/appslib/templateDefinitions/(tmpDef)/actions/repositoryStatus  |    |   templatestate (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/appslib/templateDefinitions/(tmpDef)  |    |   templatedefinition (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/appslib/templateDefinitions/(tmpDef)  |    |   templatedefinition (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/credentials/(credentials)  |    |   publiccloudcredentials (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/credentials  |    |   publiccloudcredentialslist (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/datacenterrepositories  |    |   datacenterrepositories (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)  |    |   datacenterrepository (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)//tasks/(id)  |    |   task (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)//tasks  |    |   tasks (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates  |    |   virtualmachinetemplates (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates  |    |   virtualmachinetemplates (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)/action/instances  |    |   virtualmachinetemplates (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)/action/virtualmachines  |    |   virtualmachines (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)/disks/(disk)/conversions/(conv)  |    |   conversion (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)/disks/(disk)/conversions  |    |   conversions (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)/disks/(disk)/conversions/(conv)//tasks/(id)  |    |   task (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)/disks/(disk)/conversions/(conv)//tasks  |    |   tasks (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)/disks/(disk)  |    |   disk (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)/disks  |    |   disks (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)/disks/(disk)//tasks/(id)  |    |   task (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)/disks/(disk)//tasks  |    |   tasks (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)//tasks/(id)  |    |   task (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)//tasks/(id)  |    |   taskextended (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)//tasks  |    |   tasks (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)  |    |   virtualmachinetemplate (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)  |    |   virtualmachinetemplate (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)  |    |   enterprise (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)  |    |   enterprisetheme (*b)  (*r)   |
+|  GET  |  /admin/enterprises  |    |   enterprises (*b)  (*r)   |
+|  GET  |  /admin/enterprises  |    |   enterprises-id-name (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/limits/(limit)/action/virtualappliances  |    |   virtualappliances (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/limits/(limit)/externalnetworks/action/default  |    |   vlan (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/limits/(limit)/externalnetworks/(externalnw)/configuration/(config)  |    |   networkconfiguration (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/limits/(limit)/externalnetworks/(externalnw)/configuration  |    |   networkconfiguration (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/limits/(limit)/externalnetworks/(externalnw)/ips  |    |   externalips (*b)  unmanagedips (*b)  (*r)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/limits/(limit)/externalnetworks/(externalnw)/ips/(ips)  |    |   externalip (*b)  unmanagedip (*b)  (*r)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/limits/(limit)/externalnetworks/(externalnw)  |    |   vlan (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/limits/(limit)/externalnetworks  |    |   vlans (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/limits/(limit)  |    |   limit (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/limits  |    |   limits (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/properties  |    |   enterpriseproperties (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/reservedmachines  |    |   machines (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/reservedmachines  |    |   reservedmachines (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/users/(user)//action/pendingtasks  |    |   tasks (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/users/(user)/action/virtualmachines  |    |   virtualmachines (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/users/(user)/applications/(application)  |    |   application (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/users/(user)/applications  |    |   applications (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/users  |    |   users (*b)  links (*b)  (*r)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/users  |    |   userswithroles (*b)  (*r)   |
+|  GET  |  /admin/enterprises/(ent)/users/(user)  |    |   user (*b)  (*r)   |
+|  GET  |  /admin/publiccloudregions/(pcr)/enterprises/(ent)  |    |   enterprise (*b)  (*r)   |
+|  GET  |  /admin/publiccloudregions/(pcr)/enterprises  |    |   enterprises (*b)  (*r)   |
+|  GET  |  /admin/publiccloudregions/(pcr)/enterprises/(ent)/virtualmachines  |    |   virtualmachines (*b)  (*r)   |
+|  GET  |  /admin/publiccloudregions/(pcr)/enterprises/(ent)/virtualmachines/(vm)  |    |   virtualmachine (*b)  (*r)   |
+|  GET  |  /admin/publiccloudregions/(pcr)  |    |   publiccloudregion (*b)  (*r)   |
+|  GET  |  /admin/publiccloudregions/(pcr)/remoteservices  |    |   remoteservices (*b)  (*r)   |
+|  GET  |  /admin/publiccloudregions/(pcr)/remoteservices/(rs)  |    |   remoteservice (*b)  (*r)   |
+|  GET  |  /admin/publiccloudregions  |    |   publiccloudregions (*b)  (*r)   |
+|  GET  |  /admin/remoteservices  |    |   remoteservices (*b)  (*r)   |
+|  GET  |  /admin/remoteservices/(rs)/action/check  |    |    |
+|  GET  |  /admin/remoteservices/(rs)  |    |   remoteservice (*b)  (*r)   |
+|  GET  |  /admin/rolesldap/(roleldap)  |    |   roleldap (*b)  (*r)   |
+|  GET  |  /admin/rolesldap  |    |   rolesldap (*b)  (*r)   |
+|  GET  |  /admin/roles/(role)/action/privileges  |    |   links (*b)  (*r)   |
+|  GET  |  /admin/roles/(role)/action/privileges  |    |   privileges (*b)  (*r)   |
+|  GET  |  /admin/roles/(role)  |    |   role (*b)  (*r)   |
+|  GET  |  /admin/roles/(role)  |    |   rolewithldap (*b)  (*r)   |
+|  GET  |  /admin/roles  |    |   roles (*b)  (*r)   |
+|  GET  |  /admin/roles  |    |   rolesldap (*b)  (*r)   |
+|  GET  |  /admin/rules/enterpriseExclusions/(enterpriseExclusion)  |    |   enterpriseexclusionrule (*b)  (*r)   |
+|  GET  |  /admin/rules/enterpriseExclusions  |    |   enterpriseexclusionrules (*b)  (*r)   |
+|  GET  |  /admin/rules/fitsPolicy/(fitPolicy)  |    |   fitpolicyrule (*b)  (*r)   |
+|  GET  |  /admin/rules/fitsPolicy  |    |   fitpolicyrules (*b)  (*r)   |
+|  GET  |  /admin/rules/machineLoadLevel/(loadLevel)  |    |   machineloadrule (*b)  (*r)   |
+|  GET  |  /admin/rules/machineLoadLevel  |    |   machineloadrules (*b)  (*r)   |
+|  GET  |  /admin/rules  |    |   rules (*b)  (*r)   |
+|  GET  |  /admin/scopes  |    |   scopes (*b)  (*r)   |
+|  GET  |  /admin/scopes/(scope)  |    |   scope (*b)  (*r)   |
+|  GET  |  /  |    |   application/atomsvc (*b)   |
+|  GET  |  /cloud/locations  |    |   datacenters (*b)  (*r)   |
+|  GET  |  /cloud/locations/(loc)/availabilityzones/(availabilityzone)  |    |   availabilityzone (*b)  (*r)   |
+|  GET  |  /cloud/locations/(loc)/availabilityzones  |    |   availabilityzones (*b)  (*r)   |
+|  GET  |  /cloud/locations/(loc)  |    |   datacenter (*b)  (*r)   |
+|  GET  |  /cloud/locations/(loc)/firewalls/(firewall)  |    |   firewallpolicy (*r)  (*b)   |
+|  GET  |  /cloud/locations/(loc)/firewalls  |    |   firewallpolicies (*b)  (*r)   |
+|  GET  |  /cloud/locations/(loc)/firewalls/(firewall)/rules  |    |   firewallrules (*b)  (*r)   |
+|  GET  |  /cloud/locations/(loc)/hardwareprofiles  |    |   hardwareprofiles (*b)  (*r)   |
+|  GET  |  /cloud/locations/(loc)/hardwareprofiles/(hwprofile)  |    |   hardwareprofile (*b)  (*r)   |
+|  GET  |  /cloud/locations/(loc)/ips/(ip)  |    |   publicip (*b)  (*r)   |
+|  GET  |  /cloud/locations/(loc)/ips  |    |   publicips (*b)  (*r)   |
+|  GET  |  /cloud/locations/(loc)/loadbalancers/addresses  |    |   loadbalanceraddresses (*r)  (*b)   |
+|  GET  |  /cloud/locations/(loc)/loadbalancers/addresses/(loadbalanceraddress)  |    |   loadbalanceraddress (*r)  (*b)   |
+|  GET  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/addresses  |    |   loadbalanceraddresses (*r)  (*b)   |
+|  GET  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/healthchecks/(healthcheck)  |    |   healthcheck (*b)  (*r)   |
+|  GET  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/healthchecks  |    |   healthchecks (*r)  (*b)   |
+|  GET  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/healthstates  |    |   healthstates (*r)  (*b)   |
+|  GET  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)  |    |   loadbalancer (*r)  (*b)   |
+|  GET  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/routingrules/(routingrule)  |    |   routingrule (*r)  (*b)   |
+|  GET  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/routingrules  |    |   routingrules (*r)  (*b)   |
+|  GET  |  /cloud/locations/(loc)/loadbalancers  |    |   loadbalancers (*r)  (*b)   |
+|  GET  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/virtualmachines  |    |   links (*b)  (*r)   |
+|  GET  |  /cloud/locations/(loc)  |    |   publiccloudregion (*b)  (*r)   |
+|  GET  |  /cloud/locations/(loc)/sslcertificates  |    |   sslcertificates (*r)  (*b)   |
+|  GET  |  /cloud/locations/(loc)/sslcertificates/(sslcertificate)  |    |   sslcertificate (*r)  (*b)   |
+|  GET  |  /cloud/locations/(loc)/templates/(template)  |    |   virtualmachinetemplate (*r)  (*b)   |
+|  GET  |  /cloud/locations/(loc)/templates  |    |   virtualmachinetemplates (*b)  (*r)   |
+|  GET  |  /cloud/locations  |    |   publiccloudregions (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)//action/defaultvlan  |    |   vlan (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)//action/externalips  |    |   externalips (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)//action/privateips  |    |   privateips (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/action/templates  |    |   virtualmachinetemplates (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)//action/unmanagedips  |    |   unmanagedips (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/action/virtualmachines  |    |   virtualmachines (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/disks/(disk)  |    |   harddisk (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/disks  |    |   harddisks (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/firewalls  |    |   firewallpolicies (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/loadbalancers  |    |   loadbalancers (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/privatenetworks/(privatenw)/configuration/(config)  |    |   networkconfiguration (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/privatenetworks/(privatenw)/configuration  |    |   networkconfiguration (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/privatenetworks/(privatenw)/ips/(ip)  |    |   privateip (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/privatenetworks/(privatenw)/ips  |    |   privateips (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/privatenetworks/(privatenw)/loadbalancers  |    |   loadbalancers (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/privatenetworks/(privatenw)  |    |   vlan (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/privatenetworks  |    |   vlans (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)//publicips/purchased/(ip)  |    |   publicip (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)//publicips/purchased  |    |   publicips (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)//publicips/topurchase/(ip)  |    |   publicip (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)//publicips/topurchase  |    |   publicips (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)//publicvlans/(publicvlan)  |    |   vlan (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)//publicvlans  |    |   vlans (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/tiers  |    |   tiers (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/tiers/(tier)  |    |   tier (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/action/price  |    |   textplain  |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/layers/(layer)  |    |   layer (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/layers  |    |   layers (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/state  |    |   virtualappliancestate (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)  |    |   virtualappliance (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines  |    |   virtualmachines (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines  |    |   virtualmachinesflat (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/config/bootstrap  |    |   bootstrap (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/config/rdpaccess  |    |   textplain  |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/config/runlist  |    |   application (*b)  (*r)  localrunlistelements (*b)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/config/runlist  |    |   runlistelements (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/firewalls  |    |   links (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/loadbalancers  |    |   loadbalancers (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/metadata  |    |   metadata (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/metrics/(metric)  |    |   metric (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/metrics/(metric)  |    |   metricmetadata (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/metrics  |    |   metrics (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/metrics  |    |   metricsmetadata (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/network/configurations/(config)  |    |   virtualmachinenetworkconfiguration (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/network/configurations  |    |   virtualmachinenetworkconfigurations (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/network/nics  |    |   nics (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/state  |    |   virtualmachinestate (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/storage/disks/(disk)  |    |   harddisk (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/storage/disks  |    |   harddisks (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/storage/volumes  |    |   volumes (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/storage/volumes/(vol)  |    |   volume (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)//tasks/(id)  |    |   task (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)//tasks  |    |   tasks (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)  |    |   virtualmachine (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)  |    |   virtualmachineflat (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/virtualappliances  |    |   virtualappliances (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)  |    |   virtualdatacenter (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/volumes/action/statefulcandidates  |    |   volumes (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/volumes/(vol)/action/initiatormappings  |    |   initiatormappings (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/volumes/(vol)/action/initiatormappings/(mapping)  |    |   initiatormapping (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/volumes  |    |   volumes (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/volumes  |    |   volumeswithvirtualmachine (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/volumes/(vol)  |    |   volume (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters/(vdc)/volumes/(vol)  |    |   volumewithvirtualmachine (*b)  (*r)   |
+|  GET  |  /cloud/virtualdatacenters  |    |   virtualdatacenters (*b)  (*r)   |
+|  GET  |  /cloud/virtualmachines  |    |   virtualmachines (*b)  (*r)   |
+|  GET  |  /config/backups  |    |   backups (*b)  (*r)   |
+|  GET  |  /config/backups/(bkp)  |    |   backup (*b)  (*r)   |
+|  GET  |  /config/categories  |    |   categories (*b)  (*r)   |
+|  GET  |  /config/categories/(category)  |    |   category (*b)  (*r)   |
+|  GET  |  /config/costcodes/(costcode)  |    |   costcode (*b)  (*r)   |
+|  GET  |  /config/costcodes/(costcode)/currencies  |    |   costcodecurrencies (*b)  (*r)   |
+|  GET  |  /config/costcodes/(costcode)/currencies/(currency)  |    |   costcodecurrency (*b)  (*r)   |
+|  GET  |  /config/costcodes  |    |   costcodes (*b)  (*r)   |
+|  GET  |  /config/currencies  |    |   currencies (*b)  (*r)   |
+|  GET  |  /config/currencies/(currency)  |    |   currency (*b)  (*r)   |
+|  GET  |  /config/diskcontrollertypes/(diskcontrollertype)  |    |   diskcontrollertype (*b)  (*r)   |
+|  GET  |  /config/diskcontrollertypes  |    |   diskcontrollertypes (*b)  (*r)   |
+|  GET  |  /config/diskformattypes/(diskformattype)  |    |   diskformattype (*b)  (*r)   |
+|  GET  |  /config/diskformattypes  |    |   diskformattypes (*b)  (*r)   |
+|  GET  |  /config/ethernetdrivertypes/(ethernetdrivertype)  |    |   ethernetdrivertype (*b)  (*r)   |
+|  GET  |  /config/ethernetdrivertypes  |    |   ethernetdrivertypes (*b)  (*r)   |
+|  GET  |  /config/hypervisortypes/(hypervisortype)  |    |   hypervisortype (*b)  (*r)   |
+|  GET  |  /config/hypervisortypes/(hypervisortype)/monitoring/levels  |    |   monitoringlevel (*b)  (*r)   |
+|  GET  |  /config/hypervisortypes/(hypervisortype)/monitoring/levels  |    |   monitoringlevels (*b)  (*r)   |
+|  GET  |  /config/hypervisortypes/(hypervisortype)/regions/(region)  |    |   region (*b)  (*r)   |
+|  GET  |  /config/hypervisortypes/(hypervisortype)/regions  |    |   regions (*b)  (*r)   |
+|  GET  |  /config/hypervisortypes  |    |   hypervisortypes (*b)  (*r)   |
+|  GET  |  /config/licenses/(license)  |    |   license (*b)  (*r)   |
+|  GET  |  /config/licenses  |    |   licenses (*b)  (*r)   |
+|  GET  |  /config/ostypes/(ostype)  |    |   ostype (*b)  (*r)   |
+|  GET  |  /config/ostypes  |    |   ostypes (*b)  (*r)   |
+|  GET  |  /config/pricingtemplates/(pricingtemplate)/costcodes/(costcode)  |    |   pricingcostcode (*b)  (*r)   |
+|  GET  |  /config/pricingtemplates/(pricingtemplate)/costcodes  |    |   pricingcostcodes (*b)  (*r)   |
+|  GET  |  /config/pricingtemplates/(pricingtemplate)  |    |   pricingtemplate (*b)  (*r)   |
+|  GET  |  /config/pricingtemplates  |    |   pricingtemplates (*b)  (*r)   |
+|  GET  |  /config/pricingtemplates/(pricingtemplate)/tiers  |    |   pricingtiers (*b)  (*r)   |
+|  GET  |  /config/pricingtemplates/(pricingtemplate)/tiers/(tier)  |    |   pricingtier (*b)  (*r)   |
+|  GET  |  /config/privileges  |    |   privileges (*b)  (*r)   |
+|  GET  |  /config/privileges/(priv)  |    |   privilege (*b)  (*r)   |
+|  GET  |  /config/properties/(property)  |    |   systemproperty (*b)  (*r)   |
+|  GET  |  /config/properties  |    |   systemproperties (*b)  (*r)   |
+|  GET  |  /events/(event)  |    |   event (*b)  (*r)   |
+|  GET  |  /events  |    |   events (*b)  (*r)   |
+|  GET  |  /events  |    |   eventtypes (*b)  (*r)   |
+|  GET  |  /login/sessions  |    |   sessions (*b)  (*r)   |
+|  GET  |  /login/sessions/(session)  |    |   sessions (*b)  (*r)   |
+|  GET  |  /login/sessions/(session)/(user)  |    |   session (*b)  (*r)   |
+|  GET  |  /login  |    |   user (*b)  (*r)  login (*b)  (*r)   |
+|  GET  |  /statistics/cloudusage/actions/total  |    |   cloudusage (*b)  (*r)   |
+|  GET  |  /statistics/cloudusage  |    |   cloudusages (*b)  (*r)   |
+|  GET  |  /statistics/cloudusage/(dc)  |    |   cloudusage (*b)  (*r)   |
+|  GET  |  /statistics/enterpriseresources/actions/total  |    |   enterpriseresources (*b)  (*r)   |
+|  GET  |  /statistics/enterpriseresources/(ent)  |    |   enterpriseresources (*b)  (*r)   |
+|  GET  |  /statistics/enterpriseresources  |    |   enterprisesresources (*b)  (*r)   |
+|  GET  |  /statistics/vappsresources  |    |   virtualappsresources (*b)  (*r)   |
+|  GET  |  /statistics/vdcsresources  |    |   virtualdatacentersresources (*b)  (*r)   |
+|  GET  |  /version  |    |   textascii  |
+|  GET  |  /version  |    |   textplain  |
+|  POST  |  /admin/datacenters  |   datacenter (*b)  (*r)   |   datacenter (*b)  (*r)   |
+|  POST  |  /admin/datacenters/(dc)/backups  |   backup (*b)  (*r)   |   backup (*b)  (*r)   |
+|  POST  |  /admin/datacenters/(dc)/network/(publicnw)/ips  |   ipsbulkcreation (*b)  (*r)   |   publicips (*b)  (*r)   |
+|  POST  |  /admin/datacenters/(dc)/network/(publicnw)/ips  |   publicip (*b)  (*r)   |   publicip (*b)  (*r)   |
+|  POST  |  /admin/datacenters/(dc)/networkservicetypes  |   networkservicetype (*b)  (*r)   |   networkservicetype (*b)  (*r)   |
+|  POST  |  /admin/datacenters/(dc)/network  |   vlan (*b)  (*r)   |   vlan (*b)  (*r)   |
+|  POST  |  /admin/datacenters/(dc)/racks  |   rack (*b)  (*r)   |   rack (*b)  (*r)   |
+|  POST  |  /admin/datacenters/(dc)/racks/(rack)/machines  |   machine (*b)  (*r)   |   machine (*b)  (*r)   |
+|  POST  |  /admin/datacenters/(dc)/racks/(rack)/machines/(m)//action/sendmail  |   mail (*b)  (*r)   |    |
+|  POST  |  /admin/datacenters/(dc)/racks/(rack)/machines/(m)/virtualmachines/(vm)/action/sendmail  |   mail (*b)  (*r)   |    |
+|  POST  |  /admin/datacenters/(dc)/storage/devices/(device)/pools  |   storagepool (*b)  (*r)   |   storagepool (*b)  (*r)   |
+|  POST  |  /admin/datacenters/(dc)/storage/devices/(device)/pools  |   storagepools (*b)  (*r)   |   storagepools (*b)  (*r)   |
+|  POST  |  /admin/datacenters/(dc)/storage/devices/(device)/pools  |   storagepoolwithtier (*b)  (*r)   |   storagepoolwithtier (*b)  (*r)   |
+|  POST  |  /admin/datacenters/(dc)/storage/devices  |   storagedevice (*b)  (*r)   |   storagedevice (*b)  (*r)   |
+|  POST  |  /admin/enterprises/(ent)/appslib/templateDefinitionLists  |   templatedefinitionlist (*b)  (*r)   |   templatedefinitionlist (*b)  (*r)   |
+|  POST  |  /admin/enterprises/(ent)/appslib/templateDefinitionLists  |   textplain  |   templatedefinitionlist (*b)  (*r)   |
+|  POST  |  /admin/enterprises/(ent)/appslib/templateDefinitions  |   templatedefinition (*b)  (*r)   |   templatedefinition (*b)  (*r)   |
+|  POST  |  /admin/enterprises/(ent)/appslib/templateDefinitions/(tmpDef)/actions/repositoryInstall  |    |    |
+|  POST  |  /admin/enterprises/(ent)/appslib/templateDefinitions/(tmpDef)/actions/repositoryUninstall  |    |    |
+|  POST  |  /admin/enterprises/(ent)/credentials  |   publiccloudcredentials (*b)  (*r)   |   publiccloudcredentials (*b)  (*r)   |
+|  POST  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates  |   templatedefinition (*b)  (*r)   |   acceptedrequest (*b)  (*r)   |
+|  POST  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates  |   virtualmachinetemplate (*b)  (*r)   |   virtualmachinetemplate (*b)  (*r)   |
+|  POST  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates  |   virtualmachinetemplatepersistent (*b)  (*r)   |   acceptedrequest (*b)  (*r)   |
+|  POST  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates  |   virtualmachinetemplaterequest (*b)  (*r)   |   acceptedrequest (*b)  (*r)   |
+|  POST  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)/action/deletefile  |    |    |
+|  POST  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)/disks/(disk)/action/deletefile  |    |    |
+|  POST  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)/disks  |   disk (*b)  (*r)   |   disk (*b)  (*r)   |
+|  POST  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)/disks/(disk)/conversions  |    |   conversions (*b)  (*r)   |
+|  POST  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)/disks  |   diskrequest (*b)  (*r)   |   acceptedrequest (*b)  (*r)   |
+|  POST  |  /admin/enterprises  |   enterprise (*b)  (*r)   |   enterprise (*b)  (*r)   |
+|  POST  |  /admin/enterprises  |   enterprisetheme (*b)  (*r)   |   enterprisetheme (*b)  (*r)   |
+|  POST  |  /admin/enterprises/(ent)/limits  |   limit (*b)  (*r)   |   limit (*b)  (*r)   |
+|  POST  |  /admin/enterprises/(ent)/reservedmachines  |   machine (*b)  (*r)   |   machine (*b)  (*r)   |
+|  POST  |  /admin/enterprises/(ent)/reservedmachines/machine  |    |   machine (*b)  (*r)   |
+|  POST  |  /admin/enterprises/(ent)/users/(user)/applications  |   application (*b)  (*r)   |   application (*b)  (*r)   |
+|  POST  |  /admin/enterprises/(ent)/users  |   user (*b)  (*r)   |   user (*b)  (*r)   |
+|  POST  |  /admin/publiccloudregions  |   publiccloudregion (*b)  (*r)   |   publiccloudregion (*b)  (*r)   |
+|  POST  |  /admin/remoteservices  |   remoteservice (*b)  (*r)   |   remoteservice (*b)  (*r)   |
+|  POST  |  /admin/rolesldap  |   roleldap (*b)  (*r)   |   roleldap (*b)  (*r)   |
+|  POST  |  /admin/roles  |   role (*b)  (*r)   |   role (*b)  (*r)   |
+|  POST  |  /admin/roles  |   rolewithldap (*b)  (*r)   |   rolewithldap (*b)  (*r)   |
+|  POST  |  /admin/rules/enterpriseExclusions  |   enterpriseexclusionrule (*b)  (*r)   |   enterpriseexclusionrule (*b)  (*r)   |
+|  POST  |  /admin/rules/fitsPolicy  |   fitpolicyrule (*b)  (*r)   |   fitpolicyrule (*b)  (*r)   |
+|  POST  |  /admin/rules/machineLoadLevel  |   machineloadrule (*b)  (*r)   |   machineloadrule (*b)  (*r)   |
+|  POST  |  /admin/rules  |   rules (*b)  (*r)   |   rules (*b)  (*r)   |
+|  POST  |  /admin/scopes  |   scope (*b)  (*r)   |   scope (*b)  (*r)   |
+|  POST  |  /cloud/locations/(loc)/firewalls  |   firewallpolicy (*b)  (*r)   |   firewallpolicy (*b)  (*r)   |
+|  POST  |  /cloud/locations/(loc)/ips  |   links (*b)  (*r)   |   publicip (*b)  (*r)   |
+|  POST  |  /cloud/locations/(loc)/ips  |    |   publicip (*b)  (*r)   |
+|  POST  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/healthchecks  |   healthcheck (*r)  (*b)   |   healthcheck (*r)  (*b)   |
+|  POST  |  /cloud/locations/(loc)/loadbalancers  |   loadbalancer (*r)  (*b)   |   loadbalancer (*r)  (*b)   |
+|  POST  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/routingrules  |   routingrule (*r)  (*b)   |   routingrule (*r)  (*b)   |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/disks  |   harddisk (*b)  (*r)   |   harddisk (*b)  (*r)   |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/privatenetworks/(privatenw)/ips  |   ipsbulkcreation (*b)  (*r)   |   privateips (*b)  (*r)   |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/privatenetworks/(privatenw)/ips  |   privateip (*b)  (*r)   |   privateip (*b)  (*r)   |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/privatenetworks  |   vlan (*b)  (*r)   |   vlan (*b)  (*r)   |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances  |   cp-virtualappliance (*b)  (*r)   |   virtualappliance (*b)  (*r)   |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances  |   mv-virtualappliance (*b)  (*r)   |   virtualappliance (*b)  (*r)   |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/action/deploy  |    |   acceptedrequest (*b)  (*r)   |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/action/undeploy  |   virtualmachinetask (*b)  (*r)   |   acceptedrequest (*b)  (*r)   |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/layers  |    |    |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines  |   virtualmachine (*b)  (*r)   |   virtualmachine (*b)  (*r)   |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines  |   virtualmachineflat (*b)  (*r)   |   virtualmachineflat (*b)  (*r)   |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/action/deploy  |    |   acceptedrequest (*b)  (*r)   |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/action/instance  |   virtualmachineinstance (*b)  (*r)   |   acceptedrequest (*b)  (*r)   |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/action/protect  |   textplain  |    |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/action/reset  |    |   acceptedrequest (*b)  (*r)   |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/action/restorebackup  |   restore (*b)  (*r)   |    |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/action/undeploy  |   virtualmachinetask (*b)  (*r)   |   acceptedrequest (*b)  (*r)   |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/action/unprotect  |    |    |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/config/runlist  |   runlistelements (*b)  (*r)   |   runlistelements (*b)  (*r)   |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/disablemonitoring  |    |    |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/enablemonitoring  |    |    |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/enablemonitoringlevel  |   monitoringlevel (*b)  (*r)   |    |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/metrics  |   custommetric (*b)  (*r)   |   custommetric (*b)  (*r)   |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/metrics/(metric)  |   datapoints (*b)  (*r)   |    |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)//tasks/(id)/action/ack  |    |    |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)//tasks/(id)/action/cancel  |    |    |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)//tasks/(id)/action/cancel  |   text (*b) plain  |    |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)//tasks/(id)/action/continue  |    |    |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)//tasks/(id)/action/continue  |   text (*b) plain  |    |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/virtualappliances  |   virtualappliance (*b)  (*r)   |   virtualappliance (*b)  (*r)   |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/volumes  |   iscsivolume (*b)  (*r)   |   iscsivolume (*b)  (*r)   |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/volumes/(vol)/action/move  |   links (*b)  (*r)   |   moved (*b)  (*r)   |
+|  POST  |  /cloud/virtualdatacenters/(vdc)/volumes  |   volume (*b)  (*r)   |   volume (*b)  (*r)   |
+|  POST  |  /cloud/virtualdatacenters  |   virtualdatacenter (*b)  (*r)   |   virtualdatacenter (*b)  (*r)   |
+|  POST  |  /config/action/remoteservicecheck  |   remoteservice (*r)  (*b)   |    |
+|  POST  |  /config/categories  |   category (*b)  (*r)   |   category (*b)  (*r)   |
+|  POST  |  /config/costcodes  |   costcode (*b)  (*r)   |   costcode (*b)  (*r)   |
+|  POST  |  /config/costcodes/(costcode)/currencies  |   costcodecurrencies (*b)  (*r)   |   costcodecurrencies (*b)  (*r)   |
+|  POST  |  /config/costcodes/(costcode)/currencies  |   costcodecurrency (*b)  (*r)   |   costcodecurrency (*b)  (*r)   |
+|  POST  |  /config/currencies  |   currency (*b)  (*r)   |   currency (*b)  (*r)   |
+|  POST  |  /config/hypervisortypes/(hypervisortype)/action/checkcredentials  |   publiccloudcredentials (*b)  (*r)   |    |
+|  POST  |  /config/licenses  |   license (*b)  (*r)   |   license (*b)  (*r)   |
+|  POST  |  /config/pricingtemplates  |   pricingtemplate (*b)  (*r)   |   pricingtemplate (*b)  (*r)   |
+|  POST  |  /config/pricingtemplates/(pricingtemplate)/costcodes  |   pricingcostcode (*b)  (*r)   |   pricingcostcode (*b)  (*r)   |
+|  POST  |  /config/pricingtemplates/(pricingtemplate)/costcodes  |   pricingcostcodes (*b)  (*r)   |   pricingcostcodes (*b)  (*r)   |
+|  POST  |  /config/pricingtemplates/(pricingtemplate)/tiers  |    |    |
+|  POST  |  /config/pricingtemplates/(pricingtemplate)/tiers  |   pricingtiers (*b)  (*r)   |   pricingtiers (*b)  (*r)   |
+|  POST  |  /config/properties  |   systemproperty (*b)  (*r)   |   systemproperty (*b)  (*r)   |
+|  POST  |  /login/action/newpassword  |    |    |
+|  POST  |  /login/action/reset  |    |    |
+|  POST  |  /logout  |    |    |
+|  PUT  |  /admin/datacenters/(dc)/action/updateusedresources  |    |    |
+|  PUT  |  /admin/datacenters/(dc)/backups  |   backups (*b)  (*r)   |   backups (*b)  (*r)   |
+|  PUT  |  /admin/datacenters/(dc)/backups/(bkp)  |   backup (*b)  (*r)   |   backup (*b)  (*r)   |
+|  PUT  |  /admin/datacenters/(dc)  |   datacenter (*b)  (*r)   |   datacenter (*b)  (*r)   |
+|  PUT  |  /admin/datacenters/(dc)/network/(publicnw)/ips  |   externalips (*b)  (*r)   |    |
+|  PUT  |  /admin/datacenters/(dc)/network/(publicnw)/ips/(ip)  |   externalip (*b)  (*r)   |   externalip (*b)  (*r)   |
+|  PUT  |  /admin/datacenters/(dc)/network/(publicnw)/ips/(ip)  |   publicip (*b)  (*r)   |   publicip (*b)  (*r)   |
+|  PUT  |  /admin/datacenters/(dc)/network/(publicnw)/ips  |   publicips (*b)  (*r)   |    |
+|  PUT  |  /admin/datacenters/(dc)/network/(publicnw)  |   vlan (*b)  (*r)   |   vlan (*b)  (*r)   |
+|  PUT  |  /admin/datacenters/(dc)/networkservicetypes/(networkservicetype)  |   networkservicetype (*b)  (*r)   |   networkservicetype (*b)  (*r)   |
+|  PUT  |  /admin/datacenters/(dc)/racks/(rack)/machines/(m)/datastores/(datastore)  |   datastore (*b)  (*r)   |   datastore (*b)  (*r)   |
+|  PUT  |  /admin/datacenters/(dc)/racks/(rack)/machines/(m)  |   machine (*b)  (*r)   |   machine (*b)  (*r)   |
+|  PUT  |  /admin/datacenters/(dc)/racks/(rack)  |   rack (*b)  (*r)   |   rack (*b)  (*r)   |
+|  PUT  |  /admin/datacenters/(dc)/storage/devices/(device)/pools/(pool)  |   storagepool (*b)  (*r)   |   storagepool (*b)  (*r)   |
+|  PUT  |  /admin/datacenters/(dc)/storage/devices/(device)  |   storagedevice (*b)  (*r)   |   storagedevice (*b)  (*r)   |
+|  PUT  |  /admin/datacenters/(dc)/storage/tiers/(tier)/action/allowallenterprises  |    |    |
+|  PUT  |  /admin/datacenters/(dc)/storage/tiers/(tier)/action/restrictallenterprises  |    |    |
+|  PUT  |  /admin/datacenters/(dc)/storage/tiers/(tier)  |   tier (*b)  (*r)   |   tier (*b)  (*r)   |
+|  PUT  |  /admin/enterprises/(ent)/appslib/templateDefinitionLists/(templateDefinitionList)  |    |   templatedefinitionlist (*b)  (*r)   |
+|  PUT  |  /admin/enterprises/(ent)/appslib/templateDefinitionLists/(templateDefinitionList)  |   templatedefinitionlist (*b)  (*r)   |   templatedefinitionlist (*b)  (*r)   |
+|  PUT  |  /admin/enterprises/(ent)/appslib/templateDefinitionLists/(templateDefinitionList)  |   templatedefinitionlist (*b)  (*r)   |   templatedefinitionlist (*b)  (*r)   |
+|  PUT  |  /admin/enterprises/(ent)/appslib/templateDefinitions/(tmpDef)  |   templatedefinition (*b)  (*r)   |   templatedefinition (*b)  (*r)   |
+|  PUT  |  /admin/enterprises/(ent)/appslib/templateDefinitions/(tmpDef)  |   templatedefinition (*r)   |   templatedefinition (*b)  (*r)   |
+|  PUT  |  /admin/enterprises/(ent)/credentials/(credentials)  |   publiccloudcredentials (*b)  (*r)   |   publiccloudcredentials (*b)  (*r)   |
+|  PUT  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)//actions/refresh  |    |   acceptedrequest (*b)  (*r)   |
+|  PUT  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)/action/move  |   links (*b)  (*r)   |   virtualmachinetemplate (*b)  (*r)   |
+|  PUT  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)/disks/(disk)/conversions/(conv)  |   conversion (*b)  (*r)   |   acceptedrequest (*b)  (*r)   |
+|  PUT  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)/disks/(disk)  |   disk (*b)  (*r)   |   disk (*b)  (*r)   |
+|  PUT  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)  |   virtualmachinetemplate (*b)  (*r)   |   virtualmachinetemplate (*b)  (*r)   |
+|  PUT  |  /admin/enterprises/(ent)/datacenterrepositories/(dcrepo)/virtualmachinetemplates/(vmtmp)  |   virtualmachinetemplate (*b)  (*r)   |   virtualmachinetemplate (*b)  (*r)   |
+|  PUT  |  /admin/enterprises/(ent)  |   enterprise (*b)  (*r)   |   enterprise (*b)  (*r)   |
+|  PUT  |  /admin/enterprises/(ent)  |   enterprisetheme (*b)  (*r)   |   enterprisetheme (*b)  (*r)   |
+|  PUT  |  /admin/enterprises/(ent)/limits/(limit)/externalnetworks/action/default  |    |    |
+|  PUT  |  /admin/enterprises/(ent)/limits/(limit)/externalnetworks/(externalnw)/action/default  |    |    |
+|  PUT  |  /admin/enterprises/(ent)/limits/(limit)/externalnetworks/(externalnw)/ips/(ips)  |   unmanagedip (*b)  (*r)   |   unmanagedip (*b)  (*r)   |
+|  PUT  |  /admin/enterprises/(ent)/limits/(limit)  |   limit (*b)  (*r)   |   limit (*b)  (*r)   |
+|  PUT  |  /admin/enterprises/(ent)/properties  |   enterpriseproperties (*b)  (*r)   |   enterpriseproperties (*b)  (*r)   |
+|  PUT  |  /admin/enterprises/(ent)/users/(user)  |   user (*b)  (*r)   |   user (*b)  (*r)   |
+|  PUT  |  /admin/publiccloudregions/(pcr)  |   publiccloudregion (*b)  (*r)   |   publiccloudregion (*b)  (*r)   |
+|  PUT  |  /admin/remoteservices/(rs)  |   remoteservice (*b)  (*r)   |   remoteservice (*b)  (*r)   |
+|  PUT  |  /admin/rolesldap/(roleldap)  |   roleldap (*b)  (*r)   |   roleldap (*b)  (*r)   |
+|  PUT  |  /admin/roles/(role)  |   role (*b)  (*r)   |   role (*b)  (*r)   |
+|  PUT  |  /admin/roles/(role)  |   rolewithldap (*b)  (*r)   |   rolewithldap (*b)  (*r)   |
+|  PUT  |  /admin/scopes/(scope)  |   scope (*b)  (*r)   |   scope (*b)  (*r)   |
+|  PUT  |  /cloud/locations/(loc)/firewalls/(firewall)  |   firewallpolicy (*r)  (*b)   |   firewallpolicy (*r)  (*b)   |
+|  PUT  |  /cloud/locations/(loc)/firewalls/(firewall)/rules  |   firewallrules (*b)  (*r)   |   firewallrules (*b)  (*r)   |
+|  PUT  |  /cloud/locations/(loc)/loadbalancers/addresses/(loadbalanceraddress)  |   loadbalanceraddress (*r)  (*b)   |   loadbalanceraddress (*r)  (*b)   |
+|  PUT  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/healthchecks/(healthcheck)  |   healthcheck (*b)  (*r)   |   healthcheck (*b)  (*r)   |
+|  PUT  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)  |   loadbalancer (*r)  (*b)   |   loadbalancer (*r)  (*b)   |
+|  PUT  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/routingrules/(routingrule)  |   routingrule (*r)  (*b)   |   routingrule (*r)  (*b)   |
+|  PUT  |  /cloud/locations/(loc)/loadbalancers/(loadbalancer)/virtualmachines  |   links (*b)  (*r)   |   links (*b)  (*r)   |
+|  PUT  |  /cloud/virtualdatacenters/(vdc)//action/defaultvlan  |   links (*b)  (*r)   |    |
+|  PUT  |  /cloud/virtualdatacenters/(vdc)/disks/(disk)  |   harddisk (*b)  (*r)   |   acceptedrequest (*b)  (*r)   |
+|  PUT  |  /cloud/virtualdatacenters/(vdc)/privatenetworks/(privatenw)  |   vlan (*b)  (*r)   |   vlan (*b)  (*r)   |
+|  PUT  |  /cloud/virtualdatacenters/(vdc)//publicips/purchased/(ip)  |    |   publicip (*b)  (*r)   |
+|  PUT  |  /cloud/virtualdatacenters/(vdc)//publicips/topurchase/(ip)  |    |   publicip (*b)  (*r)   |
+|  PUT  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/layers/(layer)  |   layer (*b)  (*r)   |   layer (*b)  (*r)   |
+|  PUT  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)  |   virtualappliance (*b)  (*r)   |   virtualappliance (*b)  (*r)   |
+|  PUT  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/firewalls  |   links (*b)  (*r)   |   acceptedrequest (*b)  (*r)   |
+|  PUT  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/metadata  |   metadata (*b)  (*r)   |   metadata (*b)  (*r)   |
+|  PUT  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/metrics/(metric)  |   custommetric (*b)  (*r)   |   custommetric (*b)  (*r)   |
+|  PUT  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)/state  |   virtualmachinestate (*b)  (*r)   |   acceptedrequest (*b)  (*r)   |
+|  PUT  |  /cloud/virtualdatacenters/(vdc)/virtualappliances/(vapp)/virtualmachines/(vm)  |   virtualmachine (*b)  (*r)   |   acceptedrequest (*b)  (*r)   |
+|  PUT  |  /cloud/virtualdatacenters/(vdc)  |   virtualdatacenter (*b)  (*r)   |   virtualdatacenter (*b)  (*r)   |
+|  PUT  |  /cloud/virtualdatacenters/(vdc)/volumes/(vol)  |   volume (*b)  (*r)   |   acceptedrequest (*b)  (*r)   |
+|  PUT  |  /config/categories/(category)  |   category (*b)  (*r)   |   category (*b)  (*r)   |
+|  PUT  |  /config/costcodes/(costcode)  |   costcode (*b)  (*r)   |   costcode (*b)  (*r)   |
+|  PUT  |  /config/costcodes/(costcode)/currencies  |   costcodecurrencies (*b)  (*r)   |   costcodecurrencies (*b)  (*r)   |
+|  PUT  |  /config/costcodes/(costcode)/currencies/(currency)  |   costcodecurrency (*b)  (*r)   |   costcodecurrency (*b)  (*r)   |
+|  PUT  |  /config/currencies/(currency)  |   currency (*b)  (*r)   |   currency (*b)  (*r)   |
+|  PUT  |  /config/pricingtemplates/(pricingtemplate)/costcodes/(costcode)  |   pricingcostcode (*b)  (*r)   |   pricingcostcode (*b)  (*r)   |
+|  PUT  |  /config/pricingtemplates/(pricingtemplate)/costcodes  |   pricingcostcodes (*b)  (*r)   |   pricingcostcodes (*b)  (*r)   |
+|  PUT  |  /config/pricingtemplates/(pricingtemplate)  |   pricingtemplate (*b)  (*r)   |   pricingtemplate (*b)  (*r)   |
+|  PUT  |  /config/pricingtemplates/(pricingtemplate)/tiers  |   pricingtiers (*b)  (*r)   |   pricingtiers (*b)  (*r)   |
+|  PUT  |  /config/pricingtemplates/(pricingtemplate)/tiers/(tier)  |   pricingtier (*b)  (*r)   |   pricingtier (*b)  (*r)   |
+|  PUT  |  /config/properties/(property)  |   systemproperty (*b)  (*r)   |   systemproperty (*b)  (*r)   |
+|  PUT  |  /config/properties  |   systemproperties (*b)  (*r)   |   systemproperties (*b)  (*r)   |

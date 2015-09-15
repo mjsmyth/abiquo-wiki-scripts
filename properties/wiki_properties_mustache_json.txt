@@ -1,0 +1,58 @@
+{
+	"headingLinks": [
+		{ 
+			"ExampleFile": "properties_api_2015-03-31.txt",
+			"ExampleImage" : "v26_symbol_api_transparent.png"
+		},
+		{ 
+			"ExampleFile": "properties_rs_2015-03-31.txt",
+			"ExampleImage" : "v26_symbol_rs_transparent.png"
+		},
+		{ 
+			"ExampleFile": "properties_v2v_2015-03-31.txt",
+			"ExampleImage" : "v26_symbol_v2v_transparent.png"
+		},
+		{ 
+			"ExampleFile": "properties_oa_2015-03-31.txt",
+			"ExampleImage" : "v26_symbol_oa_transparent.png"
+		}
+	],	
+	"categories": [	
+		"categoryName": "happy",
+		"entries": [
+			{
+				"propertyName": "abiquo.happy.property.fun"
+				"propertyDefault": "0"
+				"propertyRange": "0-2",
+				"propertyDescription": "This is the property description",
+				"propertyProfiles": [
+					{ 
+						"profile" :
+							{								
+								"profileExampleFile": "properties_api_2015-03-31.txt",
+								"profileExampleImage" : "v26_symbol_api_transparent.png"
+							}	
+					},
+					{	"profile" :
+							{ 
+								"profileExampleFile": "properties_rs_2015-03-31.txt",
+								"profileExampleImage" : "v26_symbol_rs_transparent.png"
+							},
+					{ 	"profile" :
+							{
+								"profileExampleFile": "properties_v2v_2015-03-31.txt",
+								"profileExampleImage" : "v26_symbol_v2v_transparent.png"
+							}	
+					},
+					{ 
+						"profile":
+							{
+								"profileExampleFile": "properties_oa_2015-03-31.txt",
+								"profileExampleImage" : "v26_symbol_oa_transparent.png"
+							}
+					}		
+				]
+			}
+		]
+	]
+}		

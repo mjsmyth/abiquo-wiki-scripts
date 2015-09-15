@@ -1,0 +1,8 @@
+|  DELETE  |  /admin/datacenters/(dc)/remoteservices/(rs)  |    |    |
+|  DELETE  |  /admin/publiccloudregions/(pcr)/remoteservices/(rs)  |    |    |
+|  GET  |  /admin/datacenters/(dc)/remoteservices/(rs)/action/check  |    |    |
+|  GET  |  /admin/publiccloudregions/(pcr)/remoteservices/(rs)/action/check  |    |    |
+|  POST  |  /admin/datacenters/(dc)/remoteservices  |   remoteservice (*b)  (*r)   |   remoteservice (*b)  (*r)   |
+|  POST  |  /admin/publiccloudregions/(pcr)/remoteservices  |   remoteservice (*b)  (*r)   |   remoteservice (*b)  (*r)   |
+|  PUT  |  /admin/datacenters/(dc)/remoteservices/(rs)  |   remoteservice (*b)  (*r)   |   remoteservice (*b)  (*r)   |
+|  PUT  |  /admin/publiccloudregions/(pcr)/remoteservices/(rs)  |   remoteservice (*b)  (*r)   |   remoteservice (*b)  (*r)   |

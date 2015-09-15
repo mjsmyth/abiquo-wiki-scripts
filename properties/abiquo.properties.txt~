@@ -275,6 +275,7 @@ abiquo.vi.check.delay=900000
 # First port of the VNC range to be used when allocating virtual machines
 #abiquo.vncport.min=5900
 
+
 # Configures the AMF secure channel (0 for regular, 1 for secure). Range: 0,
 # 1
 #client.USE_SECURE_CHANNEL_LOGIN=0

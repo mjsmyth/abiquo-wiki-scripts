@@ -51,7 +51,7 @@ class ApiErrorLine:
 def main():
 	input_subdir = "input_files"
 	output_subdir = "output_files"
-	todays_date = "2014-10-31"
+	todays_date = "2015-08-04"
 	api_error_input_file = "process_api_errors_input_from_api_" + todays_date + ".txt"
 	FS = "|"
 	error_lines = {}
@@ -61,8 +61,8 @@ def main():
 	api_error_file_admin = "wiki_api_error_admin_guide_" + todays_date + ".txt"
 	api_error_file_user = "wiki_api_error_user_guide_" + todays_date + ".txt"
 
-	admin_header = "|| Internal Message ID {color:#efefef}__________________{color}|| Message {color:#efefef}____________________________________________________________{color} ||  Label || Info ||\n"; 
-	user_header = admin_header = "|| Internal Message ID {color:#efefef}__________________{color}|| Message {color:#efefef}____________________________________________________________{color} || Info ||\n"; 
+	admin_header = "|| Internal Message ID {color:#efefef}__________________{color}|| Message {color:#efefef}____________________________________________________________{color} ||  Identifier || Info ||\n"; 
+	user_header = "|| Internal Message ID {color:#efefef}__________________{color}|| Message {color:#efefef}____________________________________________________________{color} || Info ||\n"; 
 
 	sections_json = "apierror_sections.json"		
 	api_error_sections_data = open(os.path.join(input_subdir,sections_json))

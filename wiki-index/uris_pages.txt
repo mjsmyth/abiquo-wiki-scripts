@@ -1,0 +1,101 @@
+./AllocationRulesResource-25809456:/admin/rules<
+./AllocationRulesResource-25809456:/admin/rules/enterpriseExclusions<
+./AllocationRulesResource-25809456:/admin/rules/enterpriseExclusions/{enterpriseExclusion}<
+./AllocationRulesResource-25809456:/admin/rules/fitsPolicy<
+./AllocationRulesResource-25809456:/admin/rules/fitsPolicy/{fitPolicy}<
+./AllocationRulesResource-25809456:/admin/rules/machineLoadLevel<
+./AllocationRulesResource-25809456:/admin/rules/machineLoadLevel/{loadLevel}<
+./AllVirtualMachinesResource-25809475:/cloud/virtualmachines<
+./AvailabilityZoneResource-25809478:/cloud/location/{id}/availabilityzones<
+./Backup Resource-25809427:/config/backups<
+./Backup Resource-25809427:/config/backups/{backup}<
+./CategoryResource-25809417:/config/categories<
+./CategoryResource-25809417:/config/categories/{category}<
+./ConversionResource-25809455:/admin/enterprises/{enterprise}/datacenterrepositories/{datacenterrepository}/virtualmachinetemplates/{virtualmachinetemplate}/disks/{disk}/conversions<
+./ConversionResource-25809455:/admin/enterprises/{enterprise}/datacenterrepositories/{datacenterrepository}/virtualmachinetemplates/{virtualmachinetemplate}/disks/{disk}/conversions/{conversion}<
+./CostCodeCurrencyResource-25809419:/config/costcodes/{costcode}/currencies<
+./CostCodeCurrencyResource-25809419:/config/costcodes/{costcode}/currencies/{currency}<
+./CostCodeResource-25809418:/config/costcodes<
+./CostCodeResource-25809418:/config/costcodes/{costcode}<
+./CurrencyResource-25809420:/config/currencies<
+./CurrencyResource-25809420:/config/currencies/{currency}<
+./DatacenterLimitsResource-25809444:/admin/enterprises/{enterprise}/limits<
+./DatacenterRepositoryResource-25809453:/admin/enterprises/{enterprise}/datacenterrepositories<
+./DatacenterResource-25809429:/admin/datacenters<
+./DatacenterResource-25809429:/admin/datacenters/{datacenter}<
+./DatacenterResource-25809429:/admin/datacenters/{datacenter}/action/getlimits<
+./DiskControllerType Resource-25814231:/config/diskcontrollertypes<
+./DiskControllerType Resource-25814231:/config/diskcontrollertypes/{diskcontrollertype}<
+./DiskFormatTypesResource-25809424:/config/diskformattypes<
+./DiskFormatTypesResource-25809424:/config/diskformattypes/{diskformattype}<
+./DisksResource-25813205:/admin/enterprises/{enterprise}/datacenterrepositories/{datacenterrepository}/virtualmachinetemplates/{virtualmachinetemplate}/disks<
+./EnterprisePropertiesResource-25809452:/admin/enterprises/{enterprise}/properties<
+./EnterpriseResource-25809442:/admin/enterprises<
+./EnterpriseResource-25809442:/admin/enterprises/{enterprise}<
+./EthernetDriverType Resource-25814236:/config/ethernetdrivertypes<
+./EthernetDriverType Resource-25814236:/config/ethernetdrivertypes/{ethernetdrivertype}<
+./EventsResource-25809488:/events<
+./Example Test PublicIpResource-25810733:/admin/datacenters/{datacenter}/network/{publicnetwork}/ips<
+./ExternalNetworksResource-25809445:/admin/enterprises/{enterprise}/limits/{limit}/externalnetworks<
+./ExternalNetworksResource-25809445:/admin/enterprises/{enterprise}/limits/{limit}/externalnetworks/action/default<
+./ExternalNetworksResource-25809445:/admin/enterprises/{enterprise}/limits/{limit}/externalnetworks/{externalnetwork}<
+./FirewallPoliciesResource-25809479:/cloud/locations/{location}/firewalls<
+./FirewallRulesResource-25809480:/cloud/locations/{location}/firewalls/{firewall}/rules<
+./HardDiskResource-25809467:/cloud/virtualdatacenters/{virtualdatacenter}/disks<
+./HardDiskResource-25809467:/cloud/virtualdatacenters/{virtualdatacenter}/disks/{disk}<
+./HypervisorTypeResource-25809426:/config/hypervisortypes<
+./IPsResource-25809477:/cloud/locations/{id}/ips<
+./LayersResource-25809474:/cloud/virtualdatacenters/{virtualdatacenter}/virtualappliances/{virtualappliance}/layers<
+./LicenseResource-25809425:/config/licenses<
+./LocationsResource-25809476:/cloud/locations<
+./LoginResource-25809414:/login<
+./MachineDatastoresResource-25809433:/admin/datacenters/{datacenter}/racks/{rack}/machines/{machine}/datastores<
+./MachineResource-25809432:/admin/datacenters/{datacenter}/racks/{rack}/machines<
+./NetworkServiceTypeResource-25809430:/admin/datacenters/{datacenter}/networkservicetypes<
+./OSType Resource-25814247:/config/ostypes<
+./OSType Resource-25814247:/config/ostypes/{ostype}<
+./PricingTemplateResource-25809421:/config/pricingtemplates<
+./PricingTemplateResource-25809421:/config/pricingtemplates/{pricingtemplate}/costcodes<
+./PricingTemplateResource-25809421:/config/pricingtemplates/{pricingtemplate}/tiers<
+./PrivateNetworksResource-25809465:/cloud/virtualdatacenters/{virtualdatacenter}/privatenetworks<
+./PrivateNetworksResource-25809465:/cloud/virtualdatacenters/{virtualdatacenter}/privatenetworks/{privatenetwork}/ips<
+./PrivilegeResource-25809422:/config/privileges<
+./PublicCloudCredentialsResource-25809446:/admin/enterprises/{enterprise}/credentials<
+./PublicCloudRegionResource-25809460:/admin/publiccloudregions<
+./PublicIpResource-25809437:/admin/datacenters/{datacenter}/network/{publicnetwork}/ips<
+./PublicNetworkResource-25809436:/admin/datacenters/{datacenter}/network<
+./RackResource-25809431:/admin/datacenters/{datacenter}/racks<
+./RemoteServiceResource-25809435:/admin/datacenters/{datacenter}/remoteservices<
+./RemoteServiceResourceForRegions-25809461:/admin/publiccloudregions/{publiccloudregion}/remoteservices<
+./Remote Services Resource-25809462:/admin/remoteservices<
+./ReservedMachinesResource-25809443:/admin/enterprises/{enterprise}/reservedmachines<
+./RolesLDAPResource-25809458:/admin/rolesldap<
+./RolesResource-25809457:/admin/roles<
+./Scopes Resource-25809459:/admin/scopes<
+./SessionResource-25809415:/login/sessions<
+./StatisticsResource-25809490:/statistics<
+./StatisticsResource-25809490:/statistics/cloudusage<
+./StatisticsResource-25809490:/statistics/enterpriseresources<
+./StatisticsResource-25809490:/statistics/vappsresources<
+./StatisticsResource-25809490:/statistics/vdcsresources<
+./StorageDeviceResource-25809439:/admin/datacenters/{datacenter}/storage/devices<
+./StoragePoolResource-25809440:/admin/datacenters/{datacenter}/storage/devices/{device}/pools<
+./SystemPropertyResource-25809423:/config/properties<
+./TemplateDefinitionListResource-25809448:/admin/enterprises/{enterprise}/appslib/templateDefinitionLists<
+./TemplateDefinitionResource-25809449:/admin/enterprises/{enterprise}/appslib/templateDefinitions<
+./TierResource-25809441:/admin/datacenters/{datacenter}/storage/tiers<
+./UserResource-25809450:/admin/enterprises/{enterprise}/users<
+./VersionResource-25809489:/version<
+./VirtualApplianceResource-25809469:/cloud/virtualdatacenters/{virtualdatacenter}/virtualappliances<
+./VirtualApplianceResource-25809469:/cloud/virtualdatacenters/{virtualdatacenter}/virtualappliances/{virtualappliance}<
+./VirtualDatacenterResource-25809464:/cloud/virtualdatacenters<
+./VirtualDatacenterResource-25809464:/cloud/virtualdatacenters/{virtualdatacenter}<
+./VirtualDatacenterTiersResource-25809466:/cloud/virtualdatacenters/{virtualdatacenter}/tiers<
+./VirtualMachineChefRunlistResource-25809471:/cloud/virtualdatacenters/{virtualdatacenter}/virtualappliances/{virtualappliance}/virtualmachines/{virtualmachine}/config/runlist<
+./VirtualMachineConfigurationResource-25809472:/cloud/virtualdatacenters/{virtualdatacenter}/virtualappliances/{virtualappliance}/virtualmachines/{virtualmachine}/network<
+./VirtualMachineConfigurationResource-25809472:/cloud/virtualdatacenters/{virtualdatacenter}/virtualappliances/{virtualappliance}/virtualmachines/{virtualmachine}/storage<
+./VirtualMachineResource-25809470:/cloud/virtualdatacenters/{virtualdatacenter}/virtualappliances/{virtualappliance}/virtualmachines<
+./VirtualMachinesFromInfrastructureResource-25809434:/admin/datacenters/{datacenter}/racks/{rack}/machines/{machine}/virtualmachines<
+./VirtualMachineTemplateResource-25809454:/admin/enterprises/{enterprise}/datacenterrepositories/{datacenterrepository}/virtualmachinetemplates<
+./VolumeResource-25809468:/cloud/virtualdatacenters/{virtualdatacenter}/volumes<
+./VolumeResource-25809468:/cloud/virtualdatacenters/{virtualdatacenter}/volumes/{volume}<

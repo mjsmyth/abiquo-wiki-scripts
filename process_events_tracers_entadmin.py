@@ -35,11 +35,11 @@ def main():
 	groupkey = {}
 	previous_key = " "
 	out_subdir = "output_files"
-	wiki_event_tracer_user_file = "wiki_event_tracer_user_" + td + ".txt"
+	wiki_event_tracer_user_file = "wiki_event_tracer_ent_admin_" + td + ".txt"
 	git_dir = "../platform/m/src/main/resources/messages"
 	input_subdir = "input_files"
 
-	user_file = "entity_user_list_"+ td + ".txt"
+	user_file = "entity_ent_admin_list_"+ td + ".txt"
 	prop_file = "tracer.properties"
 	entity_action_file = "entity_action_list_" + td + ".txt"
 	entity_actions_file = [ea.strip() for ea in open(os.path.join(input_subdir,entity_action_file))]

@@ -1,0 +1,102 @@
+|| Main Resource URI || Resource Wiki Page Link ||
+| /admin/rules | [AllocationRulesResource] |
+| /admin/rules/enterpriseExclusions | [AllocationRulesResource] |
+| /admin/rules/enterpriseExclusions/\{enterpriseExclusion} | [AllocationRulesResource] |
+| /admin/rules/fitsPolicy | [AllocationRulesResource] |
+| /admin/rules/fitsPolicy/\{fitPolicy} | [AllocationRulesResource] |
+| /admin/rules/machineLoadLevel | [AllocationRulesResource] |
+| /admin/rules/machineLoadLevel/\{loadLevel} | [AllocationRulesResource] |
+| /cloud/virtualmachines | [AllVirtualMachinesResource] |
+| /cloud/location/\{id}/availabilityzones | [AvailabilityZoneResource] |
+| /config/backups | [Backup Resource] |
+| /config/backups/\{backup} | [Backup Resource] |
+| /config/categories | [CategoryResource] |
+| /config/categories/\{category} | [CategoryResource] |
+| /admin/enterprises/\{enterprise}/datacenterrepositories/\{datacenterrepository}/virtualmachinetemplates/\{virtualmachinetemplate}/disks/\{disk}/conversions | [ConversionResource] |
+| /admin/enterprises/\{enterprise}/datacenterrepositories/\{datacenterrepository}/virtualmachinetemplates/\{virtualmachinetemplate}/disks/\{disk}/conversions/\{conversion} | [ConversionResource] |
+| /config/costcodes/\{costcode}/currencies | [CostCodeCurrencyResource] |
+| /config/costcodes/\{costcode}/currencies/\{currency} | [CostCodeCurrencyResource] |
+| /config/costcodes | [CostCodeResource] |
+| /config/costcodes/\{costcode} | [CostCodeResource] |
+| /config/currencies | [CurrencyResource] |
+| /config/currencies/\{currency} | [CurrencyResource] |
+| /admin/enterprises/\{enterprise}/limits | [DatacenterLimitsResource] |
+| /admin/enterprises/\{enterprise}/datacenterrepositories | [DatacenterRepositoryResource] |
+| /admin/datacenters | [DatacenterResource] |
+| /admin/datacenters/\{datacenter} | [DatacenterResource] |
+| /admin/datacenters/\{datacenter}/action/getlimits | [DatacenterResource] |
+| /config/diskcontrollertypes | [DiskControllerType Resource] |
+| /config/diskcontrollertypes/\{diskcontrollertype} | [DiskControllerType Resource] |
+| /config/diskformattypes | [DiskFormatTypesResource] |
+| /config/diskformattypes/\{diskformattype} | [DiskFormatTypesResource] |
+| /admin/enterprises/\{enterprise}/datacenterrepositories/\{datacenterrepository}/virtualmachinetemplates/\{virtualmachinetemplate}/disks | [DisksResource] |
+| /admin/enterprises/\{enterprise}/properties | [EnterprisePropertiesResource] |
+| /admin/enterprises | [EnterpriseResource] |
+| /admin/enterprises/\{enterprise} | [EnterpriseResource] |
+| /config/ethernetdrivertypes | [EthernetDriverType Resource] |
+| /config/ethernetdrivertypes/\{ethernetdrivertype} | [EthernetDriverType Resource] |
+| /events | [EventsResource] |
+| /admin/datacenters/\{datacenter}/network/\{publicnetwork}/ips | [Example Test PublicIpResource] |
+| /admin/enterprises/\{enterprise}/limits/\{limit}/externalnetworks | [ExternalNetworksResource] |
+| /admin/enterprises/\{enterprise}/limits/\{limit}/externalnetworks/action/default | [ExternalNetworksResource] |
+| /admin/enterprises/\{enterprise}/limits/\{limit}/externalnetworks/\{externalnetwork} | [ExternalNetworksResource] |
+| /cloud/locations/\{location}/firewalls | [FirewallPoliciesResource] |
+| /cloud/locations/\{location}/firewalls/\{firewall}/rules | [FirewallRulesResource] |
+| /cloud/virtualdatacenters/\{virtualdatacenter}/disks | [HardDiskResource] |
+| /cloud/virtualdatacenters/\{virtualdatacenter}/disks/\{disk} | [HardDiskResource] |
+| /config/hypervisortypes | [HypervisorTypeResource] |
+| /cloud/locations/\{id}/ips | [IPsResource] |
+| /cloud/virtualdatacenters/\{virtualdatacenter}/virtualappliances/\{virtualappliance}/layers | [LayersResource] |
+| /config/licenses | [LicenseResource] |
+| /cloud/locations | [LocationsResource] |
+| /login | [LoginResource] |
+| /admin/datacenters/\{datacenter}/racks/\{rack}/machines/\{machine}/datastores | [MachineDatastoresResource] |
+| /admin/datacenters/\{datacenter}/racks/\{rack}/machines | [MachineResource] |
+| /admin/datacenters/\{datacenter}/networkservicetypes | [NetworkServiceTypeResource] |
+| /config/ostypes | [OSType Resource] |
+| /config/ostypes/\{ostype} | [OSType Resource] |
+| /config/pricingtemplates | [PricingTemplateResource] |
+| /config/pricingtemplates/\{pricingtemplate}/costcodes | [PricingTemplateResource] |
+| /config/pricingtemplates/\{pricingtemplate}/tiers | [PricingTemplateResource] |
+| /cloud/virtualdatacenters/\{virtualdatacenter}/privatenetworks | [PrivateNetworksResource] |
+| /cloud/virtualdatacenters/\{virtualdatacenter}/privatenetworks/\{privatenetwork}/ips | [PrivateNetworksResource] |
+| /config/privileges | [PrivilegeResource] |
+| /admin/enterprises/\{enterprise}/credentials | [PublicCloudCredentialsResource] |
+| /admin/publiccloudregions | [PublicCloudRegionResource] |
+| /admin/datacenters/\{datacenter}/network/\{publicnetwork}/ips | [PublicIpResource] |
+| /admin/datacenters/\{datacenter}/network | [PublicNetworkResource] |
+| /admin/datacenters/\{datacenter}/racks | [RackResource] |
+| /admin/datacenters/\{datacenter}/remoteservices | [RemoteServiceResource] |
+| /admin/publiccloudregions/\{publiccloudregion}/remoteservices | [RemoteServiceResourceForRegions] |
+| /admin/remoteservices | [Remote Services Resource] |
+| /admin/enterprises/\{enterprise}/reservedmachines | [ReservedMachinesResource] |
+| /admin/rolesldap | [RolesLDAPResource] |
+| /admin/roles | [RolesResource] |
+| /admin/scopes | [Scopes Resource] |
+| /login/sessions | [SessionResource] |
+| /statistics | [StatisticsResource] |
+| /statistics/cloudusage | [StatisticsResource] |
+| /statistics/enterpriseresources | [StatisticsResource] |
+| /statistics/vappsresources | [StatisticsResource] |
+| /statistics/vdcsresources | [StatisticsResource] |
+| /admin/datacenters/\{datacenter}/storage/devices | [StorageDeviceResource] |
+| /admin/datacenters/\{datacenter}/storage/devices/\{device}/pools | [StoragePoolResource] |
+| /config/properties | [SystemPropertyResource] |
+| /admin/enterprises/\{enterprise}/appslib/templateDefinitionLists | [TemplateDefinitionListResource] |
+| /admin/enterprises/\{enterprise}/appslib/templateDefinitions | [TemplateDefinitionResource] |
+| /admin/datacenters/\{datacenter}/storage/tiers | [TierResource] |
+| /admin/enterprises/\{enterprise}/users | [UserResource] |
+| /version | [VersionResource] |
+| /cloud/virtualdatacenters/\{virtualdatacenter}/virtualappliances | [VirtualApplianceResource] |
+| /cloud/virtualdatacenters/\{virtualdatacenter}/virtualappliances/\{virtualappliance} | [VirtualApplianceResource] |
+| /cloud/virtualdatacenters | [VirtualDatacenterResource] |
+| /cloud/virtualdatacenters/\{virtualdatacenter} | [VirtualDatacenterResource] |
+| /cloud/virtualdatacenters/\{virtualdatacenter}/tiers | [VirtualDatacenterTiersResource] |
+| /cloud/virtualdatacenters/\{virtualdatacenter}/virtualappliances/\{virtualappliance}/virtualmachines/\{virtualmachine}/config/runlist | [VirtualMachineChefRunlistResource] |
+| /cloud/virtualdatacenters/\{virtualdatacenter}/virtualappliances/\{virtualappliance}/virtualmachines/\{virtualmachine}/network | [VirtualMachineConfigurationResource] |
+| /cloud/virtualdatacenters/\{virtualdatacenter}/virtualappliances/\{virtualappliance}/virtualmachines/\{virtualmachine}/storage | [VirtualMachineConfigurationResource] |
+| /cloud/virtualdatacenters/\{virtualdatacenter}/virtualappliances/\{virtualappliance}/virtualmachines | [VirtualMachineResource] |
+| /admin/datacenters/\{datacenter}/racks/\{rack}/machines/\{machine}/virtualmachines | [VirtualMachinesFromInfrastructureResource] |
+| /admin/enterprises/\{enterprise}/datacenterrepositories/\{datacenterrepository}/virtualmachinetemplates | [VirtualMachineTemplateResource] |
+| /cloud/virtualdatacenters/\{virtualdatacenter}/volumes | [VolumeResource] |
+| /cloud/virtualdatacenters/\{virtualdatacenter}/volumes/\{volume} | [VolumeResource] |

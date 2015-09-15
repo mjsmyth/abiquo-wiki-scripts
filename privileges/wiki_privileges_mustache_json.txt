@@ -1,0 +1,52 @@
+{
+	"categories": [	
+		{
+			"category": "Home",
+			"roleheaders": [
+				"rolehead":
+					{
+						"rolename": "Cloud Admin",
+						"roleheadform": "warning"
+					},
+				"rolehead":
+					{
+						"rolename": "Ent Admin",
+						"roleheadform": "note"
+					},	
+				"rolehead":
+					{
+						"rolename": "Ent User",
+						"roleheadform": "success"
+					},
+				"rolehead":
+					{
+						"rolename": "Outbound API",
+						"roleheadform": "note"
+					}	
+			],
+			"entries": [
+				{
+					"guiLabel": "Allow user to switch enterprise"
+					"appTag": "ENTERPRISE_ADMINISTER_ALL"
+					"privilege": "This privilege allows a user to change to another enterprise, in order to administer it, by clicking the switch user button in the Enterprises list",
+	        		"roles": [
+			          {
+			            "rolehas": "X",
+			            "roleformat": "warning"
+			          },
+			          {
+			            "roleformat": "note"
+			          },
+			          {
+			            "roleformat": "success"
+			          },
+			          {
+			            "roleformat": "info"
+			          }
+			         ], 
+					"info": ""
+				}
+			]	
+		}	
+	]
+}		

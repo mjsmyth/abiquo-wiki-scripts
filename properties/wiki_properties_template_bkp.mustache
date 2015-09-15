@@ -1,0 +1,39 @@
+<table>
+<tbody>
+<tr>
+<th class="warning" data-highlight-class="warning"><p>Property</p></th>
+<th class="warning" data-highlight-class="warning"><p>Default</p></th>
+<th class="warning" data-highlight-class="warning"><p>Range</p></th>
+<th class="warning" data-highlight-class="warning"><p>Description</p></th>
+{{#headingLinks}}
+<th class="warning" colspan="1" data-highlight-class="warning"><ac:link><ri:attachment ri:filename="{{profileExampleFile}}" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="{{profileExampleImage}}" /></ac:image></ac:link-body></ac:link></th>
+{{/headingLinks}}
+<th class="warning" colspan="1" data-highlight-class="warning">Info</th>
+</tr>
+{{#categories}}
+<tr><th class="warning" data-highlight-class="warning"><p><h6>{{categoryName}}</h6></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
+</tr>
+{{#entries}}   
+<tr>
+<td><p> {{propertyName}} </p></td>
+<td><p> {{propertyDefault}} </p></td>
+<td><p> {{propertyRange}} </p></td>
+<td><p> {{propertyDescription}} </p></td> 
+{{#propertyProfiles}}
+<td><p> <ac:link><ri:attachment ri:filename="{{profileExampleFile}}" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="{{profileExampleImage}}" /></ac:image></ac:link-body></ac:link> </p></td>
+{{/propertyProfiles}}
+{{^propertyProfiles}}
+<td><p>
+</p></td>
+{{/propertyProfiles}}
+<td><p>
+</p></td>
+</tr>
+{{/entries}}
+{{/categories}}
+</tbody>
+</table>
