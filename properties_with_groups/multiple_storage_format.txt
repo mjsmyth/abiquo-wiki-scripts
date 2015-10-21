@@ -1,0 +1,181 @@
+            <tr>
+              <td class="highlight note" colspan="1" data-highlight-class="note">
+                <p>
+                  <strong>abiquo.esxi.metrics.(METRIC)</strong>
+                </p>
+                <ul>
+                  <li style="list-style-type: none;background-image: none;">
+                    <ul>
+                      <li>cpu</li>
+                      <li>cpu-mz</li>
+                      <li>cpu-time</li>
+                      <li>memory</li>
+                      <li>memory-swap</li>
+                      <li>memory-swap2</li>
+                      <li>memory-vmmemctl</li>
+                      <li>memory-physical</li>
+                      <li>memory-host</li>
+                      <li>disk-latency</li>
+                      <li>uptime</li>
+                    </ul>
+                  </li>
+                </ul>
+              </td>
+              <td class="highlight note" colspan="1" data-highlight-class="note"> </td>
+              <td class="highlight note" colspan="1" data-highlight-class="note">true, false</td>
+              <td class="highlight note" colspan="1" data-highlight-class="note">To disable an ESXi metric so that Abiquo will not retrieve the metric, set the (METRIC) property to false.</td>
+              <td class="highlight note" colspan="1" data-highlight-class="note">
+                <ac:link>
+                  <ri:attachment ri:filename="properties_api2015-08-11.txt"/>
+                  <ac:link-body>
+                    <ac:image ac:thumbnail="true" ac:width="30">
+                      <ri:attachment ri:filename="v26_symbol_api_transparent.png"/>
+                    </ac:image>
+                  </ac:link-body>
+                </ac:link>
+              </td>
+              <td class="highlight note" colspan="1" data-highlight-class="note"> </td>
+              <td class="highlight note" colspan="1" data-highlight-class="note"> </td>
+              <td class="highlight note" colspan="1" data-highlight-class="note"> </td>
+              <td class="highlight note" colspan="1" data-highlight-class="note"> </td>
+            </tr>
+  
+
+********************
+
+            <tr>
+              <td class="highlight note" colspan="1" data-highlight-class="note">
+                <strong>abiquo.instance.targetDiskFormatType.(PLUGIN)</strong>
+              </td>
+              <td class="highlight note" colspan="1" data-highlight-class="note"> </td>
+              <td class="highlight note" colspan="1" data-highlight-class="note"> </td>
+              <td class="highlight note" colspan="1" data-highlight-class="note">
+                <span>Disk format type for instances taken in virtual datacenters on (PLUGIN). Set to no value to avoid any additional conversion (use the instance operation result format). For disk formats see <ac:link>
+                    <ri:page ri:content-title="Template Compatibility Table"/>
+                  </ac:link> </span>
+              </td>
+              <td class="highlight note" colspan="1" data-highlight-class="note">
+                <ac:link>
+                  <ri:attachment ri:filename="properties_api2015-08-11.txt"/>
+                  <ac:link-body>
+                    <ac:image ac:thumbnail="true" ac:width="30">
+                      <ri:attachment ri:filename="v26_symbol_api_transparent.png"/>
+                    </ac:image>
+                  </ac:link-body>
+                </ac:link>
+              </td>
+              <td class="highlight note" colspan="1" data-highlight-class="note"> </td>
+              <td class="highlight note" colspan="1" data-highlight-class="note"> </td>
+              <td class="highlight note" colspan="1" data-highlight-class="note"> </td>
+              <td class="highlight note" colspan="1" data-highlight-class="note"> </td>
+            </tr>
+            <tr>
+              <td class="highlight note" data-highlight-class="note">
+                <ul>
+                  <li style="list-style-type: none;background-image: none;">
+                    <ul>
+                      <li>hyperv_301</li>
+                    </ul>
+                  </li>
+                </ul>
+              </td>
+              <td class="highlight note" data-highlight-class="note">
+                <p>vhd_sparse
+                </p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+            </tr>
+            <tr>
+              <td class="highlight note" data-highlight-class="note">
+                <ul>
+                  <li style="list-style-type: none;background-image: none;">
+                    <ul>
+                      <li>kvm</li>
+                    </ul>
+                  </li>
+                </ul>
+              </td>
+              <td class="highlight note" data-highlight-class="note">
+                <p>qcow2_sparse
+                </p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+            </tr>
+            <tr>
+              <td class="highlight note" data-highlight-class="note">
+                <ul>
+                  <li style="list-style-type: none;background-image: none;">
+                    <ul>
+                      <li>oracle_vm</li>
+                    </ul>
+                  </li>
+                </ul>
+              </td>
+              <td class="highlight note" data-highlight-class="note">
+                <p>raw</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+            </tr>
+            <tr>
+              <td class="highlight note" data-highlight-class="note">
+                <ul>
+                  <li style="list-style-type: none;background-image: none;">
+                    <ul>
+                      <li>vmx_04</li>
+                    </ul>
+                  </li>
+                </ul>
+              </td>
+              <td class="highlight note" data-highlight-class="note">
+                <p>vmdk_sparse</p>
+              </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+              <td class="highlight note" data-highlight-class="note"> </td>
+            </tr>
+            <tr>
+              <td class="highlight note" colspan="1" data-highlight-class="note">
+                <ul>
+                  <li style="list-style-type: none;background-image: none;">
+                    <ul>
+                      <li>xenserver
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </td>
+              <td class="highlight note" colspan="1" data-highlight-class="note">
+                <p>vhd_sparse</p>
+              </td>
+              <td class="highlight note" colspan="1" data-highlight-class="note"> </td>
+              <td class="highlight note" colspan="1" data-highlight-class="note"> </td>
+              <td class="highlight note" colspan="1" data-highlight-class="note"> </td>
+              <td class="highlight note" colspan="1" data-highlight-class="note"> </td>
+              <td class="highlight note" colspan="1" data-highlight-class="note"> </td>
+              <td class="highlight note" colspan="1" data-highlight-class="note"> </td>
+              <td class="highlight note" colspan="1" data-highlight-class="note"> </td>
+            </tr>
+
+

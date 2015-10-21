@@ -1,0 +1,21 @@
+################################################################################
+#### This is a sample abiquo.properties file for OUTBOUND API            ####
+################################################################################
+
+# # Identity that M should use to perform requests to the Abiquo Server (API)
+#abiquo.m.identity = admin
+
+# # Credentials that M should use to perform requests to the Abiquo Server (API)
+#abiquo.m.credential = xabiquo
+
+# # OAuth consumer key that M should use to perform requests to the Abiquo Server (API)
+# # If these tokens are set, M will use OAuth authentication. Otherwise Basic
+# # Authentication will be used.
+abiquo.m.consumerKey = 
+
+# # OAuth consumer secret that M should use to perform requests to the Abiquo Server (API)
+abiquo.m.consumerSecret = 
+
+# # OAuth access token that M should use to perform requests to the Abiquo Server (API)
+abiquo.m.accessToken = 
+
