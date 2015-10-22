@@ -32,7 +32,7 @@ class prop:
 		prEndings = " ".join(iEndings)
 		iDefaults = [x[1] for x in self.pEndings]
 		prDefaults = " ".join(iDefaults)
-		print "| %s | %s | %s | %s | %s | %s |" % (self.pName,self.pDefault,self.pRange,self.pDescription,prProfiles,self.pType,prEndings,prDefaults)
+		print "| %s | %s | %s | %s | %s | %s | %s | %s |" % (self.pName,self.pDefault,self.pRange,self.pDescription,prProfiles,self.pType,prEndings,prDefaults)
 
 def open_if_not_existing(filename):
 	try:
@@ -60,7 +60,10 @@ def getEnding(propNameSplit):
 
 def getCategory(propNameSplit):
 	prop_cat = propNameSplit
-	property_cat = propNameSplit[1] 
+	try: 
+		property_cat = propNameSplit[1]
+	except IndexError, e:
+		property_cat = ""	 
 	if prop_cat[0] == "workflow":
 		property_cat = "workflow"
 	if prop_cat[0] == "com":
@@ -102,6 +105,7 @@ def wikiProperty(rawProp,profiles,filedetails):
 	property_entry['propertyRange'] = rawProp.pRange
 	property_entry['propertyDescription'] = rawProp.pDescription
 	property_entry['propertyProfiles'] = []
+	
 	for prix, profile in profiles.items():
 		property_profile_item = {}
 		property_profile_item['profile'] = {}
@@ -109,8 +113,43 @@ def wikiProperty(rawProp,profiles,filedetails):
 			property_profile_item['profile']['profileExampleFile'] = filedetails.fprefix + profile.lower() + filedetails.fdate + filedetails.fsuffix
 			property_profile_item['profile']['profileExampleImage'] = filedetails.iprefix + profile.lower() + filedetails.isuffix	
 		property_entry['propertyProfiles'].append(property_profile_item.copy())	
-	return property_entry
 
+	property_entry['propertyNameGroup'] = {}
+	property_entry['propertyDefaultGroup'] = {}
+
+	if rawProp.pEndings:
+		property_pre_entry = {}
+		property_pre_entry_default = {}
+
+		property_pre_entry['propertyGroups'] = []
+		property_pre_entry_default['propertyGroupDefaults'] = []
+
+		property_multiple_item = {}
+		property_multiple_item_default = {}
+
+		property_multiple_item['propertyGroup'] = {}
+		property_multiple_item_default['propertyGroupDefault'] = {}
+		for x in rawProp.pEndings:
+			try:
+				print "x0: %s" % x[0]
+				property_multiple_item['propertyGroup']['propertyGroupItem'] = x[0]
+				property_pre_entry['propertyGroups'].append(property_multiple_item.copy())
+			except:
+				print "gah"
+				property_multiple_item['propertyGroup']['propertyGroupItem'] = ""
+				property_pre_entry['propertyGroups'].append(property_multiple_item.copy())
+			try:			
+				print "v: %s" % x[1]	
+				property_multiple_item_default['propertyGroupDefault']['propertyGroupItemDefault'] = x[1]
+				property_pre_entry_default['propertyGroupDefaults'].append(property_multiple_item_default.copy())
+			except:
+				print "gagh"
+				property_multiple_item_default['propertyGroupDefault']['propertyGroupItemDefault'] = ""
+				property_pre_entry_default['propertyGroupDefaults'].append(property_multiple_item_default.copy())
+
+			property_entry['propertyNameGroup'] = property_pre_entry.copy()			
+			property_entry['propertyDefaultGroup'] = property_pre_entry_default.copy()
+	return property_entry
 
 def wikiCategories(storage_dict):
 	catkeydict = {}
@@ -151,7 +190,7 @@ def getSampleMessage(profile,version):
 	return sampleMessage
 
 
-def storeProperties(content,property_regex_comment,property_regex_no_comment,property_regex_multiple,range_regex,profiles,fdetails,sample_files):
+def storeProperties(content,property_regex_comment,property_regex_no_comment,range_regex,profiles,fdetails,sample_files):
 	wiki_property_dict = {}
 	property_profiles = []
 	property_description_list = []
@@ -169,6 +208,7 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,pro
 		# a blank line may mark the end of a property
 		if re.match("\n", property_line):
 			if property_name:
+				print "property_name: %s " % property_name
 				# This was previously if property_name, but was changed for multiple properties		
 				# create a sample_files dictionary organised by profile names
 				# sample file is similar to the main input file but it only contains properties of one profile
@@ -196,16 +236,20 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,pro
 					if property_range_search:
 						property_range = property_range_search.group(2) 
 						property_description = re.sub(property_range_search.group(0),"",property_description)
+
 					# check for "for each XXXX (YY)", create a group property name with (YY) on the end
-					property_multiple_search = property_regex_multiple.search(property_description)
+					property_multiple_search = re.search('for each.*?\(([^)]+)\)',property_description)
 					if property_multiple_search:
-						property_multiple = property_multiple_search.group(4)
+						property_multiple = property_multiple_search.group(1)
+						print "property_multiple: %s" % property_multiple
 						pname_work = property_name.split(".")
+						pname_work = pname_work[:-1]
 						pname_work.append(property_multiple)
 						property_name = ".".join(pname_work)
+						print "multiple_name: %s" % property_name
 						
 					aproperty = prop(property_name,property_profiles,property_type,property_description,property_default,property_range,property_ending_list)
-		#			aproperty.pprint()
+#					aproperty.pprint()
 					property_wiki = wikiProperty(aproperty,profiles,fdetails)		
 					wiki_property_dict[property_name] = property_wiki.copy()
 
@@ -253,16 +297,17 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,pro
 						property_name_list.append(property_name)
 						# for the group, store a list of all the endings and their defaults
 						prope_split = property_name.split(".")
-						property_ending_list.append((getEnding(prope_split),property_default))	
+						property_ending_list.append((getEnding(prope_split),property_default))
 
 					# the third group is the property name
 					property_name = property_match.group(3)
 					# Check that it matches the previous group names
 					proper_split = property_name.split(".")
-					property_split = ".".join(proper_split[:-2])
+					property_split = ".".join(proper_split[:-1])
+					print "property_split: %s" % property_split
 					if property_name_list:	
 						if not re.match(property_split,property_name_list[-1]):
-							print ("oops")
+							print "oops"
 					# the sixth group, if it exists, is the property default value
 					if property_match.group(6):
 						property_default = property_match.group(6).strip()
@@ -271,7 +316,7 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,pro
 						property_default = ""
 				else:	
 					#	add property description to a list
-						property_description_list.append(property_line[property_count:].strip()) 
+						property_description_list.append(property_line[property_count:].strip()) 	
 		else:	
 #			mandatory property name and optional default value, commented out - note may have space after comment
 			property_match = property_regex_no_comment.match(property_line)
@@ -286,13 +331,17 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,pro
 					property_name_list.append(property_name)
 					# for the group, store a list of all the endings and their defaults
 					prop_split = property_name.split(".")
-					property_ending_list.append((getEnding(prop_split),property_default))	
+					property_end = getEnding(prop_split)
+					prop_End_Def = (property_end,property_default)
+					print "damn ending: %s " % property_end
+					print "damn default: %s " % property_default
+					property_ending_list.append(prop_End_Def)
 			# Then process the current line		
 				# the first group is the property name
 				property_name = property_match.group(1)
 				# Check that it matches the previous group names
 				proper_split = property_name.split(".")
-				property_split = ".".join(proper_split[:-2])
+				property_split = ".".join(proper_split[:-1])
 				if property_name_list:
 					if not re.match(property_split,property_name_list[-1]):
 						print ("oops")
@@ -339,7 +388,7 @@ def main():
 	fdetails = filedetails(filePrefix,fileSuffix,td,imagePrefix,imageSuffix)
 
 	property_description_list = []
-	property_regex_multiple = re.compile('(.*?)("for each")([\w]+?)("\(\w+?\)")',re.S)
+#	property_regex_multiple = re.compile('for each',re.S)
 	property_regex_comment = re.compile('([#]{1,1})([\s]*)([\w.]+?)([\s]*)([=]{1,1})(.*)',re.S)
 
 	property_regex_no_comment = re.compile('([\w.]+?)([\s]*)([=]{1,1})(.*)',re.S)
@@ -358,7 +407,7 @@ def main():
 	with codecs.open(propertyFile, 'r', 'utf-8') as f:
 		content = f.readlines()
 	# Prepare the properties for wiki output and sample files	
-	(storage_dict,sample_files) = storeProperties(content,property_regex_comment,property_regex_no_comment,property_regex_multiple,range_regex,profiles,fdetails,sample_files)
+	(storage_dict,sample_files) = storeProperties(content,property_regex_comment,property_regex_no_comment,range_regex,profiles,fdetails,sample_files)
 
 	# Reorganise the storage dict by categories for the wiki
 	categories = wikiCategories(storage_dict)
@@ -394,7 +443,7 @@ def main():
 	#tfilepath = os.path.join(adminSubdir,template)
 	
 	# Render the wiki file with mustache
-	mustacheTemplate = codecs.open("wiki_properties_template.mustache", 'r', 'utf-8').read()
+	mustacheTemplate = codecs.open("wiki_properties_template_multiples.mustache", 'r', 'utf-8').read()
 	efo = pystache.render(mustacheTemplate, wiki_output).encode('utf8', 'xmlcharrefreplace')
 	pof = "properties_out_" + td + ".txt"
 	ef = open_if_not_existing(pof)

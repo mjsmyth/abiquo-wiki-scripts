@@ -1,0 +1,4078 @@
+{
+  "categories": [
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Timestep for the email provider. This value is the amount of time # the two factor authentication codes will be valid once generated. # (seconds) Default value is 60",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.2fa.email.timestep",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "60"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Name of the issuer of the two factor verification codes. This will # appear in the user's Google Authenticator app to identify where the # generated code comes from",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.2fa.issuer",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "Abiquo"
+        }
+      ],
+      "categoryName": "2fa"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Number of virtual infrastructure check executions that a locked virtual # machine with a pending task can pass before it will be marked as failed",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.abiquo.task.ttl",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": ""
+        }
+      ],
+      "categoryName": "abiquo"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": " 2-10",
+          "propertyDescription": "# Specifies the number of consecutive health probe successes required before # moving the instance to the Healthy state. # ",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.amazon.loadbalancer.healthcheck.healthythreshold",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "3"
+        }
+      ],
+      "categoryName": "amazon"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Lapse of time in seconds where abiquo.api.login.maxtries apply",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.api.login.failurelapse",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "60"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Max login failures in a given a lapse (abiquo.api.login.failurelapse)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.api.login.maxtries",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "3"
+        },
+        {
+          "propertyRange": " -1, >0",
+          "propertyDescription": "# Maximum number of sessions per user in the API. The default value of -1 means # there is no limit and a value of 0 is invalid. ",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.api.max.sessions",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "-1"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# If false (or any other value), allow only one NIC per VLAN on a # VirtualMachine",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.api.networking.allowMultipleNicsVlan",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "True"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Limit of NICs per Virtual Machine. If this is set to 0, there are no limits",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.api.networking.nicspervm",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "0"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Abiquo session cookie name. This session does not store anything.",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.api.session.cookie.name",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "ABQSESSIONID"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Location where ZooKeeper is listening in format <IP address>:<port> for # example, 10.10.10.10:2181",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.api.zk.serverConnection",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": ""
+        }
+      ],
+      "categoryName": "api"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Datacenter NFS repository refresh interval (milliseconds)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.appliancemanager.check.repository",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "600000"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Perform the repository check against /etc/mtab. Set to false for local NFS # Server installations in testing environment: Monolithic, Cloud in a Box, # NFS on V2V Server or NFS on Remote Services",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.appliancemanager.checkMountedRepository",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "true"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Timeout for HTTP connections to the ApplianceManager Server when using the # ApplianceManager Client, this property configures read and connection timeout # (milliseconds)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.appliancemanager.client.timeoutInMilliseconds",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "60000"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Timeout for HTTP connections to be established when downloading a virtual # machine template (milliseconds)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.appliancemanager.deploy.connection",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "120000"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Timeout for idle HTTP connections when downloading a virtual machine template # (milliseconds)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.appliancemanager.deploy.idle",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "600000"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Timeout for HTTP connections when downloading a virtual machine template # (milliseconds)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.appliancemanager.deploy.totalTimeout",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "86400000"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Frequency of download progress notification (milliseconds)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.appliancemanager.downloadingPublishInterval",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "1500"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Maximum number of concurrent template downloads. The default value of -1 # means unlimited",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.appliancemanager.downloads",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "-1"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Maximum time for the appliance manager to perform a complete rescan of the # repository filesystem # (milliseconds)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.appliancemanager.fstimeoutms",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "7000"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Folder where the abiquo.appliancemanager.repositoryLocation is mounted on # the remote services node",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.appliancemanager.localRepositoryPath",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "/opt/vm_repository"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Path names prefixes to be ignored in the repository refresh #(Comma separate value)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.appliancemanager.repository.ignoredPathPrefix",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": ""
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Path names suffixes to be ignored in the repository refresh #(java Regular Expression format)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.appliancemanager.repository.ignoredPathRegex",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": ""
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Path names suffixes to be ignored in the repository refresh #(Comma separate value)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.appliancemanager.repository.ignoredPathSuffix",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": ""
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Local Appliance Library, NFS repository location denoted by # nfs-server-address:exportpath",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.appliancemanager.repositoryLocation",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "<IP-repoLoc>:/opt/vm_repository"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Refresh virtual machine template upload progress (milliseconds)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.appliancemanager.upload.progressInterval",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "5000"
+        }
+      ],
+      "categoryName": "appliancemanager"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": " abiquo, ldap",
+          "propertyDescription": "# Whether Abiquo will authenticate only via database or it will also # authenticate against LDAP/Active Directory. ",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.auth.module",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "abiquo"
+        }
+      ],
+      "categoryName": "auth"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# reCAPTCHA private key for user password reset. Obtain keys from Google",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.captcha.private.key",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": ""
+        }
+      ],
+      "categoryName": "captcha"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Identify the AMQP datacenter queues. The Datacenter ID is used for building # routing keys and queue names, so that they are unique for each datacenter. # Warning: Do not change this property! This property is required and the # value is generated at installation. You can recover the property's value # through the API with Get Datacenter",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.datacenter.id",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_v2v2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_v2v_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "Abiquo"
+        }
+      ],
+      "categoryName": "datacenter"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# The URL of the Docker Registry that Abiquo will use to pull images. # For example: http://localhost:5000",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.docker.registry",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": ""
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Comma separated list of tag patterns allowed. Existing tags in the # Docker registry will be matched against these patterns and Abiquo will # only show the ones that match. The format of the pattern is defined # by the Java pattern: http://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html # Example: ^fixedtag$,^tagswithprefix",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.docker.registry.tags",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": ""
+        }
+      ],
+      "categoryName": "docker"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Enable DVS. Note that the vCenter login and password can be used when DVS # is disabled",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.dvs.enabled",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "false"
+        },
+        {
+          "propertyRange": " loadbalance_ip, loadbalance_srcid",
+          "propertyDescription": "# Network adapter teaming policy in DVS port groups. This property controls # the algorithm used for network adapter load balancing when multiple NICs # are used in 'teaming mode'. ",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.dvs.portgroup.loadsharingmechanism",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "loadbalance_ip"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Number of available ports in each port group",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.dvs.portgroup.maxsize",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "48"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Password of the vCenter user account. The underscore character \"_\" is not # allowed in this field. Create a user with the same password in the vCenter # in order to use the DVS or vCenter with Abiquo. In vSphere 5.1, you must # create this account in an Active Directory domain or using a VMware Single # Sign-on system, NOT as a local Windows account on the vCenter. If # 'abiquo.dvs.enabled' is set to true, this property is required. The DVS # vCenter user and password properties are also used for connecting to # vCenter even if DVS is not used, for example, when deleting orphans. So the # user and password properties can be used even when abiquo.dvs.enabled is # set to 'false'. Set these parameters if vCenter is used, even if DVS is not # used",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.dvs.vcenter.password",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "change-me"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Username of the vCenter user account. Create a user account with the same # password in the vCenter in order to use the DVS or vCenter with Abiquo. In # vSphere 5.1, you must create this account in an Active Directory domain or # using a VMware Single Sign-on system, NOT as a local Windows account on the # vCenter. If 'abiquo.dvs.enabled' is set to true, the property is required. # The DVS vCenter user and password properties are also used for connecting # to vCenter even if DVS is not used, for example, when deleting orphans. So # the user and password properties can be used even when abiquo.dvs.enabled # is set to 'false'. Set these parameters if vCenter is used, even if DVS is # not used",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.dvs.vcenter.user",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "change-me"
+        }
+      ],
+      "categoryName": "dvs and vcenter"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# When using volumes, a VMFS datastore is required (Raw Device Mapping), if # the provided target datastore is not VMFS, then try to use the configured # datastore",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.esxi.datastoreRdm",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": ""
+        },
+        {
+          "propertyRange": " true, false abiquo.esxi.metrics.cpu-mz=true abiquo.esxi.metrics.cpu-time=true biquo.esxi.metrics.memory-swap=true biquo.esxi.metrics.memory-swap2=true biquo.esxi.metrics.memory-vmmemctl=true biquo.esxi.metrics.memory-physical=true biquo.esxi.metrics.memory-host=true biquo.esxi.metrics.disk-latency=true",
+          "propertyDescription": "# To prevent Abiquo from retrieving metrics, set the property to false # for each ESXi metric (METRIC). ",
+          "propertyDefaultGroup": {
+            "propertyGroupDefaults": [
+              {
+                "propertyGroupDefault": {
+                  "propertyGroupItemDefault": "true"
+                }
+              },
+              {
+                "propertyGroupDefault": {
+                  "propertyGroupItemDefault": "true"
+                }
+              }
+            ]
+          },
+          "propertyName": "abiquo.esxi.metrics.METRIC",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {
+            "propertyGroups": [
+              {
+                "propertyGroup": {
+                  "propertyGroupItem": "memory"
+                }
+              },
+              {
+                "propertyGroup": {
+                  "propertyGroupItem": "memory"
+                }
+              }
+            ]
+          },
+          "propertyDefault": "true"
+        }
+      ],
+      "categoryName": "esxi"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Delay between checks of all machines with state HA_IN_PROGRESS to determine # if HA tasks on all VMs are complete, and if so, then set machine state to # DISABLED_BY_HA (milliseconds) (Default value is 5 minutes)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.ha.check.delay",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "300000"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Number of failed infratructure checks on a machine before High Availability # is triggered and the machine is set to state HA_IN_PROGRESS",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.ha.infcheck.cycles",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "2"
+        }
+      ],
+      "categoryName": "ha"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Automatically start Abiquo heartbeat",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.heartbeat.autostart",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "true"
+        }
+      ],
+      "categoryName": "heartbeat"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# IP Address of HTTP proxy for Appliance Manager/API to Internet # communication (download template definition list, template definition, VM # disk file)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.httpProxy.host",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": ""
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Password of HTTP proxy for Appliance Manager/API to Internet communication # (download template definition list, template definition, VM disk file)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.httpProxy.password",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": ""
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Port of HTTP proxy for Appliance Manager/API to Internet communication # (download template definition list, template definition, VM disk file)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.httpProxy.port",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": ""
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# User of HTTP proxy for Appliance Manager/API to Internet communication # (download template definition list, template definition, VM disk file)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.httpProxy.user",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": ""
+        }
+      ],
+      "categoryName": "httpProxy"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Disk format type for instances taken in virtual datacenters for each # hypervisor plugin (HV) # Set to empty to avoid any additional conversion (use the instance operation result format)",
+          "propertyDefaultGroup": {
+            "propertyGroupDefaults": [
+              {
+                "propertyGroupDefault": {
+                  "propertyGroupItemDefault": "raw"
+                }
+              },
+              {
+                "propertyGroupDefault": {
+                  "propertyGroupItemDefault": "raw"
+                }
+              },
+              {
+                "propertyGroupDefault": {
+                  "propertyGroupItemDefault": "raw"
+                }
+              },
+              {
+                "propertyGroupDefault": {
+                  "propertyGroupItemDefault": "raw"
+                }
+              }
+            ]
+          },
+          "propertyName": "abiquo.instance.targetDiskFormatType.HV",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {
+            "propertyGroups": [
+              {
+                "propertyGroup": {
+                  "propertyGroupItem": "oracle_vm"
+                }
+              },
+              {
+                "propertyGroup": {
+                  "propertyGroupItem": "oracle_vm"
+                }
+              },
+              {
+                "propertyGroup": {
+                  "propertyGroupItem": "oracle_vm"
+                }
+              },
+              {
+                "propertyGroup": {
+                  "propertyGroupItem": "oracle_vm"
+                }
+              }
+            ]
+          },
+          "propertyDefault": "vhd_sparse"
+        }
+      ],
+      "categoryName": "instance"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Address where KairosDb is located for VM monitoring",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.kairosdb.host",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "127.0.0.1"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Port where KairosDb is listening for VM monitoring",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.kairosdb.port",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "8080"
+        }
+      ],
+      "categoryName": "kairosdb"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# The attribute in LDAP/Active Directory to look up the Enterprise Name which # must be an Enterprise in Abiquo.",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.ldap.authentication.attribute.enterprise",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "organizationname"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Whether Abiquo must create a user in Abiquo based on a successful login to # LDAP",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.ldap.authentication.autoUserCreation",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "true"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Abiquo will perform an additional custom query against the specified schema # in the LDAP/Active Directory. This value is required. The default value # does not result in an additional query",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.ldap.authentication.custom.userDnPattern",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "cn={0},CN=Users"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Base Distinguished Name of the LDAP/Active Directory",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.ldap.authentication.server.baseDN",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "DC=127.0.0.1,DC=local"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# LDAP/Active Directory port. In LDAP mode this property is required, even if # the server is listening at the default LDAP/Active Directory port",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.ldap.authentication.server.port",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "389"
+        },
+        {
+          "propertyRange": " # ldap, ldaps",
+          "propertyDescription": "# Protocol to be used when authenticating to a LDAP/Active Directory. ",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.ldap.authentication.server.protocol",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "ldap"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# LDAP/Active Directory server URL",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.ldap.authentication.server.url",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "127.0.0.1"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Timeout to establish the connections to the LDAP/Active Directory server # (milliseconds) Default value is 5000",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.ldap.connection.timeout",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "5000"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Timeout to complete the connections to the LDAP/Active Directory server # (milliseconds) Default value is 10000",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.ldap.read.timeout",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "10000"
+        }
+      ],
+      "categoryName": "ldap"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# OAuth access token that M should use to perform requests to the Abiquo Server (API)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.m.accessToken",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_oa2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_oa_transparent.png"
+              }
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": ""
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# OAuth consumer key that M should use to perform requests to the Abiquo Server (API) # If these tokens are set, M will use OAuth authentication. Otherwise Basic # Authentication will be used.",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.m.consumerKey",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_oa2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_oa_transparent.png"
+              }
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": ""
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# OAuth consumer secret that M should use to perform requests to the Abiquo Server (API)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.m.consumerSecret",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_oa2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_oa_transparent.png"
+              }
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": ""
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Credentials that M should use to perform requests to the Abiquo Server (API)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.m.credential",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_oa2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_oa_transparent.png"
+              }
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "xabiquo"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Identity that M should use to perform requests to the Abiquo Server (API)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.m.identity",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_oa2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_oa_transparent.png"
+              }
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "admin"
+        }
+      ],
+      "categoryName": "m"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Path to email template and text .properties files for user password reset",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.mail.path",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "/opt/abiquo/config/mail"
+        }
+      ],
+      "categoryName": "mail"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Time between executions of infrastructure check (minutes)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.nodecollector.infcheck",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "5"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Infrastructure check concurrent machine checks # This number should be tied to the number of cores # of the machine running discovery manager service",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.nodecollector.infcheck.threads",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "5"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Infrastructure check timeout in seconds",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.nodecollector.infcheck.timeout",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "300"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Timeout for Server/API connections to Nodecollector (Discovery manager) # (milliseconds)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.nodecollector.timeout",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "180000"
+        }
+      ],
+      "categoryName": "nodecollector"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": " true, false",
+          "propertyDescription": "# Enable automatic Floating IP allocation. This property configures how # public IP addresses are assigned to the virtual machines deployed in # OpenStack clouds. If the virtual machines are not directly attached to a # public network, enabling this property will automatically allocate a # floating IP for the virtual machines. If virtual machines are deployed and # attached directly to a public network, then this property should be set to # false. ",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.openstack.autoAllocateFloatingIps",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "true"
+        },
+        {
+          "propertyRange": " true, false",
+          "propertyDescription": "# Enable automatic generation of key pairs. This enables the automatic # generation of key pairs, to make sure that the owner of the virtual machine # will have SSH access to the virtual machines that are deployed. # ",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.openstack.autoGenerateKeyPairs",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "true"
+        },
+        {
+          "propertyRange": " passwordCredentials, apiAccessKeyCredentials",
+          "propertyDescription": "# Configures the authentication type. In OpenStack installations, the standard # method of authentication is using a password. However, if the RAX_KSKEY extension # (see http://docs.openstack.org/api/openstack-identity-service/2.0/content/Admin_API_Service_Developer_Operations-RAX-KSKEY-admin.html) # is installed, users might be able to use an API key to authenticate. # ",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.openstack.credentialType",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "passwordCredentials"
+        }
+      ],
+      "categoryName": "openstack"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Milliseconds to wait before retry a PCR synchronize in the same enterprise and PCR",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.pcrsync.retrydelayms",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "15000"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Number of concurrent PCR synchronize ops at a given time (not in the same enterprise and PCR)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.pcrsyncpool",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "3"
+        }
+      ],
+      "categoryName": "pcrsync"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Timeout for establishing a connection to RabbitMQ. The default value of 0 # means to wait indefinitely until connection established or error # (milliseconds)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.rabbitmq.connectionTimeout",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_v2v2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_v2v_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "0"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Address where RabbitMQ is located",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.rabbitmq.host",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_v2v2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_v2v_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "127.0.0.1"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# RabbitMQ password",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.rabbitmq.password",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_v2v2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_v2v_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "guest"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Port where RabbitMQ is located",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.rabbitmq.port",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_v2v2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_v2v_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "5672"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# The initially requested heartbeat interval, in seconds. The default value # of 0 means no heartbeat",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.rabbitmq.requestedHeartbeat",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_v2v2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_v2v_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "0"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# RabbitMQ username",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.rabbitmq.username",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_v2v2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_v2v_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "guest"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Virtual host where RabbitMQ runs",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.rabbitmq.virtualHost",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_v2v2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_v2v_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "/"
+        }
+      ],
+      "categoryName": "rabbitmq"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Address where Redis is located. By default Redis is installed on the Abiquo # Server in addition to the Remote Services machine. In a monolithic install, # the Redis host and port properties should point to the monolithic server. # When configuring API load balancing, only the Abiquo Server Redis property # should point to the central datanode",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.redis.host",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "127.0.0.1"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Port where Redis is located. By default Redis is installed on the Abiquo # Server in addition to the Remote Services machine. In a monolithic install, # the Redis host and port properties should point to the monolithic # server. When configuring API load balancing, only the Abiquo Server Redis # property should point to the central datanode",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.redis.port",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "6379"
+        }
+      ],
+      "categoryName": "redis"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Time to wait for checking if the .abiquo_repository file mark is present in # the NFS repository filesystem (helps in finding a slow NFS repository) # (seconds)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.repository.timeoutSeconds",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "10"
+        }
+      ],
+      "categoryName": "repository"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": " true, false",
+          "propertyDescription": "# This property must have the same value on all API and remote services servers. # If true, Abiquo will read the custom seed file at /etc/abiquo/.store # If you create the seed file, but the property is not true, Abiquo will use # the default seed. Abiquo requires access to the configured seed file to work # with passwords. If it is lost, you will need to regenerate ALL passwords # stored in Abiquo. ",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.security.encrypt",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_v2v2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_v2v_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "false"
+        }
+      ],
+      "categoryName": "security"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Address where the API is running. For example: http://80.169.25.32/api/. # Required for Remote Services (for Appliance manager, the address must be # reachable by cloud users). Recommended for Abiquo API Server (for Chef, the # address must be reachable from deployed VMs)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.server.api.location",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "http://127.0.0.1/api"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# If not supplied, it is set to false. When false, no action is taken if # multiple users are logged in with the same user account. The user who # logged in most recently will have true control of the session and actions # by other users may cause problems. When true, the most recent user has # control of the session and other users are warned and logged out",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.server.blockduplicatedsessions",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "false"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Password for connecting to the mail server",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.server.mail.password",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "none"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Address where the mail server is located",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.server.mail.server",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "127.0.0.1"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# System user with privileges for connecting to the mail server",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.server.mail.user",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "none@none.es"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Default remote repository space (OVF package sources) attached to # all appliance libraries",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.server.remoteSpace.default",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "http://abiquo-repository.abiquo.com/ovfindex.xml"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Time the server waits before marking a client session as expired (minutes)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.server.sessionTimeout",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "30"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Time the server waits for long requests (milliseconds) (Default value is 7 # days)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.server.timeout",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "600000000"
+        }
+      ],
+      "categoryName": "server"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Delay between executions of stale sessions check (milliseconds)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.stale.sessions.check.delay",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "300000"
+        }
+      ],
+      "categoryName": "stale sessions"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Delay between checks of the storage infrastructure (milliseconds)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.storage.check.delay",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "900000"
+        }
+      ],
+      "categoryName": "storage"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": " 0 - 1",
+          "propertyDescription": "# Recommended free space on NetApp aggregates. ",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.storagemanager.netapp.aggrfreespaceratio",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "0.05"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Records requests to ONTAP and responses in the Abiquo logs",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.storagemanager.netapp.debug",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "false"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Optional initial initiator group will be created",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.storagemanager.netapp.initiatorGroupName",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "abiGroup"
+        },
+        {
+          "propertyRange": " 1.3 - 1.9",
+          "propertyDescription": "# Optional ratio to allow a LUN of a provided size to fill on its container # volume (volSize = lunSize * volumelunratio). ",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.storagemanager.netapp.volumelunration",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "1.3"
+        },
+        {
+          "propertyRange": " 8, 16, 32, 64, 128",
+          "propertyDescription": "# Specifies the block size in KB for the volumes created in Nexenta storage # devices. Abiquo does not validate this property. Abiquo supports values # from 8 to 128 KB inclusive but Nexenta requires the value to be a power of 2 # ",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.storagemanager.nexenta.blocksize",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "8"
+        }
+      ],
+      "categoryName": "storagemanager"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Maximum length of task history in Redis for API/Server by owner",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.tasks.history.size",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "20"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Delay between executions of the trimmer of task history in Redis for # API/Server (milliseconds)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.tasks.trimmer.delay",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "86400000"
+        }
+      ],
+      "categoryName": "tasks"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Port for connection to vCenter",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.vcenter.port.connection",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "443"
+        }
+      ],
+      "categoryName": "vcenter"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Delay between executions of the virtual infrastructure check (milliseconds)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.vi.check.delay",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "900000"
+        }
+      ],
+      "categoryName": "virtual infrastructure"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Default password for virtual machines if not found in the template",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.virtualfactory.azure.defaultLoginPassword",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "abqazure0!"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Default login for virtual machines if not found in the template",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.virtualfactory.azure.defaultLoginUser",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "abiquo"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Time to wait between polls during a retry",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.virtualfactory.azure.retry.timeBetweenTriesInSeconds",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "30"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Timeout retrying an operation",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.virtualfactory.azure.retry.timeoutInSeconds",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "900"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Prefix of the name of the Azure Storage account created for deployments (one # account per region)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.virtualfactory.azure.storageAccountPrefix",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "abiquostorage"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Time to wait between polls during an operation wait",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.virtualfactory.azure.wait.timeBetweenTriesInSeconds",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "30"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Timeout waiting for an operation to complete, e.g deploy / undeploy",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.virtualfactory.azure.wait.timeoutInSeconds",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "900"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# The CIFS address //IP/resource/ where Windows can locate the virtual disk # repository",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.virtualfactory.hyperv.repositoryLocation",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "//<IP-repoLoc>/vm_repository"
+        },
+        {
+          "propertyRange": " true, false",
+          "propertyDescription": "# If set to false, libvirt machines will be created in KVM using PC emulation # (software emulation, slower). Emulation only works with x86 64-bit based # hosts, including virtual machines. ",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.virtualfactory.kvm.fullVirt",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "true"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Prefix to name used to identify the VLAN bridge in the KVM, XEN, VBOX # hypevisor nodes",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.virtualfactory.networking.bridgePrefix",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "abiquo"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Maximum number of simultaneous operations on a single hypervisor",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.virtualfactory.openSession",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "2"
+        },
+        {
+          "propertyRange": " true, false",
+          "propertyDescription": "# Create additional hard disks on the datastore as sparse. The default value # is ‘true’. ",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.virtualfactory.oraclevm.createSparseDisks",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "true"
+        },
+        {
+          "propertyRange": " HVM, PVM, PVHVM",
+          "propertyDescription": "# Create all Oracle VMs with this domain type. Options are (Hardware # Virtualized [HVM], Paravirtualized [PVM], Hardware Virtualized with # Paravirtualized drivers [PVHVM]). # ",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.virtualfactory.oraclevm.defaultVMDomain",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "HVM"
+        },
+        {
+          "propertyRange": " true, false",
+          "propertyDescription": "# This setting controls whether VMs created by Abiquo are configured within # Oracle VM for ‘High Availability’.   The default value is ‘false’ (no HA # support).   If set to ‘true’, then Abiquo will deploy a VM for HA if the # Oracle VM Server hosting the VM is part of a Clustered Server Pool. # Note that when a VM is re-configured, Abiquo will NOT update the HA status # of the VM. # Please note that some manual configuration of Oracle VM may be required for # HA to be performed successfully - please review Oracle VM details in the # Abiquo wiki for more details. ",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.virtualfactory.oraclevm.ha",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "false"
+        },
+        {
+          "propertyRange": " true, false",
+          "propertyDescription": "# Enable Oracle VM Hard Partitioning support (CPU pinning). The default value # is ‘false’. ",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.virtualfactory.oraclevm.hardPartitioning",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "false"
+        },
+        {
+          "propertyRange": " 1 - 64",
+          "propertyDescription": "# Expected ratio of virtual CPUs to Physical CPU cores (integer). For best # performance, set to 1. To reduce physical CPUs per VM and thus licensing # costs, set to a higher value. For example, A value of 1 means a 4xCPU VM # will be pinned to 4 physical CPUs whereas a value of 4 means a 4xCPU VM # will be pinned to one physical CPU. ",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.virtualfactory.oraclevm.hardPartitioningCPURatio",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "1"
+        },
+        {
+          "propertyRange": " 100 - 60000",
+          "propertyDescription": "# Polling period for the job status check to monitor the status of # asynchronous hypervisor jobs (milliseconds). Defaults to 1 second, with a # valid range of 0.1 second to 1 minute. ",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.virtualfactory.oraclevm.jobStatusCheckDelayMs",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "1000"
+        },
+        {
+          "propertyRange": " 60000 - 604800000",
+          "propertyDescription": "# The maximum length of time the Oracle VM Hypervisor Plugin will wait for # an individual API-based job to complete (milliseconds). The default is # 8 hours, but the valid range is 1 minute to 1 week. # ",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.virtualfactory.oraclevm.jobTimeoutMs",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "28800000"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# NFS Repository location denoted by nfs-server-address:exportpath used by # Oracle VM.   Defaults to the value of # ‘abiquo.appliancemanager.repositoryLocation’ if not explicitly specified # in the abiquo.properties file.",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.virtualfactory.oraclevm.repositoryLocation",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": ""
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# The Storage Area network datastore location where the virtual disks are # stored (usually the same as abiquo.appliancemanager.repositoryLocation)",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.virtualfactory.xenserver.repositoryLocation",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "<IP-repoLoc>:/opt/vm_repository"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Time to wait to establish the connection to ESX (milliseconds)",
+          "propertyDefaultGroup": {},
+          "propertyName": "com.abiquo.virtualfactory.esxi.timeoutConnectionMs",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "10000"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Time to wait to read from the connection to ESX (milliseconds)",
+          "propertyDefaultGroup": {},
+          "propertyName": "com.abiquo.virtualfactory.esxi.timeoutReadMs",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "30000"
+        }
+      ],
+      "categoryName": "virtualfactory"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Last port of the VNC range to be used when allocating virtual machines. # Note that VMware only recommends ports 5900 to 5964",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.vncport.max",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "65534"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# First port of the VNC range to be used when allocating virtual machines",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.vncport.min",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "5900"
+        }
+      ],
+      "categoryName": "vncport"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# The delay in milliseconds added between the creation of actors on # VSM start up for each hypervisor plugin (HV)",
+          "propertyDefaultGroup": {
+            "propertyGroupDefaults": [
+              {
+                "propertyGroupDefault": {
+                  "propertyGroupItemDefault": "0"
+                }
+              },
+              {
+                "propertyGroupDefault": {
+                  "propertyGroupItemDefault": "0"
+                }
+              },
+              {
+                "propertyGroupDefault": {
+                  "propertyGroupItemDefault": "0"
+                }
+              },
+              {
+                "propertyGroupDefault": {
+                  "propertyGroupItemDefault": "0"
+                }
+              }
+            ]
+          },
+          "propertyName": "abiquo.vsm.actor.creation.delay.HV",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {
+            "propertyGroups": [
+              {
+                "propertyGroup": {
+                  "propertyGroupItem": "oracle_vm"
+                }
+              },
+              {
+                "propertyGroup": {
+                  "propertyGroupItem": "oracle_vm"
+                }
+              },
+              {
+                "propertyGroup": {
+                  "propertyGroupItem": "oracle_vm"
+                }
+              },
+              {
+                "propertyGroup": {
+                  "propertyGroupItem": "oracle_vm"
+                }
+              }
+            ]
+          },
+          "propertyDefault": "0"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# The delay in milliseconds added between the creation of actors on # VSM start up for each public cloud plugin (PC)",
+          "propertyDefaultGroup": {
+            "propertyGroupDefaults": [
+              {
+                "propertyGroupDefault": {
+                  "propertyGroupItemDefault": "0"
+                }
+              }
+            ]
+          },
+          "propertyName": "abiquo.vsm.actor.creation.delay.PC",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {
+            "propertyGroups": [
+              {
+                "propertyGroup": {
+                  "propertyGroupItem": "amazon"
+                }
+              }
+            ]
+          },
+          "propertyDefault": "0"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Enable or disable backoff",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.vsm.backoff.enabled",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "false"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Maximum backoff time in seconds between connection errors to reduce load and # logging of these errors. A counter has been added to register the number of # failed attempts to connect to the hypervisor or public cloud to perform any # type of operation. When rescheduling operations, Abiquo will multiply the # maximum backoff time by the number of failed connection attempts to determine # the wait time until the next try. If a connection is established, the error # counter is reset.",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.vsm.max.backoff",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "3600"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# The heartbeat frequency of measures pusher in milliseconds. Or the delay # between reconnection process to Kairos.",
+          "propertyDefaultGroup": {},
+          "propertyName": "abiquo.vsm.measures.pusher.frequency",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "10000"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# The delay between VSM polling of virtual machines in milliseconds for each # hypervisor plugin (HV)",
+          "propertyDefaultGroup": {
+            "propertyGroupDefaults": [
+              {
+                "propertyGroupDefault": {
+                  "propertyGroupItemDefault": "5000"
+                }
+              },
+              {
+                "propertyGroupDefault": {
+                  "propertyGroupItemDefault": "5000"
+                }
+              },
+              {
+                "propertyGroupDefault": {
+                  "propertyGroupItemDefault": "5000"
+                }
+              },
+              {
+                "propertyGroupDefault": {
+                  "propertyGroupItemDefault": "5000"
+                }
+              }
+            ]
+          },
+          "propertyName": "abiquo.vsm.pollingfrequency.HV",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {
+            "propertyGroups": [
+              {
+                "propertyGroup": {
+                  "propertyGroupItem": "oracle_vm"
+                }
+              },
+              {
+                "propertyGroup": {
+                  "propertyGroupItem": "oracle_vm"
+                }
+              },
+              {
+                "propertyGroup": {
+                  "propertyGroupItem": "oracle_vm"
+                }
+              },
+              {
+                "propertyGroup": {
+                  "propertyGroupItem": "oracle_vm"
+                }
+              }
+            ]
+          },
+          "propertyDefault": "5000"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# The delay between VSM polling of virtual machines in milliseconds # for each public cloud plugin (PC)",
+          "propertyDefaultGroup": {
+            "propertyGroupDefaults": [
+              {
+                "propertyGroupDefault": {
+                  "propertyGroupItemDefault": "300000"
+                }
+              },
+              {
+                "propertyGroupDefault": {
+                  "propertyGroupItemDefault": "300000"
+                }
+              },
+              {
+                "propertyGroupDefault": {
+                  "propertyGroupItemDefault": "300000"
+                }
+              }
+            ]
+          },
+          "propertyName": "abiquo.vsm.pollingfrequency.PC",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {
+            "propertyGroups": [
+              {
+                "propertyGroup": {
+                  "propertyGroupItem": "digitalocean2"
+                }
+              },
+              {
+                "propertyGroup": {
+                  "propertyGroupItem": "digitalocean2"
+                }
+              },
+              {
+                "propertyGroup": {
+                  "propertyGroupItem": "digitalocean2"
+                }
+              }
+            ]
+          },
+          "propertyDefault": "300000"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# The delay between virtual machine synchronizer operations in milliseconds # for each hypervisor plugin (HV)",
+          "propertyDefaultGroup": {
+            "propertyGroupDefaults": [
+              {
+                "propertyGroupDefault": {
+                  "propertyGroupItemDefault": "180000"
+                }
+              },
+              {
+                "propertyGroupDefault": {
+                  "propertyGroupItemDefault": "180000"
+                }
+              },
+              {
+                "propertyGroupDefault": {
+                  "propertyGroupItemDefault": "180000"
+                }
+              },
+              {
+                "propertyGroupDefault": {
+                  "propertyGroupItemDefault": "180000"
+                }
+              }
+            ]
+          },
+          "propertyName": "abiquo.vsm.vmsyncfrequency.HV",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {
+            "propertyGroups": [
+              {
+                "propertyGroup": {
+                  "propertyGroupItem": "oracle_vm"
+                }
+              },
+              {
+                "propertyGroup": {
+                  "propertyGroupItem": "oracle_vm"
+                }
+              },
+              {
+                "propertyGroup": {
+                  "propertyGroupItem": "oracle_vm"
+                }
+              },
+              {
+                "propertyGroup": {
+                  "propertyGroupItem": "oracle_vm"
+                }
+              }
+            ]
+          },
+          "propertyDefault": "180000"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# The delay between virtual machine synchronizer operations in milliseconds # for each public cloud plugin (PC)",
+          "propertyDefaultGroup": {
+            "propertyGroupDefaults": [
+              {
+                "propertyGroupDefault": {
+                  "propertyGroupItemDefault": "180000"
+                }
+              }
+            ]
+          },
+          "propertyName": "abiquo.vsm.vmsyncfrequency.PC",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {
+            "propertyGroups": [
+              {
+                "propertyGroup": {
+                  "propertyGroupItem": "amazon"
+                }
+              }
+            ]
+          },
+          "propertyDefault": "180000"
+        }
+      ],
+      "categoryName": "vsm"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Used by the Flex UI to test connectivity to the backend API stub",
+          "propertyDefaultGroup": {},
+          "propertyName": "client.SERVER_ADDRESS",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "<IP-repoLoc>"
+        }
+      ],
+      "categoryName": "SERVER_ADDRESS"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": " 0, # 1",
+          "propertyDescription": "# Configures the AMF secure channel (0 for regular, 1 for secure). ",
+          "propertyDefaultGroup": {},
+          "propertyName": "client.USE_SECURE_CHANNEL_LOGIN",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "0"
+        }
+      ],
+      "categoryName": "client"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# ESX and ESXi only: When using a virtual machine as a VNC server, specify # the language to use for the keyboard when VNC clients connect. If this # property does not exist, the hypervisor will use the first value in the # client-config.xml.jsp in webapps/client-premium/config and the default in # this case is the US101 keyboard map (US English). This property is now the # default setting to complement the Virtual Machine configuration popup. See # Configuring Remote Access to Virtual Machines",
+          "propertyDefaultGroup": {},
+          "propertyName": "RemoteDisplay.vnc.keyMap",
+          "propertyProfiles": [
+            {
+              "profile": {}
+            },
+            {
+              "profile": {
+                "profileExampleFile": "properties_rs2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_rs_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": ""
+        }
+      ],
+      "categoryName": "vnc"
+    },
+    {
+      "entries": [
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Maximum waiting time in milliseconds to establish a connection with workflow # endpoint",
+          "propertyDefaultGroup": {},
+          "propertyName": "workflow.connect.timeout",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "60000"
+        },
+        {
+          "propertyRange": "",
+          "propertyDescription": "# Maximum waiting time in milliseconds to receive data from workflow endpoint",
+          "propertyDefaultGroup": {},
+          "propertyName": "workflow.read.timeout",
+          "propertyProfiles": [
+            {
+              "profile": {
+                "profileExampleFile": "properties_api2015-09-25.txt",
+                "profileExampleImage": "v26_symbol_api_transparent.png"
+              }
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            },
+            {
+              "profile": {}
+            }
+          ],
+          "propertyNameGroup": {},
+          "propertyDefault": "10000"
+        }
+      ],
+      "categoryName": "workflow"
+    }
+  ],
+  "headingLinks": [
+    {
+      "ExampleImage": "v26_symbol_api_transparent.png",
+      "ExampleFile": "properties_api_2015-09-25.txt"
+    },
+    {
+      "ExampleImage": "v26_symbol_rs_transparent.png",
+      "ExampleFile": "properties_rs_2015-09-25.txt"
+    },
+    {
+      "ExampleImage": "v26_symbol_v2v_transparent.png",
+      "ExampleFile": "properties_v2v_2015-09-25.txt"
+    },
+    {
+      "ExampleImage": "v26_symbol_oa_transparent.png",
+      "ExampleFile": "properties_oa_2015-09-25.txt"
+    }
+  ]
+}
