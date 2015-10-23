@@ -126,29 +126,36 @@ def wikiProperty(rawProp,profiles,filedetails):
 
 		property_multiple_item = {}
 		property_multiple_item_default = {}
+		property_mi = {}
+		property_mid = {}
+		property_mi['propertyGroup'] = []
+		property_mid['propertyGroupDefault'] = []
 
-		property_multiple_item['propertyGroup'] = {}
-		property_multiple_item_default['propertyGroupDefault'] = {}
 		for x in rawProp.pEndings:
 			try:
 				print "x0: %s" % x[0]
-				property_multiple_item['propertyGroup']['propertyGroupItem'] = x[0]
+				property_multiple_item['propertyGroupItem'] = x[0]
 				property_pre_entry['propertyGroups'].append(property_multiple_item.copy())
+				print "ppe: %s" % property_pre_entry['propertyGroups']
 			except:
 				print "gah"
-				property_multiple_item['propertyGroup']['propertyGroupItem'] = ""
+				property_multiple_item['propertyGroupItem'] = ""
 				property_pre_entry['propertyGroups'].append(property_multiple_item.copy())
 			try:			
-				print "v: %s" % x[1]	
-				property_multiple_item_default['propertyGroupDefault']['propertyGroupItemDefault'] = x[1]
+				print "x1: %s" % x[1]	
+				property_multiple_item_default['propertyGroupItemDefault'] = x[1]
 				property_pre_entry_default['propertyGroupDefaults'].append(property_multiple_item_default.copy())
+				print "pped: %s" % property_pre_entry_default['propertyGroupDefaults']
 			except:
 				print "gagh"
-				property_multiple_item_default['propertyGroupDefault']['propertyGroupItemDefault'] = ""
+				property_multiple_item_default['propertyGroupItemDefault'] = ""
 				property_pre_entry_default['propertyGroupDefaults'].append(property_multiple_item_default.copy())
 
-			property_entry['propertyNameGroup'] = property_pre_entry.copy()			
-			property_entry['propertyDefaultGroup'] = property_pre_entry_default.copy()
+		property_mi['propertyGroup'].append(property_pre_entry.copy())			
+		property_mid['propertyGroupDefault'].append(property_pre_entry_default.copy())
+
+		property_entry['propertyNameGroup'] = property_mi.copy()			
+		property_entry['propertyDefaultGroup'] = property_mid.copy()
 	return property_entry
 
 def wikiCategories(storage_dict):
