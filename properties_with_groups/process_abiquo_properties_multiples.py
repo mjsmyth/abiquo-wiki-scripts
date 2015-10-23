@@ -34,6 +34,14 @@ class prop:
 		prDefaults = " ".join(iDefaults)
 		print "| %s | %s | %s | %s | %s | %s | %s | %s |" % (self.pName,self.pDefault,self.pRange,self.pDescription,prProfiles,self.pType,prEndings,prDefaults)
 
+def checkEqual1(iterator):
+	try:
+		iterator = iter(iterator)
+		first = next(iterator)
+		return all(first == rest for rest in iterator)
+	except StopIteration:
+		return True
+
 def open_if_not_existing(filename):
 	try:
 		fd = os.open(filename, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
@@ -126,10 +134,16 @@ def wikiProperty(rawProp,profiles,filedetails):
 
 		property_multiple_item = {}
 		property_multiple_item_default = {}
-		property_mi = {}
-		property_mid = {}
-		property_mi['propertyGroup'] = []
-		property_mid['propertyGroupDefault'] = []
+
+		default_list = []
+
+		for chkequal in rawProp.pEndings:
+			default_list.append(chkequal[1])
+		if (checkEqual1(default_list)):
+			b = default_list.pop()
+			property_entry['propertyDefault'] = b
+		else:
+			property_entry['propertyDefault'] = ""	
 
 		for x in rawProp.pEndings:
 			try:
@@ -141,21 +155,20 @@ def wikiProperty(rawProp,profiles,filedetails):
 				print "gah"
 				property_multiple_item['propertyGroupItem'] = ""
 				property_pre_entry['propertyGroups'].append(property_multiple_item.copy())
-			try:			
-				print "x1: %s" % x[1]	
-				property_multiple_item_default['propertyGroupItemDefault'] = x[1]
-				property_pre_entry_default['propertyGroupDefaults'].append(property_multiple_item_default.copy())
-				print "pped: %s" % property_pre_entry_default['propertyGroupDefaults']
-			except:
-				print "gagh"
-				property_multiple_item_default['propertyGroupItemDefault'] = ""
-				property_pre_entry_default['propertyGroupDefaults'].append(property_multiple_item_default.copy())
+			if property_entry['propertyDefault'] == "":	
+				try:			
+					print "x1: %s" % x[1]	
+					property_multiple_item_default['propertyGroupItemDefault'] = x[1]
+					property_pre_entry_default['propertyGroupDefaults'].append(property_multiple_item_default.copy())
+					print "pped: %s" % property_pre_entry_default['propertyGroupDefaults']
+				except:
+					print "gagh"
+					property_multiple_item_default['propertyGroupItemDefault'] = ""
+					property_pre_entry_default['propertyGroupDefaults'].append(property_multiple_item_default.copy())
+								
 
-		property_mi['propertyGroup'].append(property_pre_entry.copy())			
-		property_mid['propertyGroupDefault'].append(property_pre_entry_default.copy())
-
-		property_entry['propertyNameGroup'] = property_mi.copy()			
-		property_entry['propertyDefaultGroup'] = property_mid.copy()
+		property_entry['propertyNameGroup'] = property_pre_entry.copy()			
+		property_entry['propertyDefaultGroup'] = property_pre_entry_default.copy()
 	return property_entry
 
 def wikiCategories(storage_dict):
@@ -215,6 +228,15 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 		# a blank line may mark the end of a property
 		if re.match("\n", property_line):
 			if property_name:
+				if property_count > 1:
+					# if the property name is set before we assign it in this loop, then we know it's a group property
+					# put the names into an informal list for checking
+					property_name_list.append(property_name)
+					# for the group, store a list of all the endings and their defaults
+					pro_split = property_name.split(".")
+					print "pro_split: %s " % pro_split
+					property_ending_list.append((getEnding(pro_split),property_default))
+
 				print "property_name: %s " % property_name
 				# This was previously if property_name, but was changed for multiple properties		
 				# create a sample_files dictionary organised by profile names
@@ -298,12 +320,11 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 					property_type = "optional"
 					if property_name:
 						# if the property name is set before we assign it in this loop, then we know it's a group property
-						# store only the first part of the name and add the group name at the end???
-						# here we are processing the previous item
 						# put the names into an informal list for checking
 						property_name_list.append(property_name)
 						# for the group, store a list of all the endings and their defaults
 						prope_split = property_name.split(".")
+						print "prope_split: %s " % prope_split
 						property_ending_list.append((getEnding(prope_split),property_default))
 
 					# the third group is the property name
@@ -335,13 +356,12 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 					# store only the first part of the name and add the group name at the end???
 					# here we are processing the previous item
 					# put the names into an informal list for checking
+					property_count = property_count + 1
 					property_name_list.append(property_name)
 					# for the group, store a list of all the endings and their defaults
 					prop_split = property_name.split(".")
 					property_end = getEnding(prop_split)
 					prop_End_Def = (property_end,property_default)
-					print "damn ending: %s " % property_end
-					print "damn default: %s " % property_default
 					property_ending_list.append(prop_End_Def)
 			# Then process the current line		
 				# the first group is the property name
@@ -396,10 +416,10 @@ def main():
 
 	property_description_list = []
 #	property_regex_multiple = re.compile('for each',re.S)
-	property_regex_comment = re.compile('([#]{1,1})([\s]*)([\w.]+?)([\s]*)([=]{1,1})(.*)',re.S)
+	property_regex_comment = re.compile('([#]{1,1})([\s]*)([\w.\-]+?)([\s]*)([=]{1,1})(.*)',re.S)
 
-	property_regex_no_comment = re.compile('([\w.]+?)([\s]*)([=]{1,1})(.*)',re.S)
-	range_regex = re.compile('(Range:[\s]*?)(.*)')
+	property_regex_no_comment = re.compile('([\w.\-]+?)([\s]*)([=]{1,1})(.*)',re.S)
+	range_regex = re.compile('(Range:[\s]*?)([\w\-\,\s]*)')
 
 	storage_dict = {}
 

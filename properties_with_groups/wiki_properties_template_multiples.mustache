@@ -24,11 +24,9 @@
 <ul>
 <li style="list-style-type: none;background-image: none;">
 <ul>
-{{#propertyGroup}}
 {{#propertyGroups}}
 <li>{{propertyGroupItem}}</li>
 {{/propertyGroups}}
-{{/propertyGroup}}
 </ul>
 </li>
 </ul>
@@ -36,21 +34,21 @@
 {{^propertyNameGroup}}
 {{/propertyNameGroup}}
 </td>
-<td><p>{{propertyDefault}}</p>
+<td>
 {{#propertyDefaultGroup}}
+<p></p>
 <ul>
 <li style="list-style-type: none;background-image: none;">
 <ul>
-{{#propertyGroupDefault}}
 {{#propertyGroupDefaults}}
 <li>{{propertyGroupItemDefault}}</li>
 {{/propertyGroupDefaults}}
-{{/propertyGroupDefault}}
 </ul>
 </li>
 </ul>
 {{/propertyDefaultGroup}}
 {{^propertyDefaultGroup}}
+<p>{{propertyDefault}}</p>
 {{/propertyDefaultGroup}}
 </td>
 <td><p>{{propertyRange}}</p></td>
