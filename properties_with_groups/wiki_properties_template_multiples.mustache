@@ -19,8 +19,8 @@
 </tr>
 {{#entries}}   
 <tr>
-<td><p>{{propertyName}}</p>
 {{#propertyNameGroup}}
+<td><p>{{groupPropertyName}}</p>
 <ul>
 <li style="list-style-type: none;background-image: none;">
 <ul>
@@ -32,6 +32,7 @@
 </ul>
 {{/propertyNameGroup}}
 {{^propertyNameGroup}}
+<td><p>{{propertyName}}</p>
 {{/propertyNameGroup}}
 </td>
 <td>

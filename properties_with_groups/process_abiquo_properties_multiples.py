@@ -16,7 +16,7 @@ class filedetails:
 		self.isuffix = aisuffix
 
 class prop:
-	def __init__(self,apropName,apropProfiles,apropType,apropDescription,apropDefault,apropRange,apropEndings):
+	def __init__(self,apropName,apropProfiles,apropType,apropDescription,apropDefault,apropRange,apropEndings,apropGroupName):
 		self.pName = apropName
 		self.pDefault = apropDefault
 		self.pDescription = apropDescription
@@ -24,6 +24,7 @@ class prop:
 		self.pProfiles = apropProfiles
 		self.pType = apropType
 		self.pEndings = apropEndings
+		self.pGroupPropName = apropGroupName
 		
 	
 	def pprint(self):
@@ -124,6 +125,7 @@ def wikiProperty(rawProp,profiles,filedetails):
 
 	property_entry['propertyNameGroup'] = {}
 	property_entry['propertyDefaultGroup'] = {}
+	property_entry['groupPropertyName'] = rawProp.pGroupPropName
 
 	if rawProp.pEndings:
 		property_pre_entry = {}
@@ -139,10 +141,14 @@ def wikiProperty(rawProp,profiles,filedetails):
 
 		for chkequal in rawProp.pEndings:
 			default_list.append(chkequal[1])
-		if (checkEqual1(default_list)):
+		vale = checkEqual1(default_list)
+		if vale == True:
+			print "defaults are equal"
 			b = default_list.pop()
+			print "b: %s " % b
 			property_entry['propertyDefault'] = b
 		else:
+			print "defaults not equal"
 			property_entry['propertyDefault'] = ""	
 
 		for x in rawProp.pEndings:
@@ -165,10 +171,12 @@ def wikiProperty(rawProp,profiles,filedetails):
 					print "gagh"
 					property_multiple_item_default['propertyGroupItemDefault'] = ""
 					property_pre_entry_default['propertyGroupDefaults'].append(property_multiple_item_default.copy())
-								
-
-		property_entry['propertyNameGroup'] = property_pre_entry.copy()			
-		property_entry['propertyDefaultGroup'] = property_pre_entry_default.copy()
+		
+		property_entry['propertyNameGroup'] = property_pre_entry.copy()		
+		if property_entry['propertyDefault'] == "":			
+			property_entry['propertyDefaultGroup'] = property_pre_entry_default.copy()
+		else:	
+			property_entry['propertyDefaultGroup'] = []	
 	return property_entry
 
 def wikiCategories(storage_dict):
@@ -223,6 +231,7 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 	property_range = ""
 	property_group = ""
 	property_count = 0
+	group_property_name = ""
 
 	for property_line in content:
 		# a blank line may mark the end of a property
@@ -259,6 +268,8 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 					sample_files[pro].append(sample_property)
 
 				# prepare for wiki	
+					
+					re.sub('^#','',property_description)
 					property_description = " ".join(property_description_list)			
 		#			search for Range: x-x type info in wiki properties and store it separately
 					property_range_search = range_regex.search(property_description)
@@ -274,10 +285,12 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 						pname_work = property_name.split(".")
 						pname_work = pname_work[:-1]
 						pname_work.append(property_multiple)
-						property_name = ".".join(pname_work)
-						print "multiple_name: %s" % property_name
-						
-					aproperty = prop(property_name,property_profiles,property_type,property_description,property_default,property_range,property_ending_list)
+						group_property_name = ".".join(pname_work)
+						print "multiple_name: %s" % group_property_name
+					else:
+						group_property_name = ""
+
+					aproperty = prop(property_name,property_profiles,property_type,property_description,property_default,property_range,property_ending_list,group_property_name)
 #					aproperty.pprint()
 					property_wiki = wikiProperty(aproperty,profiles,fdetails)		
 					wiki_property_dict[property_name] = property_wiki.copy()
@@ -419,7 +432,7 @@ def main():
 	property_regex_comment = re.compile('([#]{1,1})([\s]*)([\w.\-]+?)([\s]*)([=]{1,1})(.*)',re.S)
 
 	property_regex_no_comment = re.compile('([\w.\-]+?)([\s]*)([=]{1,1})(.*)',re.S)
-	range_regex = re.compile('(Range:[\s]*?)([\w\-\,\s]*)')
+	range_regex = re.compile('(Range:[\s]*?)([\w\-\,\s\<\>]*)')
 
 	storage_dict = {}
 
