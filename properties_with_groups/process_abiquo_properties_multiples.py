@@ -6,6 +6,7 @@ import re
 import collections
 import pystache
 import codecs
+from copy import deepcopy
 
 class filedetails:
 	def __init__(self,aprefix,asuffix,adate,aiprefix,aisuffix):
@@ -217,6 +218,14 @@ def getSampleMessage(profile,version):
 	sampleMessage.append(swPrintStars)
 	return sampleMessage
 
+def compileSampleProperty(pro_name,pro_default,pro_type):
+	if pro_type == "mandatory":	
+		sam_property = "#" + pro_name + " = " + pro_default + "\n"	
+	else:	
+		sam_property = pro_name + " = " + pro_default + "\n"	
+	return sam_property	
+
+
 
 def storeProperties(content,property_regex_comment,property_regex_no_comment,range_regex,profiles,fdetails,sample_files):
 	wiki_property_dict = {}
@@ -241,10 +250,10 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 					# if the property name is set before we assign it in this loop, then we know it's a group property
 					# put the names into an informal list for checking
 					property_name_list.append(property_name)
-					# for the group, store a list of all the endings and their defaults
+					# for the group, store a list of all the endings and their defaults and whether they are mandatory or not
 					pro_split = property_name.split(".")
 					print "pro_split: %s " % pro_split
-					property_ending_list.append((getEnding(pro_split),property_default))
+					property_ending_list.append((getEnding(pro_split),property_default,property_type))
 
 				print "property_name: %s " % property_name
 				# This was previously if property_name, but was changed for multiple properties		
@@ -261,16 +270,31 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 						for pd in property_description_list:
 							pk = "# " + pd + "\n"							
 							sample_files[pro].append(pk)
-					if property_type == "mandatory":			
-						sample_property = "#" + property_name + " = " + property_default + "\n\n"	
-					else:	
-						sample_property = property_name + " = " + property_default + "\n\n"	
-					sample_files[pro].append(sample_property)
+											
+					# if there's a group, process each property with default and type
+					if property_ending_list:
+						print "property_ending_list: %s" % property_ending_list[:]
+						pnlist = property_name.split(".")
+						pnfront = ".".join(pnlist[:-1])
+						for ending_item in property_ending_list:
+							pna = pnfront + "." + deepcopy(ending_item[0])
+							pde = deepcopy(ending_item[1]) 
+							pma = deepcopy(ending_item[2])
+							print "pna: %s " % pna
+							print "pde: %s " % pde
+							print "pma: %s " % pma
+							sam_property = compileSampleProperty(pna,pde,pma)
+							sample_files[pro].append((sam_property))
+					else:
+						sample_property = compileSampleProperty(property_name,property_default,property_type)
+						sample_files[pro].append(sample_property)	
+					sample_files[pro].append(("\n"))		
+
 
 				# prepare for wiki	
 					
-					re.sub('^#','',property_description)
-					property_description = " ".join(property_description_list)			
+					property_description = " ".join(property_description_list)	
+		#			re.sub('^#','',property_description)		
 		#			search for Range: x-x type info in wiki properties and store it separately
 					property_range_search = range_regex.search(property_description)
 					if property_range_search:
@@ -338,7 +362,7 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 						# for the group, store a list of all the endings and their defaults
 						prope_split = property_name.split(".")
 						print "prope_split: %s " % prope_split
-						property_ending_list.append((getEnding(prope_split),property_default))
+						property_ending_list.append((getEnding(prope_split),property_default,property_type))
 
 					# the third group is the property name
 					property_name = property_match.group(3)
@@ -357,7 +381,8 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 						property_default = ""
 				else:	
 					#	add property description to a list
-						property_description_list.append(property_line[property_count:].strip()) 	
+						property_description_current_line = property_line[property_count:].strip()
+						property_description_list.append(re.sub("^# ","",property_description_current_line))	
 		else:	
 #			mandatory property name and optional default value, commented out - note may have space after comment
 			property_match = property_regex_no_comment.match(property_line)
@@ -369,12 +394,13 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 					# store only the first part of the name and add the group name at the end???
 					# here we are processing the previous item
 					# put the names into an informal list for checking
+					# process mandatory type here too...
 					property_count = property_count + 1
 					property_name_list.append(property_name)
-					# for the group, store a list of all the endings and their defaults
+					# for the group, store a list of all the endings and their defaults and whether they are mandatory or not
 					prop_split = property_name.split(".")
 					property_end = getEnding(prop_split)
-					prop_End_Def = (property_end,property_default)
+					prop_End_Def = (property_end,property_default,property_type)
 					property_ending_list.append(prop_End_Def)
 			# Then process the current line		
 				# the first group is the property name

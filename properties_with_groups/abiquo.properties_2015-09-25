@@ -469,8 +469,8 @@ abiquo.virtualfactory.xenserver.repositoryLocation=127.0.0.1:/opt/vm_repository
 #abiquo.vsm.pollingfrequency.oracle_vm=5000
 #abiquo.vsm.pollingfrequency.xenserver=5000
 
-# The delay between VSM polling of virtual machines in milliseconds
-# for each public cloud plugin (PC)
+# The delay between VSM polling of virtual machines in milliseconds for each 
+# public cloud plugin (PC)
 abiquo.vsm.pollingfrequency.amazon=300000
 abiquo.vsm.pollingfrequency.azure=300000
 abiquo.vsm.pollingfrequency.digitalocean2 = 300000
@@ -494,15 +494,12 @@ abiquo.vsm.pollingfrequency.rackspace-cloudservers-uk = 300000
 abiquo.vsm.pollingfrequency.softlayer = 300000
 
 # The delay between virtual machine synchronizer operations in milliseconds
-# for each hypervisor plugin (HV)
+# for each hypervisor or public cloud plugin (PLUGIN)
 #abiquo.vsm.vmsyncfrequency.vmx_04=180000
 #abiquo.vsm.vmsyncfrequency.kvm=180000
 #abiquo.vsm.vmsyncfrequency.hyperv_301=180000
 #abiquo.vsm.vmsyncfrequency.oracle_vm=180000
 #abiquo.vsm.vmsyncfrequency.xenserver=180000
-
-# The delay between virtual machine synchronizer operations in milliseconds
-# for each public cloud plugin (PC)
 #abiquo.vsm.vmsyncfrequency.amazon=180000
 #abiquo.vsm.vmsyncfrequency.azure=180000
 
