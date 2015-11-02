@@ -1,4 +1,15 @@
 #!/usr/bin/python2 -tt
+#
+# This script processes the Developers' properties file from github and uses a mustache template to create 
+# a table in Confluence storage format for the Abiquo wiki. Delete existing the table, then go into storage 
+# format editor
+#
+# It also creates four sample abiquo.properties files for the main platform servers 
+# (at the time of writing: API, OA, RS and V2V)
+# It supports group property descriptions
+# Edit this file to set the date for the filenames. 
+# Note that the images used in the  have a date from when they were created
+
 import sys
 import os
 import json
@@ -95,6 +106,21 @@ def getCategory(propNameSplit):
 	return property_cat
 
 
+def storeGroupProperty(propeName,propeDefault,propeType,propeNameList,propeEndingList):
+# process multiple properties:
+	# before calling this function test - if property_name: 
+	# if a property name is set before we assign it in this function, then we know it's a group property
+	# add it to a property name list
+	# here we are really processing the previous item
+	# put the names into an informal list for checking
+	# note that we store mandatory/optional type here too
+	propeNameList.append(propeName)
+	# for the group, store a list of all the endings and their defaults and whether they are mandatory or not
+	prop_split = propeName.split(".")
+	prop_end = getEnding(prop_split)
+	prop_End_Def = (prop_end,propeDefault,propeType)
+	propeEndingList.append(prop_End_Def)
+	return(propeNameList,propeEndingList)
 
 def subPropertyDefault(rawDefault,rawName):
 #	if re.search(r"{",rawDefault):
@@ -108,7 +134,27 @@ def subPropertyDefault(rawDefault,rawName):
 	rawDefault = re.sub("10.60.1.4",r"127.0.0.1",rawDefault);
 	return rawDefault
 
+def storeProperty(propeMatch,propeName,propeDefault,propeNameList):		
+	# Process the current line
+	# the first group is the property name
+	propeName = propeMatch.group(1)
+	# Check that it matches the previous group names
+	proper_split = propeName.split(".")
+	property_split = ".".join(proper_split[:-1])
+	if propeNameList:
+		if not re.match(property_split,propeNameList[-1]):
+			print ("Error: property does not match group")
+	# the fourth group, if it exists, is the property default value
+	if propeMatch.group(4):
+		propeDefault = propeMatch.group(4).strip()
+		propeDefault = subPropertyDefault(propeDefault,propeName)
+	else:
+		propeDefault = ""
+	return(propeName,propeDefault)				
+
+
 def wikiProperty(rawProp,profiles,filedetails):
+	# Create JSON for printing with mustache
 	property_entry = {}
 	property_entry['propertyName'] = rawProp.pName
 	property_entry['propertyDefault'] = rawProp.pDefault
@@ -144,32 +190,23 @@ def wikiProperty(rawProp,profiles,filedetails):
 			default_list.append(chkequal[1])
 		vale = checkEqual1(default_list)
 		if vale == True:
-			print "defaults are equal"
 			b = default_list.pop()
-			print "b: %s " % b
 			property_entry['propertyDefault'] = b
 		else:
-			print "defaults not equal"
 			property_entry['propertyDefault'] = ""	
 
 		for x in rawProp.pEndings:
 			try:
-				print "x0: %s" % x[0]
 				property_multiple_item['propertyGroupItem'] = x[0]
 				property_pre_entry['propertyGroups'].append(property_multiple_item.copy())
-				print "ppe: %s" % property_pre_entry['propertyGroups']
 			except:
-				print "gah"
 				property_multiple_item['propertyGroupItem'] = ""
 				property_pre_entry['propertyGroups'].append(property_multiple_item.copy())
 			if property_entry['propertyDefault'] == "":	
 				try:			
-					print "x1: %s" % x[1]	
 					property_multiple_item_default['propertyGroupItemDefault'] = x[1]
 					property_pre_entry_default['propertyGroupDefaults'].append(property_multiple_item_default.copy())
-					print "pped: %s" % property_pre_entry_default['propertyGroupDefaults']
 				except:
-					print "gagh"
 					property_multiple_item_default['propertyGroupItemDefault'] = ""
 					property_pre_entry_default['propertyGroupDefaults'].append(property_multiple_item_default.copy())
 		
@@ -181,6 +218,7 @@ def wikiProperty(rawProp,profiles,filedetails):
 	return property_entry
 
 def wikiCategories(storage_dict):
+	# categories for headers on the wiki (e.g. vsm)
 	catkeydict = {}
 	catkeys = {}
 	catkeyorder = collections.OrderedDict()
@@ -203,6 +241,7 @@ def wikiCategories(storage_dict):
 	return catdata
 
 def getSampleMessage(profile,version):
+	# return a sample message for the sample files
 	profile_print_info = {}
 	profile_print_info["API"] = "API / SERVER / UI"
 	profile_print_info["V2V"] = "V2V (REMOTE SERVICES)"
@@ -219,6 +258,7 @@ def getSampleMessage(profile,version):
 	return sampleMessage
 
 def compileSampleProperty(pro_name,pro_default,pro_type):
+	# eliminate repeated code
 	if pro_type == "mandatory":	
 		sam_property = "#" + pro_name + " = " + pro_default + "\n"	
 	else:	
@@ -226,8 +266,8 @@ def compileSampleProperty(pro_name,pro_default,pro_type):
 	return sam_property	
 
 
-
 def storeProperties(content,property_regex_comment,property_regex_no_comment,range_regex,profiles,fdetails,sample_files):
+	# process the property file content
 	wiki_property_dict = {}
 	property_profiles = []
 	property_description_list = []
@@ -239,24 +279,16 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 	property_default = ""
 	property_range = ""
 	property_group = ""
-	property_count = 0
+#	property_count = 0
 	group_property_name = ""
 
 	for property_line in content:
 		# a blank line may mark the end of a property
 		if re.match("\n", property_line):
 			if property_name:
-				if property_count > 1:
-					# if the property name is set before we assign it in this loop, then we know it's a group property
-					# put the names into an informal list for checking
-					property_name_list.append(property_name)
-					# for the group, store a list of all the endings and their defaults and whether they are mandatory or not
-					pro_split = property_name.split(".")
-					print "pro_split: %s " % pro_split
-					property_ending_list.append((getEnding(pro_split),property_default,property_type))
-
-				print "property_name: %s " % property_name
-				# This was previously if property_name, but was changed for multiple properties		
+				if property_ending_list:
+					(property_name_list,property_ending_list) = storeGroupProperty(property_name,property_default,property_type,property_name_list,property_ending_list)
+					
 				# create a sample_files dictionary organised by profile names
 				# sample file is similar to the main input file but it only contains properties of one profile
 				for pro in property_profiles:
@@ -280,9 +312,6 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 							pna = pnfront + "." + deepcopy(ending_item[0])
 							pde = deepcopy(ending_item[1]) 
 							pma = deepcopy(ending_item[2])
-							print "pna: %s " % pna
-							print "pde: %s " % pde
-							print "pma: %s " % pma
 							sam_property = compileSampleProperty(pna,pde,pma)
 							sample_files[pro].append((sam_property))
 					else:
@@ -291,8 +320,7 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 					sample_files[pro].append(("\n"))		
 
 
-				# prepare for wiki	
-					
+				# prepare for wiki				
 					property_description = " ".join(property_description_list)	
 		#			re.sub('^#','',property_description)		
 		#			search for Range: x-x type info in wiki properties and store it separately
@@ -334,7 +362,7 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 			property_count = 0
 
 
-		# if you get a comment line
+		# if there is a commented out line
 		elif re.match("#",property_line):
 			# Lots of hashes means a server profile specification
 			if re.match("#####",property_line):
@@ -351,75 +379,40 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 
 			else:
 			# 	search for a property name and optional default value
-				property_match = property_regex_comment.match(property_line)
-				if property_match:
-					property_count = property_count + 1
+				property_match_comment = property_regex_comment.match(property_line)
+				if property_match_comment:
 					property_type = "optional"
-					if property_name:
-						# if the property name is set before we assign it in this loop, then we know it's a group property
-						# put the names into an informal list for checking
-						property_name_list.append(property_name)
-						# for the group, store a list of all the endings and their defaults
-						prope_split = property_name.split(".")
-						print "prope_split: %s " % prope_split
-						property_ending_list.append((getEnding(prope_split),property_default,property_type))
+					# this is an optional property that is commented out.
+					# now substitute and make it effectively a "mandatory property" in order to use same indices, etc.
+					property_line = re.sub("^#[\s]*?","",property_line)
 
-					# the third group is the property name
-					property_name = property_match.group(3)
-					# Check that it matches the previous group names
-					proper_split = property_name.split(".")
-					property_split = ".".join(proper_split[:-1])
-					print "property_split: %s" % property_split
-					if property_name_list:	
-						if not re.match(property_split,property_name_list[-1]):
-							print "oops"
-					# the sixth group, if it exists, is the property default value
-					if property_match.group(6):
-						property_default = property_match.group(6).strip()
-						property_default = subPropertyDefault(property_default,property_name)
-					else:
-						property_default = ""
+					property_match = property_regex_no_comment.match(property_line)
+					if property_match:
+						if property_name:
+					# if property_name:
+					# 	# if the property name is set before we assign it in this loop, then we know it's a group property
+					# 	# store a list of all names and store a list of all endings and defaults
+							(property_name_list,property_ending_list) = storeGroupProperty(property_name,property_default,property_type,property_name_list,property_ending_list)
+						
+						(property_name,property_default) = storeProperty(property_match,property_name,property_default,property_name_list)							
 				else:	
 					#	add property description to a list
-						property_description_current_line = property_line[property_count:].strip()
+						property_description_current_line = property_line[len(property_ending_list):].strip()
 						property_description_list.append(re.sub("^# ","",property_description_current_line))	
 		else:	
 #			mandatory property name and optional default value, commented out - note may have space after comment
 			property_match = property_regex_no_comment.match(property_line)
-			
 			if property_match:
-				property_type = "mandatory"
-				if property_name:
-					# if the property name is set before we assign it in this loop, then we know it's a group property
-					# store only the first part of the name and add the group name at the end???
-					# here we are processing the previous item
-					# put the names into an informal list for checking
-					# process mandatory type here too...
-					property_count = property_count + 1
-					property_name_list.append(property_name)
-					# for the group, store a list of all the endings and their defaults and whether they are mandatory or not
-					prop_split = property_name.split(".")
-					property_end = getEnding(prop_split)
-					prop_End_Def = (property_end,property_default,property_type)
-					property_ending_list.append(prop_End_Def)
-			# Then process the current line		
-				# the first group is the property name
-				property_name = property_match.group(1)
-				# Check that it matches the previous group names
-				proper_split = property_name.split(".")
-				property_split = ".".join(proper_split[:-1])
-				if property_name_list:
-					if not re.match(property_split,property_name_list[-1]):
-						print ("oops")
-				# the fourth group, if it exists, is the property default value
-				if property_match.group(4):
-					property_default = property_match.group(4).strip()
-					property_default = subPropertyDefault(property_default,property_name)
-				else:
-					property_default = ""
-
-
-	
+				property_type = "mandatory"			
+				property_match_no_comment = property_regex_no_comment.match(property_line)
+				if property_match_no_comment:
+					if property_name:
+					# if property_name:
+					# 	# if the property name is set before we assign it in this loop, then we know it's a group property
+					# 	# store a list of all names and store a list of all endings and defaults
+						(property_name_list,property_ending_list) = storeGroupProperty(property_name,property_default,property_type,property_name_list,property_ending_list)
+						
+					(property_name,property_default) = storeProperty(property_match,property_name,property_default,property_name_list)			
 
 	return (wiki_property_dict,sample_files)		
 
