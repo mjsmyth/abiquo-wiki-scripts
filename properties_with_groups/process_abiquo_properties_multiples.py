@@ -433,7 +433,7 @@ def main():
  #    compFile = prevWikiVersion + output_subdir
     # inputDir = wikiVersion + "/" + input_subdir
     # outputDir = wikiVersion + "/" + output_subdir
-	td = "2015-09-25"
+	td = "2015-11-03"
 
 #    inputDir = '~/platform/system-properties/src/main/resources'
 	propertyFile = 'abiquo.properties_' + td
@@ -451,7 +451,7 @@ def main():
 	property_regex_comment = re.compile('([#]{1,1})([\s]*)([\w.\-]+?)([\s]*)([=]{1,1})(.*)',re.S)
 
 	property_regex_no_comment = re.compile('([\w.\-]+?)([\s]*)([=]{1,1})(.*)',re.S)
-	range_regex = re.compile('(Range:[\s]*?)([\w\-\,\s\<\>]*)')
+	range_regex = re.compile('(Range:[\s]*?)([\w\-\,\s\<\>\.]*)')
 
 	storage_dict = {}
 
