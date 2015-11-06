@@ -332,11 +332,11 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 					# check for "for each XXXX (YY)", create a group property name with (YY) on the end
 					property_multiple_search = re.search('for each.*?\(([^)]+)\)',property_description)
 					if property_multiple_search:
-						property_multiple = property_multiple_search.group(1)
+						property_multiple = "<" + property_multiple_search.group(1) + ">"
 						print "property_multiple: %s" % property_multiple
 						pname_work = property_name.split(".")
 						pname_work = pname_work[:-1]
-						pname_work.append(property_multiple)
+						pname_work.append(deepcopy(property_multiple))
 						group_property_name = ".".join(pname_work)
 						print "multiple_name: %s" % group_property_name
 					else:
