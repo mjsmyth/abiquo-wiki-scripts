@@ -172,6 +172,7 @@ def wikiProperty(rawProp,profiles,filedetails):
 
 	property_entry['propertyNameGroup'] = {}
 	property_entry['propertyDefaultGroup'] = {}
+	propGroupName = rawProp.pGroupPropName
 	property_entry['groupPropertyName'] = rawProp.pGroupPropName
 
 	if rawProp.pEndings:
@@ -260,13 +261,13 @@ def getSampleMessage(profile,version):
 def compileSampleProperty(pro_name,pro_default,pro_type):
 	# eliminate repeated code
 	if pro_type == "mandatory":	
-		sam_property = "#" + pro_name + " = " + pro_default + "\n"	
-	else:	
 		sam_property = pro_name + " = " + pro_default + "\n"	
+	else:	
+		sam_property = "#" + pro_name + " = " + pro_default + "\n"	
 	return sam_property	
 
 
-def storeProperties(content,property_regex_comment,property_regex_no_comment,range_regex,profiles,fdetails,sample_files):
+def storeProperties(content,property_regex_comment,property_regex_no_comment,range_regex,range_regex_bracket,profiles,fdetails,sample_files):
 	# process the property file content
 	wiki_property_dict = {}
 	property_profiles = []
@@ -281,6 +282,7 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 	property_group = ""
 #	property_count = 0
 	group_property_name = ""
+
 
 	for property_line in content:
 		# a blank line may mark the end of a property
@@ -305,7 +307,7 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 											
 					# if there's a group, process each property with default and type
 					if property_ending_list:
-						print "property_ending_list: %s" % property_ending_list[:]
+#						print "property_ending_list: %s" % property_ending_list[:]
 						pnlist = property_name.split(".")
 						pnfront = ".".join(pnlist[:-1])
 						for ending_item in property_ending_list:
@@ -328,20 +330,56 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 					if property_range_search:
 						property_range = property_range_search.group(2) 
 						property_description = re.sub(property_range_search.group(0),"",property_description)
+					# Support Albert's Range [x, y, z] format	
+					property_range_search_bracket = range_regex_bracket.search(property_description)
+					if property_range_search_bracket:
+#						rep_string = property_range_search_bracket.group(0)
+		#				print "property_description before: %s " % property_description 
+						property_range = property_range_search_bracket.group(2) 
+						property_description = property_description.replace(property_range_search_bracket.group(0),"")
+		#				print "property_description after: %s " % property_description
 
+#					print "property description NOW: %s" % str(property_description)
 					# check for "for each XXXX (YY)", create a group property name with (YY) on the end
-					property_multiple_search = re.search('for each.*?\<([^>]+)\>',property_description)
-					if property_multiple_search:
-						property_multiple = "<" + property_multiple_search.group(1) + ">"
-						print "property_multiple: %s" % property_multiple
-						pname_work = property_name.split(".")
-						pname_work = pname_work[:-1]
-						pname_work.append(deepcopy(property_multiple))
-						group_property_name = ".".join(pname_work)
-						print "multiple_name: %s" % group_property_name
+
+					# This currently works for any kind of braces (not square brackets) 
+					# But when I get a chance to modify the file, I will remove all except curly braces
+					property_multiple_search_braces = re.search('for each.*?\{([^}]+?)\}',property_description)
+					property_multiple_search = re.search('for each.*?\(([^)]+?)\)',property_description)
+					property_multiple_search_angles = re.search('for each.*?\<([^>]+?)\>',property_description)
+
+					if property_multiple_search_braces:
+						property_multiple_braces = "{" + property_multiple_search_braces.group(1) + "}"
+#						print "property_multiple_braces: %s" % property_multiple_braces
+						pnam_work = property_name.split(".")
+						pnam_work = pnam_work[:-1]
+						pnam_work.append(deepcopy(property_multiple_braces))
+						group_property_name = ".".join(pnam_work)
+#						print "multiple_name_angles: %s" % group_property_name
+						group_property_name = deepcopy(group_property_name)
+					elif property_multiple_search:	
+						property_multiple_plain = "{" + property_multiple_search.group(1) + "}"
+#						print "property_multiple: %s" % property_multiple_plain
+						pnam_work = property_name.split(".")
+						pnam_work = pnam_work[:-1]
+						pnam_work.append(deepcopy(property_multiple_plain))
+						group_property_name = ".".join(pnam_work)
+#						print "multiple_name: %s" % group_property_name
+						group_property_name = deepcopy(group_property_name)
+					elif property_multiple_search_angles:
+						property_multiple_angles = "{" + property_multiple_search_angles.group(1) + "}"
+#						print "property_multiple_angles: %s" % property_multiple_angles
+						pnam_work = property_name.split(".")
+						pnam_work = pnam_work[:-1]
+						pnam_work.append(deepcopy(property_multiple_angles))
+						group_property_name = ".".join(pnam_work)
+#						print "multiple_name_angles: %s" % group_property_name
+						group_property_name = deepcopy(group_property_name)
+						group_property_name = ""
 					else:
 						group_property_name = ""
 
+#					group_property_name = "" + group_property_name_plain + group_property_name_braces + group_property_name_angles
 					aproperty = prop(property_name,property_profiles,property_type,property_description,property_default,property_range,property_ending_list,group_property_name)
 #					aproperty.pprint()
 					property_wiki = wikiProperty(aproperty,profiles,fdetails)		
@@ -433,7 +471,7 @@ def main():
  #    compFile = prevWikiVersion + output_subdir
     # inputDir = wikiVersion + "/" + input_subdir
     # outputDir = wikiVersion + "/" + output_subdir
-	td = "2015-11-03"
+	td = "2015-11-10"
 
 #    inputDir = '~/platform/system-properties/src/main/resources'
 	propertyFile = 'abiquo.properties_' + td
@@ -452,7 +490,7 @@ def main():
 
 	property_regex_no_comment = re.compile('([\w.\-]+?)([\s]*)([=]{1,1})(.*)',re.S)
 	range_regex = re.compile('(Range:[\s]*?)([\w\-\,\s\<\>\.]*)')
-
+	range_regex_bracket = re.compile('(Range[\s]*?[[])([^\]]*?)[\]]')
 	storage_dict = {}
 
 	profiles = collections.OrderedDict()
@@ -466,7 +504,7 @@ def main():
 	with codecs.open(propertyFile, 'r', 'utf-8') as f:
 		content = f.readlines()
 	# Prepare the properties for wiki output and sample files	
-	(storage_dict,sample_files) = storeProperties(content,property_regex_comment,property_regex_no_comment,range_regex,profiles,fdetails,sample_files)
+	(storage_dict,sample_files) = storeProperties(content,property_regex_comment,property_regex_no_comment,range_regex,range_regex_bracket,profiles,fdetails,sample_files)
 
 	# Reorganise the storage dict by categories for the wiki
 	categories = wikiCategories(storage_dict)
