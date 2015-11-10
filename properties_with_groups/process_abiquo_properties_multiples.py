@@ -436,7 +436,7 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 				else:	
 					#	add property description to a list
 						property_description_current_line = property_line[len(property_ending_list):].strip()
-						property_description_list.append(re.sub("^# ","",property_description_current_line))	
+						property_description_list.append(re.sub("^#[\s]*?"," ",property_description_current_line))	
 		else:	
 #			mandatory property name and optional default value, commented out - note may have space after comment
 			property_match = property_regex_no_comment.match(property_line)
@@ -486,9 +486,9 @@ def main():
 
 	property_description_list = []
 #	property_regex_multiple = re.compile('for each',re.S)
-	property_regex_comment = re.compile('([#]{1,1})([\s]*)([\w.\-]+?)([\s]*)([=]{1,1})(.*)',re.S)
+	property_regex_comment = re.compile('([#]{1,1})([\s]*?)([\w.\-]+?)([\s]*)([=]{1,1})(.*)',re.S)
 
-	property_regex_no_comment = re.compile('([\w.\-]+?)([\s]*)([=]{1,1})(.*)',re.S)
+	property_regex_no_comment = re.compile('([\w.\-]+?)([\s]*?)([=]{1,1})(.*)',re.S)
 	range_regex = re.compile('(Range:[\s]*?)([\w\-\,\s\<\>\.]*)')
 	range_regex_bracket = re.compile('(Range[\s]*?[[])([^\]]*?)[\]]')
 	storage_dict = {}
