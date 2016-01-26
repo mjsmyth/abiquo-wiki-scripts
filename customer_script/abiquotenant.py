@@ -10,10 +10,71 @@ import json
 import requests
 
 
+def createUser(apiIP,apiAuth,enti):
+
+	# Create a user
+	apiUrl = 'http://' + apiIP + '/api/admin/enterprises/' + enti + '/users'
+	apiContentType = 'application/vnd.abiquo.user+json;version=3.6'
+	apiAccept = 'application/vnd.abiquo.user+json;version=3.6'
+	apiHeaders = {}
+	apiHeaders['Accept'] = apiAccept
+	apiHeaders['Content-Type'] = apiContentType
+	apiHeaders['Authorization'] = apiAuth
+
+
+	userFirstName = raw_input("Please enter a user first name, e.g. John: ")		
+	userSurname = raw_input("Please enter a user surname, e.g. Smith: ")
+	userNick = raw_input("Please enter a username, e.g. johnsmith: ")
+	userEmail = raw_input("Please enter a user email, e.g. johnsmith@example.com: ")
+	userPassword = raw_input("Please enter user password 8 characters, e.g. johnsmithpw: ")
+	userRole = raw_input("Please enter a user role (1 = cloud, 2 = user, 3 = ent admin: ")
+
+	# Data of user to create
+	user = {}
+	user['name'] = userFirstName
+	user['surname'] = userSurname
+	user['nick'] = userNick
+	user['locale'] = "EN"
+	user['firstLogin'] = true
+	user['active'] = true
+	user['locked'] = false
+	user['password'] = userPassword
+	user['email'] = userEmail
+	user['description'] = "user description"
+
+	user['links'] = []
+	user_item =  {}
+	user_item['href'] = 'http://' + apiIP + '/api/admin/roles/' + str(userRole)
+	user_item['rel'] = 'role'
+	user['links'].append(dclimit_item)
+
+
+	jsonuser = json.dumps(user, ensure_ascii=False)
+	# Request to create user
+	ur = requests.post(apiUrl, headers=apiHeaders, verify=False, data=jsonuser)
+	user_data = ur.json()
+	user_data_keys = sorted (user_data.keys())
+	user_id_value = ""
+	user_username_value = ""
+	
+	for urk in user_data_keys:
+		if urk == "id":
+			user_id_value = user_data[urk]
+		elif urk == "nick":
+			user_username_value = user_data[urk]	
+
+	store_user = {}
+	if not user_id_value == "":
+		store_user[user_id_value] = (user_id_value,user_username_value)
+	return store_user
+
+
+
 def createEntDCLimit(apiIP,apiAuth,enti,tenDC):
 
 	# Create an enterprise datacenter limit
-	apiUrl = 'http://' + apiIP + '/api/admin/enterprises' + enti + 'limits'
+
+	apiUrl = 'http://' + apiIP + '/api/admin/enterprises/' + enti + '/limits'
 	apiContentType = 'application/vnd.abiquo.limit+json;version=3.6'
 	apiAccept = 'application/vnd.abiquo.limit+json;version=3.6'
 	apiHeaders = {}
@@ -31,15 +92,15 @@ def createEntDCLimit(apiIP,apiAuth,enti,tenDC):
 	dclimit['ramHardLimitInMb'] = 0
 	dclimit['vlansSoft'] = 0
 	dclimit['cpuCountSoftLimit'] = 0
-	dclimit['links'] =  []
+	dclimit['links'] = []
 	dclimit_item =  {}
-	dclimit_item['href'] = 'http://' + apiIP + 'api/admin/datacenters/' + tenDC 
-	dclimit_item['rel'] = location
+	dclimit_item['href'] = 'http://' + apiIP + '/api/admin/datacenters/' + tenDC
+	dclimit_item['rel'] = 'location'
 	dclimit['links'].append(dclimit_item)
 
 
 	jsonlmt = json.dumps(dclimit, ensure_ascii=False)
-	# Request to create enterprise
+	# Request to create enterprise datacente rlimit
 	dcl = requests.post(apiUrl, headers=apiHeaders, verify=False, data=jsonlmt)
 	dcl_data = dcl.json()
 	dcl_data_keys = sorted (dcl_data.keys())
@@ -159,9 +220,9 @@ def main ():
 		print "Datacenter id: %s  \tName: %s  \tType: %s" % (dci,dcn,dct)
 
 
-    tenName = raw_input("Please enter a tenant name, e.g. My Enterprise: ")
+	tenName = raw_input("Please enter a tenant name, e.g. My Enterprise: ")
 
-	ent = createTenant(apiIP,apiAuth,tenName)
+	ent = createEnt(apiIP,apiAuth,tenName)
 
 	for enok in ent:
 		(enti,entn) = ent[enok]
@@ -170,7 +231,14 @@ def main ():
 		tenRawDC = raw_input("Enter datacenter ID that tenant can access, e.g. 1: ")
 		tenDC = int(tenRawDC)
 		if tenDC > 0:
-			createEntDClimit(apiIP,apiAuth,enti,tenDC)	
+			tenantDCID = str(tenDC)
+			entID = str(enti)
+			tenDCLimitID = createEntDCLimit(apiIP,apiAuth,entID,tenantDCID)	
+			print "Tenant limit id: %s" % tenDCLimitID
+
+		createUser(apiIP,apiAuth,enti)	
+
+
 
 # Calls the main() function
 if __name__ == '__main__':
