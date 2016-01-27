@@ -11,11 +11,12 @@ import requests
 import copy
 
 
-def switchEnt(adUserID,entID):
+def switchEnt(apiIP,apiAuth,adUserID,adEntID,entID):
 	# You need to switch to the enterprise to create the VDC
 	# You will need to supply the ID of your user - default cloud admin is 1
 	# Get the user that you are using to access the API 	
-	apiUrl = 'http://' + apiIP + '/api/admin/users/' + adUserID
+#	apiUrl = 'http://' + apiIP + '/api/admin/enterprises/' + adEntID + '/users/' + adUserID
+	apiUrl = 'http://' + apiIP + '/api/admin/enterprises/' + adEntID + '/users/' + adUserID
 	apiAccept = 'application/vnd.abiquo.user+json;version=3.6'
 	apiHeaders = {}
 	apiHeaders['Accept'] = apiAccept
@@ -24,14 +25,66 @@ def switchEnt(adUserID,entID):
 #	apiParams = {'idScope': '1'}
 	r = requests.get(apiUrl, headers=apiHeaders, verify=False)
 #	r = requests.get(apiUrl, headers=apiHeaders, verify=False, params=apiParams)
-	aur_data = r.json()
+
+	aur_data = r.json(encoding="utf-8")
 	aur_data_keys = sorted (aur_data.keys())
 
-	store_aur = {}
+	aur_links = []
+	aur_ent_link = {}
 
+	aur_id_value = ""
+	aur_ent_value = ""
 	
+	for auk in aur_data_keys:
+		if auk == "id":
+			aur_id_value = aur_data[auk]
+		elif auk == "links":
+			for aul in aur_data[auk]:
+				if aul['rel'] == "enterprise":
+					aul['href'] = 'http://' + apiIP + '/api/admin/enterprises/' + entID				
 
-def createVDC(apiIP,apiAuth,tenantDCID,entID,hyper,vdcName):
+
+	papiUrl = 'http://' + apiIP + '/api/admin/enterprises/_/users/' + adUserID
+	papiAccept = 'application/vnd.abiquo.user+json;version=3.6'
+	papiContentType = 'application/vnd.abiquo.user+json;version=3.6'
+	papiHeaders = {}
+	papiHeaders['Accept'] = papiAccept
+	papiHeaders['Content-Type'] = papiContentType
+	papiHeaders['Authorization'] = apiAuth
+
+	jsonADMINuser = json.dumps(aur_data, encoding="utf-8")
+
+	try:
+		prv = requests.put(papiUrl, headers=papiHeaders, data=jsonADMINuser)
+	except requests.exceptions.RequestException as e:    
+	    print e
+	    sys.exit(1)
+
+#	prv = requests.put(papiUrl, headers=papiHeaders, verify=False, data=jsonADMINuser)
+	nur_data = prv.json()
+	print "nur_data: %s " % nur_data 
+
+	nur_data_keys = sorted (nur_data.keys())
+
+	nur_id_value = ""
+	nur_ent_link_value = ""
+
+	for nuk in nur_data_keys:
+		if nuk == "id":
+			nur_id_value = nur_data[nuk]
+		elif nuk == "links":
+			for naul in nur_data[nuk]:
+				if naul['rel'] == "enterprise":
+					nur_ent_link_value = naul['href']				
+
+	print "User was changed from %s to %s" % (adEntID,entID)
+	print "New enterprise link was %s " % str(nur_ent_link_value)	
+
+	return nur_ent_link_value
+
+
+
+def createVDC(apiIP,apiAuth,tenantDCID,entID,entlink,hyper,vdcName):
 
 	# Create a VDC
 	apiUrl = 'http://' + apiIP + '/api/cloud/virtualdatacenters'
@@ -80,15 +133,17 @@ def createVDC(apiIP,apiAuth,tenantDCID,entID,hyper,vdcName):
 	vdc['links'].append(vdc_dc_item)
 
 	vdc_ent_item =  {}
-	vdc_ent_item['href'] = 'http://' + apiIP + '/api/admin/enterprises/' + "1"
+	vdc_ent_item['href'] = entlink
+#	print "The enterprise link is %s " % entlink
+#	vdc_ent_item['href'] = 'http://' + apiIP + '/api/admin/enterprises/' + entID
 	vdc_ent_item['rel'] = 'enterprise'
 	vdc['links'].append(vdc_ent_item)
 
-	jsonvdc = json.dumps(vdc, ensure_ascii=False)
-	# Request to create vdc
+	jsonvdc = json.dumps(vdc, ensure_ascii=False, encoding="utf-8")
+	# Request to create vdc - remove verify = False
 	try:
 	    uvdc = requests.post(apiUrl, headers=apiHeaders, verify=False, data=jsonvdc)
-	except requests.exceptions.RequestException as e:    # This is the correct syntax
+	except requests.exceptions.RequestException as e:    
 	    print e
 	    sys.exit(1)
 
@@ -346,11 +401,18 @@ def main ():
 
 			print "Create a VDC"	
 			print "Assuming we are working with datacenter: %s " % tenantDCID
-			print "And tenant: %s " % entID
+			print "Switching to tenant: %s " % entID
+
+			# Assuming the current user is the main cloud admin
+			adminUserID = "1"
+			adminEntID = "1"
+
+			entlink = switchEnt(apiIP,apiAuth,adminUserID,adminEntID,entID)
+
 			vdcName = raw_input("Enter name for VDC: ")
 			hyper = raw_input("Enter hypervisorType for VDC, e.g. KVM, VMX_04: ")
 
-			tenVDC = createVDC(apiIP,apiAuth,tenantDCID,entID,hyper,vdcName)
+			tenVDC = createVDC(apiIP,apiAuth,tenantDCID,entID,entlink,hyper,vdcName)
 
 			if tenVDC:
 				for vdk in tenVDC:
