@@ -2,9 +2,10 @@
 # -*- coding: UTF-8 -*-
 # Tenant setup script
 # 0. Get a list of Datacenters
-# 1. Create an enteprise
+# 1. Create an enterprise
 # 1a. Add a datacenter for the enterprise
 # 2. Create a user for the enterprise
+# 2a. Switch to the enterprise
 # 3. Create a VDC
 import json
 import requests
@@ -15,8 +16,8 @@ def switchEnt(apiIP,apiAuth,adUserID,adEntID,entID):
 	# You need to switch to the enterprise to create the VDC
 	# You will need to supply the ID of your user - default cloud admin is 1
 	# Get the user that you are using to access the API 	
-#	apiUrl = 'http://' + apiIP + '/api/admin/enterprises/' + adEntID + '/users/' + adUserID
-	apiUrl = 'http://' + apiIP + '/api/admin/enterprises/' + adEntID + '/users/' + adUserID
+	# Use all enterprises, so you don't need to rely on current enterprise
+	apiUrl = 'http://' + apiIP + '/api/admin/enterprises/_/users/' + adUserID
 	apiAccept = 'application/vnd.abiquo.user+json;version=3.6'
 	apiHeaders = {}
 	apiHeaders['Accept'] = apiAccept
@@ -28,20 +29,17 @@ def switchEnt(apiIP,apiAuth,adUserID,adEntID,entID):
 
 	aur_data = r.json(encoding="utf-8")
 	aur_data_keys = sorted (aur_data.keys())
-
-	aur_links = []
 	aur_ent_link = {}
 
-	aur_id_value = ""
-	aur_ent_value = ""
-	
+	# aur_id_value = ""
 	for auk in aur_data_keys:
-		if auk == "id":
-			aur_id_value = aur_data[auk]
-		elif auk == "links":
-			for aul in aur_data[auk]:
-				if aul['rel'] == "enterprise":
-					aul['href'] = 'http://' + apiIP + '/api/admin/enterprises/' + entID				
+	# 	if auk == "id":
+	# 		aur_id_value = aur_data[auk]
+	#	elif auk == "links"
+	 	if auk == "links":
+	 		for aul in aur_data[auk]:
+	 			if aul['rel'] == "enterprise":
+	 				aul['href'] = 'http://' + apiIP + '/api/admin/enterprises/' + entID				
 
 
 	papiUrl = 'http://' + apiIP + '/api/admin/enterprises/_/users/' + adUserID
@@ -349,10 +347,10 @@ def getDCs(apiIP,apiAuth):
 				for dk in dc_keys:
 					if dk == "idDatacenter":
 						dc_id_value = dc_item[dk]
-						print "dc_id %s " % dc_id_value
+#						print "dc_id %s " % dc_id_value
 					elif dk == "name":
 						dc_name_value = dc_item[dk].decode('utf-8')	
-						print "dc_name %s " % dc_name_value
+#						print "dc_name %s " % dc_name_value
 					elif dk == "links":
 						dc_links = dc_item[dk]
 						for dc_link_item in dc_links:
@@ -360,9 +358,9 @@ def getDCs(apiIP,apiAuth):
 							for dlk in dc_links_keys:
 								if dlk == "type":
 									dc_type_value = dc_link_item[dlk]
-									print "dc_type_value %s " % dc_type_value
+#									print "dc_type_value %s " % dc_type_value
 				if not dc_id_value == "":
-					print "Datacenter id: %s  \tName: %s  \tType: %s" % (dc_id_value,dc_name_value,dc_type_value)
+#					print "Datacenter id: %s  \tName: %s  \tType: %s" % (dc_id_value,dc_name_value,dc_type_value)
 					store_dc[dc_id_value] = (dc_id_value,dc_name_value,dc_type_value)
 	return store_dc				
 
