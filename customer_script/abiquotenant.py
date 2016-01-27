@@ -8,6 +8,109 @@
 # 3. Create a VDC
 import json
 import requests
+import copy
+
+
+def switchEnt(adUserID,entID):
+	# You need to switch to the enterprise to create the VDC
+	# You will need to supply the ID of your user - default cloud admin is 1
+	# Get the user that you are using to access the API 	
+	apiUrl = 'http://' + apiIP + '/api/admin/users/' + adUserID
+	apiAccept = 'application/vnd.abiquo.user+json;version=3.6'
+	apiHeaders = {}
+	apiHeaders['Accept'] = apiAccept
+	apiHeaders['Authorization'] = apiAuth
+	# You can restrict this for a scope
+#	apiParams = {'idScope': '1'}
+	r = requests.get(apiUrl, headers=apiHeaders, verify=False)
+#	r = requests.get(apiUrl, headers=apiHeaders, verify=False, params=apiParams)
+	aur_data = r.json()
+	aur_data_keys = sorted (aur_data.keys())
+
+	store_aur = {}
+
+	
+
+def createVDC(apiIP,apiAuth,tenantDCID,entID,hyper,vdcName):
+
+	# Create a VDC
+	apiUrl = 'http://' + apiIP + '/api/cloud/virtualdatacenters'
+	apiContentType = 'application/vnd.abiquo.virtualdatacenter+json;version=3.6'
+	apiAccept = 'application/vnd.abiquo.virtualdatacenter+json;version=3.6'
+	apiHeaders = {}
+	apiHeaders['Accept'] = apiAccept
+	apiHeaders['Content-Type'] = apiContentType
+	apiHeaders['Authorization'] = apiAuth
+
+	vdc = {}
+
+	vdc['name'] = vdcName
+
+	vdc['cpuCountHardLimit'] = 0
+	vdc['ramSoftLimitInMb'] = 0
+	vdc['vlansHard'] = 0
+	vdc['publicIpsHard'] = 0
+	vdc['publicIpsSoft'] = 0
+	vdc['ramHardLimitInMb'] = 0
+	vdc['vlansSoft'] = 0
+	vdc['cpuCountSoftLimit'] = 0
+
+	vdc['vlan'] = {}
+	vdc['vlan']['defaultNetwork'] = False
+	vdc['vlan']['name'] = 'Default Network'
+	vdc['vlan']['links'] = []
+	vdc['vlan']['secondaryDNS'] = '8.8.4.4'
+	vdc['vlan']['mask'] = '24'
+	vdc['vlan']['strict'] = False
+	vdc['vlan']['ipv6'] = False
+	vdc['vlan']['primaryDNS'] = '8.8.0.0'
+	vdc['vlan']['gateway'] = '192.168.0.1'
+	vdc['vlan']['address'] = '192.168.0.0'
+	vdc['vlan']['type'] = "INTERNAL"
+
+#	vdc['vlan'] = vdcvlan
+
+  	vdc['hypervisorType'] =  hyper
+
+	vdc['links'] = []
+	vdc_dc_item =  {}
+	vdc_dc_item['href'] = 'http://' + apiIP + '/api/cloud/locations/' + tenantDCID
+	vdc_dc_item['type'] = 'application/vnd.abiquo.datacenter+json'
+	vdc_dc_item['rel'] = 'location'
+	vdc['links'].append(vdc_dc_item)
+
+	vdc_ent_item =  {}
+	vdc_ent_item['href'] = 'http://' + apiIP + '/api/admin/enterprises/' + "1"
+	vdc_ent_item['rel'] = 'enterprise'
+	vdc['links'].append(vdc_ent_item)
+
+	jsonvdc = json.dumps(vdc, ensure_ascii=False)
+	# Request to create vdc
+	try:
+	    uvdc = requests.post(apiUrl, headers=apiHeaders, verify=False, data=jsonvdc)
+	except requests.exceptions.RequestException as e:    # This is the correct syntax
+	    print e
+	    sys.exit(1)
+
+	vdc_data = uvdc.json()
+	vdc_data_keys = sorted (vdc_data.keys())
+	vdc_id_value = ""
+	vdc_name_value = ""
+	
+	for vk in vdc_data_keys:
+		if vk == "id":
+			vdc_id_value = vdc_data[vk]
+		elif vk == "name":
+			vdc_name_value = vdc_data[vk]	
+
+	store_vdc = {}
+	if not vdc_id_value == "":
+		print "Created VDC: %s " % vdc_name_value 
+		store_vdc[vdc_id_value] = (vdc_id_value,vdc_name_value)
+	return store_vdc
+
+
+
 
 
 def createUser(apiIP,apiAuth,enti):
@@ -27,7 +130,7 @@ def createUser(apiIP,apiAuth,enti):
 	userNick = raw_input("Please enter a username, e.g. johnsmith: ")
 	userEmail = raw_input("Please enter a user email, e.g. johnsmith@example.com: ")
 	userPassword = raw_input("Please enter user password 8 characters, e.g. johnsmithpw: ")
-	userRole = raw_input("Please enter a user role (1 = cloud, 2 = user, 3 = ent admin: ")
+	userRole = raw_input("Please enter a user role (1 = cloud, 2 = user, 3 = ent admin): ")
 
 	# Data of user to create
 	user = {}
@@ -35,9 +138,9 @@ def createUser(apiIP,apiAuth,enti):
 	user['surname'] = userSurname
 	user['nick'] = userNick
 	user['locale'] = "EN"
-	user['firstLogin'] = true
-	user['active'] = true
-	user['locked'] = false
+	user['firstLogin'] = True
+	user['active'] = True
+	user['locked'] = False
 	user['password'] = userPassword
 	user['email'] = userEmail
 	user['description'] = "user description"
@@ -46,7 +149,7 @@ def createUser(apiIP,apiAuth,enti):
 	user_item =  {}
 	user_item['href'] = 'http://' + apiIP + '/api/admin/roles/' + str(userRole)
 	user_item['rel'] = 'role'
-	user['links'].append(dclimit_item)
+	user['links'].append(user_item)
 
 
 	jsonuser = json.dumps(user, ensure_ascii=False)
@@ -70,7 +173,7 @@ def createUser(apiIP,apiAuth,enti):
 
 
 
-def createEntDCLimit(apiIP,apiAuth,enti,tenDC):
+def createEntDCLimit(apiIP,apiAuth,enti,tenantDCID):
 
 	# Create an enterprise datacenter limit
 
@@ -94,7 +197,7 @@ def createEntDCLimit(apiIP,apiAuth,enti,tenDC):
 	dclimit['cpuCountSoftLimit'] = 0
 	dclimit['links'] = []
 	dclimit_item =  {}
-	dclimit_item['href'] = 'http://' + apiIP + '/api/admin/datacenters/' + tenDC
+	dclimit_item['href'] = 'http://' + apiIP + '/api/admin/datacenters/' + tenantDCID
 	dclimit_item['rel'] = 'location'
 	dclimit['links'].append(dclimit_item)
 
@@ -221,7 +324,6 @@ def main ():
 
 
 	tenName = raw_input("Please enter a tenant name, e.g. My Enterprise: ")
-
 	ent = createEnt(apiIP,apiAuth,tenName)
 
 	for enok in ent:
@@ -236,8 +338,24 @@ def main ():
 			tenDCLimitID = createEntDCLimit(apiIP,apiAuth,entID,tenantDCID)	
 			print "Tenant limit id: %s" % tenDCLimitID
 
-		createUser(apiIP,apiAuth,enti)	
+			dcuser = createUser(apiIP,apiAuth,entID)	
 
+			for uk in dcuser:
+				(uid,uun) = dcuser[uk]
+				print "User id: %s  \tUsername: %s  \t" % (uid,uun)
+
+			print "Create a VDC"	
+			print "Assuming we are working with datacenter: %s " % tenantDCID
+			print "And tenant: %s " % entID
+			vdcName = raw_input("Enter name for VDC: ")
+			hyper = raw_input("Enter hypervisorType for VDC, e.g. KVM, VMX_04: ")
+
+			tenVDC = createVDC(apiIP,apiAuth,tenantDCID,entID,hyper,vdcName)
+
+			if tenVDC:
+				for vdk in tenVDC:
+					(vid,vna) = tenVDC[vdk]
+					print "VDC id: %s  \tVDC name: %s  \t" % (vid,vna)
 
 
 # Calls the main() function
