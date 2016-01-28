@@ -109,6 +109,7 @@ def createVDC(apiIP,apiAuth,tenantDCID,entID,entlink,hyper,vdcName):
 	vdc['cpuCountSoftLimit'] = 0
 
 	vdc['vlan'] = {}
+	vdc['vlan']['defaultNetwork'] = True
 	vdc['vlan']['name'] = 'Default Network'
 	vdc['vlan']['links'] = []
 	vdc['vlan']['secondaryDNS'] = '8.8.4.4'
@@ -118,7 +119,7 @@ def createVDC(apiIP,apiAuth,tenantDCID,entID,entlink,hyper,vdcName):
 	vdc['vlan']['primaryDNS'] = '8.8.0.0'
 	vdc['vlan']['gateway'] = '192.168.0.1'
 	vdc['vlan']['address'] = '192.168.0.0'
-
+	vdc['vlan']['type'] = 'INTERNAL'
 
 #	vdc['vlan'] = vdcvlan
 
@@ -181,9 +182,13 @@ def createUser(apiIP,apiAuth,enti):
 
 	userFirstName = raw_input("Please enter a user first name, e.g. John: ")		
 	userSurname = raw_input("Please enter a user surname, e.g. Smith: ")
-	userNick = raw_input("Please enter a username, e.g. johnsmith: ")
-	userEmail = raw_input("Please enter a user email, e.g. johnsmith@example.com: ")
-	userPassword = raw_input("Please enter user password 8 characters, e.g. johnsmithpw: ")
+	userNick = userFirstName.lower() + userSurname.lower()
+#	userNick = raw_input("Please enter a username, e.g. johnsmith: ")
+	userEmail = userFirstName.lower()[0:1] + userSurname.lower() + '@example.com' 
+#	userEmail = raw_input("Please enter a user email, e.g. jsmith@example.com: ")
+	userPassword = userFirstName.lower() + userSurname.lower() + 'password'
+#	userPassword = raw_input("Please enter user password 8 characters, e.g. johnsmithpassword: ")
+
 	userRole = raw_input("Please enter a user role (1 = cloud, 2 = user, 3 = ent admin): ")
 
 	# Data of user to create
@@ -219,9 +224,10 @@ def createUser(apiIP,apiAuth,enti):
 			user_id_value = user_data[urk]
 		elif urk == "nick":
 			user_username_value = user_data[urk]	
-
+	
 	store_user = {}
 	if not user_id_value == "":
+		print "Created user with username: %s \tpassword: %s\t " % (userNick,userPassword)
 		store_user[user_id_value] = (user_id_value,user_username_value)
 	return store_user
 
@@ -331,6 +337,7 @@ def getDCs(apiIP,apiAuth):
 
 	r = requests.get(apiUrl, headers=apiHeaders, verify=False, params=apiParams)
 	dc_data = r.json()
+	print dc_data
 	dc_data_keys = sorted (dc_data.keys())
 
 	store_dc = {}
@@ -370,6 +377,7 @@ def main ():
 
 	apiAuth = raw_input("Enter API authorization, e.g. Basic XXXX: ")
 	apiIP = raw_input("Enter API address, e.g. api.abiquo.com: ")
+
 	dcs = {}
 	dcs = getDCs(apiIP,apiAuth)
 	for dcok in dcs:
