@@ -7,6 +7,7 @@
 # 2. Create a user for the enterprise
 # 2a. Switch to the enterprise
 # 3. Create a VDC
+# 4. Create a VApp
 import json
 import requests
 import copy
@@ -16,7 +17,8 @@ def switchEnt(apiIP,apiAuth,adUserID,adEntID,entID):
 	# You need to switch to the enterprise to create the VDC
 	# You will need to supply the ID of your user - default cloud admin is 1
 	# Get the user that you are using to access the API 	
-	# Use all enterprises, so you don't need to rely on current enterprise
+	# Use all enterprises, so you don't need to rely on knowing current enterprise
+	# TODO get the ID of the current enterprise for audit purposes?
 	apiUrl = 'http://' + apiIP + '/api/admin/enterprises/_/users/' + adUserID
 	apiAccept = 'application/vnd.abiquo.user+json;version=3.6'
 	apiHeaders = {}
@@ -107,7 +109,6 @@ def createVDC(apiIP,apiAuth,tenantDCID,entID,entlink,hyper,vdcName):
 	vdc['cpuCountSoftLimit'] = 0
 
 	vdc['vlan'] = {}
-	vdc['vlan']['defaultNetwork'] = False
 	vdc['vlan']['name'] = 'Default Network'
 	vdc['vlan']['links'] = []
 	vdc['vlan']['secondaryDNS'] = '8.8.4.4'
@@ -117,7 +118,7 @@ def createVDC(apiIP,apiAuth,tenantDCID,entID,entlink,hyper,vdcName):
 	vdc['vlan']['primaryDNS'] = '8.8.0.0'
 	vdc['vlan']['gateway'] = '192.168.0.1'
 	vdc['vlan']['address'] = '192.168.0.0'
-	vdc['vlan']['type'] = "INTERNAL"
+
 
 #	vdc['vlan'] = vdcvlan
 
@@ -416,6 +417,8 @@ def main ():
 				for vdk in tenVDC:
 					(vid,vna) = tenVDC[vdk]
 					print "VDC id: %s  \tVDC name: %s  \t" % (vid,vna)
+
+					
 
 
 # Calls the main() function
