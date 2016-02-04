@@ -11,15 +11,16 @@
 import json
 import requests
 import copy
+import sys
 
 
-def switchEnt(apiIP,apiAuth,adUserID,adEntID,entID):
+def switchEnt(apiPIP,apiAuth,adUserID,adEntID,entID):
 	# You need to switch to the enterprise to create the VDC
 	# You will need to supply the ID of your user - default cloud admin is 1
 	# Get the user that you are using to access the API 	
 	# Use all enterprises, so you don't need to rely on knowing current enterprise
 	# TODO get the ID of the current enterprise for audit purposes?
-	apiUrl = 'http://' + apiIP + '/api/admin/enterprises/_/users/' + adUserID
+	apiUrl =  apiPIP + '/api/admin/enterprises/_/users/' + adUserID
 	apiAccept = 'application/vnd.abiquo.user+json;version=3.6'
 	apiHeaders = {}
 	apiHeaders['Accept'] = apiAccept
@@ -41,10 +42,10 @@ def switchEnt(apiIP,apiAuth,adUserID,adEntID,entID):
 	 	if auk == "links":
 	 		for aul in aur_data[auk]:
 	 			if aul['rel'] == "enterprise":
-	 				aul['href'] = 'http://' + apiIP + '/api/admin/enterprises/' + entID				
+	 				aul['href'] = apiPIP + '/api/admin/enterprises/' + entID				
 
 
-	papiUrl = 'http://' + apiIP + '/api/admin/enterprises/_/users/' + adUserID
+	papiUrl = apiPIP + '/api/admin/enterprises/_/users/' + adUserID
 	papiAccept = 'application/vnd.abiquo.user+json;version=3.6'
 	papiContentType = 'application/vnd.abiquo.user+json;version=3.6'
 	papiHeaders = {}
@@ -55,7 +56,7 @@ def switchEnt(apiIP,apiAuth,adUserID,adEntID,entID):
 	jsonADMINuser = json.dumps(aur_data, encoding="utf-8")
 
 	try:
-		prv = requests.put(papiUrl, headers=papiHeaders, data=jsonADMINuser)
+		prv = requests.put(papiUrl, headers=papiHeaders, verify=False, data=jsonADMINuser)
 	except requests.exceptions.RequestException as e:    
 	    print e
 	    sys.exit(1)
@@ -84,10 +85,10 @@ def switchEnt(apiIP,apiAuth,adUserID,adEntID,entID):
 
 
 
-def createVDC(apiIP,apiAuth,tenantDCID,entID,entlink,hyper,vdcName):
+def createVDC(apiPIP,apiAuth,tenantDCID,entID,entlink,hyper,vdcName):
 
 	# Create a VDC
-	apiUrl = 'http://' + apiIP + '/api/cloud/virtualdatacenters'
+	apiUrl = apiPIP + '/api/cloud/virtualdatacenters'
 	apiContentType = 'application/vnd.abiquo.virtualdatacenter+json;version=3.6'
 	apiAccept = 'application/vnd.abiquo.virtualdatacenter+json;version=3.6'
 	apiHeaders = {}
@@ -127,7 +128,7 @@ def createVDC(apiIP,apiAuth,tenantDCID,entID,entlink,hyper,vdcName):
 
 	vdc['links'] = []
 	vdc_dc_item =  {}
-	vdc_dc_item['href'] = 'http://' + apiIP + '/api/cloud/locations/' + tenantDCID
+	vdc_dc_item['href'] = apiPIP + '/api/cloud/locations/' + tenantDCID
 	vdc_dc_item['type'] = 'application/vnd.abiquo.datacenter+json'
 	vdc_dc_item['rel'] = 'location'
 	vdc['links'].append(vdc_dc_item)
@@ -135,7 +136,7 @@ def createVDC(apiIP,apiAuth,tenantDCID,entID,entlink,hyper,vdcName):
 	vdc_ent_item =  {}
 	vdc_ent_item['href'] = entlink
 #	print "The enterprise link is %s " % entlink
-#	vdc_ent_item['href'] = 'http://' + apiIP + '/api/admin/enterprises/' + entID
+#	vdc_ent_item['href'] = apiPIP + '/api/admin/enterprises/' + entID
 	vdc_ent_item['rel'] = 'enterprise'
 	vdc['links'].append(vdc_ent_item)
 
@@ -168,10 +169,10 @@ def createVDC(apiIP,apiAuth,tenantDCID,entID,entlink,hyper,vdcName):
 
 
 
-def createUser(apiIP,apiAuth,enti):
+def createUser(apiPIP,apiAuth,enti):
 
 	# Create a user
-	apiUrl = 'http://' + apiIP + '/api/admin/enterprises/' + enti + '/users'
+	apiUrl =  apiPIP + '/api/admin/enterprises/' + enti + '/users'
 	apiContentType = 'application/vnd.abiquo.user+json;version=3.6'
 	apiAccept = 'application/vnd.abiquo.user+json;version=3.6'
 	apiHeaders = {}
@@ -197,7 +198,9 @@ def createUser(apiIP,apiAuth,enti):
 	user['surname'] = userSurname
 	user['nick'] = userNick
 	user['locale'] = "EN"
-	user['firstLogin'] = True
+# In a realworld scenario this would be True, because we want user to reset dummy password
+# But in a deployed test system, we don't want to configure it	
+	user['firstLogin'] = False
 	user['active'] = True
 	user['locked'] = False
 	user['password'] = userPassword
@@ -206,12 +209,12 @@ def createUser(apiIP,apiAuth,enti):
 
 	user['links'] = []
 	user_item =  {}
-	user_item['href'] = 'http://' + apiIP + '/api/admin/roles/' + str(userRole)
+	user_item['href'] =  apiPIP + '/api/admin/roles/' + str(userRole)
 	user_item['rel'] = 'role'
 	user['links'].append(user_item)
 
 
-	jsonuser = json.dumps(user, ensure_ascii=False)
+	jsonuser = json.dumps(user, ensure_ascii=False, encoding="utf-8")
 	# Request to create user
 	ur = requests.post(apiUrl, headers=apiHeaders, verify=False, data=jsonuser)
 	user_data = ur.json()
@@ -233,11 +236,11 @@ def createUser(apiIP,apiAuth,enti):
 
 
 
-def createEntDCLimit(apiIP,apiAuth,enti,tenantDCID):
+def createEntDCLimit(apiPIP,apiAuth,enti,tenantDCID):
 
 	# Create an enterprise datacenter limit
 
-	apiUrl = 'http://' + apiIP + '/api/admin/enterprises/' + enti + '/limits'
+	apiUrl =  apiPIP + '/api/admin/enterprises/' + enti + '/limits'
 	apiContentType = 'application/vnd.abiquo.limit+json;version=3.6'
 	apiAccept = 'application/vnd.abiquo.limit+json;version=3.6'
 	apiHeaders = {}
@@ -257,12 +260,12 @@ def createEntDCLimit(apiIP,apiAuth,enti,tenantDCID):
 	dclimit['cpuCountSoftLimit'] = 0
 	dclimit['links'] = []
 	dclimit_item =  {}
-	dclimit_item['href'] = 'http://' + apiIP + '/api/admin/datacenters/' + tenantDCID
+	dclimit_item['href'] =  apiPIP + '/api/admin/datacenters/' + tenantDCID
 	dclimit_item['rel'] = 'location'
 	dclimit['links'].append(dclimit_item)
 
 
-	jsonlmt = json.dumps(dclimit, ensure_ascii=False)
+	jsonlmt = json.dumps(dclimit, ensure_ascii=False, encoding="utf-8")
 	# Request to create enterprise datacente rlimit
 	dcl = requests.post(apiUrl, headers=apiHeaders, verify=False, data=jsonlmt)
 	dcl_data = dcl.json()
@@ -277,10 +280,10 @@ def createEntDCLimit(apiIP,apiAuth,enti,tenantDCID):
 
 
 
-def createEnt(apiIP,apiAuth,tenName):
+def createEnt(apiPIP,apiAuth,tenName):
 
 	# Create a tenant
-	apiUrl = 'http://' + apiIP + '/api/admin/enterprises'
+	apiUrl = apiPIP + '/api/admin/enterprises'
 	apiContentType = 'application/vnd.abiquo.enterprise+json;version=3.6'
 	apiAccept = 'application/vnd.abiquo.enterprise+json;version=3.6'
 	apiHeaders = {}
@@ -303,7 +306,7 @@ def createEnt(apiIP,apiAuth,tenName):
 	enterprise['cpuCountSoftLimit'] = 0 
 	enterprise['diskSoftLimitInMb'] = 0
 
-	jsonent = json.dumps(enterprise, ensure_ascii=False)
+	jsonent = json.dumps(enterprise, ensure_ascii=False, encoding="utf-8")
 	# Request to create enterprise
 	er = requests.post(apiUrl, headers=apiHeaders, verify=False, data=jsonent)
 	ent_data = er.json()
@@ -324,10 +327,10 @@ def createEnt(apiIP,apiAuth,tenName):
 
 
 
-def getDCs(apiIP,apiAuth):
+def getDCs(apiPIP,apiAuth):
 
 	# Get the datacenter light list (ids and names and links) from the API of a fresh Abiquo	
-	apiUrl = 'http://' + apiIP + '/api/admin/datacenters'
+	apiUrl =  apiPIP + '/api/admin/datacenters'
 	apiAccept = 'application/vnd.abiquo.datacenterslight+json;version=3.6'
 	apiHeaders = {}
 	apiHeaders['Accept'] = apiAccept
@@ -376,17 +379,17 @@ def getDCs(apiIP,apiAuth):
 def main ():
 
 	apiAuth = raw_input("Enter API authorization, e.g. Basic XXXX: ")
-	apiIP = raw_input("Enter API address, e.g. api.abiquo.com: ")
+	apiPIP = raw_input("Enter API URL, e.g. https://api.abiquo.com: ")
 
 	dcs = {}
-	dcs = getDCs(apiIP,apiAuth)
+	dcs = getDCs(apiPIP,apiAuth)
 	for dcok in dcs:
 		(dci,dcn,dct) = dcs[dcok]
 		print "Datacenter id: %s  \tName: %s  \tType: %s" % (dci,dcn,dct)
 
 
 	tenName = raw_input("Please enter a tenant name, e.g. My Enterprise: ")
-	ent = createEnt(apiIP,apiAuth,tenName)
+	ent = createEnt(apiPIP,apiAuth,tenName)
 
 	for enok in ent:
 		(enti,entn) = ent[enok]
@@ -397,10 +400,10 @@ def main ():
 		if tenDC > 0:
 			tenantDCID = str(tenDC)
 			entID = str(enti)
-			tenDCLimitID = createEntDCLimit(apiIP,apiAuth,entID,tenantDCID)	
+			tenDCLimitID = createEntDCLimit(apiPIP,apiAuth,entID,tenantDCID)	
 			print "Tenant limit id: %s" % tenDCLimitID
 
-			dcuser = createUser(apiIP,apiAuth,entID)	
+			dcuser = createUser(apiPIP,apiAuth,entID)	
 
 			for uk in dcuser:
 				(uid,uun) = dcuser[uk]
@@ -414,12 +417,12 @@ def main ():
 			adminUserID = "1"
 			adminEntID = "1"
 
-			entlink = switchEnt(apiIP,apiAuth,adminUserID,adminEntID,entID)
+			entlink = switchEnt(apiPIP,apiAuth,adminUserID,adminEntID,entID)
 
 			vdcName = raw_input("Enter name for VDC: ")
 			hyper = raw_input("Enter hypervisorType for VDC, e.g. KVM, VMX_04: ")
 
-			tenVDC = createVDC(apiIP,apiAuth,tenantDCID,entID,entlink,hyper,vdcName)
+			tenVDC = createVDC(apiPIP,apiAuth,tenantDCID,entID,entlink,hyper,vdcName)
 
 			if tenVDC:
 				for vdk in tenVDC:
