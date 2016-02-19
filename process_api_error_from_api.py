@@ -51,7 +51,7 @@ class ApiErrorLine:
 def main():
 	input_subdir = "input_files"
 	output_subdir = "output_files"
-	todays_date = "2015-08-04"
+	todays_date = "2016-02-19"
 	api_error_input_file = "process_api_errors_input_from_api_" + todays_date + ".txt"
 	FS = "|"
 	error_lines = {}
@@ -103,10 +103,10 @@ def main():
 	error_key_list = list(error_lines.keys()) 
 #	print error_key_list
 #	Fiddle with the list to put the status code at the top of the list	
-	if "Status code" in error_key_list:
-		error_key_list.remove("Status code")
+	if "Status codes" in error_key_list:
+		error_key_list.remove("Status codes")
 	error_key_list = sorted(error_key_list)
-	error_key_list.insert(0,"Status code")	
+	error_key_list.insert(0,"Status codes")	
 
 #	print error_key_list		
 
@@ -170,8 +170,11 @@ def dowikimarkup(my_wiki_message):
 	return a_wiki_message	
 
 def padkey(mg_id):
-	mynumber = re.sub("\D","",mg_id)
-#	print "my number: " + mynumber
+	idbreakup = re.search("(^.+?)((\d*)$)",mg_id)
+	print "my id: " + idbreakup.group(1)
+	print "my no: " + idbreakup.group(2)
+	mynumber = idbreakup.group(2)
+
 	if re.match("\d",mynumber):
 		realnumber = int(mynumber)
 #		print "real number: " + mynumber
