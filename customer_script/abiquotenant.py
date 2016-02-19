@@ -14,6 +14,41 @@ import copy
 import sys
 
 
+def createVApp(apiPIP,apiAuth,vdcID,vdcName):
+
+	# Create a virtual appliance
+	apiUrl = apiPIP + '/api/cloud/virtualdatacenters/' + vdcID + '/virtualappliances'
+	apiContentType = 'application/vnd.abiquo.virtualappliance+json;version=3.6'
+	apiAccept = 'application/vnd.abiquo.virtualappliance+json;version=3.6'
+	apiHeaders = {}
+	apiHeaders['Accept'] = apiAccept
+	apiHeaders['Content-Type'] = apiContentType
+	apiHeaders['Authorization'] = apiAuth
+
+	# Data of virtual appliance to create
+	virtualappliance = {}
+	virtualappliance['name'] = 'vapp_' + vdcName 
+
+
+	jsonvapp = json.dumps(virtualappliance, ensure_ascii=False, encoding="utf-8")
+	# Request to create virtual appliance
+	vapp = requests.post(apiUrl, headers=apiHeaders, verify=False, data=jsonvapp)
+	vapp_data = vapp.json()
+	vapp_data_keys = sorted (vapp_data.keys())
+	vapp_id_value = ""
+	vapp_name_value = ""
+	
+	for vak in vapp_data_keys:
+		if vak == "id":
+			vapp_id_value = vapp_data[vak]
+		elif vak == "name":
+			vapp_name_value = ent_data[vak]	
+
+	store_vapp = {}
+	if not vapp_id_value == "":
+		store_vapp[vapp_id_value] = (vapp_id_value,vapp_name_value)
+	return store_vapp
+
 def switchEnt(apiPIP,apiAuth,adUserID,adEntID,entID):
 	# You need to switch to the enterprise to create the VDC
 	# You will need to supply the ID of your user - default cloud admin is 1
@@ -427,9 +462,14 @@ def main ():
 			if tenVDC:
 				for vdk in tenVDC:
 					(vid,vna) = tenVDC[vdk]
-					print "VDC id: %s  \tVDC name: %s  \t" % (vid,vna)
+					print "Created VDC with id: %s  \tVDC name: %s" % (vid,vna)
+					# Create a VApp for the VDC
+					tenVApp = createVApp(apiPIP,apiAuth,vid,vna)
 
-					
+					if tenVApp:
+						for vap in tenVApp:
+							(vapid,vapna) = tenVApp[vap]
+							print "Created VApp with id: %s \tVApp name: %s" % (vapid,vapna)
 
 
 # Calls the main() function
