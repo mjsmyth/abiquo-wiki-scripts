@@ -1,19 +1,24 @@
 {
 	"Status codes" : "[0-9][0-9][0-9]-",
+	"Controller" : "ED-",
 	"Generic" : "GEN-[0-9]|GEN-[1][0-6]|GEN-22",
 	"Plugin" : "GEN-1[7-9]|GEN-21|GEN-23",
 	"Link" : "LINK-",
 	"Datacenter" : "DC-",
+	"Datacenter Repository" : "DATACENTER-REPOSITORY",
 	"Enterprise" : "EN-|ENTERPRISE-|ENPROP-",
-	"Limits" : "LIMIT-[1][0-9]|LIMIT-[2][0-9]|LIMIT[3-9]",
+	"Limits" : "LIMIT-[1]{1,1}$|LIMIT-[2]{1,1}$|LIMIT-[3-9]|LIMIT-[1][0-9]|LIMIT-[2][0-9]",
 	"Virtual datacenter" : "VDC-",
 	"VLAN" : "VLAN-|VLAN_",
+	"Job" : "JOB-",
+	"Version" : "VERSION-",
 	"Virtual appliance" : "VAPP-|AAFFINITY-|LAYER-",
 	"Virtual conversion" : "VASC-",
 	"Rack" : "RACK-",
-	"Machine or hypervisor" : "MACHINE-|HYPERVISOR-",
+	"Machine or hypervisor" : "MACHINE-|HYPERVISOR-|HYPERVISOR_TYPE-",
 	"Network" : "NET-",
 	"Virtual machine" : "VM-",
+	"Repository" : "REPO-",
 	"Role" : "ROLE-",
 	"Privilege" : "PRIVILEGE-",
 	"Role LDAP" : "ROLELDAP-",
@@ -30,7 +35,7 @@
 	"Datastore" : "DATASTORE-",
 	"System properties" : "SYSPROP",
 	"Allocator" : "LIMIT-1\"|LIMIT-2\"|ALLOC-",
-	"Edit" : "EDIT-",
+	"Check edit " : "EDIT-",
 	"Virtual system monitor" : "VSM-",
 	"Cloud provider proxy" : "CPP-",
 	"License" : "LICENSE-",
@@ -53,7 +58,6 @@
 	"Cost code - currency" : "COSTCODE_CURRENCY-[0-9]",
 	"Pricing - Cost code" : "PRICING_COSTCODE",
 	"Pricing - Tier" : "PRICING_TIER-|PRICING_TIER_",
-	"Hypervisor type" : "HYPERVISOR_TYPE-",
 	"Region" : "REGION-",
 	"DHCP option" : "DHCP_OPTION-",
 	"Mail" : "MAIL-",
@@ -66,7 +70,7 @@
 	"Network service type" : "NST-",
 	"Workflow" : "WKF-",
 	"Hypervisor plugin" : "HYP-",
-	"IDE controller" : "IDE",
+	"IDE controller" : "ED",
 	"Backup" : "BC-|BC[0-9]",
 	"Public cloud" : "PUBLIC-",
 	"Hardware profile" : "PROFILE-",
@@ -86,9 +90,7 @@
 	"Two factor authentication" : "2FA-",
 	"DiskS" : "DISK-"
 }
-	
 
-	
 
 
 

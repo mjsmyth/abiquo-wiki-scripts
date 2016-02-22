@@ -16,6 +16,12 @@
 # print a header for each section
 # TODO: also need to compare with previous version's table and mark changed lines and print a diff file
 # and/or diff markers
+# Changed feb 2016 to:
+# - print stray sections
+# - remove notes section where new messages would be marked from user guide list
+# Note the JSON input is really dodgy as it uses the text heading with spaces as a key and it 
+# needs a relationship to the message name
+# Also deprecated or other messages are not noted because of direct api output
 #
 import sys
 import getopt
@@ -46,7 +52,7 @@ class ApiErrorLine:
 	#	wiki_message = re.sub("-","\\\-",wiki_message)
 		wiki_message = dowikimarkup(self.message)        
 	# 	print("| ",wiki.internal_message_id," | ",wiki.message," |")
-		return '| %s | %s | | \n' % (wiki_internal_message_id, wiki_message)
+		return '| %s | %s | \n' % (wiki_internal_message_id, wiki_message)
 
 def main():
 	input_subdir = "input_files"
@@ -68,6 +74,8 @@ def main():
 	api_error_sections_data = open(os.path.join(input_subdir,sections_json))
 	section_data = json.load(api_error_sections_data)
 	section_keys = sorted(section_data.keys())
+#	for x in section_keys:
+#		print "hi %s" % x
 
 	apie_error_formats = [ae.strip() for ae in open(os.path.join(input_subdir,api_error_input_file))]
 	count_records = 0
@@ -92,12 +100,15 @@ def main():
 		ae_msg = apierr_line[2].strip()
 		ae_lab = apierr_line[3].strip()
 
+		matched = False
 		aeline = ApiErrorLine(ae_id,ae_msg,ae_lab)
 		for skey in section_keys:
 			if re.match(section_data[skey],ae_id):
 				error_lines.setdefault(skey, []).append(aeline)
-#				print "section_data[skey]: " + section_data[skey] + " skey: " + skey + " ae_id: " + ae_id
-
+#				print "section_data[skey]: " + section_data[skey] + " skey: " + skey + " ae_id: " + ae_id			
+				matched = True
+		if matched == False:
+			print "Unmatched section: %s - %s" % (aeline.label,aeline.internal_message_id)		
 	error_msg_id = ""
 
 	error_key_list = list(error_lines.keys()) 
@@ -125,6 +136,7 @@ def main():
 	outfile_user.write (user_header)
 
 	for ee in error_key_list:
+#		print "error line: %s" % ee
 #		print "ss: " + ss
 		# ab = re.sub("\D","",el)
 		# print ab
@@ -135,9 +147,8 @@ def main():
 #			print new_key
 #			new_error_lines.setdefault(ee, []).append(ApiErrorLine(padkey(gg),gg.message,gg.label))
 
-		
+	# commented	
 		ss_interest = sorted(error_lines[ee], key=lambda XX: padkey(XX.internal_message_id))
-#		ss_interest = sorted(error_lines[ss], key=sort_api_errors(error_lines[ss].internal_message_id))
 		admin_header_line =  "|| h6. " + ee + " ||  ||  || ||\n"
 		outfile_admin.write(admin_header_line)
 		user_header_line = "|| h6. " + ee + " ||  ||  ||\n"
@@ -147,6 +158,7 @@ def main():
 			outfile_user.write(ii.string_user())
 #			print ael.string_admin()
 #			print ael.string_user()
+# commented
 #	sorted(sk,key=lambda str: re.sub("\D","",str))
 
 #		ae_admin = aeline.string_admin()
@@ -171,8 +183,8 @@ def dowikimarkup(my_wiki_message):
 
 def padkey(mg_id):
 	idbreakup = re.search("(^.+?)((\d*)$)",mg_id)
-	print "my id: " + idbreakup.group(1)
-	print "my no: " + idbreakup.group(2)
+#	print "my id: " + idbreakup.group(1)
+#	print "my no: " + idbreakup.group(2)
 	mynumber = idbreakup.group(2)
 
 	if re.match("\d",mynumber):
