@@ -63,7 +63,7 @@ def get_api_privs(apiAuth,apiIP):
 	roles_data = {}
 # get all base role names and ID numbers
 	apiUrl = 'http://' + apiIP + '/api/admin/roles/'  
-	apiAccept = 'application/vnd.abiquo.roles+json; version=3.6'
+	apiAccept = 'application/vnd.abiquo.roles+json; version=3.8'
 	default_roles_response = do_api_request(apiAuth,apiIP,apiUrl,apiAccept)
 	default_roles_list = []
 	default_roles = {}
@@ -75,7 +75,7 @@ def get_api_privs(apiAuth,apiIP):
 	for drname, drid in default_roles.iteritems():
 		apiUrl = 'http://' + apiIP + '/api/admin/roles/' + str(drid) + '/action/privileges'
 		print apiUrl
-		apiAccept = 'application/vnd.abiquo.privileges+json; version=3.6'
+		apiAccept = 'application/vnd.abiquo.privileges+json; version=3.8'
 		default_privileges_response = do_api_request(apiAuth,apiIP,apiUrl,apiAccept)		
 # create a list like the sql list
 		default_privileges_list = []
@@ -153,12 +153,16 @@ def getGroup(privswithgroups,privilege_key):
 # First match keys with groups and if that doesn't work, match groups with keys
 	priv_group = ""
 	for p in privswithgroups:
-		if re.match (privilege_key,p):	
+		if re.search (privilege_key,p):	
 			priv_group = privswithgroups[p]
+			print ("my pg: %s " % priv_group)
 	if not priv_group:
 		for p in privswithgroups:		
-			if re.match (p, privilege_key):
+			print ("my p: %s" % p)
+			if re.search (p, privilege_key):
 				priv_group = privswithgroups[p]	
+				print ("my pp: %s " % priv_group)
+				break
 	if not priv_group:			
 		priv_group = "error"
 	return priv_group
@@ -229,6 +233,7 @@ def createRoles():
  	rollers["ENTERPRISE_ADMIN"] = rolec("ENTERPRISE_ADMIN","Ent Admin","EA","note")
  	rollers["USER"] = rolec("USER","Ent User","EU","success")
  	rollers["OUTBOUND_API_EVENTS"] = rolec("OUTBOUND_API_EVENTS","Outbound API","OA","info")
+ 	rollers["ENTERPRISE_VIEWER"] = rolec("ENTERPRISE_VIEWER","Ent Viewer","EV","highlight")
  	return rollers
 
 def createRoleHeader(rollers):
@@ -302,6 +307,7 @@ def main():
 
 	labelmatch = {'MANAGE_FIREWALLS': 'VDC', 'MANAGE_LOADBALANCERS': 'VDC', 'MANAGE_FLOATINGIPS': 'VDC', 'WORKFLOW_OVERRIDE': 'VAPP', 'MANAGE_HARD_DISKS': 'VAPP', 'USERS_SHOW_VM_METRICS':'VAPP', 'USERS_ENABLE_DISABLE_VM_METRICS':'VAPP', 'ASSIGN_FIREWALLS':'VAPP', 'ASSIGN_LOADBALANCERS': 'VAPP', 'VM_PROTECT_ACTION': 'VAPP', 'APPLIB_VM_COST_CODE': 'PRICING'}
 
+
 #	grouplist['virtualAppliances'] = {'VAPP_','VM_PROTECT_ACTION', 'WORKFLOW_OVERRIDE', 'MANAGE_HARD_DISKS', 'ASSIGN_LOADBALANCERS','ASSIGN_FIREWALLS'}
 	vdc_privs = {'MANAGE_LOADBALANCERS', 'MANAGE_FIREWALLS', 'MANAGE_FLOATINGIPS'}
 
@@ -325,6 +331,7 @@ def main():
 	ppdict = {}
 	# for pp in sqlroles:
 	# 	print ("pp: %s" % pp)
+	# Note these now come from the API
 	for pp in sqlroles:	
 		# create a privilege data object
 		if pp in privdescs:
@@ -409,7 +416,7 @@ def main():
 	mustacheTemplate = codecs.open("wiki_privileges_template.mustache", 'r', 'utf-8').read()
 	efo = pystache.render(mustacheTemplate, privilege_out).encode('utf8', 'xmlcharrefreplace')
 
-	ef = open_if_not_existing(os.path.join(output_subdir,"privileges_out_2015_08_05.txt"))
+	ef = open_if_not_existing(os.path.join(output_subdir,"privileges_out_2016_06_07.txt"))
 	if ef:
 		ef.write(efo)
 		ef.close()	 
