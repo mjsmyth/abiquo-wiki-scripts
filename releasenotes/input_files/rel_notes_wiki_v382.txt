@@ -1,0 +1,23 @@
+ || Key || Summary || 
+ |8667|Include support for latest GuestOsIdentifier from vSphere 6.0| 
+ |8698|Create a new propertiy to allow VMs to be deployed on a nested ESXi Hypervisor| 
+ |8716|Add fontawesome into UI code| 
+ |8724|No tip explaining how to list VApp Specs when no VDC is selected| 
+ |8742|Improve user experience of disk controller management| 
+ |8751|Without VAPP_DEFINE_BACKUP_INFO privilege to manage VM backup schedule, do not display UTC selector| 
+ |8758|Firewall NSX: If an error occurs adding a rule, old rules are deleted |
+ || Key || Summary || 
+ |8656|VM links for HardDisk and Volume have differences| 
+ |8660|Investigate gateway modification with AWS provider| 
+ |8671|Spec - allow user to create VApp Spec with a VM with gateway IP; register gateway use and act accordingly when creating a VApp based on the Spec| 
+ |8689|There is no way to see created alarms on the Alerts page except through the Alert details box | 
+ |8690|Monitoring graphs flow into each other| 
+ |8717|Load balancer UI behavior creating a load balancer| 
+ |8726|Load balancer - Certificates are being substituted and/or removed while adding many routing rules| 
+ |8731|Edit SSL certificate for a load balancer routing rule is ignored for some providers| 
+ |8732|Wrong error when deploying VM with malformed JSON| 
+ |8741|Load balancer - 500 Internal server error setting a name size for the certificate larger than 128 characters| 
+ |8744|VSM cannot start monitors if a monitor exists from a nonexistent plugin| 
+ |8752|VApps in the EMPTY state are not draggable to other VDC| 
+ |8753|Get location is returning duplicate links| 
+ |8754|Resizing volumes on ESXI 5.5 seems to require detaching and attaching the volume again on the VM| 

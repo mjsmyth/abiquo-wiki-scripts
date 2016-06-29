@@ -1,0 +1,79 @@
+Release Notes - Abiquo Enterprise - Version Abiquo-3.8.3
+
+** Improvement
+| 8667 | Include support for last GuestOsIdentifier from vsphere 5.5 and 6.0 |
+| 8698 | Create a new propertiy to allow VMs to be deployed on a nested ESXi Hypervisor |
+| 8710 | Update loadbalancers from PUT virtualmachine  |
+| 8712 | Allow PUT virtual machine to reconfigure firewalls and loadbalancers while power on |
+| 8742 | Improve user experience of disk controller management |
+| 8751 | Without VAPP_DEFINE_BACKUP_INFO privilege, do not display UTC selector |
+| 8774 | NSX: Validate network overlapp with configured abiquo.nsx.edge.public-network-cidr |
+| 8784 | Import (I am not talking about capture) VMS, even disabled datastores. |
+| 8795 | "cacheStamp" parameter in UI's API call may lead to browser using cached responses |
+| 8797 | Backup results: show date using time zone of system |
+| 8842 | Allow using local domain names in RSs |
+
+** Bug
+| 8524 | Conversions remain as "ENQUEUED" after duplicating a template |
+| 8656 | VM links for HardDisk and Volume have differences |
+| 8660 | Investigate gateway modification with aws provider |
+| 8671 | Spec - Materialize Private networks Gateway IP should be been used when original spec used this configuration |
+| 8681 | UI : Its not possible to edit a routing rule in a load balancer (NSX) |
+| 8708 | Cannot edit virtualmachine firewalls in powerOff |
+| 8717 | Loadbalancer UI behaviour creating an LB |
+| 8725 | Incorrect datastore tier label |
+| 8726 | Load Balancer - Certificates are being substituted and/or removed while adding many routing rules |
+| 8730 | ESXi CPU metrics scale is not a percentage, but it is show as one in the UI |
+| 8731 | Edit SSL certificate for a Load Balancer Routing Rule is ignored for NSX |
+| 8733 | VM edition - sections are not properly displayed |
+| 8741 | Load balancer - 500 ISE setting a name size for the certificate larger than 128 characters |
+| 8744 | VSM can not start monitors if a monitor exists from a non existent plugin |
+| 8752 | VApp with state EMPTY are not draggable to other VDC |
+| 8753 | Get location is returning duplicated links |
+| 8754 | [ESXI 5.5] resize attached NFS volume, guest doesn't see update capacity |
+| 8756 | Firewall rule return Gen-13 if ip is not correct |
+| 8757 | Firewall rule added in the wrong section |
+| 8759 | [NSX] You cannot edit a private network successfully |
+| 8760 | A private network cannot be edited for plugins that implements networking |
+| 8761 | ISE 500 when adding a backup configuration into a vm that has some metrics enabled |
+| 8765 | Monitoring metrics are not displayed if some vm metrics disabled in properties |
+| 8768 | Bad event for load balancer address delete |
+| 8769 | [NSX] Nsx plugin fails if try to add a load balancer routing rule in secure port without ssl certificate |
+| 8771 | NSX - Not able to add a healthcheck which protocol is UDP |
+| 8772 | Alerts - Materialize errors creating vapp from spec which contains info from another VDC hypervisortype |
+| 8773 | Creating a nsx vapp spec with load balancer who needs ssl certificate fails  |
+| 8776 | Specs: custom metrics does not save description and units, so no properly materalized |
+| 8787 | Saving a vm backup in metadata erases other metadata like monitoring-metrics |
+| 8789 | Spec - create vapp from a spec does not check available public IPs |
+| 8792 | Storage elements are displayed many times on "list" view |
+| 8793 | Wrong behavior in VDC combo selection for materialize Specs |
+| 8800 | Events queryparam "enterprise" should be exact match, not a "like" match |
+| 8801 | Infrastructure view - private networking is not filtering by Datacenter |
+| 8802 | NSX - 500 ISE performing a firewall sycnhronization |
+| 8803 | Read Only user issues |
+| 8806 | Increase 40 characters in Enterprise name |
+| 8807 | Pricing model name length should be between 1 and 255 characters |
+| 8808 | Pricing model name length should be between 1 and 255 characters |
+| 8810 | Virtual Appliance name field in accounting is smaller than in kinton |
+| 8812 | Get Datacenters using XML headers returns 500 ISE |
+| 8817 | [NSX] should be possible to use a nsx network although hypervisor doesn't enable the nsx configured DVS (but it exists in the host) |
+| 8818 | default value for property ''abiquo.dvs.enabled'' is true |
+| 8821 | Edit/Update External Network will fail in cloud provider (azure) |
+| 8825 | Validate virtual datacenter device in firewall / loadbalancer creation and edition |
+| 8826 | VDC creation for neutron could select invalid rack |
+| 8828 | Netapp - invalid log messages still appearing (abiquo.storagemanager.netapp.debug=false -> enable logging) |
+| 8833 | Spec - It is not possible to get the list of SSL certificates while creating a vapp from a spec |
+| 8834 | Spec - it is not possible to create more than one SSL certificate while creating the vapp (duplicate name error is thrown) |
+| 8835 | Very large enterprise name (128 characters) is not user friendly displayed |
+| 8841 | Allow for DVS names longer than 25 char |
+| 8847 | Abiquo should be loaded in offline mode |
+| 8849 | Public Spec - Not able to create a vapp from a spec which contains Load Balancer on Amazon |
+| 8851 | Nodecollector should not connect to ports other than the ones used by the plugin connection |
+| 8854 | Amazon - edit firewall on virtualmachine in power OFF returns error message |
+| 8855 | its not possible to reconfigure amazon vms to modify loadbalancers (or modify virtualnics when in loadbalancer) |
+| 8856 | Floating IP RESTLinks are not generated |
+| 8859 | Materializing in public cloud doesn't assign Floating IP correctly if more than 2 VMs |
+| 8861 | Billing will not show full enterprise name if bigger than 64 |
+| 8876 | Specs materializing Floating IP for public cloud fail in different Enterprise |
+| 8877 | Problem when Functional Test gets Nics of a VM |
+| 8879 | Validate Spec in private cloud fails even if we have enough public IPs |
