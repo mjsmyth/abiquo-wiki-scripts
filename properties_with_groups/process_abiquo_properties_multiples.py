@@ -462,7 +462,7 @@ def main():
 	categories = []
 
 	# prevWikiVersion = "ABI32"
-	wikiVersion = "ABI36"
+	wikiVersion = "ABI38"
 	# # Directories and file names
 
  #    input_subdir = 'input_files'
@@ -471,7 +471,7 @@ def main():
  #    compFile = prevWikiVersion + output_subdir
     # inputDir = wikiVersion + "/" + input_subdir
     # outputDir = wikiVersion + "/" + output_subdir
-	td = "2015-11-10"
+	td = "2016-02-22"
 
 #    inputDir = '~/platform/system-properties/src/main/resources'
 	propertyFile = 'abiquo.properties_' + td

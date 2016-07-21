@@ -62,8 +62,8 @@ def get_api_privs(apiAuth,apiIP):
 	rol_data = {}
 	roles_data = {}
 # get all base role names and ID numbers
-	apiUrl = 'http://' + apiIP + '/api/admin/roles/'  
-	apiAccept = 'application/vnd.abiquo.roles+json; version=3.6'
+	apiUrl = 'https://' + apiIP + '/api/admin/roles/'  
+	apiAccept = 'application/vnd.abiquo.roles+json; version=3.8'
 	default_roles_response = do_api_request(apiAuth,apiIP,apiUrl,apiAccept)
 	default_roles_list = []
 	default_roles = {}
@@ -75,7 +75,7 @@ def get_api_privs(apiAuth,apiIP):
 	for drname, drid in default_roles.iteritems():
 		apiUrl = 'http://' + apiIP + '/api/admin/roles/' + str(drid) + '/action/privileges'
 		print apiUrl
-		apiAccept = 'application/vnd.abiquo.privileges+json; version=3.6'
+		apiAccept = 'application/vnd.abiquo.privileges+json; version=3.8'
 		default_privileges_response = do_api_request(apiAuth,apiIP,apiUrl,apiAccept)		
 # create a list like the sql list
 		default_privileges_list = []
@@ -409,7 +409,7 @@ def main():
 	mustacheTemplate = codecs.open("wiki_privileges_template.mustache", 'r', 'utf-8').read()
 	efo = pystache.render(mustacheTemplate, privilege_out).encode('utf8', 'xmlcharrefreplace')
 
-	ef = open_if_not_existing(os.path.join(output_subdir,"privileges_out_2015_08_05.txt"))
+	ef = open_if_not_existing(os.path.join(output_subdir,"privileges_out_2016_02_20.txt"))
 	if ef:
 		ef.write(efo)
 		ef.close()	 

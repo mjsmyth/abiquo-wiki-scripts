@@ -13,7 +13,7 @@ import readline
 
 def main():
 	apiHeaders = {}
-	td = "2015-08-11"
+	td = "2016-02-22"
 
 # Enter path in filesystem to a file with the UI tags for fields cloned from github
 #	ui_path = input("Language file path: ").strip()
@@ -29,7 +29,7 @@ def main():
 # Get system properties data from the API of a fresh Abiquo	
 #	apiAuth = input("Authorization: ").strip()
 #	apiIP = input("API IP address: ").strip()
-	apiUrl = 'http://' + apiIP + '/api/config/properties'
+	apiUrl = 'https://' + apiIP + '/api/config/properties'
 	print apiUrl
 	apiAccept = 'application/vnd.abiquo.systemproperties+json'
 	apiHeaders['Accept'] = apiAccept
