@@ -1,43 +1,35 @@
 <table>
 <tbody>
 <tr>
-<th class="warning" data-highlight-class="warning">Property</th>
-<th class="warning" data-highlight-class="warning">Default</th>
-<th class="warning" data-highlight-class="warning">Range</th>
-<th class="warning" data-highlight-class="warning">Description</th>
+<th class="info" data-highlight-class="info">Property</th>
+<th class="info" data-highlight-class="info">Description</th>
 {{#headingLinks}}
-<th class="warning" colspan="1" data-highlight-class="warning"><ac:link><ri:attachment ri:filename="{{ExampleFile}}" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="{{ExampleImage}}" /></ac:image></ac:link-body></ac:link></th>
+<th class="info" colspan="1" data-highlight-class="info"><ac:link><ri:attachment ri:filename="{{ExampleFile}}" /><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="{{ExampleImage}}" /></ac:image></ac:link-body></ac:link></th>
 {{/headingLinks}}
-<th class="warning" colspan="1" data-highlight-class="warning">Info</th>
+<th class="info" colspan="1" data-highlight-class="info">Info</th>
 </tr>
 {{#categories}}
-<tr><th class="warning" data-highlight-class="warning"><p><h6>{{categoryName}}</h6></p></th>
-<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
-<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
-<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
-<th class="warning" data-highlight-class="warning"><p><strong></strong></p></th><th class="warning" data-highlight-class="warning"><p><strong></strong></p></th>
-</tr>
 {{#entries}}   
 <tr>
 {{#propertyNameGroup}}
-<td><p>{{groupPropertyName}}</p>
+<td><p><ac:macro ac:name="anchor"><ac:default-parameter>{{categoryName}}</ac:default-parameter></ac:macro><strong>{{groupPropertyName}}</strong></p>
 <ul>
 <li style="list-style-type: none;background-image: none;">
 <ul>
 {{#propertyGroups}}
-<li>{{propertyGroupItem}}</li>
+<li><strong>{{propertyGroupItem}}</strong></li>
 {{/propertyGroups}}
 </ul>
 </li>
 </ul>
 {{/propertyNameGroup}}
 {{^propertyNameGroup}}
-<td><p>{{propertyName}}</p>
+<td><p><ac:macro ac:name="anchor"><ac:default-parameter>{{categoryName}}</ac:default-parameter></ac:macro>{{groupPropertyName}}<strong>{{propertyName}}</strong></p>
 {{/propertyNameGroup}}
 </td>
-<td>
+<td><p>{{propertyDescription}}<br/>
 {{#propertyDefaultGroup}}
-<p></p>
+<span><em>Defaults: </em></span><br/>
 <ul>
 <li style="list-style-type: none;background-image: none;">
 <ul>
@@ -49,11 +41,14 @@
 </ul>
 {{/propertyDefaultGroup}}
 {{^propertyDefaultGroup}}
-<p>{{propertyDefault}}</p>
+{{#propertyDefault}}
+<span><em>Default: {{propertyDefault}}</em></span><br/>
+{{/propertyDefault}}
 {{/propertyDefaultGroup}}
-</td>
-<td><p>{{propertyRange}}</p></td>
-<td><p>{{propertyDescription}}</p></td> 
+{{#propertyRange}}
+<span><em>Range:{{propertyRange}}</em></span>
+{{/propertyRange}}
+</p></td>
 {{#propertyProfiles}}
 {{#profile}}
 <td><p><ac:link><ri:attachment ri:filename="{{profileExampleFile}}"/><ac:link-body><ac:image ac:thumbnail="true" ac:width="30"><ri:attachment ri:filename="{{profileExampleImage}}"/></ac:image></ac:link-body></ac:link></p></td>
