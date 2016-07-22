@@ -12,7 +12,7 @@
 {{#entries}}   
 <tr>
 {{#propertyNameGroup}}
-<td><p><ac:macro ac:name="anchor"><ac:default-parameter>{{categoryName}}</ac:default-parameter></ac:macro><strong>{{groupPropertyName}}</strong></p>
+<td><p>{{#linkCategory}}<ac:macro ac:name="anchor"><ac:default-parameter>{{categoryName}}</ac:default-parameter></ac:macro>{{/linkCategory}}<strong>{{groupPropertyName}}</strong></p>
 <ul>
 <li style="list-style-type: none;background-image: none;">
 <ul>
@@ -24,7 +24,7 @@
 </ul>
 {{/propertyNameGroup}}
 {{^propertyNameGroup}}
-<td><p><ac:macro ac:name="anchor"><ac:default-parameter>{{categoryName}}</ac:default-parameter></ac:macro>{{groupPropertyName}}<strong>{{propertyName}}</strong></p>
+<td><p>{{#linkCategory}}<ac:macro ac:name="anchor"><ac:default-parameter>{{categoryName}}</ac:default-parameter></ac:macro>{{/linkCategory}}{{groupPropertyName}}<strong>{{propertyName}}</strong></p>
 {{/propertyNameGroup}}
 </td>
 <td><p>{{propertyDescription}}<br/>

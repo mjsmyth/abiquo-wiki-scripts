@@ -237,7 +237,11 @@ def wikiCategories(storage_dict):
 		if k in catkeyorder:
 			catkeyorder[k].append(storage_dict[v])
 		else:
-			catkeyorder[k] = [storage_dict[v]]				
+			catTemp = storage_dict[v]
+			print "Hello catTemp %s" % catTemp
+			catTemp['linkCategory'] = True	
+			catkeyorder[k] = [catTemp]	
+#			catkeyorder[k] = [storage_dict[v]]				
 	catdata = [{'categoryName':k, 'entries':v} for k,v in (catkeyorder.items())]
 	return catdata
 
