@@ -205,9 +205,11 @@ def wikiProperty(rawProp,profiles,filedetails):
 				property_pre_entry['propertyGroups'].append(property_multiple_item.copy())
 			if property_entry['propertyDefault'] == "":	
 				try:			
+					property_multiple_item_default['propertyGroupItemName'] = x[0]
 					property_multiple_item_default['propertyGroupItemDefault'] = x[1]
 					property_pre_entry_default['propertyGroupDefaults'].append(property_multiple_item_default.copy())
 				except:
+					property_multiple_item_default['propertyGroupItemName'] = x[0]
 					property_multiple_item_default['propertyGroupItemDefault'] = ""
 					property_pre_entry_default['propertyGroupDefaults'].append(property_multiple_item_default.copy())
 		
@@ -475,7 +477,7 @@ def main():
  #    compFile = prevWikiVersion + output_subdir
     # inputDir = wikiVersion + "/" + input_subdir
     # outputDir = wikiVersion + "/" + output_subdir
-	td = "2016-07-19"
+	td = "2016-09-test"
 
 #    inputDir = '~/platform/system-properties/src/main/resources'
 	propertyFile = 'abiquo.properties_' + td
