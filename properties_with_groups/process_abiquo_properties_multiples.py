@@ -442,7 +442,10 @@ def storeProperties(content,property_regex_comment,property_regex_no_comment,ran
 				else:	
 					#	add property description to a list
 						property_description_current_line = property_line[len(property_ending_list):].strip()
-						property_description_list.append(re.sub("^#[\s]*?"," ",property_description_current_line))	
+						property_description_current_line = (re.sub("^#[\s]*?"," ",property_description_current_line))	
+						property_description_current_line = property_description_current_line.strip()
+						property_description_list.append(property_description_current_line)
+#						property_description_list.append(re.sub("^#[\s]*?"," ",property_description_current_line))	
 		else:	
 #			mandatory property name and optional default value, commented out - note may have space after comment
 			property_match = property_regex_no_comment.match(property_line)
@@ -477,7 +480,7 @@ def main():
  #    compFile = prevWikiVersion + output_subdir
     # inputDir = wikiVersion + "/" + input_subdir
     # outputDir = wikiVersion + "/" + output_subdir
-	td = "2016-09-test"
+	td = "2016-09-28"
 
 #    inputDir = '~/platform/system-properties/src/main/resources'
 	propertyFile = 'abiquo.properties_' + td
@@ -529,7 +532,7 @@ def main():
 			ps.close
 
 	# output a storage dict with the properties indexed by property name		
-	js = open_if_not_existing("fwg.json")
+	js = open_if_not_existing("fwg.json." + td)
 	if js:
 		json.dump(storage_dict, js)
 		js.close
@@ -539,7 +542,7 @@ def main():
 	wiki_output['categories'] = categories		
 
 	# output a json file with the full mustache format
-	jwf = open_if_not_existing("fwp.json")
+	jwf = open_if_not_existing("fwp.json." + td)
 	if jwf:
 		json.dump(wiki_output, jwf)
 		jwf.close
