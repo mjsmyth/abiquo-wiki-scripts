@@ -1,0 +1,121 @@
+<table>
+  <tbody>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td class="highlight info" colspan="2" data-highlight-class="info">
+        <em> <strong>OpenID Connect server configuration</strong> </em>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>abiquo.auth.module</strong>
+      </td>
+      <td>The Abiquo authentication module. Must be: <strong>openid</strong>.</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>abiquo.openid.target</strong>
+      </td>
+      <td>The URL where the user will be redirected from the Identity Server upon successful authentication. Something like <br/> <strong>http://&lt;abiquo ui host&gt;/ui/#/dashboard</strong>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>abiquo.openid.role-claim</strong>
+      </td>
+      <td>The name of the claim returned by the authorization server that contains the names used to map the user permissions to an Abiquo role.</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>abiquo.openid.enterprise-claim</strong>
+      </td>
+      <td>The name of the claim returned by the authorization server that contains the names used to map the Abiquo enterprise where the user belongs.</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>abiquo.openid.enterprise-property</strong>
+      </td>
+      <td>
+        <p>(Optional) If present, Abiquo will try to find an enterprise that has a property with the name configured in this property, and use its value to match the "enterprise claim" when resolving the user's enterprise. If absent, Abiquo will just look for an enterprise with the name returned in the "enterprise claim".</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>abiquo.openid.issuer</strong>
+      </td>
+      <td>The OpenID Connect authorization issuer.</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>abiquo.openid.authorization.endpoint</strong>
+      </td>
+      <td>The OpenID Connect authorization endpoint.</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>abiquo.openid.token.endpoint</strong>
+      </td>
+      <td>The OpenID Connect token endpoint.</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>abiquo.openid.userinfo.endpoint</strong>
+      </td>
+      <td>The OpenID Connect user info endpoint.</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>abiquo.openid.jwks.endpoint</strong>
+      </td>
+      <td>The OpenID Connect JWKS endpoint.</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>abiquo.openid.endsession.endpoint</strong>
+      </td>
+      <td>(Optional) If configured, Abiquo will attempt to perform a global logout performing a request to this endpoint. This is part of the <a href="http://openid.net/specs/openid-connect-session-1_0.html">Session Management</a> optional spec.</td>
+    </tr>
+    <tr>
+      <td class="highlight info" colspan="2" data-highlight-class="info">
+        <em> <strong>OpenID Connect client configuration</strong> </em>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>abiquo.openid.client.name</strong>
+      </td>
+      <td>The name of the client that has been registered in the OpenID Connect server for the Abiquo platform.</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>abiquo.openid.client.id</strong>
+      </td>
+      <td>The ID of the client that has been registered in the OpenID Connect server for the Abiquo platform.</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>abiquo.openid.client.secret</strong>
+      </td>
+      <td>The secret of the client that has been registered in the OpenID Connect server for the Abiquo platform.</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>abiquo.openid.client.scopes</strong>
+      </td>
+      <td>
+        <p>Comma separated list of scopes to request during authentication. Must have, at least: <strong>openid,profile,email</strong>.</p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="1">
+        <strong>abiquo.openid.client.redirect-uris</strong>
+      </td>
+      <td colspan="1">Comma separated list of allowed redirect (callback) URIs used during the authentication flow. Must be: <strong> <a href="http://192.168.1.187/api/openid_connect_login">http://&lt;api endpoint&gt;/api/openid_connect_login</a> </strong>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
