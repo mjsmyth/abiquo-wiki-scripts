@@ -203,7 +203,9 @@ def get_gui_labels(input_gitdir,UIlabelfile):
 	privgroups = {}
 	json_data = open(os.path.join(input_gitdir,UIlabelfile))
 	data = json.load(json_data)
-	labelkeys = sorted(data.keys())
+#	labelkeys = sorted(data.keys())
+#	remove sort
+	labelkeys = data.keys()
 	for labelkey_orig in labelkeys: 
 		labelkey = labelkey_orig.split(".")
 		pg = labelkey[0]
@@ -245,15 +247,36 @@ def createRoleHeader(rollers):
  		roleheading.append(rhd)
  	return roleheading	
 
+def newOrderByUItextFile(td):	
+	uiOrder = collections.OrderedDict()
+	catUI = ""
+	orderFile = open('input_files/privilege_ui_order_' + td + ".txt")
+	for line in orderFile:
+		if not re.match("\s",line):
+			catProcess=line.strip()
+			catUI=re.sub("\s","",catProcess)
+			if catUI not in uiOrder:
+				uiOrder[catUI] = []
+		else:
+			if not re.match(" All privileges",line):
+				privilege=line.strip()
+				uiOrder[catUI].append(privilege)
+#	for uiO in uiOrder:
+#		print "uiO: %s" % uiO
+#		print uiOrder[uiO]
+	return uiOrder
 
 def main():
+	td = "2016-11-15"
 	# use API to get default roles and privileges
 	api_privs = {}
 	apiAuth = raw_input("Enter API authorization, e.g. Basic XXXX: ")
 	apiIP = raw_input("Enter API address, e.g. api.abiquo.com: ")
 #	apiroles = get_api_privs(apiAuth,apiIP)
-	sqlroles_unsorted = get_api_privs(apiAuth,apiIP)
-	sqlroles = collections.OrderedDict(sorted(sqlroles_unsorted.items()))
+#	sqlroles_unsorted = get_api_privs(apiAuth,apiIP)
+#	sqlroles = collections.OrderedDict(sorted(sqlroles_unsorted.items()))
+
+	sqlroles = get_api_privs(apiAuth,apiIP)
 
 	privUIFile = "privilegesMgr.js"
 	thisscript = "privileges"
@@ -263,8 +286,9 @@ def main():
 	input_gitdir2 = '../../platform/ui/app/js/services'
 	input_subdir = 'input_files'
 	output_subdir = 'output_files'
- 	groupswithprivis=collections.OrderedDict()
- 	priviswithgroups=collections.OrderedDict()
+	groupswithprivis=collections.OrderedDict()
+	priviswithgroups=collections.OrderedDict()
+
 	(groupswithprivis,priviswithgroups) = processprivgroups(input_gitdir2,privUIFile)
 
 	logging.basicConfig(filename='api_examples.log',level=logging.DEBUG)
@@ -327,6 +351,10 @@ def main():
 	# out_file = open(os.path.join(output_subdir,output_file_name), 'w')
 	# out_file.close()
 
+	newUiOrder = collections.OrderedDict()
+	newUiOrder = newOrderByUItextFile(td)
+
+
  	priv_cats = {}
 	ppdict = {}
 	# for pp in sqlroles:
@@ -345,7 +373,7 @@ def main():
 	 	info = ""
 
 		priv_group = getGroup(priviswithgroups,pp)
-		print ("pp:  %s  | group: %s" % (pp,priv_group))
+#		print ("pp:  %s  | group: %s" % (pp,priv_group))
 
 
 	 	# group = gmatch[priv_group]
@@ -359,9 +387,9 @@ def main():
 		else:
 			priv_cats[priv_group] = [pp]
 
-		# for blah in priv_cats:
-		# 	boo = priv_cats[blah]
-		# 	print("boo: %s " % boo)	
+		for blah in priv_cats:
+			boo = priv_cats[blah]
+			print("blah: %s boo: %s " % (blah,boo))	
 
 		# create a privilege json
 		privi = {}
@@ -383,17 +411,26 @@ def main():
 		privi["info"] = {}	
 		ppdict[pp] = privi
 
+		# get the guiLabel = privo.pGuiLabel
+		# get the appTab = privo.pAppTag
+		# get the group = priv_group
+		newUIO = 0
+		# get the label position in the ui order list
+		newUIO = newUiOrder[priv_group].index(privo.pGuiLabel)
+		print "NEW UI ORDER: %d" % newUIO
+		# put the record in the label position
 
 	# process all the groups in order
 	for g in groupswithprivis:
-		print ("g: %s" % g)
+#		print ("g: %s" % g)
 		gh = groupheaders[g]
 		category = {}
 		category["category"] = gh
 		category["roleheader"] = rheaders
 		category['entries'] = []
 		for p in priv_cats[g]:
-			category["entries"].append(ppdict[p])	
+#			category["entries"].append(ppdict[p])	
+			category["entries"].insert((newUIO+1),ppdict[p])			
 		categories.append(category)		
 
 	privilege_out = {}		
@@ -416,7 +453,7 @@ def main():
 	mustacheTemplate = codecs.open("wiki_privileges_template.mustache", 'r', 'utf-8').read()
 	efo = pystache.render(mustacheTemplate, privilege_out).encode('utf8', 'xmlcharrefreplace')
 
-	ef = open_if_not_existing(os.path.join(output_subdir,"privileges_out_2016_06_07.txt"))
+	ef = open_if_not_existing(os.path.join(output_subdir,"privileges_out_" + td + ".txt"))
 	if ef:
 		ef.write(efo)
 		ef.close()	 

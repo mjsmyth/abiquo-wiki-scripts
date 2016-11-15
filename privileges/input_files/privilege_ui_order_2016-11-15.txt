@@ -1,0 +1,110 @@
+Home
+ All privileges
+ List enterprises within scope
+ Allow user to switch enterprise
+ Display enterprise statistics
+ Display enterprise limits in statistics
+Infrastructure
+ All privileges
+ Access Infrastructure view
+ Display resource usage panel
+ Manage datacenter
+ View datacenter details
+ Manage infrastructure elements
+ Manage network elements
+ Manage storage elements
+ Manage allocation rules
+ Manage datacenter backup configuration
+ Manage devices
+Virtual datacenters
+ All privileges
+ Access virtual datacenters view
+ Manage virtual datacenters
+ Manage virtual appliances
+ Manage virtual network elements
+ Manage virtual storage elements
+ Manage floating IPs
+ Manage firewalls
+ Manage load balancers
+ Manage virtual storage controller
+ Manage public IPs
+Virtual appliances
+ All privileges
+ Edit virtual appliance details
+ Deploy and undeploy virtual appliances
+ Perform virtual machine actions
+ Manage persistent templates
+ Create instance
+ Manage virtual machine hard disks
+ Manage layers
+ Manage virtual machine backup configuration
+ Manage virtual machine backup schedule
+ Manage workflow tasks
+ Delete unknown virtual machines
+ Assign firewalls to virtual machines
+ Access persistent templates view
+ Manage virtual machine backup disks
+ Assign load balancers
+ Manage virtual machine metrics
+ Access virtual machine metrics
+ Restore virtual machine backups
+ Protect/unprotect virtual machines
+ Consume virtual appliance specs
+ Access alarms section in virtual machines
+ Manage alarms
+ Access alerts section
+ Manage alerts
+ Override virtual machine constraints
+ Edit virtual machine details
+ Retrieve default VM credentials
+ Access action plans and task schedules views
+ Manage action plans and task schedules
+Apps library
+ All privileges
+ Access Apps library view
+ Manage VM templates from Apps library
+ Upload virtual machine template
+ Manage repository
+ Download virtual machine template
+ Manage VM template categories
+ Manage VM template global categories
+ Display datacenter capacity and free space
+ Export a virtual machine template to datacenter
+ Export a virtual machine template to public cloud region
+ Manage virtual appliance specs
+ Download VM templates from remote repository
+Users
+ All privileges
+ Access Users view
+ Manage enterprises
+ Manage users
+ Manage users of all enterprises
+ No VDC restriction
+ Access Roles screen
+ Manage roles
+ Associate role with enterprise
+ Manage global role
+ Specify LDAP group
+ Display connected users
+ Define enterprise manager
+ Manage Chef enterprises
+ Manage scopes
+ Manage enterprise reserved servers
+ Modify enterprise theme
+ Allow user to push own VM metrics
+ Manage provider credentials
+ Manage user applications
+System configuration
+ All privileges
+ Access Configuration view
+ Modify configuration data
+ Allow access to reports
+Pricing
+ All privileges
+ Add a cost code when editing a VM template
+ Access Pricing view
+ Manage pricing
+Events
+ All privileges
+ Display all events for current enterprise
+ Display all events
