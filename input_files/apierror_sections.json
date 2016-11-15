@@ -1,8 +1,7 @@
 {
 	"Status codes" : "[0-9][0-9][0-9]-",
 	"Controller" : "ED-",
-	"Generic" : "GEN-[0-9]|GEN-[1][0-6]|GEN-22",
-	"Plugin" : "GEN-1[7-9]|GEN-21|GEN-23",
+	"Generic" : "GEN-",
 	"Link" : "LINK-",
 	"Datacenter" : "DC-",
 	"Datacenter Repository" : "DATACENTER-REPOSITORY",
@@ -17,7 +16,7 @@
 	"Rack" : "RACK-",
 	"Machine or hypervisor" : "MACHINE-|HYPERVISOR-|HYPERVISOR_TYPE-",
 	"Network" : "NET-",
-	"Virtual machine" : "VM-",
+	"Virtual machine" : "VM-[0-9]+$",
 	"Repository" : "REPO-",
 	"Role" : "ROLE-",
 	"Privilege" : "PRIVILEGE-",
@@ -28,7 +27,7 @@
 	"Appliance manager" : "AM-",
 	"OVF package list" : "OVF-PACKAGE-LIST-",
 	"OVF package" : "OVF-PACKAGE-[0-9]",
-	"Virtual machine template" : "VIMAGE-",
+	"Virtual machine template" : "VIMAGE-|CONSTR-SNAPSHOT-LENGTH-NAME-MAX|CONSTR-SNAPSHOT-LENGTH-NAME-MIN",
 	"Conversion" : "CONVERSION-",
 	"Node collector" : "NC-",
 	"Storage pool" : "SP-",
@@ -88,7 +87,9 @@
 	"Datastore tiers" : "DSTIER",
 	"Device type" : "DEVICETYPE-",
 	"Two factor authentication" : "2FA-",
-	"DiskS" : "DISK-"
+	"Disks" : "DISK-",
+	"Schedule" : "SCHEDULE-",
+	"VM action plans" : "VM-AP-|VM_AP-"
 }
 
 
