@@ -141,8 +141,23 @@ def get_gui_labels(input_gitdir,UIlabelfile):
 				#print("privilege: ", labelkey)  
 	return (privlabels,privnames,privdescs,privgroups)	
 
+def newOrderByUItextFile(td):	
+	uiOrd = collections.OrderedDict()
+	uiCat = ""
+	orderFile = open('input_files/privilege_ui_order_' + td + ".txt")
+	for line in orderFile:
+		if not re.match("\s",line):
+			uiCat=line.strip()
+			if uiCat not in uiOrd:
+				uiOrd[uiCat] = []
+		else:
+			if not re.match(" All privileges",line):
+				privilege=line.strip()
+				uiOrd[uiCat].append(privilege)
+	return uiOrd
+
 def main():
-	td = "2016-11-16"
+	td = "2016-11-17"
 	input_gitdir = '../../platform/ui/app/lang'
 	input_subdir = 'input_files'
 	output_subdir = 'output_files'
@@ -175,17 +190,8 @@ def main():
 
 # From a text file grabbed from the UI screen, get the groups and the order
 	uiOrder = collections.OrderedDict()
-	uiCat = ""
-	orderFile = open('input_files/privilege_ui_order_' + td + ".txt")
-	for line in orderFile:
-		if not re.match("\s",line):
-			uiCat=line.strip()
-			if uiCat not in uiOrder:
-				uiOrder[uiCat] = []
-		else:
-			if not re.match(" All privileges",line):
-				privilege=line.strip()
-				uiOrder[uiCat].append(privilege)
+	uiOrder = newOrderByUItextFile(td)
+
 
 	privFullDescs = {}
 	privFullRoles = {}			
