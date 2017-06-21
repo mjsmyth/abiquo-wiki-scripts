@@ -4,7 +4,7 @@
 	"Generic" : "GEN-",
 	"Link" : "LINK-",
 	"Datacenter" : "DC-",
-	"Datacenter Repository" : "DATACENTER-REPOSITORY",
+	"Datacenter repository" : "DATACENTER-REPOSITORY",
 	"Enterprise" : "EN-|ENTERPRISE-|ENPROP-",
 	"Limits" : "LIMIT-[1]{1,1}$|LIMIT-[2]{1,1}$|LIMIT-[3-9]|LIMIT-[1][0-9]|LIMIT-[2][0-9]",
 	"Virtual datacenter" : "VDC-",
@@ -89,7 +89,12 @@
 	"Two factor authentication" : "2FA-",
 	"Disks" : "DISK-",
 	"Schedule" : "SCHEDULE-",
-	"VM action plans" : "VM-AP-|VM_AP-"
+	"VM action plans" : "VM-AP-|VM_AP-",
+	"Relocate" : "RELOCATE",
+	"Datacenter hardware profile" : "PROFILEDC-",
+	"Scaling group" : "SCALING-GROUP-",
+	"Clone" : "CLONE-",
+	"Database" : "DB-" 
 }
 
 
