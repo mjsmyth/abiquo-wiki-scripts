@@ -120,11 +120,12 @@ def main():
 # Remove the http://blah.de.blah			
 			restMethod = re.sub("DELETE|GET|POST|PUT","",restMethod)
 			restMethod = restMethod.strip()
-			restMethod = re.sub("http://.*?/","/",restMethod)
+			restMethod = re.sub("http://.*?/api","",restMethod)
 			restMethod = restMethod.strip()			
 			print "restMethod: %s" % restMethod
 # Replace the names with asterisks / stars			
 			restMethod = re.sub("\{.*?\}","*",restMethod)	
+			restMethod = re.sub(" ","",restMethod)
 			print "restMethod: %s" % restMethod
 # Discard weird stuff
 			if '<' in restMethod or '>' in restMethod or '_' in restMethod or ':'  in restMethod:
