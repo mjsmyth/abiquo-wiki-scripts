@@ -55,37 +55,102 @@ def searchForMethods(wikiContent):
 # Search for methods on the page
 # Maybe it doesn't need to have ROLE
 #	methodSearchString = '"Synopsis".*?(GET|PUT|POST|DELETE).*?(http://example.com/api)(.*?)<(.*?)"Roles Required|Roles required".*?(ROLE_([A-Z,_]).*?)<'
-	methodSearchString = '(?<=Synopsis).*?((DELETE|GET|POST|PUT){1,1}.*?)<br'
+	methodSearchString = '(?<=Synopsis).*?((DELETE|GET|POST|PUT){1,1}.*?)(<br)'	
 	foundMethods = re.findall(methodSearchString,wikiContent,re.DOTALL)
 	if foundMethods:
-		print "Found %s" % str(foundMethods)
+		print "Found method: %s" % str(foundMethods)
 #	   sff = fnm.group(1)    
 	return foundMethods
 
+def searchForRoles(securityHttpBeansContent):
+# Search for methods on the page
+# Maybe it doesn't need to have ROLE
+#	methodSearchString = '"Synopsis".*?(GET|PUT|POST|DELETE).*?(http://example.com/api)(.*?)<(.*?)"Roles Required|Roles required".*?(ROLE_([A-Z,_]).*?)<'
+	roleSearchString = '(?<=pattern=")(.*?)\"\smethod=\"(.*?)\"\saccess=\"(.*?)\"'
+	foundRoles = ""
+	foundRoles = re.findall(roleSearchString,securityHttpBeansContent)
+	print foundRoles
+#	if foundRoles:
+#	print "Found role: %s" % foundRoles[0]
+#	   sff = fnm.group(1)    
+	return foundRoles
+
+
 def cleanRestMethod(restMethod):
-	stringsToClean = {"&nbsp;","<span.*?>","</span>","<u>","</u>","<a.*?>","</a.*?>",""}
+# Get rid of HTML poo and XML poo	
+	stringsToClean = {"<span.*?>","</span>","<u>","</u>","<a.*?>","</a.*?>"}
 	for stringClean in stringsToClean:
 		restMethod = re.sub(stringClean,"",restMethod)
+		restMethod = re.sub("&nbsp;"," ",restMethod)
 	return restMethod	
 
 
 def main():
-	inputSubdir = "v4210pages"
+
+	securityHttpBeans = openContentFile("security-http-beans.txt")
+	securityRolesList = searchForRoles(securityHttpBeans)
+
+	securityRoleDict = {}
+	for (url,option,roles) in securityRolesList:
+		securityOptionUrl = option + " " + url
+		securityRoleDict[securityOptionUrl] = roles
+
+	for poo,poopoo in securityRoleDict.iteritems():
+		print "poo: %s poopoo: %s " % (poo,poopoo)		
+
+
+	inputSubdir = "v4210files"
 	wikiFileList = []	
 	wikiFileList = getContentFileNames(inputSubdir)
 	wikiFileMethodDict = {}
+
 	for wikiFile in wikiFileList:
 		wikiContent = ""
 		wikiContent = openContentFile(wikiFile)
 		wikiFileMethodDict[wikiFile] = []
 #		print ("wikiContent: %s" % wikiContent)
 		restMethodsList = searchForMethods(wikiContent)
-		for restMethod in restMethodsList:
-			print "restMethod: %s" % restMethod[0]
-			wikiFileMethodDict[wikiFile].append(cleanRestMethod(restMethod[0]))
+		for fullRestMethod in restMethodsList:
+			print "restOption: %s" % fullRestMethod[1]
+			print "restMethod: %s" % fullRestMethod[0]
+			restOption = fullRestMethod[1]
+			restMethod = fullRestMethod[0]
+			restMethod = cleanRestMethod(restMethod)
+			print "restMethod: %s" % restMethod
+# Remove the http://blah.de.blah			
+			restMethod = re.sub("DELETE|GET|POST|PUT","",restMethod)
+			restMethod = restMethod.strip()
+			restMethod = re.sub("http://.*?/","/",restMethod)
+			restMethod = restMethod.strip()			
+			print "restMethod: %s" % restMethod
+# Replace the names with asterisks / stars			
+			restMethod = re.sub("\{.*?\}","*",restMethod)	
+			print "restMethod: %s" % restMethod
+# Discard weird stuff
+			if '<' in restMethod or '>' in restMethod or '_' in restMethod or ':'  in restMethod:
+				continue		
+		
+			restOptionMethodList = []
+			restOptionMethodList.append(restOption)
+			restOptionMethodList.append(restMethod)			
+			wikiFileMethodDict[wikiFile].append(restOptionMethodList)
 #		print "Method %s" % str(methodsList)
-	for d in wikiFileMethodDict:
-		print wikiFileMethodDict[d]
+	
+	for wikiFileName in wikiFileMethodDict:
+		print "d: %s " % wikiFileName
+		wikiFileMethodList = wikiFileMethodDict[wikiFileName]
+		for wikiMethod in wikiFileMethodList:
+#			print "wm: %s " % wikiMethod
+			wikiOptionUrl = " ".join(wikiMethod)
+			print "wo: %s " % wikiOptionUrl
+
+			if wikiOptionUrl in securityRoleDict:
+				print "DONE: %s : %s" % (wikiOptionUrl,securityRoleDict[wikiOptionUrl])
+
+
+
+
+
 # Calls the main() function
 if __name__ == '__main__':
 	main()
