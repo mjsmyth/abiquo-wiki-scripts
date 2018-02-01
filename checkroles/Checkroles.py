@@ -31,7 +31,7 @@ def getContentFileNames(inputSubdir):
 		print ("aPath: %s" % aPath) 
 		aFullPath = inputSubdir + "/" + aPath
 		allFiles.extend(glob.glob(aFullPath))
-		print allFiles[-2:-1]
+#		print allFiles[-2:-1]
 	return(allFiles) 
 
 
@@ -55,10 +55,10 @@ def searchForMethods(wikiContent):
 # Search for methods on the page
 # Maybe it doesn't need to have ROLE
 #	methodSearchString = '"Synopsis".*?(GET|PUT|POST|DELETE).*?(http://example.com/api)(.*?)<(.*?)"Roles Required|Roles required".*?(ROLE_([A-Z,_]).*?)<'
-	methodSearchString = '(?<=Synopsis).*?((DELETE|GET|POST|PUT){1,1}.*?)(<br)'	
+	methodSearchString = '(?<=Synopsis).*?((DELETE|GET|POST|PUT){1,1}.*?)(<br|</li|</p)'	
 	foundMethods = re.findall(methodSearchString,wikiContent,re.DOTALL)
-	if foundMethods:
-		print "Found method: %s" % str(foundMethods)
+#	if foundMethods:
+#		print "Found method: %s" % str(foundMethods)
 #	   sff = fnm.group(1)    
 	return foundMethods
 
@@ -66,9 +66,12 @@ def searchForRoles(securityHttpBeansContent):
 # Search for methods on the page
 # Maybe it doesn't need to have ROLE
 #	methodSearchString = '"Synopsis".*?(GET|PUT|POST|DELETE).*?(http://example.com/api)(.*?)<(.*?)"Roles Required|Roles required".*?(ROLE_([A-Z,_]).*?)<'
-	roleSearchString = '(?<=pattern=")(.*?)\"\smethod=\"(.*?)\"\saccess=\"(.*?)\"'
-	foundRoles = ""
+	roleSearchString = '(?<=pattern=")(.*?)\"\smethod=\"(.*?)\"[\s\n]*?access=\"(.*?)\"'
+	foundRoles = ""  
 	foundRoles = re.findall(roleSearchString,securityHttpBeansContent)
+	for rawRoles in foundRoles:
+		rawRoles = [y.replace("\n","") for y in rawRoles] 
+		rawRoles = [x.replace("ROLE_","") for x in rawRoles] 
 	print foundRoles
 #	if foundRoles:
 #	print "Found role: %s" % foundRoles[0]
@@ -87,7 +90,7 @@ def cleanRestMethod(restMethod):
 
 def main():
 
-	securityHttpBeans = openContentFile("security-http-beans.txt")
+	securityHttpBeans = openContentFile("/home/mjsmyth/platform/api/src/main/resources/springresources/security/security-http-beans.xml")
 	securityRolesList = searchForRoles(securityHttpBeans)
 
 	securityRoleDict = {}
@@ -95,14 +98,21 @@ def main():
 		securityOptionUrl = option + " " + url
 		securityRoleDict[securityOptionUrl] = roles
 
-	for poo,poopoo in securityRoleDict.iteritems():
-		print "poo: %s poopoo: %s " % (poo,poopoo)		
+	roleFile = open("roleFile.txt", "w+")
+	wikiMethodFile = open("wikiFile.txt", "w+")
+	wikiCheckFile = open("wikiCheckFile.txt", "w+")
+	docPresentFile = open("docPresentFile.txt","w+")
 
+	for securityMethod,securityRoles in securityRoleDict.iteritems():
+		roleString = "sMethod: " + securityMethod + " sRoles: " + securityRoles + "\n"
+#		print "sMethod: %s sRoles: %s " % (securityMethod,securityRoles)
+		roleFile.write(roleString)
 
-	inputSubdir = "v4210files"
+	inputSubdir = "v4210pages"
 	wikiFileList = []	
 	wikiFileList = getContentFileNames(inputSubdir)
 	wikiFileMethodDict = {}
+	wikiMethodsSimpleList = []
 
 	for wikiFile in wikiFileList:
 		wikiContent = ""
@@ -116,21 +126,33 @@ def main():
 			restOption = fullRestMethod[1]
 			restMethod = fullRestMethod[0]
 			restMethod = cleanRestMethod(restMethod)
-			print "restMethod: %s" % restMethod
+#			print "restMethod: %s" % restMethod
 # Remove the http://blah.de.blah			
 			restMethod = re.sub("DELETE|GET|POST|PUT","",restMethod)
 			restMethod = restMethod.strip()
 			restMethod = re.sub("http://.*?/api","",restMethod)
 			restMethod = restMethod.strip()			
-			print "restMethod: %s" % restMethod
+#			print "restMethod: %s" % restMethod
 # Replace the names with asterisks / stars			
 			restMethod = re.sub("\{.*?\}","*",restMethod)	
 			restMethod = re.sub(" ","",restMethod)
-			print "restMethod: %s" % restMethod
+			restMethod = re.sub("<strong>RolesRequired:.*?</strong>.*","",restMethod)
+#Wiki: /cloud/virtualdatacenters/1/virtualappliances/1/virtualmachines/1/action/relocatecandidates
+#Wiki: /cloud/virtualdatacenters/1/virtualappliances/1/virtualmachines/1/action/relocate
+#Wiki: /cloud/virtualdatacenters/\*/virtualappliances/*/virtualmachines/*/action/clone]
+			restMethod = re.sub("\\\\\\*","*",restMethod)
+			restMethod = re.sub("1","*",restMethod)
+			restMethod = re.sub("]","",restMethod)
+
+
+#			print "restMethod: %s" % restMethod
 # Discard weird stuff
 			if '<' in restMethod or '>' in restMethod or '_' in restMethod or ':'  in restMethod:
+				wikiResultString = "Discarded: " + restMethod + "\n"
+				wikiCheckFile.write(wikiResultString)
 				continue		
-		
+			wikiResultString = "Wiki: " + restMethod + "\n"	
+			wikiCheckFile.write(wikiResultString)
 			restOptionMethodList = []
 			restOptionMethodList.append(restOption)
 			restOptionMethodList.append(restMethod)			
@@ -138,19 +160,37 @@ def main():
 #		print "Method %s" % str(methodsList)
 	
 	for wikiFileName in wikiFileMethodDict:
-		print "d: %s " % wikiFileName
+#		print "d: %s " % wikiFileName 
+		wikiFileNameString = "File: " + wikiFileName + "\n"
+		wikiMethodFile.write(wikiFileNameString)
 		wikiFileMethodList = wikiFileMethodDict[wikiFileName]
 		for wikiMethod in wikiFileMethodList:
 #			print "wm: %s " % wikiMethod
 			wikiOptionUrl = " ".join(wikiMethod)
-			print "wo: %s " % wikiOptionUrl
-
+#			print "wo: %s " % wikiOptionUrl
+			wikiMethodsSimpleList.append(wikiOptionUrl)
+			securityString = ""
 			if wikiOptionUrl in securityRoleDict:
-				print "DONE: %s : %s" % (wikiOptionUrl,securityRoleDict[wikiOptionUrl])
+				securityString = "IN: " + wikiOptionUrl + " : " + securityRoleDict[wikiOptionUrl] + "\n"
+#				print "DONE: %s : %s" % (wikiOptionUrl,securityRoleDict[wikiOptionUrl])
+			else:
+				securityString = "NO: " + wikiOptionUrl + "\n"
+#				print "NOT: %s " % (wikiOptionUrl)	
+			wikiMethodFile.write(securityString)	
 
+# Audit the documentation
+	docPresentString = ""
+	for wikiOptionUrl in securityRoleDict:
+		if wikiOptionUrl in wikiMethodsSimpleList:
+			docPresentString = "Found: " + wikiOptionUrl + "\n"
+		else:
+			docPresentString = "Nodoc: " + wikiOptionUrl + "\n"	
+		docPresentFile.write(docPresentString)	
 
-
-
+	wikiMethodFile.close()
+	wikiCheckFile.close()
+	roleFile.close()	
+	docPresentFile.close()
 
 # Calls the main() function
 if __name__ == '__main__':
