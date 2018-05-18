@@ -29,7 +29,7 @@ def searchForMediaTypes(wikiContent):
 # Search for media types on the page
 
 #	methodSearchString = '<h5>(.*?)\sMedia Type.*?;application/vnd.abiquo.(.*?)\+json.*?<td>(.*?)((?=<h5>)|\Z)'
-	mediaTypeSearchString = '.*?([\w]*?)(?:\s|\&nbsp\;)(?=Media Type).*?(?<=application/vnd.abiquo.)(.*?)(?=\+json).*?(<td>.*</td>)'	
+	mediaTypeSearchString = '.*?([\w]*?)(?:\s|\&nbsp\;)(?=Media Type).*?(?<=application/vnd.abiquo.)(.*?)(?=\+json).*?((?:<td>|<td colspan=\"1\">).*</td>)'	
 	mediaTypeBlocks = wikiContent.split("<h5>")
 	foundMediaTypes = []
 	for mediaTypeBlock in mediaTypeBlocks:
@@ -42,8 +42,8 @@ def searchForMediaTypes(wikiContent):
 
 def searchForAttributes(mediaTypeContent):
 # Search for attributes in the media type
-#	attributeSearchString = '<p>(.*?)</p>.*?<p>([\w\s]*?)</p></td></tr>'
-	attributeSearchString = '<p>(.*?)</p>.*(?<=<p>)(.*?)</p>'
+	attributeSearchString = '(?:<td>|<td colspan="1">)(?:<p>)?(.*?)(?:</p>)?</td>.*(?:(?<=<td>)|(?<=<td colspan=\"1\">))(?:<p>)?(.*?)(?:</p>)?</td>'
+#	attributeSearchString = '<p>(.*?)</p>.*(?<=<p>)(.*?)</p>'
 	attributeBlocks = mediaTypeContent.split("</tr>")
 	foundAttributes = []
 	for attributeBlock in attributeBlocks:
