@@ -40,11 +40,19 @@ def searchForMediaTypes(wikiContent):
 #	   sff = fnm.group(1)    
 	return foundMediaTypes
 
-def searchForAttributes(mediaTypeContent):
+def searchForAttributes(mediaTypeName,mediaTypeContent):
 # Search for attributes in the media type
 	attributeSearchString = '(?:<td>|<td colspan="1">)(?:<p>)?(.*?)(?:</p>)?</td>.*(?:(?<=<td>)|(?<=<td colspan=\"1\">))(?:<p>)?(.*?)(?:</p>)?</td>'
 #	attributeSearchString = '<p>(.*?)</p>.*(?<=<p>)(.*?)</p>'
-	attributeBlocks = mediaTypeContent.split("</tr>")
+# If there's more than one table, only use the first one, as the second one has enumerations
+# Exclude entities that have sub media types such as pricingtemplate and backuppolicydefinition	  
+	if (mediaTypeName == 'pricingtemplate' or mediaTypeName == 'backuppolicydefinition'): 
+		mediaTypeOnly = mediaTypeContent[:]	
+	else:
+		tableBlocks = mediaTypeContent.split("</table>")
+		mediaTypeOnly = tableBlocks[0]
+
+	attributeBlocks = mediaTypeOnly.split("</tr>")
 	foundAttributes = []
 	for attributeBlock in attributeBlocks:
 		foundAttributes.append (re.findall(attributeSearchString,attributeBlock,re.DOTALL))
@@ -82,7 +90,7 @@ def main():
 			mediaTypeDict[dtoName] = {}
 			mediaTypeDict[dtoName]['mediaTypeName'] = mediaTypeName
 	#		mediaTypeDict[dtoName]['attributes'] = {}
-			attributeList = searchForAttributes(attributeTableText)
+			attributeList = searchForAttributes(mediaTypeName,attributeTableText)
 			attributeDict = {}
 			for attribute in attributeList:
 				for (attributeName,attributeDesc) in attribute:
