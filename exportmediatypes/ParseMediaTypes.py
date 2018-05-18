@@ -24,10 +24,8 @@ def openContentFile(contentFileName):
 	return newContent
 
 
-
 def searchForMediaTypes(wikiContent):
 # Search for media types on the page
-
 #	methodSearchString = '<h5>(.*?)\sMedia Type.*?;application/vnd.abiquo.(.*?)\+json.*?<td>(.*?)((?=<h5>)|\Z)'
 	mediaTypeSearchString = '.*?([\w]*?)(?:\s|\&nbsp\;)(?=Media Type).*?(?<=application/vnd.abiquo.)(.*?)(?=\+json).*?((?:<td>|<td colspan=\"1\">).*</td>)'	
 	mediaTypeBlocks = wikiContent.split("<h5>")
@@ -56,37 +54,27 @@ def searchForAttributes(mediaTypeName,mediaTypeContent):
 	foundAttributes = []
 	for attributeBlock in attributeBlocks:
 		foundAttributes.append (re.findall(attributeSearchString,attributeBlock,re.DOTALL))
-
-#	foundAttributes = re.findall(attributeSearchString,mediaTypeContent)
-# OJO	for rawRoles in foundRoles:
-# OJO		rawRoles = [y.replace("\n","") for y in rawRoles] 
-# OJO		rawRoles = [x.replace("ROLE_","") for x in rawRoles] 
-#	print foundAttributes
-#	if foundRoles:
-#	print "Found role: %s" % foundRoles[0]
-#	   sff = fnm.group(1)    
 	return foundAttributes
 
 
-#def cleanRestMethod(restMethod):
-# Get rid of HTML poo and XML poo	
-#	stringsToClean = {"<span.*?>","</span>","<u>","</u>","<a.*?>","</a.*?>"}
-#	for stringClean in stringsToClean:
-#		restMethod = re.sub(stringClean,"",restMethod)
-#		restMethod = re.sub("&nbsp;"," ",restMethod)
-#	return restMethod	
+def cleanHTMLfromText(textToClean):
+# Get rid of HTML from the data media types
+	cleanRegex = re.compile('<.*?>')
+	cleanText = re.sub(cleanRegex, '', textToClean)
+ 	return cleanText
 
 
 def main():
-
+# 	Open wiki page retrieved with Get Confluence page script based on Sarah's script 	
 	dataMediaTypes = openContentFile("/home/mjsmyth/a3/Abiquo_Data_Media_Types-27076188")
 	dataMediaTypesList = searchForMediaTypes(dataMediaTypes)
 
 	mediaTypeDict = {}
 	for DMT in dataMediaTypesList:
-		for	(dtoName,mediaTypeName,attributeTableText) in DMT:
+		for	(dtoName,rawMediaTypeName,attributeTableText) in DMT:
 	#		print "dtoName: %s" % dtoName
 	#		print "mediaTypeName: %s" % mediaTypeName
+			mediaTypeName = cleanHTMLfromText(rawMediaTypeName)
 			mediaTypeDict[dtoName] = {}
 			mediaTypeDict[dtoName]['mediaTypeName'] = mediaTypeName
 	#		mediaTypeDict[dtoName]['attributes'] = {}
