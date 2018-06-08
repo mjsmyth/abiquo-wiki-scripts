@@ -28,7 +28,7 @@ def getContentFileNames(inputSubdir):
 	allFiles = []
 	for aPath in paths:
 		aFullPath = ""
-		print ("aPath: %s" % aPath) 
+#		print ("aPath: %s" % aPath) 
 		aFullPath = inputSubdir + "/" + aPath
 		allFiles.extend(glob.glob(aFullPath))
 #		print allFiles[-2:-1]
@@ -86,8 +86,7 @@ def searchForRoles(securityHttpBeansContent):
 	foundRoles = re.findall(roleSearchString,securityHttpBeansContent)
 	for rawRoles in foundRoles:
 		rawRoles = [y.replace("\n","") for y in rawRoles] 
-		rawRoles = [x.replace("ROLE_","") for x in rawRoles] 
-	print foundRoles
+#	print foundRoles
 #	if foundRoles:
 #	print "Found role: %s" % foundRoles[0]
 #	   sff = fnm.group(1)    
@@ -101,6 +100,34 @@ def cleanRestMethod(restMethod):
 		restMethod = re.sub(stringClean,"",restMethod)
 		restMethod = re.sub("&nbsp;"," ",restMethod)
 	return restMethod	
+
+def cleanWikiStorageFormat(descriptionText):
+# Get rid of Wiki storage format poo
+	linkString = "<ac:link(?: ac:anchor=\"(.*?)\")?>.*?<ri:page ri:content-title=\"(.*?)\"/>.*?</ac:link>"
+#	linkString2 = "<ac:link ac:anchor=\"(.*?)\">.*?<ri:page ri:content-title=\"DatacenterRepositoryResource\"/>"
+# <p>This method works with paging. Check out <ac:link><ri:page ri:content-title="Basic Behaviors"/></ac:link> for information about how it works</p>
+	linksInString = re.findall(linkString,descriptionText)
+	linkStringInMarkdown = ""
+	if linksInString:
+		for wikiFormatLink in linksInString:
+# if no anchor text, make it the page name			
+			anchorText = wikiFormatLink[2][:]
+			anchorText = wikiFormatLink[1][:]
+			pageName = wikiFormatLink[2][:]
+			if not re.match("Resource$",pageName): 
+				pageNameWordList = pageName.split(" ")
+				pageNamePlus = "+".join(pageNameWordList)	
+				pageLink = "https://wiki.abiquo.com/display/doc/" + pageNamePlus
+				# [I'm an inline-style link with title](https://www.google.com "Google's Homepage")
+				LinkStringInMarkdown = "[" + anchorText + "] (" + pageLink + " \"" + "Abiquo wiki" + "\""
+			else:
+				LinkStringInMarkdown = "[" + anchorText + "] (" + anchorText + " \"" + "Abiquo API docs" + "\")"
+			descriptionText = re.sub(wikiFormatLink,linkStringInMarkdown,descriptionText,count=1)	
+	stringsToClean = {"<ac:.*?>","</ac:.*?>","<ri:.*?>"}
+	for stringClean in stringsToClean:
+		descriptionText = re.sub(stringClean,"",descriptionText)
+		descriptionText = re.sub("&nbsp;"," ",descriptionText)
+	return descriptionText	
 
 
 def main():
@@ -144,10 +171,12 @@ def main():
 			restOption = fullRestMethod[4]
 			restMethod = fullRestMethod[3]
 			fullRestMethodCopy = fullRestMethod[2][:]
-			foundRolesInWiki = re.findall("(?:(?:((?:[A-Z]{1,})(?:(?:[_]{1,1})(?:[A-Z]{1,}))+)(?:\,|\s|'&nbsp;'|\n)*))+?",fullRestMethodCopy)
+			foundRolesInWiki = re.findall("(?:(?:((?:[A-Z]{1,})(?:(?:[_]{0,1})(?:[A-Z]{1,}))+)(?:\,|\s|'&nbsp;'|\n)*))+?",fullRestMethodCopy)
 #			print("foundRolesInWiki: %s" % foundRolesInWiki)
 			restMethod = cleanRestMethod(restMethod)
 			methodHeader = cleanRestMethod(methodHeader)
+			methodDescription = cleanRestMethod(methodDescription)
+			methodDescription = cleanWikiStorageFormat(methodDescription)
 #			print "restMethod: %s" % restMethod
 			resourceHeading = mainHeadingList[0]
 			resourceDescription = ''
@@ -183,15 +212,15 @@ def main():
 #			print "Description: %s" % methodDescription
 #			print "restMethod: %s" % restMethod
 # Discard weird stuff
-			if '<' in restMethod or '>' in restMethod or '_' in restMethod or ':'  in restMethod:
+ 			if '<' in restMethod or '>' in restMethod or '_' in restMethod or ':'  in restMethod:
 				wikiResultString = "Discarded: " + restMethod + "\n"
 				wikiCheckFile.write(wikiResultString)
 				continue	
 			checkNotRoleList = {'ROUND_ROBIN' , 'LEAST_CONNECTIONS' , 'SOURCE_IP' , 'IP_HASH' , 'LEAST_CONN'} 		
-			if any (x in str(foundRolesInWiki) for x in checkNotRoleList):
-				wikiResultString = "Discarded: " + restMethod + "\n"
-				wikiCheckFile.write(wikiResultString)
-				continue
+#			if any (x in str(foundRolesInWiki) for x in checkNotRoleList):
+#				wikiResultString = "Discarded: " + restMethod + "\n"
+#				wikiCheckFile.write(wikiResultString)
+#				continue
 	
 			wikiResultString = "Wiki: " + restMethod + "\n"	
 			wikiCheckFile.write(wikiResultString)
