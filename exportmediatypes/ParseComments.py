@@ -150,10 +150,11 @@ def main():
 #		print "sMethod: %s sRoles: %s " % (securityMethod,securityRoles)
 		roleFile.write(roleString)
 
-	inputSubdir = "v4212pages"
+	inputSubdir = "v4234files"
 	wikiFileList = []	
 	wikiFileList = getContentFileNames(inputSubdir)
 	wikiFileCommentDict = {}
+	wikiFileHeaderDict = {}
 	wikiMethodsSimpleList = []
 
 	for wikiFile in wikiFileList:
@@ -162,6 +163,17 @@ def main():
 		wikiFileCommentDict[wikiFile] = []
 #		print ("wikiContent: %s" % wikiContent)
 		(mainHeadingList,headingCommentList) = searchForHeadingsAndComments(wikiContent) 
+		# PROCESS THE HEADING - first text under a heading 1-3 before another heading
+#		print "Method %s" % str(methodsList)
+		resourceHeading = []
+		if (len(mainHeadingList) > 0): 
+			resourceHeading = mainHeadingList[0]
+# 			print "mainHeadingList[0]: %s" % resourceHeading[0]			
+		resourceDescription = ''
+		if len(resourceHeading) > 1:
+			resourceDescription = resourceHeading[1]
+#			print "resourceDescription: %s" % str(resourceDescription)	
+		wikiFileHeaderDict[wikiFile] = resourceDescription[:]
 
 		for fullRestMethod in headingCommentList:
 #			print "restOption: %s" % fullRestMethod[2]
@@ -177,11 +189,6 @@ def main():
 			methodHeader = cleanRestMethod(methodHeader)
 			methodDescription = cleanRestMethod(methodDescription)
 			methodDescription = cleanWikiStorageFormat(methodDescription)
-#			print "restMethod: %s" % restMethod
-			resourceHeading = mainHeadingList[0]
-			resourceDescription = ''
-			if len(mainHeadingList) > 1:
-				resourceDescription = mainHeadingList[1]
 
 #Wiki: /cloud/virtualdatacenters/1/virtualappliances/1/virtualmachines/1/action/relocatecandidates
 #Wiki: /cloud/virtualdatacenters/1/virtualappliances/1/virtualmachines/1/action/relocate
@@ -234,7 +241,9 @@ def main():
 	#		print "restMethod processed: %s" % restMethod
 	#		print "Rolesfound processed: %s" % foundRolesInWiki
 			wikiFileCommentDict[wikiFile].append(restOptionMethodList)
-#		print "Method %s" % str(methodsList)
+
+
+
 	
 	for wikiFileName in wikiFileCommentDict:
 		print "\n%s " % wikiFileName 
@@ -242,6 +251,7 @@ def main():
 		wikiMethodFile.write(wikiFileNameString)
 		wikiMainHeader = ""
 		wikiFileMethodList = wikiFileCommentDict[wikiFileName]
+		print "\n\t %s \n" % wikiFileHeaderDict[wikiFileName]
 		for wikiMethod in wikiFileMethodList:
 #			print "wikiMethod: %s " % wikiMethod
 			wikiOptionUrl = " ".join(wikiMethod[0:2])
