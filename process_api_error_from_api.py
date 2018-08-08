@@ -61,8 +61,8 @@ def main():
 	api_error_file_admin = "wiki_api_error_admin_guide_" + todays_date + ".txt"
 	api_error_file_user = "wiki_api_error_user_guide_" + todays_date + ".txt"
 
-	admin_header = "|| Internal Message ID {color:#efefef}__________________{color}|| Message {color:#efefef}____________________________________________________________{color} ||  Identifier || Info ||\n"; 
-	user_header = "|| Internal Message ID {color:#efefef}__________________{color}|| Message {color:#efefef}____________________________________________________________{color} || Info ||\n"; 
+	admin_header = "|| Internal Message ID {color:#efefef}__________________{color}|| Message {color:#efefef}____________________________________________________________{color} ||  Identifier ||\n"; 
+	user_header = "|| Internal Message ID {color:#efefef}__________________{color}|| Message {color:#efefef}____________________________________________________________{color} ||\n"; 
 
 	sections_json = "apierror_sections.json"		
 	api_error_sections_data = open(os.path.join(input_subdir,sections_json))
