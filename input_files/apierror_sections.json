@@ -89,45 +89,21 @@
 	"Two factor authentication" : "2FA-",
 	"Disks" : "DISK-",
 	"Schedule" : "SCHEDULE-",
-	"VM action plans" : "VM-AP-|VM_AP-",
-	"Relocate" : "RELOCATE",
+	"Action plans" : "AP-",
+	"VM relocate" : "VM-RELOCATE-",
 	"Datacenter hardware profile" : "PROFILEDC-",
 	"Scaling group" : "SCALING-GROUP-",
-	"Clone" : "CLONE-",
-	"Database" : "DB-" 
+	"VM clone" : "VM_CLONE-",
+	"Database" : "DB-",
+	"Scaling rule": "SCALING-RULE",
+	"Cluster" : "CLUSTER",
+	"Excluded network" : "EXCLUDEDNETWORK",
+	"NAT IP" : "NAT-IP-",
+	"NAT network" : "NAT-NET-",
+	"NAT rule" : "NAT-RULE-",
+	"Scaling rule" : "SCALING-RULE-",
+	"VM clone" : "VM_CLONE-",
+	"VM relocate" : "VM-RELOCATE-",
+	"Bill" : "BILL-",
+	"Billing record" : "BILL_REGISTER-"
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
