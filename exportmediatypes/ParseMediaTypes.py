@@ -72,7 +72,10 @@ def cleanSpansfromText(textToClean):
 
 def main():
 #     Open wiki page retrieved with Get Confluence page script based on Sarah's script     
-    dataMediaTypes = openContentFile("/home/mjsmyth/abiquo-wiki-scripts/exportmediatypes/Abiquo_Data_Media_Types-27076188-20180606-01.txt")
+#    dataMediaTypes = openContentFile("/home/mjsmyth/abiquo-wiki-scripts/exportmediatypes/Abiquo_Data_Media_Types-27076188-20180810.txt")
+    dataMediaTypes = openContentFile("/Users/maryjane/abiquo-wiki-scripts/exportmediatypes/Abiquo_Data_Media_Types-27076188-20180810.txt")
+
+
     dataMediaTypesList = searchForMediaTypes(dataMediaTypes)
 
     mediaTypeDict = {}

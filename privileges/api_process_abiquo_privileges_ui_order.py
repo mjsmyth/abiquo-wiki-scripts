@@ -157,7 +157,7 @@ def newOrderByUItextFile(td):
 	return uiOrd
 
 def main():
-	td = "2016-11-17"
+	td = "2018-08-07"
 	input_gitdir = '../../platform/ui/app/lang'
 	input_subdir = 'input_files'
 	output_subdir = 'output_files'

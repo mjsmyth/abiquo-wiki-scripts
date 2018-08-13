@@ -150,17 +150,20 @@ def main():
 #		print "sMethod: %s sRoles: %s " % (securityMethod,securityRoles)
 		roleFile.write(roleString)
 
-	inputSubdir = "v4234files"
+	inputSubdir = "v44wikiexport"
 	wikiFileList = []	
 	wikiFileList = getContentFileNames(inputSubdir)
 	wikiFileCommentDict = {}
 	wikiFileHeaderDict = {}
 	wikiMethodsSimpleList = []
+	wikiPageLinkDict = {}
 
 	for wikiFile in wikiFileList:
 		wikiContent = ""
 		wikiContent = openContentFile(wikiFile)
 		wikiFileCommentDict[wikiFile] = []
+		wikiPageLink = wikiContent.split("**")
+		wikiPageLinkDict[wikiFile] = wikiPageLink[1] 
 #		print ("wikiContent: %s" % wikiContent)
 		(mainHeadingList,headingCommentList) = searchForHeadingsAndComments(wikiContent) 
 		# PROCESS THE HEADING - first text under a heading 1-3 before another heading
@@ -249,6 +252,9 @@ def main():
 		print "\n%s " % wikiFileName 
 		wikiFileNameString = "File: " + wikiFileName + "\n"
 		wikiMethodFile.write(wikiFileNameString)
+		wikiPageLinkString = wikiPageLinkDict[wikiFileName]
+		print "\n%s " % wikiPageLinkString
+		wikiMethodFile.write(wikiPageLinkString)
 		wikiMainHeader = ""
 		wikiFileMethodList = wikiFileCommentDict[wikiFileName]
 		print "\n\t %s \n" % wikiFileHeaderDict[wikiFileName]
