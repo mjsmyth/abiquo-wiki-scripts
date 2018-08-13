@@ -101,6 +101,6 @@
 	"NAT IP" : "NAT-IP-",
 	"NAT network" : "NAT-NET-",
 	"NAT rule" : "NAT-RULE-",
-	"Bill" : "BILL-",
-	"Billing record" : "BILL_REGISTER-"
+	"Bills" : "BILL-",
+	"Billing records" : "BILL_REGISTER-"
 }
