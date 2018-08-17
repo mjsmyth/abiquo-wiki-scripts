@@ -15,6 +15,7 @@ def openContentFile(contentFileName):
     newContent = ""
     try: 
         newContentFile = open(contentFileName,'r')    
+#        os.system("open '"+ contentFileName + "'")
         newContent = newContentFile.read()
 #        logging.info("Read content file okay")
         newContentFile.close()
@@ -73,7 +74,8 @@ def cleanSpansfromText(textToClean):
 def main():
 #     Open wiki page retrieved with Get Confluence page script based on Sarah's script     
 #    dataMediaTypes = openContentFile("/home/mjsmyth/abiquo-wiki-scripts/exportmediatypes/Abiquo_Data_Media_Types-27076188-20180810.txt")
-    dataMediaTypes = openContentFile("/Users/maryjane/abiquo-wiki-scripts/exportmediatypes/Abiquo_Data_Media_Types-27076188-20180810.txt")
+    contentFile = r'/home/mjsmyth/abiquo-wiki-scripts/exportmediatypes/v4234files/Abiquo Data Media Types-27076188'
+    dataMediaTypes = openContentFile(contentFile)
 
 
     dataMediaTypesList = searchForMediaTypes(dataMediaTypes)
