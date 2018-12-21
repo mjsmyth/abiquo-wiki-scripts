@@ -103,5 +103,6 @@
 	"NAT rule" : "NAT-RULE-",
 	"Bills" : "BILL-",
 	"Billing records" : "BILL_REGISTER-",
-	"Virtual private network" : "VPN-"
+	"Virtual private network" : "VPN-",
+	"Classic firewalls": "CLASSIC-FIREWALL-" 
 }
