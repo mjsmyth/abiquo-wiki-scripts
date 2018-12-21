@@ -288,7 +288,7 @@ def main():
 #				print ("| " + store_key[su] + " | " + store_group[su] + " | " + store_ui_label[su] + " | " + store_value[su] + " |") 
 	outfile.write (" \n")
 	outfile.write (" \n")
-	outfile.write ("h3. Wiki links\n")
+	outfile.write ("h3. Wiki links list\n")
 
 	for sgp,swgg in enumerate(store_wiki_gui_order):
 		check_last_group = store_wiki_gui_group[swgg].strip()
