@@ -13,23 +13,27 @@ import readline
 
 def main():
 	apiHeaders = {}
-	td = "2015-08-11"
+	td = "2019-04-16"
 
 # Enter path in filesystem to a file with the UI tags for fields cloned from github
 #	ui_path = input("Language file path: ").strip()
 	input_subdir = "input_files"
 	output_subdir = "output_files" 
 	output_file_name = "wiki_config_view_" + td + ".txt"
-	extra_text_file_name = 'process_config_view_extratext_' + td + '.txt'
+#	extra_text_file_name = 'process_config_view_extratext_' + td + '.txt'
+	extra_text_file_name = 'process_config_view_extratext.txt'
 	ui_path = "../platform/ui/app/"
 	ui_path_lang = ui_path + "lang/"
 	ui_path_html = ui_path + "modules/configuration/partials/"
-	apiAuth = raw_input("Enter API authorization, e.g. Basic XXXX: ")
-	apiIP = raw_input("Enter API address, e.g. api.abiquo.com: ")
+#	apiAuth = raw_input("Enter API authorization, e.g. Basic XXXX: ")
+	apiAuth = ""
+	apiAuth = "Basic YWRtaW46eGFiaXF1bw=="
+#	apiIP = raw_input("Enter API address, e.g. api.abiquo.com: ")
+	apiIP = "mjsabiquo.bcn.abiquo.com"
 # Get system properties data from the API of a fresh Abiquo	
 #	apiAuth = input("Authorization: ").strip()
 #	apiIP = input("API IP address: ").strip()
-	apiUrl = 'http://' + apiIP + '/api/config/properties'
+	apiUrl = 'https://' + apiIP + '/api/config/properties'
 	print apiUrl
 	apiAccept = 'application/vnd.abiquo.systemproperties+json'
 	apiHeaders['Accept'] = apiAccept
@@ -103,6 +107,15 @@ def main():
 							if end_gp_mixed == "logout":
 								super_key = "logouturl"
 								super_group = "main"	
+						if end_id_mixed == "manageDatastoreTiers":
+							super_key = "datastoretiers"
+							super_group = end_gp_mixed.lower()	
+						elif end_id_mixed == "manageBackupPolicies":
+							super_key = "policies"	
+							super_group = end_gp_mixed.lower()	
+						elif end_id_mixed == "manageBackupPolicyProperties":
+							super_key = "policyproperties"	
+							super_group = end_gp_mixed.lower()	
 						else:		
 							super_key = end_id_mixed.lower()
 							super_group = end_gp_mixed.lower()  						
@@ -150,7 +163,7 @@ def main():
 		if etkeyall[-1].strip() == "url":
 			etkey = "logouturl"
 		else:
-			etkey = etkeyall[-1]
+			etkey = etkeyall[-1]	
 		etkey = etkey.strip()
 		etkey = etkey.lower()
 		if re.search("[a-z]",etkey): 
@@ -225,8 +238,8 @@ def main():
 				if gui_prop != "title":
 					if gui_prop != "defaultprivatevlan":
 						if gui_prop != "returntourl":
-							store_gui_order.append(gui_prop)
-							store_gui_group[gui_prop] = current_tab
+								store_gui_order.append(gui_prop)
+								store_gui_group[gui_prop] = current_tab
 						
 		if re.search(checkbox,ht):
 			store_checkbox[gui_prop] = 1	
