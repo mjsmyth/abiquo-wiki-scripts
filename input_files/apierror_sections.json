@@ -5,8 +5,9 @@
 	"Link" : "LINK-",
 	"Datacenter" : "DC-",
 	"Datacenter repository" : "DATACENTER-REPOSITORY",
-	"Enterprise" : "EN-|ENTERPRISE-|ENPROP-",
-	"Limits" : "LIMIT-[1]{1,1}$|LIMIT-[2]{1,1}$|LIMIT-[3-9]|LIMIT-[1][0-9]|LIMIT-[2][0-9]",
+	"Enterprise" : "EN-|ENTERPRISE-",
+	"Enterprise properties" : "ENPROP-",
+	"Limits" : "LIMIT-[1]{1,1}$|LIMIT-[2]{1,1}$|LIMIT-[3-9]|LIMIT-[1][0-9]|LIMIT-[2][0-9]|LIMITS_EXCEEDED|SOFT_LIMIT_EXCEEDED",
 	"Virtual datacenter" : "VDC-",
 	"VLAN" : "VLAN-|VLAN_",
 	"Job" : "JOB-",
@@ -103,5 +104,14 @@
 	"NAT rule" : "NAT-RULE-",
 	"Bills" : "BILL-",
 	"Billing records" : "BILL_REGISTER-",
-	"Virtual private network" : "VPN-"
+	"Virtual private network" : "VPN-",
+	"Asynchronous task" : "ASYNC-TASK",
+	"Pricing credentials" : "PRICING-CREDS",
+	"Provider limit" : "PROVIDER-LIMITS",
+	"VM HR" : "VM-HR-",
+	"Classic firewall rules" : "CLASSIC-FIREWALL-RULE-",
+	"Classic firewalls" : "CLASSIC-FIREWALL-[0-9]",
+	"Move VM" : "MOVE-VM-",
+	"Cost usage" : "COST-USAGE-",
+	"Async task" : "ASYNC-TASK-" 
 }

@@ -52,11 +52,11 @@ def createRoles():
 		# This could be read in from a file
 	rollers = collections.OrderedDict()
  	# r = role(akey,aname,ainitials,aformat)
- 	rollers["CLOUD_ADMIN"] = rolec("CLOUD_ADMIN","Cloud Admin","CA","warning")
- 	rollers["ENTERPRISE_ADMIN"] = rolec("ENTERPRISE_ADMIN","Ent Admin","EA","note")
- 	rollers["USER"] = rolec("USER","Ent User","EU","success")
- 	rollers["OUTBOUND_API_EVENTS"] = rolec("OUTBOUND_API_EVENTS","Outbound API","OA","info")
- 	rollers["ENTERPRISE_VIEWER"] = rolec("ENTERPRISE_VIEWER","Ent Viewer","EV","highlight")
+ 	rollers["CLOUD_ADMIN"] = rolec("CLOUD_ADMIN","Cloud Admin","CA","red")
+ 	rollers["ENTERPRISE_ADMIN"] = rolec("ENTERPRISE_ADMIN","Ent Admin","EA","yellow")
+ 	rollers["USER"] = rolec("USER","Ent User","EU","green")
+ 	rollers["OUTBOUND_API_EVENTS"] = rolec("OUTBOUND_API_EVENTS","Outbound API","OA","blue")
+ 	rollers["ENTERPRISE_VIEWER"] = rolec("ENTERPRISE_VIEWER","Ent Viewer","EV","white")
  	return rollers
 
 def createRoleHeader(rollers):
@@ -84,7 +84,7 @@ def get_api_privs(apiAuth,apiIP):
 	roles_data = {}
 # get all base role names and ID numbers
 	apiUrl = 'http://' + apiIP + '/api/admin/roles/'  
-	apiAccept = 'application/vnd.abiquo.roles+json; version=3.8'
+	apiAccept = 'application/vnd.abiquo.roles+json'
 	default_roles_response = do_api_request(apiAuth,apiIP,apiUrl,apiAccept)
 	default_roles_list = []
 	default_roles = {}
@@ -96,7 +96,7 @@ def get_api_privs(apiAuth,apiIP):
 	for drname, drid in default_roles.iteritems():
 		apiUrl = 'http://' + apiIP + '/api/admin/roles/' + str(drid) + '/action/privileges'
 		print apiUrl
-		apiAccept = 'application/vnd.abiquo.privileges+json; version=3.8'
+		apiAccept = 'application/vnd.abiquo.privileges+json'
 		default_privileges_response = do_api_request(apiAuth,apiIP,apiUrl,apiAccept)		
 # create a list like the sql list, which is a privilege with a list of roles
 		default_privileges_list = []
@@ -157,7 +157,7 @@ def newOrderByUItextFile(td):
 	return uiOrd
 
 def main():
-	td = "2018-08-07"
+	td = "2019-06-12"
 	input_gitdir = '../../platform/ui/app/lang'
 	input_subdir = 'input_files'
 	output_subdir = 'output_files'
@@ -254,6 +254,7 @@ def main():
 	privilege_out["categories"] = categories
 		
 # do the mustache render
+#	mustacheTemplate = codecs.open("wiki_privileges_template_" + td + ".mustache", 'r', 'utf-8').read()
 	mustacheTemplate = codecs.open("wiki_privileges_template.mustache", 'r', 'utf-8').read()
 	efo = pystache.render(mustacheTemplate, privilege_out).encode('utf8', 'xmlcharrefreplace')
 

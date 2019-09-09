@@ -1,23 +1,23 @@
 <ac:macro ac:name="section">
   <ac:rich-text-body>
     <ac:macro ac:name="div">
-      <ac:parameter ac:name="class">landsc smallcode</ac:parameter>
+      <ac:parameter ac:name="class">landsc tinycode</ac:parameter>
       <ac:rich-text-body>
-        <table>
+        <table class="wrapped"><colgroup><col /><col /><col /><col /><col /><col /><col /><col /><col /></colgroup>
           <tbody>
           {{#categories}}
             <tr>
-              <td class="highlight info" data-highlight-class="info">
-                <p><h6>{{category}} privileges</h6></p>
+              <td class="highlight-blue" data-highlight-colour="blue">
+                <h6>{{category}} privileges</h6>
               </td>
-              <td class="highlight info" data-highlight-class="info"> </td>
-              <td class="highlight info" data-highlight-class="info"> </td>
-              <td class="highlight info" data-highlight-class="info"> </td>
-              <td class="highlight info" data-highlight-class="info"> </td>
-              <td class="highlight info" data-highlight-class="info"> </td>
-              <td class="highlight info" data-highlight-class="info"> </td>
-              <td class="highlight info" data-highlight-class="info"> </td>
-              <td class="highlight info" data-highlight-class="info"> </td>
+              <td class="highlight-blue" data-highlight-colour="blue">&nbsp;</td>
+              <td class="highlight-blue" data-highlight-colour="blue">&nbsp;</td>
+              <td class="highlight-blue" data-highlight-colour="blue">&nbsp;</td>
+              <td class="highlight-blue" data-highlight-colour="blue">&nbsp;</td>
+              <td class="highlight-blue" data-highlight-colour="blue">&nbsp;</td>
+              <td class="highlight-blue" data-highlight-colour="blue">&nbsp;</td>
+              <td class="highlight-blue" data-highlight-colour="blue">&nbsp;</td>
+              <td class="highlight-blue" data-highlight-colour="blue">&nbsp;</td>
             </tr>
             <tr>
               <th>
@@ -30,7 +30,7 @@
                 <p>Privilege<span style="color: rgb(239,239,239);">____________________________________</span></p>
               </th>
               {{#roleheader}}
-              <th class="{{roleheadform}}" data-highlight-class="{{roleheadform}}"><p>{{rolename}}</p></th>
+              <th class="highlight-{{roleheadform}}" data-highlight-colour="{{roleheadform}}"><p>{{rolename}}</p></th>
               {{/roleheader}}
               <th><p>Info</p></th>
             </tr> 
@@ -41,12 +41,12 @@
               <td>{{privilege}}</td>
               {{#roles}}
               {{#role}}
-              <td class="highlight {{roleformat}}" data-highlight-class="{{roleformat}}"><p>
-              {{#rolehas}}
-              {{roleMark}}</p>
+              <td class="highlight-{{roleformat}}" data-highlight-colour="{{roleformat}}">
+              {{#rolehas}}		
+              <p>{{roleMark}}</p>
               {{/rolehas}}
               {{^rolehas}}
-              </p>
+              &nbsp;
               {{/rolehas}}
               </td>
               {{/role}}
