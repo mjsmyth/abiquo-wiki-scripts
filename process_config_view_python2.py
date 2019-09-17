@@ -25,11 +25,10 @@ def main():
 	ui_path = "../platform/ui/app/"
 	ui_path_lang = ui_path + "lang/"
 	ui_path_html = ui_path + "modules/configuration/partials/"
-#	apiAuth = raw_input("Enter API authorization, e.g. Basic XXXX: ")
-	apiAuth = ""
-	apiAuth = "Basic YWRtaW46eGFiaXF1bw=="
-#	apiIP = raw_input("Enter API address, e.g. api.abiquo.com: ")
-	apiIP = "mjsabiquo.bcn.abiquo.com"
+
+ 	apiAuth = raw_input("Enter API authorization, e.g. Basic XXXX: ")
+ 	apiIP = raw_input("Enter API address, e.g. api.abiquo.com: ")
+
 # Get system properties data from the API of a fresh Abiquo	
 #	apiAuth = input("Authorization: ").strip()
 #	apiIP = input("API IP address: ").strip()
@@ -102,7 +101,7 @@ def main():
 							wiki = 1
 						else:
 							wiki = 0
-
+	
 						if end_id_mixed == "url":
 							if end_gp_mixed == "logout":
 								super_key = "logouturl"
@@ -117,7 +116,14 @@ def main():
 							super_key = "policyproperties"	
 							super_group = end_gp_mixed.lower()	
 						else:		
-							super_key = end_id_mixed.lower()
+							if end_id_mixed == "manageDatastoreTiers":
+								super_key = "datastoretiers"
+							elif end_id_mixed == "manageBackupPolicies":
+								super_key = "policies"
+							elif end_id_mixed == "manageBackupPolicyProperties":
+								super_key = "policyproperties"	
+							else:	
+								super_key = end_id_mixed.lower()
 							super_group = end_gp_mixed.lower()  						
 					elif spk == "value":
 						sp_value_value = sp_item[spk]
@@ -294,7 +300,7 @@ def main():
 #				print ("| " + store_key[su] + " | " + store_group[su] + " | " + store_ui_label[su] + " | " + store_value[su] + " |") 
 	outfile.write (" \n")
 	outfile.write (" \n")
-	outfile.write ("h3. Wiki links\n")
+	outfile.write ("h3. Wiki links list\n")
 
 	for sgp,swgg in enumerate(store_wiki_gui_order):
 		check_last_group = store_wiki_gui_group[swgg].strip()

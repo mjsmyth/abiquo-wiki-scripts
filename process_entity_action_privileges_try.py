@@ -41,7 +41,7 @@ def get_api_privs(apiAuth,apiIP):
 	apiUrl = 'https://' + apiIP + '/api/admin/roles/'  
 	apiAccept = 'application/vnd.abiquo.roles+json'
 	default_roles_response = do_api_request(apiAuth,apiIP,apiUrl,apiAccept)
-	default_roles_list = ["CLOUD_ADMIN","ENTERPRISE_ADMIN","USER","OUTBOUNT_API","ENTERPRISE_VIEWER"]
+	default_roles_list = ["CLOUD_ADMIN","ENTERPRISE_ADMIN","USER","OUTBOUND_API","ENTERPRISE_VIEWER"]
 	default_roles = {}
 	default_roles_list = default_roles_response['collection']
 # create a dictionary with the roles and their IDs	
@@ -52,6 +52,7 @@ def get_api_privs(apiAuth,apiIP):
 		apiUrl = 'https://' + apiIP + '/api/admin/roles/' + str(drid) + '/action/privileges'
 		print "API URL: %s" % apiUrl
 		apiAccept = 'application/vnd.abiquo.privileges+json;version=4.6'
+
 		default_privileges_response = do_api_request(apiAuth,apiIP,apiUrl,apiAccept)		
 # create a list like the sql list
 		default_privileges_list = []
@@ -97,7 +98,9 @@ def main():
 	KeySplit = {}
 	keyHappy = " "
 	event_list_with_privileges = {}
+
 	td = "2019-07-24"
+
 	roles_data = {}
 	roles_data = get_api_privs(apiAuth,apiIP)
 
