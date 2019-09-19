@@ -1,6 +1,8 @@
 # Python script: moveConfluencePages
 # ---------------------------------------
-
+# Script designed to move draft pages from the main space to a sub page
+# After the release is complete
+#
 import requests
 import os
 import re
