@@ -17,13 +17,13 @@ from requests.auth import HTTPBasicAuth
 #3. Add 1 to the version number
 #4. Add "ancestors":[{"id":47535934}]
 #5. "Rename" the page with fake foo bar replace :-D
-# curl -X PUT -H "Authorization: ..." -H "Content-Type: application/json" -d 
+# curl -X PUT -H "Authorization: ..." -H "Content-Type: application/json" -d
 #              '{"id":1234567,
-#                  "type":"page", 
-#                   "title":"Your page Title", 
-#                   "ancestors":[{"id":9876543}], 
+#                  "type":"page",
+#                   "title":"Your page Title",
+#                   "ancestors":[{"id":9876543}],
 #                   "space":{"key":"xxx"},
-#                   "version":{"number":17}}' 
+#                   "version":{"number":17}}'
 # "https://confluence.ges.symantec.com/rest/api/content/1234567"
 #
 # This is stable, so just get this from the URL when displaying Page information :-D
@@ -50,7 +50,7 @@ apiHeaders['Accept'] = apijson
 # need to specify you are using basic auth for server
 apiParamsLimit = {'os_authType':'basic','limit':'200'}
 
-# if you expand for ancestors to check that page is not already 
+# if you expand for ancestors to check that page is not already
 #   under the desired page, need to also expand version
 apiParams = {'os_authType':'basic','expand':'ancestors,version'}
 
@@ -60,11 +60,11 @@ apiHeadersPut['Accept'] = apijson[:]
 
 # Search for entities containing release_version string - can be attachments
 # Can also be pages with the release_version string in the body text
-# These will be el¡minated when the 
+# These will be el¡minated when the
 searchQueryCql ='?cql=siteSearch+~+"' + release_version + '"+and+space+%3D+"' + spacekey + '"&queryString=' + release_version
 # Old search
 # searchQueryCql ='?cql=siteSearch+~+"v463"+and+space+%3D+"COMP"&queryString=v463'
-# Title search: when you enter v46, it gets all v461, v462, v463... 
+# Title search: when you enter v46, it gets all v461, v462, v463...
 # searchQueryCql = '?cql=space+%3D+\"COMP\"+and+title+~+\"v461\"'
 
 searchUrl = apiUrl + '/rest/api/content/search' + searchQueryCql
@@ -80,7 +80,7 @@ while True:
         page_id = str(page["id"])
         print ("hello: ",page_id)
 
-        # check the vXXX or whatever is in the page title and not only in the page content 
+        # check the vXXX or whatever is in the page title and not only in the page content
         # note that the specific title search will get vXXX when you use vXX (e.g. v463 from v46)
         if release_version.strip().lower() in (str(page["_links"]["webui"])).lower():
 
@@ -90,10 +90,10 @@ while True:
             else:   
                 page_name = page["title"]
 
-                # Do a fake replace instead of a rename to force a move. Hopefully no pages with foofoo in their name 
-                # Can always do a replace of barbar right :-D       
+                # Do a fake replace instead of a rename to force a move. Hopefully no pages with foofoo in their name
+                # Can always do a replace of barbar right :-D
                 new_page_name = (str(page_name)).replace("foofoo","barbar")
-                page_uri = apiUrl + '/rest/api/content/' + page_id 
+                page_uri = apiUrl + '/rest/api/content/' + page_id
 
                 # Get more page details with expands
                 p = requests.get(page_uri, headers=apiHeaders, auth=HTTPBasicAuth(username,pwd), params=apiParams)
@@ -101,8 +101,8 @@ while True:
                 print (str(page_got))
 
                 page_version = page_got["version"]["number"]
-                                
-                # apparently the list is ordered and this gets the last ancestor ???? 
+
+                # apparently the list is ordered and this gets the last ancestor ????
                 if page_got["ancestors"]:
                     current_ancestor_id = (page_got["ancestors"].pop())["id"]
                     print("current ancestor: ",current_ancestor_id)
@@ -133,11 +133,11 @@ while True:
                 #        print ("params: ",apiParams,"\n")
                 #        print ("headers: ",str(apiHeadersPut),"\n")
                         print ("page uri: ",page_uri)
-                        try:    
+                        try:
                             q = requests.put(page_uri, headers=apiHeadersPut, auth=HTTPBasicAuth(username,pwd), data=page_put_serialized, params=apiParams)
                             print (str(q),"\n")
                         except:
-                            print (r.status_code)    
+                            print (r.status_code)
                 else:
                     print ("Page has no ancestors: ",page_id)
         else:
