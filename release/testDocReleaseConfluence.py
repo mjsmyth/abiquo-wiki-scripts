@@ -72,6 +72,7 @@ while True:
 
                 print ("-part 2-- got page by ID---------------------------")
                 pprint (page_got)
+                draft_content = page_got["body"]["storage"]["value"]
                 # For master page name remove the version name from the title
                 master_page_name = (str(pg_name)).replace(release_version, "").strip()
                 # maybe use re.sub to only replace at end of string
@@ -83,14 +84,18 @@ while True:
 
                 
                 print ("-part 3---got master page by title-----------------")
-                mpage = confluence.get_page_by_title(space=spacekey, title=master_page_name)
+                mpage = confluence.get_page_by_title(
+                    space=spacekey,
+                    title=master_page_name)
                 pprint(mpage)
 
                 #mpage = json.loads(str(master_page_json))
                 mpage_id = mpage["id"]
 
                 print ("-part 3---get page by ID with text in storage format------")
-                mpage_expanded = confluence.get_page_by_id(page_id=mpage_id, expand='ancestors,body.storage')
+                mpage_expanded = confluence.get_page_by_id(
+                    page_id=mpage_id,
+                    expand='ancestors,body.storage')
                 #pprint(mpage_expanded)
                 # print(content2)
                 #mpage_expanded = json.loads(mpage_expanded_json)
@@ -105,6 +110,13 @@ while True:
                     parent_id=staging_area_page_id)
                 new_page_id = status["id"]
                 print("new_page_id: ", new_page_id)
+                print ("-part 5 ----- update test page with draft content")
+                new_page_title_update = "upd" + new_page_title
+                status = confluence.update_page(
+                    parent_id=None,
+                    page_id=new_page_id,
+                    title=new_page_title_update,
+                    body=draft_content)
 
         else:
             print ("Page does not have ", release_version, " in name: ",
