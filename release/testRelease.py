@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
 # Python script: testRelease
 # ---------------------------------------
 # Script designed to perform a test release and a release
@@ -20,7 +22,9 @@ import base64
 import json
 import sys
 import copy
-import urllib.parse
+import urllib
+#urllib.quote_plus=urllib.quote
+#from requests.utils import requote_uri
 from requests.auth import HTTPBasicAuth
 
 # This is stable, so just get this from the URL when displaying Page info
@@ -39,7 +43,7 @@ release_version = input("Release version, e.g. v463: ")
 # API and Authentication
 apiUrl = 'https://' + site_URL
 apiHeaders = {}
-apijson = 'application/json'
+apijson = 'application/json;charset=UTF-8'
 apiHeaders['Accept'] = apijson
 
 
@@ -61,11 +65,12 @@ apiHeadersPut = {}
 apiHeadersPut['Content-Type'] = apijson[:]
 apiHeadersPut['Accept'] = apijson[:]
 
+
+
 # Search for entities containing release_version string - can be attachments
 # Can also be pages with the release_version string in the body text
 # These will be el¡minated when the
-searchQueryCql = '?cql=siteSearch+~+"' + release_version + '"+and+space+%3D+"'
-+ spacekey + '"&queryString=' + release_version
+searchQueryCql = '?cql=siteSearch+~+"' + release_version + '"+and+space+%3D+"' + spacekey + '"&queryString=' + release_version
 # Old search
 # searchQueryCql =
 # '?cql=siteSearch+~+"v463"+and+space+%3D+"COMP"&queryString=v463'
@@ -98,14 +103,16 @@ while True:
                 page_name = str(page["title"])
                 page_uri = apiUrl + '/rest/api/content/' + page_id
 
+
+                #
                 # Get more page details with expands
                 p = requests.get(page_uri, headers=apiHeaders,
                                  auth=HTTPBasicAuth(uname, pwd),
                                  params=apiParams)
                 page_got = p.json()
-                # print (str(page_got))
                 print ("page name: ", page_name)
-
+                print (str(page_got))
+                
                 #
                 # For master page name remove the version name from the title
                 master_page_name = (str(page_name)).replace(release_version, "").strip()
@@ -114,26 +121,35 @@ while True:
                 # mpn = (re.sub(replace_in_page_name,"",page_name)).strip()
 
                 print("master page name spaces: ", master_page_name)
-                master_page_name_encoded = urllib.parse.quote(master_page_name)
+                # master_page_name_encoded = urllib.parse.quote(master_page_name)
                 # Get the master page
-                master_page_uri = apiUrl + '/rest/api/content'
-                # mp_params = {"title" : mpn, "spaceKey" : spacekey}
-                master_page_uri_with_params = master_page_uri + '?spaceKey=' + spacekey + '&title=' + master_page_name
-                master_page_uri_with_auth = master_page_uri_with_params + '&os_authType=basic'
-                m = requests.get(master_page_uri_with_auth, headers=apiHeaders, auth=HTTPBasicAuth(uname, pwd))
-                master_page_got = m.json()
+            #    master_page_uri = apiUrl + '/rest/api/content'
+            #    payload = {"title" : master_page_name, "spaceKey" : spacekey, "ie" : "UTF-8", "os_authType" : "basic" }
+            #    mp_params = urllib.parse.urlencode(payload, quote_via=urllib.parse.quote)
+            #    master_page_uri_with_params = master_page_uri + '?spaceKey=' + spacekey + '&title=' + master_page_name
+            #    master_page_uri_with_auth = master_page_uri_with_params + '&os_authType=basic&ie=UTF-8'
+            #    requote_uri(master_page_uri_with_auth)
+            #    m = requests.get(master_page_uri_with_auth, headers=apiHeaders, auth=HTTPBasicAuth(uname, pwd))
+            #    m = requests.get(master_page_uri_with_auth, headers=apiHeaders, auth=HTTPBasicAuth(uname, pwd))
+            #    master_page_got = m.json()
 
-                if master_page_got:
-                    print ("Master page got: ", master_page_got)
+            #    if master_page_got:
+            #        print ("Master page got: ", master_page_got)
 
-                # If you know Space and Title
-                master_page_content = confluence.get_page_by_title(space=spacekey, title=master_page_name)
+                # Get content if you know Space and Title
+                master_page_json = confluence.get_page_by_title(space=spacekey, title=master_page_name)
+                pprint(master_page_json)
 
-                pprint(master_page_content)
+                mpage = json.loads(str(master_page_json))
+                mpage_id = mpage["id"]
 
                 # If you know page_id of the page
-                # content2 = confluence.get_page_by_id(page_id=1123123123)
+                mpage_expanded = confluence.get_page_by_id(page_id=mpage_id, expand='ancestors,body')
+                pprint(mpage_expanded)
                 # print(content2)
+                #mpage_expanded = json.loads(mpage_expanded_json)
+
+
         else:
             print ("Page does not have ", release_version, " in name: ",
                    (str(page["_links"]["webui"])).lower())
