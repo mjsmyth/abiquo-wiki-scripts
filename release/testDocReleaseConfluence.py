@@ -3,7 +3,7 @@
 #
 # Python script: testRelease
 # ---------------------------------------
-# Script designed to perform a test release and a release
+# Script designed to perform a test release
 #
 # Test Release
 # ------------------
@@ -47,18 +47,17 @@ while True:
     print("cql: ", cql)
     results = confluence.cql(cql, limit=200)
     print ("- part a - search for bunch of pages ----------------")
-    pprint(results)
+    # pprint(results)
 
     for page in results["results"]:
         pg_id = page["content"]["id"]
         pg_name = str(page["content"]["title"])
-        print ("hello: ", pg_id)
-        print ("page name: ", pg_name)
+        print ("hello: ", pg_id, " Name: ", pg_name)
         # check the vXXX in title and not only in the page content
         # specific title search will get vXXX when you use vXX
         page_links_web_ui = str(page["content"]["_links"]["webui"])
         print ("page_links_web_ui: ",page_links_web_ui)
-        print ("-part 1-------get pages with vXXX----------------------")
+        #print ("-part 1-------get pages with vXXX----------------------")
 
         if release_version.strip().lower() in page_links_web_ui.lower():
             # only work with pages, not attachments
@@ -70,8 +69,8 @@ while True:
                     page_id=pg_id, 
                     expand='ancestors,version,body.storage')
 
-                print ("-part 2-- got page by ID---------------------------")
-                pprint (page_got)
+                #print ("-part 2-- got page by ID---------------------------")
+                # pprint (page_got)
                 draft_content = page_got["body"]["storage"]["value"]
                 # For master page name remove the version name from the title
                 master_page_name = (str(pg_name)).replace(release_version, "").strip()
@@ -79,48 +78,52 @@ while True:
                 #                replace_in_page_name = release_version + "$"
                 #                (re.sub(replace_in_page_name,"",pg_name)).strip()
                 # or use original page name --> master_page_name = pg_name[:]
-                print("master page name spaces: ", master_page_name)
-                # Get the master page
+                print("Master page name spaces: ", master_page_name)
 
-                
-                print ("-part 3---got master page by title-----------------")
-                mpage = confluence.get_page_by_title(
-                    space=spacekey,
-                    title=master_page_name)
-                pprint(mpage)
+                # print ("-part 3---got master page by title-----------------")
 
-                #mpage = json.loads(str(master_page_json))
-                mpage_id = mpage["id"]
+                if not confluence.get_page_by_title(
+                        space=spacekey,
+                        title=master_page_name):
+                    print("Nonexistent page: ",master_page_name)
+                else:        
+                    #mpage = json.loads(str(master_page_json))
+                    mpage = confluence.get_page_by_title(
+                        space=spacekey,
+                        title=master_page_name)   
 
-                print ("-part 3---get page by ID with text in storage format------")
-                mpage_expanded = confluence.get_page_by_id(
-                    page_id=mpage_id,
-                    expand='ancestors,body.storage')
-                #pprint(mpage_expanded)
-                # print(content2)
-                #mpage_expanded = json.loads(mpage_expanded_json)
-                print ("-part 4---create a new page with the master content --------")
-                release_version_dots = ".".join(release_version)
-                new_page_title = release_version_dots + "test " + master_page_name
+                    mpage_id = mpage["id"]
+                    # pprint(mpage)
+                    print ("Found master page ID: ",mpage_id," Name: ",master_page_name)               
+                    #print ("-part 3---get page by ID with text in storage format------")
+                    mpage_expanded = confluence.get_page_by_id(
+                        page_id=mpage_id,
+                        expand='ancestors,body.storage')
+                    #pprint(mpage_expanded)
+                    # print(content2)
+                    #mpage_expanded = json.loads(mpage_expanded_json)
+                    #print ("-part 4---create a new page with the master content --------")
+                    release_version_dots = ".".join(release_version)
+                    new_page_title = release_version_dots + "test " + master_page_name
 
-                status = confluence.create_page(
-                    space='COMP',
-                    title=new_page_title,
-                    body=mpage_expanded["body"]["storage"]["value"],
-                    parent_id=staging_area_page_id)
-                new_page_id = status["id"]
-                print("new_page_id: ", new_page_id)
-                print ("-part 5 ----- update test page with draft content")
-                new_page_title_update = "upd" + new_page_title
-                status = confluence.update_page(
-                    parent_id=None,
-                    page_id=new_page_id,
-                    title=new_page_title_update,
-                    body=draft_content)
+                    status = confluence.create_page(
+                        space='COMP',
+                        title=new_page_title,
+                        body=mpage_expanded["body"]["storage"]["value"],
+                        parent_id=staging_area_page_id)
+                    new_page_id = status["id"]
+                    print("Created new_page with id: ", new_page_id)
+                    new_page_title_update = "upd" + new_page_title
+                    status = confluence.update_page(
+                        parent_id=None,
+                        page_id=new_page_id,
+                        title=new_page_title_update,
+                        body=draft_content)
+                    print ("Updated test page with title: ",new_page_title_update)
+                    print ("----------- EOR -----------------")    
 
         else:
-            print ("Page does not have ", release_version, " in name: ",
-                   (str(page["_links"]["webui"])).lower())
+            print ("Page does not have ", release_version, " in name: ",page_links_web_ui)
     if "next" not in results["_links"]:
         break
     else:
