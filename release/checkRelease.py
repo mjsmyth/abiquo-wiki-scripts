@@ -1,33 +1,22 @@
 #!/usr/bin/python3
 # coding=utf-8
-#
-# Python script: testRelease
+# Python script: checkRelease
 # ---------------------------------------
-# Script designed to perform a test release
+# Script designed to check a release 
 #
-# Test Release
+# Check Release
 # ------------------
 # 1. Get the draft pages
-# 2. Get the real pages by name after removing the draft vXXX
-# 3. Copy the real pages to the draft release area (under releasestaging page)
-# 4. Update the staging copies with drafts
-# Check by the diffs by hand
+# 2. Get the real pages
+# 3. Check if the content is the same
+# Log everything as markup table 
 #
+# || Page || Updated ||
+# | Backup plugins | (/) |
+#
+
 from atlassian import Confluence
 from pprint import pprint
-#import requests
-import os
-import re
-import base64
-import json
-import sys
-import copy
-import urllib
-
-# This is stable, so just get this from the URL when displaying Page info
-# move_to_page_id = "47535936"
-# staging_area_page_id = Completed pages
-staging_area_page_id = 47526929
 
 # Get user credentials and space
 site_URL = input("Enter Confluence site URL (no protocol & final slash): ")
@@ -41,13 +30,16 @@ confluence = Confluence(
     username=uname,
     password=pwd)
 
+start_next = 0
+
+print ("|| Page ID || Name || Updated ||")
 while True:
     # get draft pages for release searching on "vXXX"
     cql = "space.key={} and (text ~ {})".format(spacekey, release_version)
     print("cql: ", cql)
-    results = confluence.cql(cql, limit=200)
+    results = confluence.cql(cql, limit=200, start=start_next)
     print ("- part a - search for bunch of pages ----------------")
-    # pprint(results)
+    pprint(results)
 
     for page in results["results"]:
         pg_id = page["content"]["id"]
@@ -99,33 +91,18 @@ while True:
                     mpage_expanded = confluence.get_page_by_id(
                         page_id=mpage_id,
                         expand='ancestors,body.storage')
-                    #pprint(mpage_expanded)
-                    # print(content2)
-                    #mpage_expanded = json.loads(mpage_expanded_json)
-                    #print ("-part 4---create a new page with the master content --------")
-                    release_version_dots = ".".join(release_version)
-                    new_page_title = release_version_dots + "test " + master_page_name
 
-                    status = confluence.create_page(
-                        space='COMP',
-                        title=new_page_title,
-                        body=mpage_expanded["body"]["storage"]["value"],
-                        parent_id=staging_area_page_id)
-                    new_page_id = status["id"]
-                    print("Created new_page with id: ", new_page_id)
-                    new_page_title_update = "upd" + new_page_title
-                    status = confluence.update_page(
-                        parent_id=None,
-                        page_id=new_page_id,
-                        title=new_page_title_update,
-                        body=draft_content)
-                    print ("Updated test page with title: ",new_page_title_update)
-                    print ("----------- EOR -----------------")    
+                    master_page_content = mpage_expanded["body"]["storage"]["value"]
 
+                    if draft_content == master_page_content:
+                       	print ("| ", mpage_id, "| ", master_page_name, " | (/) |")
+                    else:
+                        print ("| ", mpage_id, "| ", master_page_name, " | (x) |")
         else:
-            print ("Page does not have ", release_version, " in name: ",page_links_web_ui)
+            print ("-------------------------------------------------------")
     if "next" not in results["_links"]:
         break
     else:
         start_next = int(results["size"]) + 1
+
 print ("That's all folks!\n")

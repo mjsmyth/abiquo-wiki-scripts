@@ -7,7 +7,7 @@
 # 1. Get the changed pages from the doc space
 # 2. Get the corresponding pages from the version space
 # 3. Update the version sace pages with the content of the doc space pages
-#
+# Uses requests because not sure if Python library is good for attachments
 #
 import requests
 from requests.auth import HTTPBasicAuth
@@ -47,12 +47,13 @@ apiPostHeaders = {"X-Atlassian-Token": "nocheck"}
 
 print("----------------- start --------------------------")
 
+start_next = 0
 
 while True:
     # get recently updated pages in the doc space
     cql = 'space.key={} and (lastModified > now("-7d") )'.format(master_spacekey)
     print("cql: ", cql)
-    results = confluence.cql(cql, limit=200)
+    results = confluence.cql(cql, limit=200, start=start_next)
     print ("- Search for recenlty modified pages in doc space ----------------")
     pprint(results)
 
@@ -149,5 +150,5 @@ while True:
         break
     else:
         start_next = int(results["size"]) + 1
-        results = confluence.cql(cql, limit=200, start=start_next)
+
 print ("That's all folks!\n")
