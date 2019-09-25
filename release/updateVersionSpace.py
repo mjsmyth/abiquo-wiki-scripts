@@ -9,6 +9,9 @@
 # 3. Update the version sace pages with the content of the doc space pages
 #
 #
+import requests
+from requests.auth import HTTPBasicAuth
+import json
 from atlassian import Confluence
 from pprint import pprint
 
@@ -20,14 +23,30 @@ pwd = input("Password: ")
 spacekey = input("Version space key, e.g. ABI46: ")
 release_version = input("Upcoming release version to discard drafts, e.g. v47: ")
 master_spacekey = "doc"
-attachments_page = 
 
 confluence = Confluence(
     url='https://' + site_URL,
     username=uname,
     password=pwd)
 
+
+# requests stuff
+v46_images_id_doc="46470972"
+v46_images_id_comp ="47536596"
+
+attachments_URL_start = 'https://' + site_URL + '/rest/api/content/' + v46_images_id_doc + '/child/attachment?filename=' 
+attachments_URL_end = '&os_authType=basic'
+apiHeaders = {}
+apijson = 'application/json'
+apiHeaders['Accept'] = apijson
+#    r = requests.get(attachments_URL, headers=apiHeaders, auth=HTTPBasicAuth(uname,pwd))
+
+apiPostHeaders = {"X-Atlassian-Token": "nocheck"}
+
+
+
 print("----------------- start --------------------------")
+
 
 while True:
     # get recently updated pages in the doc space
@@ -35,7 +54,7 @@ while True:
     print("cql: ", cql)
     results = confluence.cql(cql, limit=200)
     print ("- Search for recenlty modified pages in doc space ----------------")
-    # pprint(results)
+    pprint(results)
 
     for page in results["results"]:
         pg_id = page["content"]["id"]
@@ -52,8 +71,27 @@ while True:
             # only work with pages, not attachments
             if "att" in pg_id:
                 print ("Page is an attachment: ", pg_id)
-                #as I only add attachments, not update them, copy the attachment to the new space
+                print ("Page name is: ", pg_name)
+                #as I only add attachments, not update them, get the attachment and copy to the new space
+                attachments_URL = attachments_URL_start + pg_name + attachments_URL_end
+                print ("attach URL: ", attachments_URL)
+                a = requests.get(attachments_URL, headers=apiHeaders, auth=HTTPBasicAuth(uname, pwd))
+                attachments = a.json()
+                pprint (attachments)
+                download_link = 'https://' + site_URL + str(attachments["results"][0]["_links"]["download"])
+                print ("Download link: ",download_link)
 
+                af = requests.get(download_link, auth=HTTPBasicAuth(uname, pwd), headers=apiPostHeaders)
+                open(pg_name, 'wb').write(af.content)
+
+                attachment_files_for_upload = {'file': open(pg_name, 'rb')}
+                new_attachment_url = 'https://' + site_URL + "/rest/api/content/" + v46_images_id_comp + "/child/attachment"
+                requests.post(
+                    new_attachment_url, 
+                    headers=apiPostHeaders, 
+                    files=attachment_files_for_upload, 
+                    auth=HTTPBasicAuth(uname, pwd))
+                
             else:
                 #print ("-part 2-- get page by ID---------------------------")
                 # Get more page details with expands
@@ -110,5 +148,6 @@ while True:
     if "next" not in results["_links"]:
         break
     else:
-        searchUrl = apiUrl + results["_links"]["next"]
+        start_next = int(results["size"]) + 1
+        results = confluence.cql(cql, limit=200, start=start_next)
 print ("That's all folks!\n")
