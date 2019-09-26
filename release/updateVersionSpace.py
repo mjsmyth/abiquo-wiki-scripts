@@ -73,11 +73,10 @@ while True:
     cql = 'space.key={} and (lastModified > now("-7d") )'.format(master_spacekey)
     print("cql: ", cql)
     results = confluence.cql(cql, limit=200, start=start_next)
-    print ("- Search for recenlty modified pages in doc space ----------------")
+    print ("- Recently modified pages ------------------------------------")
     pprint(results)
 
     for page in results["results"]:
-        print ("- page ---------------------------------- ----------------")
         pg_id = page["content"]["id"]
         pg_name = str(page["content"]["title"])
         print ("hello: ", pg_id, " Name: ", pg_name)
