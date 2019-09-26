@@ -4,10 +4,12 @@
 #
 # Update version space
 # ------------------
-# 1. Get the changed pages from the doc space
-# 2. Get the corresponding pages from the version space
-# 3. Update the version sace pages with the content of the doc space pages
-# Uses requests because not sure if Python library is good for attachments
+# 1. Get the pages changed in the last week from the doc space
+# 2. Get the corresponding pages from a version space
+# 3. Update changed attachments in the doc space (add new files) 
+#    - maybe should delete existing by name
+# 4. Update the version space pages with the content of the doc space pages
+#
 #
 import requests
 from requests.auth import HTTPBasicAuth
@@ -53,25 +55,21 @@ images_page_name = current_version + "_images"
 v46_images_id_master = GetPageIdByTitle(master_spacekey,images_page_name)
 v46_images_id_current = GetPageIdByTitle(spacekey,images_page_name)
 
-
-
+# Get stuff for using requests - note that encoding of parameters with spaces does not work well
 attachments_URL_start = 'https://' + site_URL + '/rest/api/content/' + v46_images_id_master + '/child/attachment?filename=' 
 attachments_URL_end = '&os_authType=basic'
 apiHeaders = {}
 apijson = 'application/json'
 apiHeaders['Accept'] = apijson
-#    r = requests.get(attachments_URL, headers=apiHeaders, auth=HTTPBasicAuth(uname,pwd))
-
 apiPostHeaders = {"X-Atlassian-Token": "nocheck"}
 
 
-
 print("----------------- start --------------------------")
-
+# control loop with next set of pages
 start_next = 0
 
 while True:
-    # get recently updated pages in the doc space
+    # get pages updated in the last week from the doc space
     cql = 'space.key={} and (lastModified > now("-7d") )'.format(master_spacekey)
     print("cql: ", cql)
     results = confluence.cql(cql, limit=200, start=start_next)
@@ -79,19 +77,19 @@ while True:
     pprint(results)
 
     for page in results["results"]:
+        print ("- page ---------------------------------- ----------------")
         pg_id = page["content"]["id"]
         pg_name = str(page["content"]["title"])
         print ("hello: ", pg_id, " Name: ", pg_name)
-        # check the vXXX in title and not only in the page content
-        # specific title search will get vXXX when you use vXX
         page_links_web_ui = str(page["content"]["_links"]["webui"])
         print ("page_links_web_ui: ",page_links_web_ui)
-        #print ("-part 1-------get pages with vXXX----------------------")
 
-        # Don't copy changes to upcoming release
+        # Don't copy changes to draft pages to upcoming release 
+        # OJO ---> why not this could be a good backup!
         if release_version.strip().lower() not in page_links_web_ui.lower():
             # only work with pages, not attachments
             if "att" in pg_id:
+                print ("---------------------------------------------")
                 print ("Page is an attachment: ", pg_id)
                 print ("Page name is: ", pg_name)
                 #as I only add attachments, not update them, get the attachment and copy to the new space
@@ -99,14 +97,15 @@ while True:
                 print ("attach URL: ", attachments_URL)
                 a = requests.get(attachments_URL, headers=apiHeaders, auth=HTTPBasicAuth(uname, pwd))
                 attachments = a.json()
-                pprint (attachments)
+                # pprint (attachments)
+                # Download the attachment to a file and then open the file... :rolleyes
                 download_link = 'https://' + site_URL + str(attachments["results"][0]["_links"]["download"])
                 print ("Download link: ",download_link)
                 file_name = image_folder + pg_name
                 af = requests.get(download_link, auth=HTTPBasicAuth(uname, pwd), headers=apiPostHeaders)
                 open(file_name, 'wb').write(af.content)
-
                 attachment_files_for_upload = {'file': open(file_name, 'rb')}
+                # Add the attachment to the images page in the existing space to update 
                 new_attachment_url = 'https://' + site_URL + "/rest/api/content/" + v46_images_id_current + "/child/attachment"
                 requests.post(
                     new_attachment_url, 
@@ -115,16 +114,17 @@ while True:
                     auth=HTTPBasicAuth(uname, pwd))
                 
             else:
-                #print ("-part 2-- get page by ID---------------------------")
+                print ("----------------------------------------------------")
                 # Get more page details with expands
                 page_got = confluence.get_page_by_id(
                     page_id=pg_id, 
                     expand='ancestors,version,body.storage')
 
                 # pprint (page_got)
-                draft_content = page_got["body"]["storage"]["value"]
+                master_content = page_got["body"]["storage"]["value"]
 
-                # Find page in version space by title
+                # Do a replace on the page name to fix something about its encoding or something.
+                # Not exactly sure why this helps....
                 version_page_name = (str(pg_name)).replace("foofoo", "barbar").strip()
                 # maybe use re.sub to only replace at end of string
                 #                replace_in_page_name = release_version + "$"
@@ -132,7 +132,7 @@ while True:
                 # or use original page name --> master_page_name = pg_name[:]
                 print("Version page name spaces: ", version_page_name)
 
-                # print ("-part 3---get master page by title-----------------")
+                # print ("-part 3---get page in version space by title-----------------")
 
                 if not confluence.get_page_by_title(
                         space=spacekey,
@@ -154,13 +154,15 @@ while True:
                     #pprint(mpage_expanded)
                     # print(content2)
                     #mpage_expanded = json.loads(mpage_expanded_json)
-                    new_draft_content = (str(draft_content)).replace("foofoo","barbar")
+
+                    # Create a new copy of the page to update in the version space with the changed content
+                    new_version_content = (str(master_content)).replace("foofoo","barbar")
                     new_version_page_name = (str(version_page_name)).replace("foofoo","barbar")
                     status = confluence.update_page(
                         parent_id=None,
                         page_id=vpage_id,
                         title=new_version_page_name,
-                        body=new_draft_content)
+                        body=new_version_content)
 
                     print ("Updated version page with title: ",version_page_name)
                     print ("----------- EOR -----------------")    
