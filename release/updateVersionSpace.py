@@ -14,6 +14,19 @@ from requests.auth import HTTPBasicAuth
 import json
 from atlassian import Confluence
 from pprint import pprint
+import os
+
+def GetPageIdByTitle(spacekey,version_page_name):
+    if not confluence.get_page_by_title(
+            space=spacekey,
+            title=version_page_name):
+        print("Nonexistent page: ",version_page_name)
+    else:        
+        vpage = confluence.get_page_by_title(
+            space=spacekey,
+            title=version_page_name)   
+        vpage_id = vpage["id"]
+        return vpage_id
 
 
 # Get user credentials and space
@@ -21,20 +34,28 @@ site_URL = input("Enter Confluence site URL (no protocol & final slash): ")
 uname = input("Username: ")
 pwd = input("Password: ")
 spacekey = input("Version space key, e.g. ABI46: ")
-release_version = input("Upcoming release version to discard drafts, e.g. v47: ")
 master_spacekey = "doc"
+current_version = input("Current release version for image file name, e.g v46: ")
+release_version = input("Upcoming release version to discard drafts, e.g. v47: ")
+current_image_page = current_version + "_images"
 
 confluence = Confluence(
     url='https://' + site_URL,
     username=uname,
     password=pwd)
 
+image_folder = "images/"
+images_page_name = current_version + "_images"
 
-# requests stuff
-v46_images_id_doc="46470972"
-v46_images_id_comp ="47536596"
+# image pages are attached to these pages
+# v46_images_id_master = "46470972"
+# v46_images_id_current = "47536596"
+v46_images_id_master = GetPageIdByTitle(master_spacekey,images_page_name)
+v46_images_id_current = GetPageIdByTitle(spacekey,images_page_name)
 
-attachments_URL_start = 'https://' + site_URL + '/rest/api/content/' + v46_images_id_doc + '/child/attachment?filename=' 
+
+
+attachments_URL_start = 'https://' + site_URL + '/rest/api/content/' + v46_images_id_master + '/child/attachment?filename=' 
 attachments_URL_end = '&os_authType=basic'
 apiHeaders = {}
 apijson = 'application/json'
@@ -81,12 +102,12 @@ while True:
                 pprint (attachments)
                 download_link = 'https://' + site_URL + str(attachments["results"][0]["_links"]["download"])
                 print ("Download link: ",download_link)
-
+                file_name = image_folder + pg_name
                 af = requests.get(download_link, auth=HTTPBasicAuth(uname, pwd), headers=apiPostHeaders)
-                open(pg_name, 'wb').write(af.content)
+                open(file_name, 'wb').write(af.content)
 
-                attachment_files_for_upload = {'file': open(pg_name, 'rb')}
-                new_attachment_url = 'https://' + site_URL + "/rest/api/content/" + v46_images_id_comp + "/child/attachment"
+                attachment_files_for_upload = {'file': open(file_name, 'rb')}
+                new_attachment_url = 'https://' + site_URL + "/rest/api/content/" + v46_images_id_current + "/child/attachment"
                 requests.post(
                     new_attachment_url, 
                     headers=apiPostHeaders, 
