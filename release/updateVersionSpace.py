@@ -74,7 +74,7 @@ while True:
     print("cql: ", cql)
     results = confluence.cql(cql, limit=200, start=start_next)
     print ("- Recently modified pages ------------------------------------")
-    pprint(results)
+    # pprint(results)
 
     for page in results["results"]:
         pg_id = page["content"]["id"]
