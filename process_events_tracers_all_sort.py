@@ -46,11 +46,11 @@ def main():
 	groupkey = {}
 	previous_key = " "
 	out_subdir = "output_files"
-	td = "2015-08-11"
+	td = "2018-08-08"
 	wiki_event_tracer_all_file = "wiki_event_tracer_all_" + td + ".txt"
 	git_dir = "../platform/m/src/main/resources/messages"
 	input_subdir = "input_files"
-	input_date = "2015-08-11"
+	input_date = "2018-08-08"
 	entity_file = "entity_list_" + input_date + ".txt"
 	prop_file = "tracer.properties"
 	entity_action_file = "entity_action_list_" + input_date + ".txt"

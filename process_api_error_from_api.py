@@ -51,7 +51,7 @@ class ApiErrorLine:
 def main():
 	input_subdir = "input_files"
 	output_subdir = "output_files"
-	todays_date = "2018-08-07"
+	todays_date = "2018-12-19"
 	api_error_input_file = "process_api_errors_input_from_api_" + todays_date + ".txt"
 	FS = "|"
 	error_lines = {}

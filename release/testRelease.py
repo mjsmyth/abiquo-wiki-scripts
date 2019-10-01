@@ -16,16 +16,8 @@
 from atlassian import Confluence
 from pprint import pprint
 import requests
-import os
-import re
-import base64
-import json
-import sys
-import copy
-import urllib
-#urllib.quote_plus=urllib.quote
-#from requests.utils import requote_uri
 from requests.auth import HTTPBasicAuth
+import json
 
 # This is stable, so just get this from the URL when displaying Page info
 # move_to_page_id = "47535936"
@@ -66,11 +58,11 @@ apiHeadersPut['Content-Type'] = apijson[:]
 apiHeadersPut['Accept'] = apijson[:]
 
 
-
 # Search for entities containing release_version string - can be attachments
 # Can also be pages with the release_version string in the body text
 # These will be el¡minated when the
-searchQueryCql = '?cql=siteSearch+~+"' + release_version + '"+and+space+%3D+"' + spacekey + '"&queryString=' + release_version
+searchQueryCql = '?cql=siteSearch+~+"' + release_version\
+    + '"+and+space+%3D+"' + spacekey + '"&queryString=' + release_version
 # Old search
 # searchQueryCql =
 # '?cql=siteSearch+~+"v463"+and+space+%3D+"COMP"&queryString=v463'
@@ -103,8 +95,6 @@ while True:
                 page_name = str(page["title"])
                 page_uri = apiUrl + '/rest/api/content/' + page_id
 
-
-                #
                 # Get more page details with expands
                 p = requests.get(page_uri, headers=apiHeaders,
                                  auth=HTTPBasicAuth(uname, pwd),
@@ -112,43 +102,32 @@ while True:
                 page_got = p.json()
                 print ("page name: ", page_name)
                 print (str(page_got))
-                
                 #
                 # For master page name remove the version name from the title
-                master_page_name = (str(page_name)).replace(release_version, "").strip()
+                master_page_name = (str(page_name)).replace(
+                    release_version, "").strip()
                 # going to start using re.sub to only replace at end of string
                 # replace_in_page_name = release_version + "$"
                 # mpn = (re.sub(replace_in_page_name,"",page_name)).strip()
 
                 print("master page name spaces: ", master_page_name)
-                # master_page_name_encoded = urllib.parse.quote(master_page_name)
                 # Get the master page
-            #    master_page_uri = apiUrl + '/rest/api/content'
-            #    payload = {"title" : master_page_name, "spaceKey" : spacekey, "ie" : "UTF-8", "os_authType" : "basic" }
-            #    mp_params = urllib.parse.urlencode(payload, quote_via=urllib.parse.quote)
-            #    master_page_uri_with_params = master_page_uri + '?spaceKey=' + spacekey + '&title=' + master_page_name
-            #    master_page_uri_with_auth = master_page_uri_with_params + '&os_authType=basic&ie=UTF-8'
-            #    requote_uri(master_page_uri_with_auth)
-            #    m = requests.get(master_page_uri_with_auth, headers=apiHeaders, auth=HTTPBasicAuth(uname, pwd))
-            #    m = requests.get(master_page_uri_with_auth, headers=apiHeaders, auth=HTTPBasicAuth(uname, pwd))
-            #    master_page_got = m.json()
-
-            #    if master_page_got:
-            #        print ("Master page got: ", master_page_got)
-
-                # Get content if you know Space and Title
-                master_page_json = confluence.get_page_by_title(space=spacekey, title=master_page_name)
+                master_page_json = confluence.get_page_by_title(
+                    space=spacekey,
+                    title=master_page_name)
                 pprint(master_page_json)
 
-                mpage = json.loads(str(master_page_json))
+                mpage = json.loads(
+                    str(master_page_json))
                 mpage_id = mpage["id"]
 
                 # If you know page_id of the page
-                mpage_expanded = confluence.get_page_by_id(page_id=mpage_id, expand='ancestors,body')
+                mpage_expanded = confluence.get_page_by_id(
+                    page_id=mpage_id,
+                    expand='ancestors,body')
                 pprint(mpage_expanded)
                 # print(content2)
-                #mpage_expanded = json.loads(mpage_expanded_json)
-
+                # mpage_expanded = json.loads(mpage_expanded_json)
 
         else:
             print ("Page does not have ", release_version, " in name: ",
