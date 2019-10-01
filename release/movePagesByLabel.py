@@ -88,22 +88,23 @@ while True:
                     + page["_links"]["webui"] + "**  ID: "\
                     + pg_id + " * version: " + str(page_version)
                 print (pageUrlForList)
-                pg_body = page_got["body"]["storage"]["value"]
-                new_pg_body = (str(pg_body)).replace("foofoo", "barbar")
+                pg_body_text = page_got["body"]["storage"]["value"]
+                new_pg_body_value = str(pg_body_text) + " "
+
                 print("page uri: ", page_uri)
 
                 status = confluence.update_page(
                     parent_id=move_to_pg_id,
                     page_id=pg_id,
                     title=new_page_name,
-                    body=new_pg_body)
-                pprint(status)
+                    body=new_pg_body_value)
+                # pprint(status)
         else:
             print("Page has no ancestors: ", pg_id)
     if len(results) < get_limit:
         print("got pages: ", len(results))
         break
     else:
-        get_start = total_pages + 1
+        get_start = total_pages
         print("get start: ", get_start)
 print("That's all folks!\n")
