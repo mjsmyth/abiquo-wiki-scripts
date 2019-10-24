@@ -116,7 +116,7 @@ def get_api_privs(apiAuth, apiIP):
 
 
 def main():
-    td = "2019-10-21"
+    td = "2019-10-22"
 
     entity_list_code_dir = "../platform/api/src/main/java/com" + \
         "/abiquo/api/tracer/entity"
@@ -134,29 +134,57 @@ def main():
 
     # we want $1 from this findall... it's a list of matches with [$0, $1]?
     e_records = (re.findall(
-        "(\s{4}|\)\,\s)([A-Z,_]+?)(\(|\,)", e_raw_records))
+        "(\s{4}|\)\,\s)([A-Z,_]+?)(\(|\,|\;)", e_raw_records))
 
-    for er in e_records:
-        eri = er[1]
-        print ("er: %s" % eri)
+    # for er in e_records:
+    #     eri = er[1]
+    #     print ("er: %s" % eri)
 
-    entity_list = "entity_list_" + td + ".txt"
+    entity_list_file = "entity_list_" + td + ".txt"
 
     # the output file from this script is used as an input file
     # for another script
     input_subdir = "input_files"
-    with open(os.path.join(input_subdir, entity_list), 'w') as g:
+    entity_list = []
+    with open(os.path.join(input_subdir, entity_list_file), 'w') as g:
         for ero in e_records:
             era = ero[1]
+            entity_list.append(era)
             EntityNameOut = era + "\n"
             g.write(EntityNameOut)
 
-#     # use API to get default roles and privileges
-#     # the format is roles_data[priv] = [role1, role2, role3]
-#     #   apiAuth = input("Enter API authorization, e.g. Basic XXXX: ")
-#     apiAuth = "Basic YWRtaW46eGFiaXF1bw=="
-#     apiIP = raw_input("Enter API address, e.g. api.abiquo.com: ")
-#     #   apiroles = get_api_privs(apiAuth,apiIP)
+#   Get the list of actions and separate the entities from the actions
+    action_code_file = "tracer.actions"
+    action_code_dir = "/Users/maryjane/platform/api/src/main/generated"
+
+    with open(os.path.join(
+            action_code_dir,
+            action_code_file), "r") as afile:
+        raw_action_line_list = afile.readlines()
+    action_line_list = []
+    for raw_action_line in raw_action_line_list:
+        prep_action_line = raw_action_line.split(" ")
+        action_line_list.append(prep_action_line[0])
+        print "action: %s " % prep_action_line[0]
+
+    sorted_entity_list = sorted(entity_list, key=len, reverse=True)
+    for e in sorted_entity_list:
+        print "sorted_entity_list: %s" % e
+
+    for sorted_entity in sorted_entity_list:
+        for action_line in action_line_list:
+            if sorted_entity in action_line:
+                entity_space_action = action_line.replace(
+                    sorted_entity, "") + " " + sorted_entity
+                print "entity_space_action: %s" % entity_space_action
+                continue
+
+    # use API to get default roles and privileges
+    # the format is roles_data[priv] = [role1, role2, role3]
+#    apiAuth = input("Enter API authorization, e.g. Basic XXXX: ")
+    #   apiAuth = "Basic YWRtaW46eGFiaXF1bw=="
+#    apiIP = raw_input("Enter API address, e.g. api.abiquo.com: ")
+#     apiroles = get_api_privs(apiAuth, apiIP)
 
 #     FS = "new KEYS"
 #     RS = "public static final class|public static final Action|Master"
@@ -172,16 +200,16 @@ def main():
 #     entity_for_users = {}
 #     event_list_with_privileges = {}
 
-#     td = "2019-07-24"
+#    td = "2019-07-24"
 
-#     roles_data = {}
-#     roles_data = get_api_privs(apiAuth, apiIP)
+#    roles_data = {}
+#    roles_data = get_api_privs(apiAuth, apiIP)
 
-#     git_events_security_dir = "../platform/api/src/main/resources/events"
-#     events_security_privileges_file = "events-security.properties"
-#     events_security_file = [es.strip() for es in open(os.path.join(
-#         git_events_security_dir,
-#         events_security_privileges_file))]
+#    git_events_security_dir = "../platform/api/src/main/resources/events"
+#    events_security_privileges_file = "events-security.properties"
+#    events_security_file = [es.strip() for es in open(os.path.join(
+#    git_events_security_dir,
+#    events_security_privileges_file))]
 
 #     entity_action_list_git_dir = "../platform/model/event-model-transport" + \
 #         "/src/main/java/com/abiquo/event/model/enumerations"
