@@ -165,19 +165,28 @@ def main():
     for raw_action_line in raw_action_line_list:
         prep_action_line = raw_action_line.split(" ")
         action_line_list.append(prep_action_line[0])
-        print "action: %s " % prep_action_line[0]
+#        print "action: %s " % prep_action_line[0]
 
     sorted_entity_list = sorted(entity_list, key=len, reverse=True)
-    for e in sorted_entity_list:
-        print "sorted_entity_list: %s" % e
 
-    for sorted_entity in sorted_entity_list:
-        for action_line in action_line_list:
+#    for e in sorted_entity_list:
+#        print "sorted_entity_list: %s" % e
+
+    entity_action_list = []
+    for action_line in action_line_list:
+        for sorted_entity in sorted_entity_list:
             if sorted_entity in action_line:
-                entity_space_action = action_line.replace(
-                    sorted_entity, "") + " " + sorted_entity
-                print "entity_space_action: %s" % entity_space_action
-                continue
+                sorted_entity_underscore = sorted_entity + "_"
+                entity_space_action = sorted_entity + "." + \
+                    action_line.replace(sorted_entity_underscore, "")
+                entity_action_list.append(entity_space_action)
+#                print "entity_space_action: %s" % entity_space_action
+                break
+
+    entity_action_list_file = "entity_action_list_" + td + ".txt"
+    with open(os.path.join(input_subdir, entity_action_list_file), 'w') as h:
+        for entity_action_item in entity_action_list:
+            h.write(entity_action_item + "\n")
 
     # use API to get default roles and privileges
     # the format is roles_data[priv] = [role1, role2, role3]
