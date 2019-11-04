@@ -14,7 +14,7 @@
 # || Page || Updated ||
 # | Backup plugins | (/) |
 #
-
+import os
 from atlassian import Confluence
 from pprint import pprint
 
@@ -32,7 +32,13 @@ confluence = Confluence(
 
 start_next = 0
 
-print ("|| Page ID || Name || Updated ||")
+td = "2019_11_04"
+output_file = "outputCheckRelease." + td + ".txt"
+output_dir = "./output_files"
+output_list = []
+
+output_list.append("|| Page ID || Name || Updated || Master present || Attachment || Link ||\n")
+
 while True:
     # get draft pages for release searching on "vXXX"
     cql = "space.key={} and (text ~ {})".format(spacekey, release_version)
@@ -54,7 +60,8 @@ while True:
         if release_version.strip().lower() in page_links_web_ui.lower():
             # only work with pages, not attachments
             if "att" in pg_id:
-                print ("Page is an attachment: ", pg_id)
+                print("Page is an attachment: ", pg_id)
+                output_list.append("| " + pg_id + " | " + pg_name + " |  |  | (/) |  |\n")
             else:
                 # Get more page details with expands
                 page_got = confluence.get_page_by_id(
@@ -78,6 +85,7 @@ while True:
                         space=spacekey,
                         title=master_page_name):
                     print("Nonexistent page: ",master_page_name)
+                    output_list.append("| " + pg_id + " | " + pg_name + " |  | (-) | | [" + spacekey + ":" + pg_name + "] |\n")
                 else:        
                     #mpage = json.loads(str(master_page_json))
                     mpage = confluence.get_page_by_title(
@@ -95,14 +103,17 @@ while True:
                     master_page_content = mpage_expanded["body"]["storage"]["value"]
 
                     if draft_content == master_page_content:
-                       	print ("| ", mpage_id, "| ", master_page_name, " | (/) |")
+                       	output_list.append("| " + mpage_id + "| " + master_page_name + " | (/) | (/) | | [" + spacekey + ":" + pg_name + "] |\n")
                     else:
-                        print ("| ", mpage_id, "| ", master_page_name, " | (x) |")
+                        output_list.append("| " + mpage_id + "| " + master_page_name + " | (x) | (/) | | [" + spacekey + ":" + pg_name + "] |\n")
         else:
-            print ("-------------------------------------------------------")
+            output_list.append ("| " + pg_id + " | " + pg_name + " |  |  | | [" + spacekey + ":" + pg_name + "] |\n")
     if "next" not in results["_links"]:
         break
     else:
         start_next = int(results["size"]) + 1
+
+with open(os.path.join(output_dir,output_file), 'w') as of:
+	of.writelines(output_list)
 
 print ("That's all folks!\n")
