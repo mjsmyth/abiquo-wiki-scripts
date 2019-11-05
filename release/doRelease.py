@@ -9,6 +9,7 @@
 # 3. Update the real pages with the content of the draft pages
 #
 #
+import os
 from atlassian import Confluence
 from pprint import pprint
 
@@ -25,11 +26,20 @@ confluence = Confluence(
     username=uname,
     password=pwd)
 
+start_next = 0
+
+td = "2019_11_06"
+output_file = "outputDoRelease." + td + ".txt"
+output_dir = "./output_files"
+output_list = []
+
+output_list.append("|| Page ID || Name || Updated || Master present || Attachment || Link ||\n")
+
 while True:
     # get draft pages for release searching on "vXXX"
     cql = "space.key={} and (text ~ {})".format(spacekey, release_version)
     print("cql: ", cql)
-    results = confluence.cql(cql, limit=200)
+    results = confluence.cql(cql, limit=200, start=start_next)
     print ("- part a - search for bunch of pages ----------------")
     # pprint(results)
 
@@ -47,6 +57,7 @@ while True:
             # only work with pages, not attachments
             if "att" in pg_id:
                 print ("Page is an attachment: ", pg_id)
+                output_list.append("| " + pg_id + " | " + pg_name + " |  |  | (/) |  |\n")                
             else:
                 # Get more page details with expands
                 page_got = confluence.get_page_by_id(
@@ -70,6 +81,7 @@ while True:
                         space=spacekey,
                         title=master_page_name):
                     print("Nonexistent page: ",master_page_name)
+                    output_list.append("| " + pg_id + " | " + pg_name + " |  | (-) | | [" + spacekey + ":" + pg_name + "] |\n")
                 else:        
                     #mpage = json.loads(str(master_page_json))
                     mpage = confluence.get_page_by_title(
@@ -86,8 +98,15 @@ while True:
                     #pprint(mpage_expanded)
                     # print(content2)
                     #mpage_expanded = json.loads(mpage_expanded_json)
+                    master_page_content = mpage_expanded["body"]["storage"]["value"]
+                    if draft_content == master_page_content:
+                        output_list.append("| " + mpage_id + "| " + master_page_name + " | (/) | (/) | | [" + spacekey + ":" + master_page_name + "] |\n")
+                    else:
+                        output_list.append("| " + mpage_id + "| " + master_page_name + " | (x) | (/) | | [" + spacekey + ":" + master_page_name + "] |\n")
+
                     new_draft_content = (str(draft_content)).replace("foofoo","barbar")
                     new_master_page_name = (str(master_page_name)).replace("foofoo","barbar")
+
                     status = confluence.update_page(
                         parent_id=None,
                         page_id=mpage_id,
@@ -99,8 +118,12 @@ while True:
 
         else:
             print ("Page does not have ", release_version, " in name: ", page_links_web_ui)
+            output_list.append ("| " + pg_id + " | " + pg_name + " |  |  | | [" + spacekey + ":" + pg_name + "] |\n")            
     if "next" not in results["_links"]:
         break
     else:
-        searchUrl = apiUrl + results["_links"]["next"]
+        start_next = int(results["size"]) + 1
+
+with open(os.path.join(output_dir,output_file), 'w') as ofil:
+    ofil.writelines(output_list)    
 print ("That's all folks!\n")

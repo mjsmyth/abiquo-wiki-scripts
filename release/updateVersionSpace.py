@@ -1,12 +1,18 @@
 # Python script: updateVersionSpace
 # ---------------------------------------
+#
+# Uses python 3
+# Requires a local images directory
+# 
+#
 # Copy changes from doc space to version space
+# Our environment has the master doc wiki and a version wiki at the same time
 #
 # Update version space
 # ------------------
 # 1. Get the pages changed in the last week from the doc space
 # 2. Get the corresponding pages from a version space
-# 3. Update changed attachments in the doc space (add new files) 
+# 3. Update changed attachments from the doc space (add new files) 
 #    - maybe should delete existing by name
 # 4. Update the version space pages with the content of the doc space pages
 #
@@ -50,13 +56,13 @@ image_folder = "images/"
 images_page_name = current_version + "_images"
 
 # image pages are attached to these pages
-# v46_images_id_master = "46470972"
-# v46_images_id_current = "47536596"
-v46_images_id_master = GetPageIdByTitle(master_spacekey,images_page_name)
-v46_images_id_current = GetPageIdByTitle(spacekey,images_page_name)
+# wiki_images_id_master = "46470972"
+# wiki_images_id_current = "47536596"
+wiki_images_id_master = GetPageIdByTitle(master_spacekey,images_page_name)
+wiki_images_id_current = GetPageIdByTitle(spacekey,images_page_name)
 
 # Get stuff for using requests - note that encoding of parameters with spaces does not work well
-attachments_URL_start = 'https://' + site_URL + '/rest/api/content/' + v46_images_id_master + '/child/attachment?filename=' 
+attachments_URL_start = 'https://' + site_URL + '/rest/api/content/' + wiki_images_id_master + '/child/attachment?filename=' 
 attachments_URL_end = '&os_authType=basic'
 apiHeaders = {}
 apijson = 'application/json'
@@ -70,7 +76,7 @@ start_next = 0
 
 while True:
     # get pages updated in the last week from the doc space
-    cql = 'space.key={} and (lastModified > now("-7d") )'.format(master_spacekey)
+    cql = 'space.key={} and (lastModified > now("-30d") )'.format(master_spacekey)
     print("cql: ", cql)
     results = confluence.cql(cql, limit=200, start=start_next)
     print ("- Recently modified pages ------------------------------------")
@@ -79,7 +85,8 @@ while True:
     for page in results["results"]:
         pg_id = page["content"]["id"]
         pg_name = str(page["content"]["title"])
-        print ("hello: ", pg_id, " Name: ", pg_name)
+        print ("-------------------------------------------------")
+        print ("Item: ", pg_id, " Name: ", pg_name)
         page_links_web_ui = str(page["content"]["_links"]["webui"])
         print ("page_links_web_ui: ",page_links_web_ui)
 
@@ -98,22 +105,27 @@ while True:
                 attachments = a.json()
                 # pprint (attachments)
                 # Download the attachment to a file and then open the file... :rolleyes
-                download_link = 'https://' + site_URL + str(attachments["results"][0]["_links"]["download"])
-                print ("Download link: ",download_link)
-                file_name = image_folder + pg_name
-                af = requests.get(download_link, auth=HTTPBasicAuth(uname, pwd), headers=apiPostHeaders)
-                open(file_name, 'wb').write(af.content)
-                attachment_files_for_upload = {'file': open(file_name, 'rb')}
-                # Add the attachment to the images page in the existing space to update 
-                new_attachment_url = 'https://' + site_URL + "/rest/api/content/" + v46_images_id_current + "/child/attachment"
-                requests.post(
-                    new_attachment_url, 
-                    headers=apiPostHeaders, 
-                    files=attachment_files_for_upload, 
-                    auth=HTTPBasicAuth(uname, pwd))
+                if attachments["results"]:
+                    download_link = 'https://' + site_URL + str(attachments["results"][0]["_links"]["download"])
+                    print ("Download link: ",download_link)
+                    file_name = image_folder + pg_name
+                    af = requests.get(download_link, auth=HTTPBasicAuth(uname, pwd), headers=apiPostHeaders)
+                    open(file_name, 'wb').write(af.content)
+                    attachment_files_for_upload = {'file': open(file_name, 'rb')}
+                    # Add the attachment to the images page in the existing space to update 
+                    new_attachment_url = 'https://' + site_URL + "/rest/api/content/" + wiki_images_id_current + "/child/attachment"
+                    # UPDATE THE OLD WIKI WITH THE NEW SCREENSHOTS - WORKS    
+                    # requests.post(
+                    #     new_attachment_url, 
+                    #     headers=apiPostHeaders, 
+                    #     files=attachment_files_for_upload, 
+                    #     auth=HTTPBasicAuth(uname, pwd))
+                else:
+                    print ("Not dealing with attachments here! PAGES!!!!")
                 
             else:
                 print ("----------------------------------------------------")
+                print ("Page name: ", pg_name)
                 # Get more page details with expands
                 page_got = confluence.get_page_by_id(
                     page_id=pg_id, 
@@ -163,11 +175,11 @@ while True:
                         title=new_version_page_name,
                         body=new_version_content)
 
-                    print ("Updated version page with title: ",version_page_name)
+                    print ("Version page to update with title: ",version_page_name)
                     print ("----------- EOR -----------------")    
 
         else:
-            print ("Page does not have ", release_version, " in name: ", page_links_web_ui)
+            print ("Page has ", release_version, " in name: ", page_links_web_ui)
     if "next" not in results["_links"]:
         break
     else:
