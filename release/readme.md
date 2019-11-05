@@ -1,5 +1,5 @@
 Confluence Release Scripts
---------------------------
+==========================
 --------------------------
 
 These Python 3 scripts are designed to help manage a Confluence release and Confluence version spaces.
