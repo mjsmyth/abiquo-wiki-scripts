@@ -73,9 +73,8 @@ def do_api_request(apiAuth,apiIP,apiUrl,apiAccept):
 		apiHeaders = {}
 		apiHeaders['Accept'] = apiAccept
 		apiHeaders['Authorization'] = apiAuth
-		r = requests.get(apiUrl, headers=apiHeaders, verify=False)
-		r_data = r.json()
-		return r_data
+		r = requests.get(apiUrl, headers=apiHeaders, verify=False).json()
+		return r
 
 def get_api_privs(apiAuth,apiIP):
 # Get role data from the API of a fresh Abiquo	
@@ -83,7 +82,7 @@ def get_api_privs(apiAuth,apiIP):
 	rol_data = {}
 	roles_data = {}
 # get all base role names and ID numbers
-	apiUrl = 'http://' + apiIP + '/api/admin/roles/'  
+	apiUrl = 'https://' + apiIP + '/api/admin/roles/'  
 	apiAccept = 'application/vnd.abiquo.roles+json'
 	default_roles_response = do_api_request(apiAuth,apiIP,apiUrl,apiAccept)
 	default_roles_list = []
@@ -94,7 +93,7 @@ def get_api_privs(apiAuth,apiIP):
 		default_roles[dr['name']] = dr['id']
 # run through the dictionary and get the privileges for each role
 	for drname, drid in default_roles.iteritems():
-		apiUrl = 'http://' + apiIP + '/api/admin/roles/' + str(drid) + '/action/privileges'
+		apiUrl = 'https://' + apiIP + '/api/admin/roles/' + str(drid) + '/action/privileges'
 		print apiUrl
 		apiAccept = 'application/vnd.abiquo.privileges+json'
 		default_privileges_response = do_api_request(apiAuth,apiIP,apiUrl,apiAccept)		
@@ -157,7 +156,7 @@ def newOrderByUItextFile(td):
 	return uiOrd
 
 def main():
-	td = "2019-06-12"
+	td = "2019-10-31"
 	input_gitdir = '../../platform/ui/app/lang'
 	input_subdir = 'input_files'
 	output_subdir = 'output_files'
@@ -165,7 +164,7 @@ def main():
 # From the API get a list of privileges with roles
 	api_privs = {}
 #	apiAuth = raw_input("Enter API authorization, e.g. Basic XXXX: ")
-	apiAuth = "Basic YWRtaW46eGFiaXF1bw=="
+ 	apiAuth = "Basic YWRtaW46eGFiaXF1bw=="
 #	apiIP = raw_input("Enter API address, e.g. api.abiquo.com: ")
 	apiIP = "mjsabiquo.bcn.abiquo.com"
 	sqlroles = get_api_privs(apiAuth,apiIP)
