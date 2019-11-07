@@ -1,11 +1,12 @@
-# Python script: updateVersionSpace
+# Python script: checkVersionSpace
 # ---------------------------------------
 # Uses python 3 :-D
 # Requires a local images directory
 #
-# Copy changes from doc space to version space
+# Examine changes from doc space to version space
 # Our environment has the master doc wiki and a version wiki at the same time
-# Note that the update code is commented 
+# May attach screenshots from master space in version space
+# In this check version, the update code is commented 
 #
 # Update version space
 # ------------------
