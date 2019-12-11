@@ -32,7 +32,7 @@
 # ** Get NAT IPs in VDC. If same NATIP, add 1 to port number
 # ** Create VM with NAT rules
 #
-
+import copy
 import json
 from abiquo.client import Abiquo
 from abiquo.client import check_response
@@ -73,58 +73,84 @@ def main ():
 			print ("Warning! VM already has NAT Rules!")
 			break
 		if not vm.nic0:
-			print ("Warning! VM has no NIC")	
+			print ("Warning! VM has no NICs")
+			break	
 		else:
-			# ** Get its private IP to add to NAT rules JSON
-			privateIPUrl = vm.nic0.url
-			print ("Private IP: ", privateIPUrl)
-			code, NIC = vm.follow('nic0').get(
-				headers={'Accept':'application/vnd.abiquo.privateip+json'}) 
+			# ** Get link to its private IP to add to NAT rules JSON
+			privateIPLinks = list(filter(lambda vmlink: "privateip" in vmlink["type"], vm.json["links"]))
+			# Use the first private IP
+			pipLink = privateIPLinks[0]
+			print ("Private IP link:", json.dumps(pipLink, indent=2))
 
 			# ** Get VDC of VM (use in part 2 also)
-			vdcUrl = vm.virtualdatacenter.url
-			print ("Virtual datacenter: ", vdcUrl)
-
-			code, virtualdatacenter = vm.follow('virtualdatacenter').get(
-				headers={'Accept':'application/vnd.abiquo.virtualdatacenter+json'})
+			code, vdc = vm.follow('virtualdatacenter').get(
+				headers={'accept':'application/vnd.abiquo.virtualdatacenter+json'})
 			print ("Response code is: ", code)
-			print ("VM belongs to VDC: ", virtualdatacenter.name)
+			print ("VM belongs to VDC: ", vdc.name)
 
 			# ** Get NAT IPs of VDC to add to NAT rules JSON
-			code, natips = virtualdatacenter.follow('natips').get(
-				headers={'Accept':'application/vnd.abiquo.natips+json'})
+			code, natips = vdc.follow('natips').get(
+				headers={'accept':'application/vnd.abiquo.natips+json'})
 			print ("Response code is: ", code)
-			for nnip in natips:
-				print ("nnip url: ", nnip.ip)
-				code, nini = nnip.follow('natnetwork').get(
-				headers={'Accept':'application/vnd.abiquo.natnetwork+json'})	
-				print ("Response code: ", code)
-				print ("nini: ", nini.address)
 
+			nonDefaultSNATIPs = list(filter(lambda nsnatip: nsnatip.json["defaultSnat"] == False, natips))
+
+			# Get first NAT IP of VDC that is not the default SNAT 
+			ndsnaip = nonDefaultSNATIPs[0]
+			print ("ndsnaip: ", json.dumps(ndsnaip.json, indent=2))
+			# Get the self link of the NAT IP
+			natipLinks = list(filter(lambda link: link["rel"] == "self", ndsnaip.json["links"]))
+			natipLink = natipLinks[0]
+			print ("natipLink: ", json.dumps(natipLink, indent=2))
 			 
-			# print ("NAT IP URL: ", naipUrl)
-			# mediaTypeNatIP = "application/vnd.abiquo.natip+json"
-			# mediaTypePriIP = "application/vnd.abiquo.privateip+json"
+
+			mediaTypeNatIP = "application/vnd.abiquo.natip+json"
+			mediaTypePriIP = "application/vnd.abiquo.privateip+json"
 			# # ** Create NAT rules with private IP/NAT IP
-			# natrules = []
+			addnatrules = []
 
-			# snatrule = {}
-			# snatrule["snat"] = True
-			# snatrule["links"] = []
-			# snatrule["links"].append ({"rel":"original","href":privateIPUrl,"type":mediaTypePriIP})
-			# snatrule["links"].append ({"rel":"translated","href":naipUrl,"type":mediaTypeNatIP})
-			# natrules.append(snatrule)
+			snatrule = {}
+			snatrule["snat"] = True
+			snatrule["links"] = []
+			snatruleOriginalLink = copy.deepcopy(pipLink)
+			snatruleOriginalLink["rel"] = "original"
+			snatrule["links"].append (snatruleOriginalLink)
+			snatruleTranslatedLink = copy.deepcopy(natipLink)
+			snatruleTranslatedLink["rel"] = "translated"
+			snatrule["links"].append (snatruleTranslatedLink)
+			print ("snatrule: ", json.dumps(snatrule, indent=2))
+			addnatrules.append(snatrule)
 			
-			# dnatrule = {} 
-			# dnatrule["snat"] = False
-			# dnatrule["originalPort"] = DNATPORTORIGINAL
-			# dnatrule["translatedPort"] = DNATPORTTRANSLATED
-			# dnatrule["protocol"] = DNATPROTOCOL
-			# dnatrule["links"].append ({"rel":"original","href":naipUrl,"type":mediaTypeNATIP})
-			# snatrule["links"].append ({"rel":"translated","href":privateIPUrl,"type":mediaTypePriIP})
-			# natrules.append(dnatrule)
+			dnatrule = {} 
+			dnatrule["snat"] = False
+			dnatrule["originalPort"] = DNATPORTORIGINAL
+			dnatrule["translatedPort"] = DNATPORTTRANSLATED
+			dnatrule["protocol"] = DNATPROTOCOL
+			dnatruleOriginalLink = copy.deepcopy(natipLink)
+			dnatruleOriginalLink["rel"] = "original"
+			dnatrule["links"] = []
+			dnatrule["links"].append (dnatruleOriginalLink)
+			dnatruleTranslatedLink = copy.deepcopy(pipLink)
+			dnatruleTranslatedLink["rel"] = "translated"
+			dnatrule["links"].append (dnatruleTranslatedLink)
+			print ("dnatrule: ", json.dumps(dnatrule, indent=2))
+			addnatrules.append(dnatrule)
 
-			# print ("natrules: ", json.dumps(natrules, indent=2))
+			vmEditLinks = list(filter(lambda link: link["rel"] == "edit", vm.json["links"]))
+			vmEditLink = vmEditLinks[0]
+			print ("vm edit link", json.dumps(vmEditLink, indent=2))
+
+			#	newvm = copy.deepcopy(vm.json)
+			# Add the nat rules to the VM object
+			vm.json["natrules"] = addnatrules[:]
+
+			# If VM is deployed receive acceptedrequest!
+			code, vmaddnr = vm.follow('edit').put(
+				headers={'accept':'application/vnd.abiquo.acceptedrequest+json', 'content-type':'application/vnd.abiquo.virtualmachine+json'},
+				data=json.dumps(vm.json))
+			print ("Response code is: ", code)
+
+			# Do a put request to the VM with the VM nat object 
 
 # Calls the main() function
 if __name__ == '__main__':
