@@ -13,24 +13,12 @@
 # * With private IP to add NAT rules 
   
 # Steps
-# * Get VM with private IP without NAT rules by vmlabel (default NATADD) 
+# * Get VM with private IP without NAT rules by vmlabel
 # * Get first private IP to add to NAT rules JSON
 # * Get VDC of VM (use in part 2 also)
 # * Get NAT IPs of VDC to add to NAT rules JSON, use first NAT IP 
 # * Create NAT rules with private IP/NAT IP
-
-# Create a VM with NAT rules
-# --------------------------
-# Requires:
-# * 1 x private IP available in VDC 
-# * VM label will be NATNEW
-# Steps:
-# * Use VDC of NATADD VM 
-# * Get template from the NATADD VM
-# * Get virtual appliance from NATADD VM
-# * Get available private IPs in VDC
-# * Get NAT IPs in VDC. If same NATIP, add 1 to port number
-# * Create VM with NAT rules
+#
 #
 import copy
 import json
@@ -40,10 +28,10 @@ import sys
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-DNATPORTORIGINAL = 36914
+DNATPORTORIGINAL = 36911
 DNATPORTTRANSLATED = 22
 DNATPROTOCOL = "TCP"
-VMLABEL="NATEX"
+VMLABEL="NATADD"
 
 def main ():
 
@@ -54,14 +42,14 @@ def main ():
 	API_URL="https://" + localsystem + ".bcn.abiquo.com/api"
 	api = Abiquo(API_URL, auth=(username, password), verify=False)
 
-# For customers
+# For real:
 #	API_URL = input("Enter Abiquo API URL, e.g 'https://abiquoapi.bcn.abiquo.com/api': ")
 #	username = input("Username: ")
 #	password = input("Password: ")
 	# Assuming test environment with self-signed certificate
 #	api = Abiquo(API_URL, auth=(username, password), verify=False)
 
-# Get NATADD VM to add NAT rules, with vmlabel filter = NATADD
+# Get VMs with VM to add NAT rules, use vmlabel filter
 	code, virtualmachines = api.cloud.virtualmachines.get(
 	headers={'Accept':'application/vnd.abiquo.virtualmachines+json'},
 	params={'vmlabel':VMLABEL})
@@ -69,27 +57,28 @@ def main ():
 	if virtualmachines.totalSize > 1:
 		print ("Warning! Multiple VMs with same label!")
 	for vm in virtualmachines:
+		DNATPORTORIGINAL = DNATPORTORIGINAL + 1
 		print ("NATADD VM: ", str(vm.label))
 		if vm.natrules:
 			print ("Warning! VM already has NAT Rules!")
-			break
+			continue
 		if not vm.nic0:
 			print ("Warning! VM has no NICs")
 			break	
 		else:
-			# ** Get link to any private IPs to use in NAT rules
+			# Get link to any private IPs to use in NAT rules
 			privateIPLinks = list(filter(lambda vmlink: "privateip" in vmlink["type"], vm.json["links"]))
 			# Use the first private IP
 			pipLink = privateIPLinks[0]
 			print ("Private IP link:", json.dumps(pipLink, indent=2))
 
-			# ** Get VDC of VM (use in part 2 also)
+			# Get VDC of VM (use in part 2 also)
 			code, vdc = vm.follow('virtualdatacenter').get(
 				headers={'accept':'application/vnd.abiquo.virtualdatacenter+json'})
 			print ("Response code is: ", code)
 			print ("VM belongs to VDC: ", vdc.name)
 
-			# ** Get NAT IPs of VDC to use in NAT rules
+			# Get NAT IPs of VDC to use in NAT rules
 			code, natips = vdc.follow('natips').get(
 				headers={'accept':'application/vnd.abiquo.natips+json'},
 				params={'usable':True})
@@ -107,12 +96,12 @@ def main ():
 			natipLink = natipLinks[0]
 			print ("natipLink: ", json.dumps(natipLink, indent=2))
 			 
-			# # ** Create NAT rules with private IP/NAT IP
+			# Create NAT rules with private IP/NAT IP
 			mediaTypeNatIP = "application/vnd.abiquo.natip+json"
 			mediaTypePriIP = "application/vnd.abiquo.privateip+json"
 			addnatrules = []
 
-			# create snat rule
+			# Create snat rule
 			snatrule = {}
 			snatrule["snat"] = True
 			snatrule["links"] = []
@@ -125,7 +114,7 @@ def main ():
 			print ("snatrule: ", json.dumps(snatrule, indent=2))
 			addnatrules.append(snatrule)
 			
-			# create dnat rule
+			# Create dnat rule
 			dnatrule = {} 
 			dnatrule["snat"] = False
 			dnatrule["originalPort"] = DNATPORTORIGINAL
@@ -144,7 +133,7 @@ def main ():
 			# Get edit link of VM to use for put request
 			vmEditLinks = list(filter(lambda link: link["rel"] == "edit", vm.json["links"]))
 			vmEditLink = vmEditLinks[0]
-			print ("vm edit link", json.dumps(vmEditLink, indent=2))
+			print ("vm edit link: ", json.dumps(vmEditLink, indent=2))
 
 			# Add the nat rules to the original VM object
 			vm.json["natrules"] = addnatrules[:]
@@ -156,7 +145,6 @@ def main ():
 
 			# Response code should be 2XX
 			print ("Response code is: ", code)
-
 
 # Calls the main() function
 if __name__ == '__main__':
