@@ -9,7 +9,8 @@
 # * Remote services registered in Abiquo
 
 # Steps
-# * Get file with list of regions, plus friendly names or AWS names
+# * Get files with region providerID and friendly name
+# *  Expects CSV files with first two items
 # * Get existing remote services (or IP of remote services)
 # * List Abiquo regions per provider hypervisor type, get endpoint, etc
 # * Create regions
@@ -19,7 +20,7 @@
 import copy
 import json
 from abiquo.client import Abiquo
-from abiquo.client import check_response
+# from abiquo.client import check_response
 import sys
 import csv
 import re
@@ -29,9 +30,13 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # Abbreviate region names
-COMPASSPOINTS = {"north": "n", "east": "e", "south": "s", "west": "w", "central": "c"}
+COMPASSPOINTS = {"north": "n",
+                 "east": "e",
+                 "south": "s",
+                 "west": "w",
+                 "central": "c"}
 LOCALDOMAINAPI = ".bcn.abiquo.com/api"
-PROVIDERSLIST = {"AMAZON", "azurecompute-ARM"}
+PROVIDERSLIST = {"AMAZON", "azurecompute-arm"}
 
 
 def main():
@@ -51,19 +56,29 @@ def main():
 
     # Create a dictionary with providerId and friendlyName from user file
     providersToCreate = {}
-    with open("amazon_regions.csv") as providerregionsfile:
-        regionslist = csv.reader(providerregionsfile, delimiter=",")
-        # Discard the first row because it is a header
-        for row in regionslist:
-            if "Code" in row[0]:
-                continue
-            providerId = row[0]
-            # assuming only one set of brackets in friendly name
-            friendlyName = re.findall("\((.*?)\)", row[1])[0]
-            if "Central" in friendlyName:
-                friendlyName = "Canada"
-            print("providerId: ", providerId, " friendlyName: ", friendlyName)
-            providersToCreate[providerId] = friendlyName
+    for providerCode in PROVIDERSLIST:
+        provider_file = providerCode.lower() + "_regions.csv"
+        with open(provider_file) as providerregionsfile:
+            header_row = 0
+            regionslist = csv.reader(providerregionsfile, delimiter=",")
+            for row in regionslist:
+                # Discard the first row because it is a header
+                if header_row == 0:
+                    header_row = 1
+                    continue
+                providerId = row[0]
+                friendlyName = row[1]
+                if "Canada (Central)" in friendlyName:
+                    friendlyName = "Canada"
+                # Get rid of text outside brackets and brackets
+                # This is for AWS
+                if "(" in friendlyName:
+                    friendlyName = re.sub(".*?\(", "", friendlyName)
+                    friendlyName = re.sub("\).*?", "", friendlyName)
+
+                print("providerId: ", providerId,
+                      " friendlyName: ", friendlyName)
+                providersToCreate[providerId] = friendlyName
     for pr, fna in providersToCreate.items():
         print("pr: ", pr, " fn: ", fna)
 
@@ -72,15 +87,13 @@ def main():
         headers={'Accept': 'application/vnd.abiquo.hypervisortypes+json'})
     print("Get hypervisortypes, response code: ", code)
 
-    for providerHT in hypervisorTypes:
-        for provider in PROVIDERSLIST:
+    for provider in PROVIDERSLIST:
+        for providerHT in hypervisorTypes:
             if provider in providerHT.name:
                 code, providerRegions = providerHT.follow('regions').get(
                     headers={'Accept': 'application/vnd.abiquo.regions+json'})
                 for reg in providerRegions:
                     print("region: ", reg.endpoint)
-
-
 
 
 # Calls the main() function
