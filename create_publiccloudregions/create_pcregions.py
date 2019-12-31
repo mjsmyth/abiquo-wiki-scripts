@@ -18,8 +18,8 @@
 # Optional arguments (for false send nonvalues as placeholders):
 # * ALL - create all regions from Abiquo
 # * USECSV - if present, use name from CSV file
-# * SUBL - if present, use substitution list
-# * INPA - if parenthesis, use only text in parenthesis
+# * SUBL - if present, use substitution list as defined in this file
+# * INPA - if parenthesis, use only text in parenthesis (e.g N. Virginia)
 #
 # Steps:
 # * Get existing remote services (match IP of remote services)
