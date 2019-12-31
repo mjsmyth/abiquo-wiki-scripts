@@ -36,7 +36,12 @@ COMPASSPOINTS = {"north": "n",
                  "west": "w",
                  "central": "c"}
 LOCALDOMAINAPI = ".bcn.abiquo.com/api"
-PROVIDERSLIST = {"AMAZON", "azurecompute-arm"}
+PROVIDERSLIST = ["AMAZON", "azurecompute-arm"]
+PCRREMOTESERVICES = ["NARS", "VIRTUALSYSTEMMONITOR",
+                     "VIRTUALFACTORY", "REMOTEACCESS"]
+REMOTESERVICESID = "mjsabiquo"
+FRIENDLYNAMESUBS = {"Canada (Central)": "Canada",
+                    "AWS GovCloud \(.*?\)": "GovCloud $1"}
 
 
 def main():
@@ -54,8 +59,26 @@ def main():
     # Assuming test environment with self-signed certificate
     #   api = Abiquo(API_URL, auth=(username, password), verify=False)
 
+    # Get the links of the remote services for the post request
+    code, remoteServicesList = api.admin.remoteservices.get(
+        headers={'Accept': 'application/vnd.abiquo.remoteservices+json'},
+        params={'has': REMOTESERVICESID})
+    print("Get remote services. Response code is: ", code)
+
+    pCRBaseLinks = []
+    for remoteService in remoteServicesList:
+        # Get the links for public cloud remote services
+        rsLinks = list(filter(lambda link:
+                       link["title"] in PCRREMOTESERVICES,
+                       remoteService.json["links"]))
+        for rsLink in rsLinks:
+            print("rsLink: ", json.dumps(rsLink, indent=2))
+            rsPostLink = copy.deepcopy(rsLink)
+            rsPostLink["rel"] = "remoteservice"
+            pCRBaseLinks.append(rsPostLink)
+
     # Create a dictionary with providerId and friendlyName from user file
-    providersToCreate = {}
+    regionsToCreate = {}
     for providerCode in PROVIDERSLIST:
         provider_file = providerCode.lower() + "_regions.csv"
         with open(provider_file) as providerregionsfile:
@@ -68,18 +91,24 @@ def main():
                     continue
                 providerId = row[0]
                 friendlyName = row[1]
-                if "Canada (Central)" in friendlyName:
-                    friendlyName = "Canada"
-                # Get rid of text outside brackets and brackets
+
+                # Do some initial substituations from exception list above
+                for friendlyNameSub, friendlyNameRep in FRIENDLYNAMESUBS.items():
+                    friendlyName = re.sub(
+                        friendlyNameSub,
+                        friendlyNameRep,
+                        friendlyName)
+
+                # Get rid of text outside brackets and brackets themselves
                 # This is for AWS
                 if "(" in friendlyName:
                     friendlyName = re.sub(".*?\(", "", friendlyName)
                     friendlyName = re.sub("\).*?", "", friendlyName)
 
-                print("providerId: ", providerId,
-                      " friendlyName: ", friendlyName)
-                providersToCreate[providerId] = friendlyName
-    for pr, fna in providersToCreate.items():
+                # print("providerId: ", providerId,
+                #      " friendlyName: ", friendlyName)
+                regionsToCreate[providerId] = friendlyName
+    for pr, fna in regionsToCreate.items():
         print("pr: ", pr, " fn: ", fna)
 
     # Get regions for provider type
@@ -92,8 +121,39 @@ def main():
             if provider in providerHT.name:
                 code, providerRegions = providerHT.follow('regions').get(
                     headers={'Accept': 'application/vnd.abiquo.regions+json'})
-                for reg in providerRegions:
-                    print("region: ", reg.endpoint)
+                # Filter provider regions by region list from input files
+
+                selRegs = list(filter(lambda regi:
+                                      regi.json["providerId"] in regionsToCreate,
+                                      providerRegions))
+
+                for reg in selRegs:
+                    print("REGION REGION REGION REGION -----: ", reg.name)
+                    print("Region provider ID: ", reg.providerId)
+
+                    # Get self link of region to use for post request
+                    regionSelfLinks = list(filter(
+                        lambda link: link["rel"] == "self", reg.json["links"]))
+                    regionSelfLink = regionSelfLinks[0]
+                    print("Region self link: ",
+                          json.dumps(regionSelfLink, indent=2))
+
+                    # Make a mini link to use in post request
+                    regionPostLink = {"rel": "region",
+                                      "href": regionSelfLink["href"]}
+
+                    pubCloudRegion = {"provider": provider,
+                                      "name": regionsToCreate[reg.providerId]}
+                    pubCloudRegion["links"] = pCRBaseLinks[:]
+                    pubCloudRegion["links"].append(regionPostLink)
+
+                    # Create a public cloud region
+                    code, createdpcr = api.admin.publiccloudregions.post(
+                        headers={'accept': 'application/vnd.abiquo.publiccloudregion+json',
+                                 'content-type': 'application/vnd.abiquo.publiccloudregion+json'},
+                        data=json.dumps(pubCloudRegion))
+                    print("Create public cloud region: ", reg.providerId,
+                          ", Response code: ", code)
 
 
 # Calls the main() function
