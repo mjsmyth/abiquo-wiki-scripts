@@ -4,17 +4,31 @@
 # Create PCRs
 # ============
 # Environment: With access to internet
-
+#
 # Requires:
 # * Remote services registered in Abiquo
-
-# Steps
-# * Get files with region providerID and friendly name
-# *  Expects CSV files with first two items
-# * Get existing remote services (or IP of remote services)
-# * List Abiquo regions per provider hypervisor type, get endpoint, etc
-# * Create regions
-
+# * Can specify remote services by IP in this file
+# * Configure local domain in this file
+#
+# Arguments (separated by spaces):
+# * name of local system
+# * Abiquo username
+# * Abiquo password
+#
+# Optional arguments (for false send nonvalues as placeholders):
+# * ALL - create all regions from Abiquo
+# * USECSV - if present, use name from CSV file
+# * SUBL - if present, use substitution list
+# * INPA - if parenthesis, use only text in parenthesis
+#
+# Steps:
+# * Get existing remote services (match IP of remote services)
+#
+# * Get provider region files
+# *  Expects 1 x CSV file for each provider with first two columns:
+# * 1. providerId, 2. friendlyName
+#
+#
 #
 #
 import copy
@@ -29,26 +43,60 @@ import re
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-# Abbreviate region names
-COMPASSPOINTS = {"north": "n",
-                 "east": "e",
-                 "south": "s",
-                 "west": "w",
-                 "central": "c"}
 LOCALDOMAINAPI = ".bcn.abiquo.com/api"
+PROVIDERCODES = {"AMAZON": "AWS", "azurecompute-arm": "AZ"}
 PROVIDERSLIST = ["AMAZON", "azurecompute-arm"]
 PCRREMOTESERVICES = ["NARS", "VIRTUALSYSTEMMONITOR",
                      "VIRTUALFACTORY", "REMOTEACCESS"]
 REMOTESERVICESID = "mjsabiquo"
+
+# Use this on the names
 FRIENDLYNAMESUBS = {"Canada (Central)": "Canada",
                     "AWS GovCloud \(.*?\)": "GovCloud $1"}
 
 
+def SubList(friendlyName):
+    # Do some initial substituations from exception list above
+    for friendlyNameSub, friendlyNameRep in FRIENDLYNAMESUBS.items():
+        friendlyName = re.sub(
+            friendlyNameSub,
+            friendlyNameRep,
+            friendlyName)
+    return friendlyName
+
+
+def TextInPar(friendlyName):
+    # Get rid of text outside brackets and brackets themselves
+    # This is for AWS
+    if "(" in friendlyName:
+        friendlyName = re.sub(".*?\(", "", friendlyName)
+        friendlyName = re.sub("\).*?", "", friendlyName)
+    return friendlyName
+
+
 def main():
-    # For test env, pass in the IP of local system, username and password
+    # Pass in the name of local system, username and password
     localsystem = sys.argv[1]
     username = sys.argv[2]
     password = sys.argv[3]
+    # Optional arguments:
+    # create all regions = ALL (NOTLL by default)
+    # if present, use CSV names = USECSV
+    # substitute list = SUBL
+    # use text in parenthisis = INPA
+    createAll = "NOTALL"
+    useCsvNames = "USECSV"
+    subList = "SUBL"
+    removeParenthesis = "INPA"
+    if sys.argv[4]:
+        createAll = sys.argv[4]
+    if sys.argv[5]:
+        useCsvNames = sys.argv[5]
+    if sys.argv[6]:
+        subList = sys.argv[6]
+    if sys.argv[7]:
+        removeParenthesis = sys.argv[7]
+
     API_URL = "https://" + localsystem + LOCALDOMAINAPI
     api = Abiquo(API_URL, auth=(username, password), verify=False)
     # Another option:
@@ -66,13 +114,16 @@ def main():
     print("Get remote services. Response code is: ", code)
 
     pCRBaseLinks = []
+    print("REMOTE SERVICES ---")
     for remoteService in remoteServicesList:
         # Get the links for public cloud remote services
         rsLinks = list(filter(lambda link:
                        link["title"] in PCRREMOTESERVICES,
                        remoteService.json["links"]))
+
         for rsLink in rsLinks:
-            print("rsLink: ", json.dumps(rsLink, indent=2))
+            print("Remote Service: ", rsLink["title"])
+            # print("rsLink: ", json.dumps(rsLink, indent=2))
             rsPostLink = copy.deepcopy(rsLink)
             rsPostLink["rel"] = "remoteservice"
             pCRBaseLinks.append(rsPostLink)
@@ -90,26 +141,13 @@ def main():
                     header_row = 1
                     continue
                 providerId = row[0]
-                friendlyName = row[1]
-
-                # Do some initial substituations from exception list above
-                for friendlyNameSub, friendlyNameRep in FRIENDLYNAMESUBS.items():
-                    friendlyName = re.sub(
-                        friendlyNameSub,
-                        friendlyNameRep,
-                        friendlyName)
-
-                # Get rid of text outside brackets and brackets themselves
-                # This is for AWS
-                if "(" in friendlyName:
-                    friendlyName = re.sub(".*?\(", "", friendlyName)
-                    friendlyName = re.sub("\).*?", "", friendlyName)
-
+                csvName = row[1]
                 # print("providerId: ", providerId,
                 #      " friendlyName: ", friendlyName)
-                regsToCreate[providerId] = friendlyName
-    for pr, fna in regsToCreate.items():
-        print("pr: ", pr, " fn: ", fna)
+                regsToCreate[providerId] = csvName[:]
+    print("REGIONS IN CSV FILES ---:")
+    for pcr, fna in regsToCreate.items():
+        print("region: ", pcr, "\tcsvname: ", fna)
 
     # Get regions for provider type
     code, hypervisorTypes = api.config.hypervisortypes.get(
@@ -117,32 +155,51 @@ def main():
     print("Get hypervisortypes, response code: ", code)
 
     for provider in PROVIDERSLIST:
+        print("-------------------------------------")
+        print("PROVIDER: ", provider)
+        print("-------------------------------------")
         for providerHT in hypervisorTypes:
             if provider in providerHT.name:
                 code, providerRegions = providerHT.follow('regions').get(
                     headers={'Accept': 'application/vnd.abiquo.regions+json'})
-                # Filter provider regions by region list from input files
 
-                selRegs = list(filter(lambda regi:
-                                      regi.json["providerId"] in regsToCreate,
-                                      providerRegions))
+                if createAll.lower() == "all":
+                    selRegs = copy.deepcopy(providerRegions)
+                else:
+                    # Filter provider regions by region list from input files
+                    selRegs = list(filter(lambda regi:
+                                          regi.json["providerId"] in regsToCreate,
+                                          providerRegions))
 
-                for reg in selRegs:
-                    print("REGION REGION REGION REGION -----: ", reg.name)
-                    print("Region provider ID: ", reg.providerId)
+                for sreg in selRegs:
+                    print("REGION -----: ", sreg.name)
+                    print("\tProvider ID: ", sreg.providerId)
 
                     # Get self link of region to use for post request
                     regionSelfLinks = list(filter(
-                        lambda link: link["rel"] == "self", reg.json["links"]))
+                        lambda link: link["rel"] == "self",
+                        sreg.json["links"]))
                     regionSelfLink = regionSelfLinks[0]
-                    print("Region self link: ",
-                          json.dumps(regionSelfLink, indent=2))
+                    # print("Region self link: ",
+                    #      json.dumps(regionSelfLink, indent=2))
 
                     # Make a mini link to use in post request
                     regionPostLink = {"rel": "region",
                                       "href": regionSelfLink["href"]}
-                    pcrName = regsToCreate[reg.providerId] + \
-                        " (" + providerId + ")"
+                    # Create friendly name with Abiquo name
+                    pcrBaseName = sreg.name[:]
+                    if useCsvNames.lower() == "usecsv":
+                        if sreg.providerId in regsToCreate:
+                            pcrBaseName = regsToCreate[sreg.providerId][:]
+
+                    if subList.lower() == "subl":
+                        pcrBaseName = SubList(pcrBaseName)
+                    if removeParenthesis.lower() == "inpa":
+                        pcrBaseName = TextInPar(pcrBaseName)
+
+                    pcrName = pcrBaseName + " (" + sreg.providerId + ")"
+
+                    print("\tAbiquo name: ", pcrName)
                     pubCloudRegion = {"provider": provider,
                                       "name": pcrName}
                     pubCloudRegion["links"] = pCRBaseLinks[:]
@@ -153,7 +210,7 @@ def main():
                         headers={'accept': 'application/vnd.abiquo.publiccloudregion+json',
                                  'content-type': 'application/vnd.abiquo.publiccloudregion+json'},
                         data=json.dumps(pubCloudRegion))
-                    print("Create public cloud region: ", reg.providerId,
+                    print("\tCREATE REGION: ", sreg.providerId,
                           ", Response code: ", code)
 
 
