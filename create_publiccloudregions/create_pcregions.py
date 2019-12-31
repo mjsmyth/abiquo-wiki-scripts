@@ -78,7 +78,7 @@ def main():
             pCRBaseLinks.append(rsPostLink)
 
     # Create a dictionary with providerId and friendlyName from user file
-    regionsToCreate = {}
+    regsToCreate = {}
     for providerCode in PROVIDERSLIST:
         provider_file = providerCode.lower() + "_regions.csv"
         with open(provider_file) as providerregionsfile:
@@ -107,8 +107,8 @@ def main():
 
                 # print("providerId: ", providerId,
                 #      " friendlyName: ", friendlyName)
-                regionsToCreate[providerId] = friendlyName
-    for pr, fna in regionsToCreate.items():
+                regsToCreate[providerId] = friendlyName
+    for pr, fna in regsToCreate.items():
         print("pr: ", pr, " fn: ", fna)
 
     # Get regions for provider type
@@ -124,7 +124,7 @@ def main():
                 # Filter provider regions by region list from input files
 
                 selRegs = list(filter(lambda regi:
-                                      regi.json["providerId"] in regionsToCreate,
+                                      regi.json["providerId"] in regsToCreate,
                                       providerRegions))
 
                 for reg in selRegs:
@@ -141,9 +141,10 @@ def main():
                     # Make a mini link to use in post request
                     regionPostLink = {"rel": "region",
                                       "href": regionSelfLink["href"]}
-
+                    pcrName = regsToCreate[reg.providerId] + \
+                        " (" + providerId + ")"
                     pubCloudRegion = {"provider": provider,
-                                      "name": regionsToCreate[reg.providerId]}
+                                      "name": pcrName}
                     pubCloudRegion["links"] = pCRBaseLinks[:]
                     pubCloudRegion["links"].append(regionPostLink)
 
