@@ -88,9 +88,9 @@ def main():
     parser.add_argument("--c", action="store_true",
                         help="Use names from CSV files")
     parser.add_argument("--r", action="store_false",
-                        help="Don't replace text strings")
+                        help="Don't replace text strings from script")
     parser.add_argument("--b", action="store_false",
-                        help="Use all text, not just in parenthesis")
+                        help="Use AWS full name, not just text in parenthesis")
 
     args = parser.parse_args()
     localsystem = args.s
