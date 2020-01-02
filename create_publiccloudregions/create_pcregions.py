@@ -35,9 +35,10 @@ import copy
 import json
 from abiquo.client import Abiquo
 # from abiquo.client import check_response
-import sys
+# import sys
 import csv
 import re
+import argparse
 
 # For test environment disable SSL warning
 import urllib3
@@ -52,7 +53,7 @@ REMOTESERVICESID = "mjsabiquo"
 
 # Use this on the names
 FRIENDLYNAMESUBS = {"Canada (Central)": "Canada",
-                    "AWS GovCloud \(.*?\)": "GovCloud $1"}
+                    "AWS GovCloud \((.*?)\)": "GovCloud \g<1>"}
 
 
 def SubList(friendlyName):
@@ -75,27 +76,52 @@ def TextInPar(friendlyName):
 
 
 def main():
+    parser = argparse.ArgumentParser(description='Create PCRs!')
+    parser.add_argument("--s", default="mjsabiquo",
+                        type=str, help="Local system")
+    parser.add_argument("--u", default="admin",
+                        type=str, help="Username")
+    parser.add_argument("--p", default="xabiquo",
+                        type=str, help="Password")
+    parser.add_argument("--a", action="store_true",
+                        help="Create all regions not just those in CSVs")
+    parser.add_argument("--c", action="store_true",
+                        help="Use names from CSV files")
+    parser.add_argument("--r", action="store_false",
+                        help="Don't replace text strings")
+    parser.add_argument("--b", action="store_false",
+                        help="Use all text, not just in parenthesis")
+
+    args = parser.parse_args()
+    localsystem = args.s
+    username = args.u
+    password = args.p
+    createAll = args.a
+    useCsvNames = args.c
+    subList = args.r
+    removeParenthesis = args.b
+
     # Pass in the name of local system, username and password
-    localsystem = sys.argv[1]
-    username = sys.argv[2]
-    password = sys.argv[3]
+    # localsystem = sys.argv[1]
+    # username = sys.argv[2]
+    # password = sys.argv[3]
     # Optional arguments:
     # create all regions = ALL (NOTLL by default)
     # if present, use CSV names = USECSV
     # substitute list = SUBL
-    # use text in parenthisis = INPA
-    createAll = "NOTALL"
-    useCsvNames = "USECSV"
-    subList = "SUBL"
-    removeParenthesis = "INPA"
-    if sys.argv[4]:
-        createAll = sys.argv[4]
-    if sys.argv[5]:
-        useCsvNames = sys.argv[5]
-    if sys.argv[6]:
-        subList = sys.argv[6]
-    if sys.argv[7]:
-        removeParenthesis = sys.argv[7]
+    # # use text in parenthisis = INPA
+    # createAll = "NOTALL"
+    # useCsvNames = "USECSV"
+    # subList = "SUBL"
+    # removeParenthesis = "INPA"
+    # if sys.argv[4]:
+    #     createAll = sys.argv[4]
+    # if sys.argv[5]:
+    #     useCsvNames = sys.argv[5]
+    # if sys.argv[6]:
+    #     subList = sys.argv[6]
+    # if sys.argv[7]:
+    #     removeParenthesis = sys.argv[7]
 
     API_URL = "https://" + localsystem + LOCALDOMAINAPI
     api = Abiquo(API_URL, auth=(username, password), verify=False)
@@ -163,13 +189,15 @@ def main():
                 code, providerRegions = providerHT.follow('regions').get(
                     headers={'Accept': 'application/vnd.abiquo.regions+json'})
 
-                if createAll.lower() == "all":
-                    selRegs = copy.deepcopy(providerRegions)
+                if createAll is True:
+                    selRegs = providerRegions
                 else:
                     # Filter provider regions by region list from input files
-                    selRegs = list(filter(lambda regi:
-                                          regi.json["providerId"] in regsToCreate,
-                                          providerRegions))
+                    selRegs = list(
+                        filter(
+                            lambda regi:
+                                regi.json["providerId"] in regsToCreate,
+                                providerRegions))
 
                 for sreg in selRegs:
                     print("REGION -----: ", sreg.name)
@@ -188,13 +216,13 @@ def main():
                                       "href": regionSelfLink["href"]}
                     # Create friendly name with Abiquo name
                     pcrBaseName = sreg.name[:]
-                    if useCsvNames.lower() == "usecsv":
+                    if useCsvNames is True:
                         if sreg.providerId in regsToCreate:
                             pcrBaseName = regsToCreate[sreg.providerId][:]
 
-                    if subList.lower() == "subl":
+                    if subList is True:
                         pcrBaseName = SubList(pcrBaseName)
-                    if removeParenthesis.lower() == "inpa":
+                    if removeParenthesis is True:
                         pcrBaseName = TextInPar(pcrBaseName)
 
                     pcrName = pcrBaseName + " (" + sreg.providerId + ")"
