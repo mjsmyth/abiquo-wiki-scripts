@@ -101,28 +101,6 @@ def main():
     subList = args.r
     removeParenthesis = args.b
 
-    # Pass in the name of local system, username and password
-    # localsystem = sys.argv[1]
-    # username = sys.argv[2]
-    # password = sys.argv[3]
-    # Optional arguments:
-    # create all regions = ALL (NOTLL by default)
-    # if present, use CSV names = USECSV
-    # substitute list = SUBL
-    # # use text in parenthisis = INPA
-    # createAll = "NOTALL"
-    # useCsvNames = "USECSV"
-    # subList = "SUBL"
-    # removeParenthesis = "INPA"
-    # if sys.argv[4]:
-    #     createAll = sys.argv[4]
-    # if sys.argv[5]:
-    #     useCsvNames = sys.argv[5]
-    # if sys.argv[6]:
-    #     subList = sys.argv[6]
-    # if sys.argv[7]:
-    #     removeParenthesis = sys.argv[7]
-
     API_URL = "https://" + localsystem + LOCALDOMAINAPI
     api = Abiquo(API_URL, auth=(username, password), verify=False)
     # Another option:
