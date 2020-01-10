@@ -57,9 +57,8 @@ PCRREMOTESERVICES = ["NARS", "VIRTUALSYSTEMMONITOR",
 REMOTESERVICESID = "mjsabiquo"
 
 # Use this on the names
-FRIENDLYNAMESUBS = {"Canada (Central)": "Canada",
-                    "AWS GovCloud \((.*?)\)": "GovCloud \g<1>"}
-
+FRIENDLYNAMESUBS = {"Canada (Central)": "Canada Central",
+                    "AWS GovCloud \((.*?)\)": "AWS GovCloud \g<1>"}
 
 def SubList(friendlyName):
     # Do some initial substituations from exception list above
