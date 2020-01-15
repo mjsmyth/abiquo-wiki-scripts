@@ -23,7 +23,7 @@
 import copy
 import json
 from abiquo.client import Abiquo
-from abiquo.client import check_response
+#from abiquo.client import check_response
 import sys
 
 # For test environment disable SSL warning
@@ -35,7 +35,17 @@ DNATPORTORIGINAL = 36911
 DNATPORTTRANSLATED = 22
 DNATPROTOCOL = "TCP"
 VMLABEL = "NATADD"
-LOCALDOMAINAPI = ".abq.example.com/api"
+LOCALDOMAINAPI = ".bcn.abiquo.com/api"
+
+
+def get_link(dto, key="rel", value="edit"):
+    return next((link for link in dto.json['links']
+                if link[key] == value), None)
+
+
+def search_links(dto, searchkey="rel", searchvalue):
+    next((link for link in dto.json['links']
+         if searchvalue in link), None)
 
 
 def main():
@@ -59,7 +69,7 @@ def main():
     code, virtualmachines = api.cloud.virtualmachines.get(
         headers={'Accept': 'application/vnd.abiquo.virtualmachines+json'},
         params={'vmlabel': VMLABEL})
-    check_response(201, code, virtualmachines)
+#    check_response(201, code, virtualmachines)
     print("Get VM, Response code is: ", code)
 
 # Check that there is only one VM with the label,
@@ -67,22 +77,26 @@ def main():
     if virtualmachines.totalSize > 1:
         print("Warning! Multiple VMs with same label!")
     for vm in virtualmachines:
+        print("VM links: ", json.dumps(vm.links, indent=2))
         dnatportorigin = dnatportorigin + 1
         print("NATADD VM: ", str(vm.label))
-        if vm.natrules:
-            print("Warning! VM already has NAT Rules!")
-            continue
+        # if vm.natrules:
+        #     print("Warning! VM already has NAT Rules!")
+        #     continue
         if not vm.nic0:
             print("Warning! VM has no NICs")
             break
         else:
             # Get link to any private IPs in the VM to use in NAT rules
-            privateIPLinks = list(filter(
-                lambda vmlink: "privateip" in vmlink["type"],
-                vm.json["links"]))
-
+            # privateIPLinks = list(filter(
+            #     lambda vmlink: "privateip" in vmlink["type"],
+            #     vm.json["links"]))
             # Use the first private IP
-            pipLink = privateIPLinks[0]
+            #     pipLink = privateIPLinks[0]
+            niccc = vm.links
+            print("Here is nic0: ", json.dumps(niccc, indent=2))
+#            print("Let's see nic0: ", json.dumps(niccc._extract_link('self'), indent=2))
+            pipLink = vm._extract_link('nic0')
             print("Private IP link:", json.dumps(pipLink, indent=2))
 
             # Get VDC of VM (use in part 2 also)
@@ -107,9 +121,13 @@ def main():
             print("ndsnaip: ", json.dumps(ndsnaip.json, indent=2))
 
             # Get the self link of the NAT IP
-            natipLinks = list(filter(lambda link: link["rel"] == "self",
-                                     ndsnaip.json["links"]))
-            natipLink = natipLinks[0]
+#            natipLinks = list(filter(lambda link: link["rel"] == "self",
+#                                    ndsnaip.json["links"]))
+
+            natipLinks = ndsnaip._extract_link('self')
+            print("natipLinks: ", json.dumps(natipLinks, indent=2))
+            natipLink = copy.deepcopy(natipLinks)
+#            natipLink = natipLinks
             print("natipLink: ", json.dumps(natipLink, indent=2))
 
             # Create NAT rules with private IP/NAT IP
@@ -154,13 +172,13 @@ def main():
             vm.json["natrules"] = addnatrules[:]
 
             # Send a PUT request to the VM edit link and update the VM
-            code, vmaddnr = vm.follow('edit').put(
-                headers={'accept': 'application/vnd.abiquo.acceptedrequest+json',
-                         'content-type': 'application/vnd.abiquo.virtualmachine+json'},
-                data=json.dumps(vm.json))
+            # code, vmaddnr = vm.follow('edit').put(
+            #     headers={'accept': 'application/vnd.abiquo.acceptedrequest+json',
+            #              'content-type': 'application/vnd.abiquo.virtualmachine+json'},
+            #     data=json.dumps(vm.json))
 
-            # Response code should be 2XX depending on deployed/undeployed VM
-            print("Update VM, response code is: ", code)
+            # # Response code should be 2XX depending on deployed/undeployed VM
+            # print("Update VM, response code is: ", code)
 
 
 # Calls the main() function
