@@ -10,16 +10,21 @@
 # * Can specify remote services by IP in this file
 # * Configure local domain in this file
 #
+# Constants:
+# - Remote services ID
+# - Local domain name
+# - Text substitution strings
+#
 # Arguments (separated by spaces):
 # * name of local system
 # * Abiquo username
 # * Abiquo password
 #
 # Optional arguments (for false send nonvalues as placeholders):
-# * ALL - create all regions from Abiquo
-# * USECSV - if present, use name from CSV file
-# * SUBL - if present, use substitution list as defined in this file
-# * INPA - if parenthesis, use only text in parenthesis (e.g N. Virginia)
+# * -a - create all regions from Abiquo
+# * -c - if present, use name from CSV file
+# * -r - if present, use substitution list as defined in this file
+# * -b - if parenthesis, use only text in parenthesis (e.g N. Virginia)
 #
 # Steps:
 # * Get existing remote services (match IP of remote services)
@@ -78,15 +83,15 @@ def TextInPar(friendlyName):
 def main():
     parser = argparse.ArgumentParser(description='Create PCRs!')
     parser.add_argument("--s", default="mjsabiquo",
-                        type=str, help="Local system")
+                        type=str, help="Local system, default mjsabiquo")
     parser.add_argument("--u", default="admin",
-                        type=str, help="Username")
+                        type=str, help="Username, default admin")
     parser.add_argument("--p", default="xabiquo",
-                        type=str, help="Password")
+                        type=str, help="Password, default xabiquo")
     parser.add_argument("--a", action="store_true",
                         help="Create all regions not just those in CSVs")
     parser.add_argument("--c", action="store_true",
-                        help="Use names from CSV files")
+                        help="Use region names from CSV files, or Abiquo")
     parser.add_argument("--r", action="store_false",
                         help="Don't replace text strings from script")
     parser.add_argument("--b", action="store_false",
