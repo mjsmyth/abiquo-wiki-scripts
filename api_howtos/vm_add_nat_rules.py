@@ -43,9 +43,9 @@ def get_link(dto, key="rel", value="edit"):
                 if link[key] == value), None)
 
 
-def search_links(dto, searchkey="rel", searchvalue):
-    next((link for link in dto.json['links']
-         if searchvalue in link), None)
+def search_links(dto, searchkey="rel", searchvalue="edit"):
+    return (list(link for link in dto.json['links']
+                 if searchvalue in link[searchkey]))
 
 
 def main():
@@ -93,11 +93,16 @@ def main():
             #     vm.json["links"]))
             # Use the first private IP
             #     pipLink = privateIPLinks[0]
-            niccc = vm.links
-            print("Here is nic0: ", json.dumps(niccc, indent=2))
-#            print("Let's see nic0: ", json.dumps(niccc._extract_link('self'), indent=2))
-            pipLink = vm._extract_link('nic0')
+            pipLink = get_link(vm, 'rel', 'nic0')
+#            niccc = vm.links
+#            print("Here is nic0: ", json.dumps(niccc, indent=2))
+#            print("Let's see nic0: ",
+#               json.dumps(niccc._extract_link('self'), indent=2))
+#            pipLink = vm._extract_link('nic0')
             print("Private IP link:", json.dumps(pipLink, indent=2))
+
+            pLink = search_links(vm, 'type', 'privateip')
+            print("PIP links:", json.dumps(pLink, indent=2))
 
             # Get VDC of VM (use in part 2 also)
             code, vdc = vm.follow('virtualdatacenter').get(
@@ -124,9 +129,9 @@ def main():
 #            natipLinks = list(filter(lambda link: link["rel"] == "self",
 #                                    ndsnaip.json["links"]))
 
-            natipLinks = ndsnaip._extract_link('self')
-            print("natipLinks: ", json.dumps(natipLinks, indent=2))
-            natipLink = copy.deepcopy(natipLinks)
+            natipLink = get_link(ndsnaip, 'rel', 'self')
+#            print("natipLinks: ", json.dumps(natipLinks, indent=2))
+#            natipLink = copy.deepcopy(natipLinks)
 #            natipLink = natipLinks
             print("natipLink: ", json.dumps(natipLink, indent=2))
 
@@ -162,10 +167,11 @@ def main():
             print("dnatrule: ", json.dumps(dnatrule, indent=2))
             addnatrules.append(dnatrule)
 
+            vmEditLink = get_link(vm, 'rel', 'edit')
             # Get edit link of VM to use for put request
-            vmEditLinks = list(filter(
-                lambda link: link["rel"] == "edit", vm.json["links"]))
-            vmEditLink = vmEditLinks[0]
+            # vmEditLinks = list(filter(
+            #     lambda link: link["rel"] == "edit", vm.json["links"]))
+            # vmEditLink = vmEditLinks[0]
             print("vm edit link: ", json.dumps(vmEditLink, indent=2))
 
             # Add the nat rules to the original VM object
