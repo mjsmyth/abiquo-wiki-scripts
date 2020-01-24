@@ -60,6 +60,7 @@ REMOTESERVICESID = "mjsabiquo"
 FRIENDLYNAMESUBS = {"Canada (Central)": "Canada Central",
                     "AWS GovCloud \((.*?)\)": "AWS GovCloud \g<1>"}
 
+
 def SubList(friendlyName):
     # Do some initial substituations from exception list above
     for friendlyNameSub, friendlyNameRep in FRIENDLYNAMESUBS.items():
