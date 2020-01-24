@@ -23,7 +23,7 @@ REMOTESERVICESID = "mjsabiquo"
 
 def main():
 
-    parser = argparse.ArgumentParser(description='Create PCRs!')
+    parser = argparse.ArgumentParser(description='Remove PCRs!')
     parser.add_argument("--s", default="mjsabiquo",
                         type=str, help="Local system")
     parser.add_argument("--u", default="admin",

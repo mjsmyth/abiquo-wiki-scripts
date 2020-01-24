@@ -10,21 +10,16 @@
 # * Can specify remote services by IP in this file
 # * Configure local domain in this file
 #
-# Constants:
-# - Remote services ID
-# - Local domain name
-# - Text substitution strings
-#
 # Arguments (separated by spaces):
 # * name of local system
 # * Abiquo username
 # * Abiquo password
 #
 # Optional arguments (for false send nonvalues as placeholders):
-# * -a - create all regions from Abiquo
-# * -c - if present, use name from CSV file
-# * -r - if present, use substitution list as defined in this file
-# * -b - if parenthesis, use only text in parenthesis (e.g N. Virginia)
+# * ALL - create all regions from Abiquo
+# * USECSV - if present, use name from CSV file
+# * SUBL - if present, use substitution list as defined in this file
+# * INPA - if parenthesis, use only text in parenthesis (e.g N. Virginia)
 #
 # Steps:
 # * Get existing remote services (match IP of remote services)
@@ -57,7 +52,7 @@ PCRREMOTESERVICES = ["NARS", "VIRTUALSYSTEMMONITOR",
 REMOTESERVICESID = "mjsabiquo"
 
 # Use this on the names
-FRIENDLYNAMESUBS = {"Canada \(Central\)": "Canada Central",
+FRIENDLYNAMESUBS = {"Canada (Central)": "Canada Central",
                     "AWS GovCloud \((.*?)\)": "AWS GovCloud \g<1>"}
 
 
@@ -83,15 +78,15 @@ def TextInPar(friendlyName):
 def main():
     parser = argparse.ArgumentParser(description='Create PCRs!')
     parser.add_argument("--s", default="mjsabiquo",
-                        type=str, help="Local system, default mjsabiquo")
+                        type=str, help="Local system")
     parser.add_argument("--u", default="admin",
-                        type=str, help="Username, default admin")
+                        type=str, help="Username")
     parser.add_argument("--p", default="xabiquo",
-                        type=str, help="Password, default xabiquo")
+                        type=str, help="Password")
     parser.add_argument("--a", action="store_true",
                         help="Create all regions not just those in CSVs")
     parser.add_argument("--c", action="store_true",
-                        help="Use region names from CSV files, or Abiquo")
+                        help="Use names from CSV files")
     parser.add_argument("--r", action="store_false",
                         help="Don't replace text strings from script")
     parser.add_argument("--b", action="store_false",
@@ -106,9 +101,7 @@ def main():
     subList = args.r
     removeParenthesis = args.b
 
-    API_URL = "https://5.195.207.244/api"
-#    API_URL = "https://mjsabiquo.bcn.abiquo.com/api"
-#    API_URL = "https://" + localsystem + LOCALDOMAINAPI
+    API_URL = "https://" + localsystem + LOCALDOMAINAPI
     api = Abiquo(API_URL, auth=(username, password), verify=False)
     # Another option:
     #   API_URL = input("Enter Abiquo API URL,
@@ -120,7 +113,8 @@ def main():
 
     # Get the links of the remote services for the post request
     code, remoteServicesList = api.admin.remoteservices.get(
-        headers={'Accept': 'application/vnd.abiquo.remoteservices+json'})
+        headers={'Accept': 'application/vnd.abiquo.remoteservices+json'},
+        params={'has': REMOTESERVICESID})
     print("Get remote services. Response code is: ", code)
 
     pCRBaseLinks = []
