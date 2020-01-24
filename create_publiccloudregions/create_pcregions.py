@@ -21,10 +21,11 @@
 # * Abiquo password
 #
 # Optional arguments (for false send nonvalues as placeholders):
-# * -a - create all regions from Abiquo
-# * -c - if present, use name from CSV file
-# * -r - if present, use substitution list as defined in this file
-# * -b - if parenthesis, use only text in parenthesis (e.g N. Virginia)
+# * --a - create all regions from Abiquo
+# * --c - if present, use name from CSV file
+# * --r - if present, use substitution list as defined in this file
+# * --b - if parenthesis, use only text in parenthesis (e.g N. Virginia)
+# * --e - if present, use exception string (default "china" not case sensitive)
 #
 # Steps:
 # * Get existing remote services (match IP of remote services)
@@ -58,7 +59,8 @@ REMOTESERVICESID = "mjsabiquo"
 
 # Use this on the names
 FRIENDLYNAMESUBS = {"Canada (Central)": "Canada Central",
-                    "AWS GovCloud \((.*?)\)": "AWS GovCloud \g<1>"}
+                    "AWS GovCloud \((.*?)\)": "AWS GovCloud \g<1>",
+                    "uaenorth": "UAE North"}
 
 
 def SubList(friendlyName):
@@ -96,6 +98,8 @@ def main():
                         help="Don't replace text strings from script")
     parser.add_argument("--b", action="store_false",
                         help="Use AWS full name, not just text in parenthesis")
+    parser.add_argument("--e", type=str,
+                        help="Don't create excepted regions, default china")
 
     args = parser.parse_args()
     localsystem = args.s
@@ -105,6 +109,7 @@ def main():
     useCsvNames = args.c
     subList = args.r
     removeParenthesis = args.b
+    dontCreateExcepted = args.e
 
     API_URL = "https://" + localsystem + LOCALDOMAINAPI
     api = Abiquo(API_URL, auth=(username, password), verify=False)
@@ -186,6 +191,14 @@ def main():
                     print("REGION -----: ", sreg.name)
                     print("\tProvider ID: ", sreg.providerId)
 
+                    if dontCreateExcepted:
+                        if (dontCreateExcepted in sreg.name.lower() or
+                                dontCreateExcepted in sreg.providerId.lower()):
+                            print("------------------------------------------")
+                            print("Region not created: Name is", sreg.name,
+                                  "and ProviderId is: ", sreg.providerId)
+                            print("------------------------------------------")
+                            continue
                     # Get self link of region to use for post request
                     regionSelfLinks = list(filter(
                         lambda link: link["rel"] == "self",
