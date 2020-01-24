@@ -25,7 +25,8 @@
 # * --c - if present, use name from CSV file
 # * --r - if present, use substitution list as defined in this file
 # * --b - if parenthesis, use only text in parenthesis (e.g N. Virginia)
-# * --e - if present, use exception string (default "china" not case sensitive)
+# * --e - if present, use exception string (eg "china" not case sensitive)
+# * --p - if present, add a provider code as defined in this file
 #
 # Steps:
 # * Get existing remote services (match IP of remote services)
@@ -51,14 +52,14 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 LOCALDOMAINAPI = ".bcn.abiquo.com/api"
-PROVIDERCODES = {"AMAZON": "AWS", "azurecompute-arm": "AZ"}
+PROVIDERCODES = {"AMAZON": "AWS ", "azurecompute-arm": "Azure "}
 PROVIDERSLIST = ["AMAZON", "azurecompute-arm"]
 PCRREMOTESERVICES = ["NARS", "VIRTUALSYSTEMMONITOR",
                      "VIRTUALFACTORY", "REMOTEACCESS"]
 REMOTESERVICESID = "mjsabiquo"
 
 # Use this on the names
-FRIENDLYNAMESUBS = {"Canada (Central)": "Canada Central",
+FRIENDLYNAMESUBS = {"Canada \(Central\)": "Canada Central",
                     "AWS GovCloud \((.*?)\)": "AWS GovCloud \g<1>",
                     "uaenorth": "UAE North"}
 
@@ -100,6 +101,8 @@ def main():
                         help="Use AWS full name, not just text in parenthesis")
     parser.add_argument("--e", type=str,
                         help="Don't create excepted regions, default china")
+    parser.add_argument("--d", action="store_true",
+                        help="Use a provider code in name as defined")
 
     args = parser.parse_args()
     localsystem = args.s
@@ -110,6 +113,7 @@ def main():
     subList = args.r
     removeParenthesis = args.b
     dontCreateExcepted = args.e
+    useProviderCode = args.d
 
     API_URL = "https://" + localsystem + LOCALDOMAINAPI
     api = Abiquo(API_URL, auth=(username, password), verify=False)
@@ -221,7 +225,12 @@ def main():
                     if removeParenthesis is True:
                         pcrBaseName = TextInPar(pcrBaseName)
 
-                    pcrName = pcrBaseName + " (" + sreg.providerId + ")"
+                    pcrNameNoProv = pcrBaseName + " (" + sreg.providerId + ")"
+
+                    if useProviderCode is True:
+                        pcrName = PROVIDERCODES[provider] + pcrNameNoProv
+                    else:
+                        pcrName = pcrNameNoProv[:]
 
                     print("\tAbiquo name: ", pcrName)
                     pubCloudRegion = {"provider": provider,
