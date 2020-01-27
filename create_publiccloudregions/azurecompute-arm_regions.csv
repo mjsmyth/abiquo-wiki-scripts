@@ -1,10 +1,2 @@
-Name,DisplayName,Latitude,Longitude
-eastasia,East Asia is Great,22.267,114.188
-southeastasia,Southeast Asia is Better,1.283,103.833
-ukwest,UK West is Boring,53.427,-3.084
-canadaeast,Canada oh Canada,46.817,-71.217
-uksouth,UK down south,50.941,-0.799
-ukwest,UK West,53.427,-3.084
-westcentralus,West Central US,40.89,-110.234
-westus2,West US 2,47.233,-119.852
-koreacentral,Korea Central,37.5665,126.978
+code,name
+uaenorth,UAE North
