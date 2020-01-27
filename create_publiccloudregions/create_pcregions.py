@@ -29,11 +29,15 @@
 # * --p - if present, add a provider code as defined in this file
 #
 # Steps:
-# * Get existing remote services (match IP of remote services)
+# * Get existing remote services
 #
 # * Get provider region files
-# *  Expects 1 x CSV file for each provider with first two columns:
-# * 1. providerId, 2. friendlyName
+# * Expects 1 x CSV file for each provider
+# * Header line and with first two columns:
+# * 1. Provider ID, 2. Friendly Name. E.g.
+#
+# ** Code, Name
+# ** "uaenorth","UAE North"
 #
 #
 #
@@ -51,13 +55,11 @@ import argparse
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-LOCALDOMAINAPI = ".bcn.abiquo.com/api"
+
 PROVIDERCODES = {"AMAZON": "AWS ", "azurecompute-arm": "Azure "}
 PROVIDERSLIST = ["AMAZON", "azurecompute-arm"]
 PCRREMOTESERVICES = ["NARS", "VIRTUALSYSTEMMONITOR",
                      "VIRTUALFACTORY", "REMOTEACCESS"]
-REMOTESERVICESID = "mjsabiquo"
-
 # Use this on the names
 FRIENDLYNAMESUBS = {"Canada \(Central\)": "Canada Central",
                     "AWS GovCloud \((.*?)\)": "AWS GovCloud \g<1>",
@@ -85,8 +87,8 @@ def TextInPar(friendlyName):
 
 def main():
     parser = argparse.ArgumentParser(description='Create PCRs!')
-    parser.add_argument("--s", default="mjsabiquo",
-                        type=str, help="Local system, default mjsabiquo")
+    parser.add_argument("--s",
+                        type=str, help="URL of Abiquo API")
     parser.add_argument("--u", default="admin",
                         type=str, help="Username, default admin")
     parser.add_argument("--p", default="xabiquo",
@@ -103,9 +105,11 @@ def main():
                         help="Don't create excepted regions, default china")
     parser.add_argument("--d", action="store_true",
                         help="Use a provider code in name as defined")
+    parser.add_argument("--v", type=str,
+                        help="URL of Remote Services, default Abiquo API")
 
     args = parser.parse_args()
-    localsystem = args.s
+    apiUrl = args.s
     username = args.u
     password = args.p
     createAll = args.a
@@ -114,34 +118,33 @@ def main():
     removeParenthesis = args.b
     dontCreateExcepted = args.e
     useProviderCode = args.d
+    remoteServicesIp = args.v
 
-    API_URL = "https://" + localsystem + LOCALDOMAINAPI
-    api = Abiquo(API_URL, auth=(username, password), verify=False)
-    # Another option:
-    #   API_URL = input("Enter Abiquo API URL,
-    #    e.g 'https://abq.example.abiquo.com/api': ")
-    #   username = input("Username: ")
-    #   password = input("Password: ")
-    # Assuming test environment with self-signed certificate
-    #   api = Abiquo(API_URL, auth=(username, password), verify=False)
+    api = Abiquo(apiUrl, auth=(username, password), verify=False)
 
     # Get the links of the remote services for the post request
     code, remoteServicesList = api.admin.remoteservices.get(
-        headers={'Accept': 'application/vnd.abiquo.remoteservices+json'},
-        params={'has': REMOTESERVICESID})
+        headers={'Accept': 'application/vnd.abiquo.remoteservices+json'})
     print("Get remote services. Response code is: ", code)
+    # Assuming not more than a page of remote services
 
     pCRBaseLinks = []
     print("REMOTE SERVICES ---")
     for remoteService in remoteServicesList:
         # Get the links for public cloud remote services
-        rsLinks = list(filter(lambda link:
-                       link["title"] in PCRREMOTESERVICES,
-                       remoteService.json["links"]))
-
+        rsAllLinks = list(filter(lambda link:
+                                 link["title"] in PCRREMOTESERVICES,
+                                 remoteService.json["links"]))
+        # If user has specified an RS IP with --v option
+        if remoteServicesIp:
+            rsLinks = list(filter
+                           (lambda ilink: remoteServicesIp in ilink["href"]),
+                           rsAllLinks)
+        else:
+            rsLinks = rsAllLinks[:]
         for rsLink in rsLinks:
+            # Create links to remote services for PCR object
             print("Remote Service: ", rsLink["title"])
-            # print("rsLink: ", json.dumps(rsLink, indent=2))
             rsPostLink = copy.deepcopy(rsLink)
             rsPostLink["rel"] = "remoteservice"
             pCRBaseLinks.append(rsPostLink)
@@ -199,7 +202,8 @@ def main():
                         if (dontCreateExcepted in sreg.name.lower() or
                                 dontCreateExcepted in sreg.providerId.lower()):
                             print("------------------------------------------")
-                            print("Region not created: Name is", sreg.name,
+                            print("Excepted region not created: Name is",
+                                  sreg.name,
                                   "and ProviderId is: ", sreg.providerId)
                             print("------------------------------------------")
                             continue
