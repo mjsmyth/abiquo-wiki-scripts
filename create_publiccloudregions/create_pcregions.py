@@ -32,13 +32,16 @@
 # * Get existing remote services
 #
 # * Get provider region files
-# * Expects 1 x CSV file for each provider
+# * To use names from CSV files or create only the regions in the CSVs:
+# * Create 1 x CSV file for each provider
+# * file name is {provider}_regions.csv:
+# ** amazon_regions.csv
+# ** azurecompute-arm_regions.csv
 # * Header line and with first two columns:
-# * 1. Provider ID, 2. Friendly Name. E.g.
-#
+# * 1. Provider ID, 2. Friendly Name. E.g.:
 # ** Code, Name
 # ** "uaenorth","UAE North"
-#
+# **
 #
 #
 #
@@ -165,25 +168,27 @@ def main():
         pCRBaseLinks.append(rsPostLink)
 
     # Create a dictionary with providerId and friendlyName from user file
+    # if user file is required (use CSV names and/or don't create All)
     regsToCreate = {}
-    for providerCode in PROVIDERSLIST:
-        provider_file = providerCode.lower() + "_regions.csv"
-        with open(provider_file) as providerregionsfile:
-            header_row = 0
-            regionslist = csv.reader(providerregionsfile, delimiter=",")
-            for row in regionslist:
-                # Discard the first row because it is a header
-                if header_row == 0:
-                    header_row = 1
-                    continue
-                providerId = row[0]
-                csvName = row[1]
-                # print("providerId: ", providerId,
-                #      " friendlyName: ", friendlyName)
-                regsToCreate[providerId] = csvName[:]
-    print("REGIONS IN CSV FILES ---:")
-    for pcr, fna in regsToCreate.items():
-        print("region: ", pcr, "\tcsvname: ", fna)
+    if (useCsvNames is True or createAll is False):
+        for providerCode in PROVIDERSLIST:
+            provider_file = providerCode.lower() + "_regions.csv"
+            with open(provider_file) as providerregionsfile:
+                header_row = 0
+                regionslist = csv.reader(providerregionsfile, delimiter=",")
+                for row in regionslist:
+                    # Discard the first row because it is a header
+                    if header_row == 0:
+                        header_row = 1
+                        continue
+                    providerId = row[0]
+                    csvName = row[1]
+                    # print("providerId: ", providerId,
+                    #      " friendlyName: ", friendlyName)
+                    regsToCreate[providerId] = csvName[:]
+        print("REGIONS IN CSV FILES ---:")
+        for pcr, fna in regsToCreate.items():
+            print("region: ", pcr, "\tcsvname: ", fna)
 
     # Get regions for provider type
     code, hypervisorTypes = api.config.hypervisortypes.get(
