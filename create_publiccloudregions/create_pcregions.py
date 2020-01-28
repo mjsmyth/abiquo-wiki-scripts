@@ -262,6 +262,8 @@ def main():
                     pubCloudRegion["links"] = pCRBaseLinks[:]
                     pubCloudRegion["links"].append(regionPostLink)
 
+                    # print("PCR: ", json.dumps(pubCloudRegion, indent=2))
+
                     # Create a public cloud region
                     code, createdpcr = api.admin.publiccloudregions.post(
                         headers={'accept': 'application/vnd.abiquo.publiccloudregion+json',
