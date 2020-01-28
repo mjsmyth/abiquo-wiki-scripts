@@ -5,40 +5,44 @@
 # ============
 # Environment: With access to internet
 #
+# Dependencies:
+# abiquo-api installed with pip3
+#
+# Example:
+# python3 create_pcregions.py --s "https://mjsabiquo.bcn.abiquo.com/api" --u cloudadmin --p cloudadmin --a --e china --d
+#
 # Requires:
 # * Remote services registered in Abiquo
-# * Can specify remote services by IP in this file
-# * Configure local domain in this file
+# * Can specify remote services by IP with option
 #
 # Constants:
-# - Remote services ID
-# - Local domain name
+# - Provider list
+# - Provider code list
+# - PCR remote services list
 # - Text substitution strings
 #
 # Arguments (separated by spaces):
-# * name of local system
-# * Abiquo username
-# * Abiquo password
+# * --a - URL of the Abiquo API
+# * --u - Abiquo username
+# * --p - Abiquo password
 #
-# Optional arguments (for false send nonvalues as placeholders):
-# * --a - create all regions from Abiquo
+# Optional arguments:
+# * --a - if present, create all regions from Abiquo (otherwise from CSV file)
 # * --c - if present, use name from CSV file
 # * --r - if present, use substitution list as defined in this file
 # * --b - if parenthesis, use only text in parenthesis (e.g N. Virginia)
 # * --e - if present, use exception string (eg "china" not case sensitive)
-# * --p - if present, add a provider code as defined in this file
+# * --d - if present, add a provider code as defined in this file
+# * --v - if present, use this IP for remote services, or use API IP
 #
-# Steps:
-# * Get existing remote services
 #
-# * Get provider region files
-# * To use names from CSV files or create only the regions in the CSVs:
-# * Create 1 x CSV file for each provider
-# * file name is {provider}_regions.csv:
-# ** amazon_regions.csv
-# ** azurecompute-arm_regions.csv
-# * Header line and with first two columns:
-# * 1. Provider ID, 2. Friendly Name. E.g.:
+# Files:
+# * To use region names from CSV files or create only regions in the CSVs
+# * you MUST create 1 x CSV file for each provider with file name -
+# * {provider}_regions.csv: amazon_regions.csv, azurecompute-arm_regions.csv
+# *
+# * 1 x Header line and mandatory columns: 1. Provider ID, 2. Friendly Name
+# * Example CSV file:
 # ** Code, Name
 # ** "uaenorth","UAE North"
 # **
@@ -135,8 +139,8 @@ def main():
     pCRBaseLinks = []
     print("REMOTE SERVICES ---")
 
-    # Check that the URI of the RS has the right IP
     for remoteService in remoteServicesList:
+        # Check that the URI of the RS has the api ip or supplied IP
         if not remoteServicesIp:
             rsIpAPI = apiUrl[:]
             remoteServicesIpList = re.findall(r'https://(.*?)/api', rsIpAPI)
@@ -147,18 +151,13 @@ def main():
         if rsIpInput in remoteService.json["uri"]:
             print("rsIpInput: ", remoteService.json["uri"])
             rsFromRsIpList.append(remoteService)
+
     rsAllLinks = []
     for remoteServiceFromIp in rsFromRsIpList:
-        # Get the links for public cloud remote services
+        # Get only the links for public cloud remote services
         for rsl in remoteServiceFromIp.json["links"]:
             if rsl["title"] in PCRREMOTESERVICES:
                 rsAllLinks.append(rsl)
-
-        # rsAllLinks = list(filter(lambda link:
-        #                          link["title"] in PCRREMOTESERVICES,
-        #                          remoteServiceFromIp.json["links"]))
-    print("rsAllLinks: ", str(rsAllLinks))
-    # If user has specified an RS IP with --v option
 
     for rsLink in rsAllLinks:
         # Create links to remote services for PCR object
@@ -216,7 +215,7 @@ def main():
 
                 for sreg in selRegs:
                     print("REGION -----: ", sreg.name)
-                    print("\tProvider ID: ", sreg.providerId)
+                    # print("\tProvider ID:\t", sreg.providerId)
 
                     if dontCreateExcepted:
                         if (dontCreateExcepted in sreg.name.lower() or
@@ -256,7 +255,7 @@ def main():
                     else:
                         pcrName = pcrNameNoProv[:]
 
-                    print("\tAbiquo name: ", pcrName)
+                    print("\tAbiquo name:\t", pcrName)
                     pubCloudRegion = {"provider": provider,
                                       "name": pcrName}
                     pubCloudRegion["links"] = pCRBaseLinks[:]
@@ -269,8 +268,16 @@ def main():
                         headers={'accept': 'application/vnd.abiquo.publiccloudregion+json',
                                  'content-type': 'application/vnd.abiquo.publiccloudregion+json'},
                         data=json.dumps(pubCloudRegion))
-                    print("\tCREATE REGION: ", sreg.providerId,
-                          ", Response code: ", code)
+                    print("\tCREATE REGION:\t", sreg.providerId)
+                    print("\tResponse code:\t", code)
+                    message = ""
+                    if code == 201:
+                        message = "Region created successfully. "
+                    elif code == 409:
+                        message = "Region probably already exists. "
+                    else:
+                        message = "Situation unknown. "
+                    print("\tMessage:\t", message)
 
 
 # Calls the main() function
