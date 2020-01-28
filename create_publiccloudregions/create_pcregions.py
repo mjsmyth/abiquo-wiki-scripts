@@ -147,7 +147,7 @@ def main():
             rsIpInput = remoteServicesIpList.pop()
         else:
             rsIpInput = remoteServicesIp
-        print("remoteServicesIp: ", rsIpInput)
+        # print("remoteServicesIp: ", rsIpInput)
         if rsIpInput in remoteService.json["uri"]:
             print("rsIpInput: ", remoteService.json["uri"])
             rsFromRsIpList.append(remoteService)
