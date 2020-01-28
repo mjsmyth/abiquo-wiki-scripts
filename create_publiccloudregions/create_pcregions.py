@@ -106,7 +106,7 @@ def main():
     parser.add_argument("--d", action="store_true",
                         help="Use a provider code in name as defined")
     parser.add_argument("--v", type=str,
-                        help="URL of Remote Services, default Abiquo API")
+                        help="URL of Remote Services, or use API URl")
 
     args = parser.parse_args()
     apiUrl = args.s
@@ -128,26 +128,41 @@ def main():
     print("Get remote services. Response code is: ", code)
     # Assuming not more than a page of remote services
 
+    rsFromRsIpList = []
     pCRBaseLinks = []
     print("REMOTE SERVICES ---")
+
+    # Check that the URI of the RS has the right IP
     for remoteService in remoteServicesList:
-        # Get the links for public cloud remote services
-        rsAllLinks = list(filter(lambda link:
-                                 link["title"] in PCRREMOTESERVICES,
-                                 remoteService.json["links"]))
-        # If user has specified an RS IP with --v option
-        if remoteServicesIp:
-            rsLinks = list(filter
-                           (lambda ilink: remoteServicesIp in ilink["href"]),
-                           rsAllLinks)
+        if not remoteServicesIp:
+            rsIpAPI = apiUrl[:]
+            remoteServicesIpList = re.findall(r'https://(.*?)/api', rsIpAPI)
+            rsIpInput = remoteServicesIpList.pop()
         else:
-            rsLinks = rsAllLinks[:]
-        for rsLink in rsLinks:
-            # Create links to remote services for PCR object
-            print("Remote Service: ", rsLink["title"])
-            rsPostLink = copy.deepcopy(rsLink)
-            rsPostLink["rel"] = "remoteservice"
-            pCRBaseLinks.append(rsPostLink)
+            rsIpInput = remoteServicesIp
+        print("remoteServicesIp: ", rsIpInput)
+        if rsIpInput in remoteService.json["uri"]:
+            print("rsIpInput: ", remoteService.json["uri"])
+            rsFromRsIpList.append(remoteService)
+    rsAllLinks = []
+    for remoteServiceFromIp in rsFromRsIpList:
+        # Get the links for public cloud remote services
+        for rsl in remoteServiceFromIp.json["links"]:
+            if rsl["title"] in PCRREMOTESERVICES:
+                rsAllLinks.append(rsl)
+
+        # rsAllLinks = list(filter(lambda link:
+        #                          link["title"] in PCRREMOTESERVICES,
+        #                          remoteServiceFromIp.json["links"]))
+    print("rsAllLinks: ", str(rsAllLinks))
+    # If user has specified an RS IP with --v option
+
+    for rsLink in rsAllLinks:
+        # Create links to remote services for PCR object
+        print("Remote Service: ", rsLink["title"])
+        rsPostLink = copy.deepcopy(rsLink)
+        rsPostLink["rel"] = "remoteservice"
+        pCRBaseLinks.append(rsPostLink)
 
     # Create a dictionary with providerId and friendlyName from user file
     regsToCreate = {}
