@@ -9,7 +9,7 @@
 # abiquo-api installed with pip3
 #
 # Example:
-# python3 create_pcregions.py --s "https://mjsabiquo.bcn.abiquo.com/api" --u cloudadmin --p cloudadmin --a --e china --d
+# python3 create_pcregions.py --s https://abq.bcn.abiquo.com/api --u cloudadmin --p cloudadmin --a --e china --d --v rs.bcn.abiquo.com
 #
 # Requires:
 # * Remote services registered in Abiquo
@@ -113,7 +113,7 @@ def main():
     parser.add_argument("--d", action="store_true",
                         help="Use a provider code in name as defined")
     parser.add_argument("--v", type=str,
-                        help="URL of Remote Services, or use API URl")
+                        help="IP of Remote Services, or use API IP")
 
     args = parser.parse_args()
     apiUrl = args.s
@@ -274,7 +274,7 @@ def main():
                     if code == 201:
                         message = "Region created successfully. "
                     elif code == 409:
-                        message = "Region probably already exists. "
+                        message = "Could not create region. "
                     else:
                         message = "Situation unknown. "
                     print("\tMessage:\t", message)
