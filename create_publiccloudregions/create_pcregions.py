@@ -5,40 +5,47 @@
 # ============
 # Environment: With access to internet
 #
+# Dependencies:
+# abiquo-api installed with pip3
+#
+# Example:
+# python3 create_pcregions.py --s https://abq.bcn.abiquo.com/api --u cloudadmin --p cloudadmin --a --e china --d --v rs.bcn.abiquo.com
+#
 # Requires:
 # * Remote services registered in Abiquo
-# * Can specify remote services by IP in this file
-# * Configure local domain in this file
+# * Can specify remote services by IP with option
 #
 # Constants:
-# - Remote services ID
-# - Local domain name
+# - Provider list
+# - Provider code list
+# - PCR remote services list
 # - Text substitution strings
 #
 # Arguments (separated by spaces):
-# * name of local system
-# * Abiquo username
-# * Abiquo password
+# * --a - URL of the Abiquo API
+# * --u - Abiquo username
+# * --p - Abiquo password
 #
-# Optional arguments (for false send nonvalues as placeholders):
-# * --a - create all regions from Abiquo
+# Optional arguments:
+# * --a - if present, create all regions from Abiquo (otherwise from CSV file)
 # * --c - if present, use name from CSV file
 # * --r - if present, use substitution list as defined in this file
 # * --b - if parenthesis, use only text in parenthesis (e.g N. Virginia)
 # * --e - if present, use exception string (eg "china" not case sensitive)
-# * --p - if present, add a provider code as defined in this file
+# * --d - if present, add a provider code as defined in this file
+# * --v - if present, use this IP for remote services, or use API IP
 #
-# Steps:
-# * Get existing remote services
 #
-# * Get provider region files
-# * Expects 1 x CSV file for each provider
-# * Header line and with first two columns:
-# * 1. Provider ID, 2. Friendly Name. E.g.
-#
+# Files:
+# * To use region names from CSV files or create only regions in the CSVs
+# * you MUST create 1 x CSV file for each provider with file name -
+# * {provider}_regions.csv: amazon_regions.csv, azurecompute-arm_regions.csv
+# *
+# * 1 x Header line and mandatory columns: 1. Provider ID, 2. Friendly Name
+# * Example CSV file:
 # ** Code, Name
 # ** "uaenorth","UAE North"
-#
+# **
 #
 #
 #
@@ -106,7 +113,7 @@ def main():
     parser.add_argument("--d", action="store_true",
                         help="Use a provider code in name as defined")
     parser.add_argument("--v", type=str,
-                        help="URL of Remote Services, default Abiquo API")
+                        help="IP of Remote Services, or use API IP")
 
     args = parser.parse_args()
     apiUrl = args.s
@@ -128,47 +135,59 @@ def main():
     print("Get remote services. Response code is: ", code)
     # Assuming not more than a page of remote services
 
+    rsFromRsIpList = []
     pCRBaseLinks = []
     print("REMOTE SERVICES ---")
+
     for remoteService in remoteServicesList:
-        # Get the links for public cloud remote services
-        rsAllLinks = list(filter(lambda link:
-                                 link["title"] in PCRREMOTESERVICES,
-                                 remoteService.json["links"]))
-        # If user has specified an RS IP with --v option
-        if remoteServicesIp:
-            rsLinks = list(filter
-                           (lambda ilink: remoteServicesIp in ilink["href"]),
-                           rsAllLinks)
+        # Check that the URI of the RS has the api ip or supplied IP
+        if not remoteServicesIp:
+            rsIpAPI = apiUrl[:]
+            remoteServicesIpList = re.findall(r'https://(.*?)/api', rsIpAPI)
+            rsIpInput = remoteServicesIpList.pop()
         else:
-            rsLinks = rsAllLinks[:]
-        for rsLink in rsLinks:
-            # Create links to remote services for PCR object
-            print("Remote Service: ", rsLink["title"])
-            rsPostLink = copy.deepcopy(rsLink)
-            rsPostLink["rel"] = "remoteservice"
-            pCRBaseLinks.append(rsPostLink)
+            rsIpInput = remoteServicesIp
+        # print("remoteServicesIp: ", rsIpInput)
+        if rsIpInput in remoteService.json["uri"]:
+            print("rsIpInput: ", remoteService.json["uri"])
+            rsFromRsIpList.append(remoteService)
+
+    rsAllLinks = []
+    for remoteServiceFromIp in rsFromRsIpList:
+        # Get only the links for public cloud remote services
+        for rsl in remoteServiceFromIp.json["links"]:
+            if rsl["title"] in PCRREMOTESERVICES:
+                rsAllLinks.append(rsl)
+
+    for rsLink in rsAllLinks:
+        # Create links to remote services for PCR object
+        print("Remote Service: ", rsLink["title"])
+        rsPostLink = copy.deepcopy(rsLink)
+        rsPostLink["rel"] = "remoteservice"
+        pCRBaseLinks.append(rsPostLink)
 
     # Create a dictionary with providerId and friendlyName from user file
+    # if user file is required (use CSV names and/or don't create All)
     regsToCreate = {}
-    for providerCode in PROVIDERSLIST:
-        provider_file = providerCode.lower() + "_regions.csv"
-        with open(provider_file) as providerregionsfile:
-            header_row = 0
-            regionslist = csv.reader(providerregionsfile, delimiter=",")
-            for row in regionslist:
-                # Discard the first row because it is a header
-                if header_row == 0:
-                    header_row = 1
-                    continue
-                providerId = row[0]
-                csvName = row[1]
-                # print("providerId: ", providerId,
-                #      " friendlyName: ", friendlyName)
-                regsToCreate[providerId] = csvName[:]
-    print("REGIONS IN CSV FILES ---:")
-    for pcr, fna in regsToCreate.items():
-        print("region: ", pcr, "\tcsvname: ", fna)
+    if (useCsvNames is True or createAll is False):
+        for providerCode in PROVIDERSLIST:
+            provider_file = providerCode.lower() + "_regions.csv"
+            with open(provider_file) as providerregionsfile:
+                header_row = 0
+                regionslist = csv.reader(providerregionsfile, delimiter=",")
+                for row in regionslist:
+                    # Discard the first row because it is a header
+                    if header_row == 0:
+                        header_row = 1
+                        continue
+                    providerId = row[0]
+                    csvName = row[1]
+                    # print("providerId: ", providerId,
+                    #      " friendlyName: ", friendlyName)
+                    regsToCreate[providerId] = csvName[:]
+        print("REGIONS IN CSV FILES ---:")
+        for pcr, fna in regsToCreate.items():
+            print("region: ", pcr, "\tcsvname: ", fna)
 
     # Get regions for provider type
     code, hypervisorTypes = api.config.hypervisortypes.get(
@@ -196,7 +215,7 @@ def main():
 
                 for sreg in selRegs:
                     print("REGION -----: ", sreg.name)
-                    print("\tProvider ID: ", sreg.providerId)
+                    # print("\tProvider ID:\t", sreg.providerId)
 
                     if dontCreateExcepted:
                         if (dontCreateExcepted in sreg.name.lower() or
@@ -236,19 +255,29 @@ def main():
                     else:
                         pcrName = pcrNameNoProv[:]
 
-                    print("\tAbiquo name: ", pcrName)
+                    print("\tAbiquo name:\t", pcrName)
                     pubCloudRegion = {"provider": provider,
                                       "name": pcrName}
                     pubCloudRegion["links"] = pCRBaseLinks[:]
                     pubCloudRegion["links"].append(regionPostLink)
+
+                    # print("PCR: ", json.dumps(pubCloudRegion, indent=2))
 
                     # Create a public cloud region
                     code, createdpcr = api.admin.publiccloudregions.post(
                         headers={'accept': 'application/vnd.abiquo.publiccloudregion+json',
                                  'content-type': 'application/vnd.abiquo.publiccloudregion+json'},
                         data=json.dumps(pubCloudRegion))
-                    print("\tCREATE REGION: ", sreg.providerId,
-                          ", Response code: ", code)
+                    print("\tCREATE REGION:\t", sreg.providerId)
+                    print("\tResponse code:\t", code)
+                    message = ""
+                    if code == 201:
+                        message = "Region created successfully. "
+                    elif code == 409:
+                        message = "Could not create region. "
+                    else:
+                        message = "Situation unknown. "
+                    print("\tMessage:\t", message)
 
 
 # Calls the main() function
