@@ -1,7 +1,9 @@
 #!/bin/zsh
+#directory_name=$1
+directory_date=$(date "+%Y_%m_%d")
 
 #file_list=`ls -1d /Users/maryjane/Pictures/screenshots/v50 | grep "v50_" | grep "png" | grep -v "d_v50" | awk '{print $0}'`
-directory="/Users/maryjane/Pictures/screenshots/v50/"
+directory="/Users/maryjane/Pictures/screenshots/v50_${directory_date}/"
 output_directory="${directory}output_files/"
 
 file_list=`ls -1 ${directory} | grep "v50_" | grep "png" | awk '{print $0}'`
