@@ -27,21 +27,24 @@ confluence = Confluence(
     password=pwd)
 
 start_next = 0
+returned_size = 1
 
-td = "2019_11_06"
+td = "2020_02_18"
 output_file = "outputDoRelease." + td + ".txt"
 output_dir = "./output_files"
 output_list = []
 
 output_list.append("|| Page ID || Name || Updated || Master present || Attachment || Link ||\n")
 
-while True:
+while returned_size > 0:
     # get draft pages for release searching on "vXXX"
     cql = "space.key={} and (text ~ {})".format(spacekey, release_version)
     print("cql: ", cql)
     results = confluence.cql(cql, limit=200, start=start_next)
     print ("- part a - search for bunch of pages ----------------")
     # pprint(results)
+    returned_size = results["size"]
+
 
     for page in results["results"]:
         pg_id = page["content"]["id"]
@@ -104,25 +107,23 @@ while True:
                     else:
                         output_list.append("| " + mpage_id + "| " + master_page_name + " | (x) | (/) | | [" + spacekey + ":" + master_page_name + "] |\n")
 
-                    new_draft_content = (str(draft_content)).replace("foofoo","barbar")
-                    new_master_page_name = (str(master_page_name)).replace("foofoo","barbar")
+                        new_draft_content = (str(draft_content)).replace("foofoo","barbar")
+                        new_master_page_name = (str(master_page_name)).replace("foofoo","barbar")
 
-                    status = confluence.update_page(
-                        parent_id=None,
-                        page_id=mpage_id,
-                        title=new_master_page_name,
-                        body=new_draft_content)
+                        status = confluence.update_page(
+                            parent_id=None,
+                            page_id=mpage_id,
+                            title=new_master_page_name,
+                            body=new_draft_content)
 
-                    print ("Updated master page with title: ",master_page_name)
-                    print ("----------- EOR -----------------")    
+                        print ("Updated master page with title: ",master_page_name)
+                        print ("----------- EOR -----------------")    
 
         else:
             print ("Page does not have ", release_version, " in name: ", page_links_web_ui)
             output_list.append ("| " + pg_id + " | " + pg_name + " |  |  | | [" + spacekey + ":" + pg_name + "] |\n")            
-    if "next" not in results["_links"]:
-        break
-    else:
-        start_next = int(results["size"]) + 1
+
+    start_next = results["start"] + results["size"]
 
 with open(os.path.join(output_dir,output_file), 'w') as ofil:
     ofil.writelines(output_list)    

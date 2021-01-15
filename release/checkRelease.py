@@ -2,21 +2,23 @@
 # coding=utf-8
 # Python script: checkRelease
 # ---------------------------------------
-# Script designed to check a release 
+# Script designed to check a release
 #
 # Check Release
 # ------------------
 # 1. Get the draft pages
 # 2. Get the real pages
 # 3. Check if the content is the same
-# Log everything as markup table 
+# Log everything as markup table
 #
 # || Page || Updated ||
 # | Backup plugins | (/) |
 #
+
 import os
 from atlassian import Confluence
 from pprint import pprint
+from datetime import datetime
 
 # Get user credentials and space
 site_URL = input("Enter Confluence site URL (no protocol & final slash): ")
@@ -31,21 +33,25 @@ confluence = Confluence(
     password=pwd)
 
 start_next = 0
+returned_size = 1
 
-td = "2019_11_05"
-output_file = "outputCheckRelease." + td + ".txt"
+todaysDate = datetime.today().strftime('%Y-%m-%d')
+
+# td = "2019_11_05"
+output_file = "outputCheckRelease." + todaysDate + ".txt"
 output_dir = "./output_files"
 output_list = []
 
 output_list.append("|| Page ID || Name || Updated || Master present || Attachment || Master || Version || \n")
 
-while True:
+while returned_size > 0:
     # get draft pages for release searching on "vXXX"
     cql = "space.key={} and (text ~ {})".format(spacekey, release_version)
     print("cql: ", cql)
     results = confluence.cql(cql, limit=200, start=start_next)
     print ("- part a - search for bunch of pages ----------------")
     pprint(results)
+    returned_size = results["size"]
 
     for page in results["results"]:
         pg_id = page["content"]["id"]
@@ -54,7 +60,7 @@ while True:
         # check the vXXX in title and not only in the page content
         # specific title search will get vXXX when you use vXX
         page_links_web_ui = str(page["content"]["_links"]["webui"])
-        print ("page_links_web_ui: ",page_links_web_ui)
+        print ("page_links_web_ui: ", page_links_web_ui)
         #print ("-part 1-------get pages with vXXX----------------------")
 
         if release_version.strip().lower() in page_links_web_ui.lower():
@@ -65,7 +71,7 @@ while True:
             else:
                 # Get more page details with expands
                 page_got = confluence.get_page_by_id(
-                    page_id=pg_id, 
+                    page_id=pg_id,
                     expand='ancestors,version,body.storage')
 
                 #print ("-part 2-- got page by ID---------------------------")
@@ -84,18 +90,18 @@ while True:
                 if not confluence.get_page_by_title(
                         space=spacekey,
                         title=master_page_name):
-                    print("Nonexistent page: ",master_page_name)
+                    print("Nonexistent page: ", master_page_name)
                     output_list.append("| " + pg_id + " | " + pg_name + " |  | (-) |  |  | [" + spacekey + ":" + pg_name + "]  |\n")
-                else:        
-                    #mpage = json.loads(str(master_page_json))
+                else:
+                    # mpage = json.loads(str(master_page_json))
                     mpage = confluence.get_page_by_title(
                         space=spacekey,
-                        title=master_page_name)   
+                        title=master_page_name)
 
                     mpage_id = mpage["id"]
                     # pprint(mpage)
-                    print ("Found master page ID: ",mpage_id," Name: ",master_page_name)               
-                    #print ("-part 3---get page by ID with text in storage format------")
+                    print ("Found master page ID: ",mpage_id," Name: ",master_page_name)
+                    # print ("-part 3---get page by ID with text in storage format------")
                     mpage_expanded = confluence.get_page_by_id(
                         page_id=mpage_id,
                         expand='ancestors,body.storage')
@@ -103,17 +109,17 @@ while True:
                     master_page_content = mpage_expanded["body"]["storage"]["value"]
 
                     if draft_content == master_page_content:
-                       	output_list.append("| " + mpage_id + "| " + master_page_name + " | (/) | (/) | | [" + spacekey + ":" + master_page_name + "] | [" + spacekey + ":" + pg_name + "] |\n")
+                        output_list.append("| " + mpage_id + "| " + master_page_name + " | (/) | (/) | | [" + spacekey + ":" + master_page_name + "] | [" + spacekey + ":" + pg_name + "] |\n")
                     else:
                         output_list.append("| " + mpage_id + "| " + master_page_name + " | (x) | (/) | | [" + spacekey + ":" + master_page_name + "] | [" + spacekey + ":" + pg_name + "] |\n")
         else:
             output_list.append ("| " + pg_id + " | " + pg_name + " |  |  | |  | [" + spacekey + ":" + pg_name + "] |\n")
-    if "next" not in results["_links"]:
-        break
-    else:
-        start_next = int(results["size"]) + 1
 
-with open(os.path.join(output_dir,output_file), 'w') as ofil:
-	ofil.writelines(output_list)
+
+    start_next = results["start"] + results["size"]
+
+
+with open(os.path.join(output_dir, output_file), 'w') as ofil:
+    ofil.writelines(output_list)
 
 print ("That's all folks!\n")
