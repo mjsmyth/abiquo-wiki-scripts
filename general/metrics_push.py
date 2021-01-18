@@ -10,7 +10,7 @@
 #   -- API url (https://abiquo.example.com/api)
 # - Optional: VApp name, source metric names, create metric names
 #
-# Requires a VApp with a scaling group
+# Requires a deployed VApp with a scaling group
 #
 # 1. Gets the VApp by name
 # 2. Gets avg metrics for all VMs in the cloud
@@ -141,8 +141,8 @@ def main():
     token = input("Enter token: ")
     apiUrl = input("Enter API URL: ")
     # apiUrl = "https://abiquo.example.com/api"
-    # inVapp = input("Enter a unique VApp name: ")
-    inVapp = "vapp_mjs"
+    inVapp = input("Enter a unique VApp name: ")
+    # inVapp = "vapp_mjs"
     api = Abiquo(apiUrl, auth=TokenAuth(token), verify=False)
     metricsSource = ["abq-cpu_usage", "abq-ram_usage"]
     metricsCreate = ["metric_01", "metric_02", "metric_03"]
