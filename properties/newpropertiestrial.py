@@ -23,6 +23,28 @@ def main():
     propertyFile = 'abiquo.properties'
     dirPropertyFile = inputDir + propertyFile
 
+    STUPIDLIST = ["#device plugins", "#backup plugins"]
+    METRICS = ["cpu", "cpu-mz", "cpu-time", "memory",
+               "memory-swap", "memory-swap2", "memory-vmmemctl",
+               "memory-physical", "memory-host", "disk-latency",
+               "uptime"]
+    PLUGINS = ["amazon", "kvm", "vmx_04",
+               "rackspace-cloudservers-uk",
+               "softlayer", "esx", "vcenter_cluster",
+               "openstack-nova", "packet",
+               "hyperv_301", "oracle-ase-emea",
+               "azurecompute-arm", "oracle-ase-us",
+               "vcd", "xenserver",
+               "digitalocean2", "google-compute-engine",
+               "rackspace-cloudservers-us", "cloudoorsphere",
+               "openstack-neutron", "nsx-gateway",
+               "nsx-nat", "logical", "nsx-ecmp",
+               "omapi", "dnsmasq",
+               "veeam95u4", "veeam10", "networker", "veeam"]
+    DEVICES = ["openstack-neutron", "dnsmasq", "omapi",
+               "nsx-ecmp", "logical",
+               "nsx-nat", "nsx-gateway"]
+
     propertiesList = []
     groupStore = []
     propertyDict = {}
@@ -30,6 +52,7 @@ def main():
     profilesList = []
     commentStore = []
 
+    # groups in the file are separated by spaces
     with codecs.open(dirPropertyFile, 'r', 'utf-8') as f:
         group = ""
         for line in f:
@@ -41,6 +64,7 @@ def main():
                 groupStore.append(group)
                 group = ""
 
+    # separate by the profile section markers
     for group in groupStore:
         if re.search(r"#{10}", group):
             if MOUTBOUNDAPI in group:
@@ -51,76 +75,86 @@ def main():
                     propertyDict[profile] = []
                 if profile not in profilesList:
                     profilesList.append(profile)
+        # separate groups into further groups of properties plus their comments
         else:
             propertyList = []
             comment = ""
             groupLines = group.split("\n")
+            # find all the properties in a group
             pValue = re.finditer(propertySearchString, group)
             if pValue:
                 for pv in pValue:
                     propertyLine = pv.group(0)
                     propertyList.append(propertyLine.strip("\n"))
+                    # add each property to the corresponding propfiles
                     for profile in profiles:
                         propertyDict[profile].append(group)
+            # get comments without whitespace between them
             for groupLine in groupLines:
                 if groupLine[:] not in propertyList:
                     comment += groupLine.strip("#")
+                    if groupLine[:] in STUPIDLIST:
+                        comment = commentStore[-1][-1]
                 else:
-                    # print ("groupLine: ", groupLine, "comment: ", comment)
                     commentStore.append([groupLine, comment])
                     comment = ""
+
     propDict = {}
     propComment = ""
     propRange = ""
-    propNameOccurs = ""
-    propNameWithSpaces = ""
-    numberOfNameOccurrences = {}
 
-    # commentStore has format property, comment, property, property, property.... 
+    # list of all properties with comments
     for line in commentStore:
+
         currentProp = line[0]
         if "=" in currentProp:
             splitProp = currentProp.split("=")
             propDefault = splitProp[1]
-            propFullName = splitProp[0]
-            propName = re.sub(r"^#?\s?", "", propFullName)
+            propName = re.sub(r"^#?\s?", "", splitProp[0])
         else:
             propName = currentProp
             propDefault = ""
+        propName = propName.replace("#", "")
+        propNameList = propName.split(".")
+        # plugins etc are not in first two parts of name
+        # filter list of plugins in each list
+        lastPropNameList = propNameList[2:]
+        metricsGroup = [x for x in lastPropNameList if x in METRICS]
+        if metricsGroup:
+            print("propName metrics: ", propName, metricsGroup)
+
+        devicesGroup = [x for x in lastPropNameList if x in DEVICES]
+        if devicesGroup:
+            print("propName devices: ", propName, devicesGroup)
+
+        pluginsGroup = [x for x in lastPropNameList if x in PLUGINS]
+        if pluginsGroup:
+            print("propName devices: ", propName, pluginsGroup)
+
         propDict[propName] = [propName, propDefault]
-        propNameWithSpaces = propName.replace(".", " ") + " "
+
         if line[1]:
             propRange = ""
             propComment = line[1]
+            propComment = re.sub(r"^\s?", "", propComment)
             propRangeFound = re.search(
                 r"(Range[\s]*?:[\s]*?)(.*)", propComment)
             if propRangeFound:
                 propRangeString = propRangeFound.group(0)
                 propRange = propRangeFound.group(2)
                 propComment = re.sub(propRangeString, "", propComment)
-            # if there's a comment it may be a new property
-            if len(propNameOccurs) > len(propNameWithSpaces):
-                numberOfNameOccurrences = Counter(
-                    propNameOccurs.split(" "))
-                print ("num of name occ: ",
-                       json.dumps(numberOfNameOccurrences, indent=2))
-
-            numberOfNameOccurrences = {}
-            propNameOccurs = propNameWithSpaces[:]
-        else:
-            propComment = ""
-            propNameOccurs += propNameWithSpaces[:]
 
         propDict[propName].append(propComment)
         propDict[propName].append(propRange)
-        propDict[propName].append(numberOfNameOccurrences)
-
     propertiesList.append(propDict)
+
 #    for props in propertiesList:
 #        print(json.dumps(props, indent=2))
 
 
-
+        # numberOfNameOccurrences = Counter(
+        #     propNameOccurs.split(" "))
+        # propDict[propName].append(numberOfNameOccurrences)
 
                     # propertyAndDefault = pv[0]
                     # print("propertyAndDefault: ", propertyAndDefault)
