@@ -9,6 +9,61 @@ import json
 import copy
 
 
+def processFile(dirPropertyFile, NOTPROFILE, STARTCOMMENT,
+                MOUTBOUNDAPI, propertySearchString,
+                groupStore, propertyDict,
+                profilesList, commentStore):
+    # groups in the file are separated by spaces
+    profiles = []
+    with codecs.open(dirPropertyFile, 'r', 'utf-8') as f:
+        group = ""
+        for line in f:
+            if not re.search("^\n", line):
+                group += line
+            elif (NOTPROFILE in group or STARTCOMMENT in group):
+                group = ""
+            else:
+                groupStore.append(group)
+                group = ""
+
+    # separate by the profile section markers
+    for group in groupStore:
+        if re.search(r"#{10}", group):
+            if MOUTBOUNDAPI in group:
+                group.replace(MOUTBOUNDAPI, "MOUTBOUNDAPI")
+            profiles = re.findall(r"[A-Z,1-9]+", group)
+            for profile in profiles:
+                if profile not in propertyDict:
+                    propertyDict[profile] = []
+                if profile not in profilesList:
+                    profilesList.append(profile)
+        # separate groups into further groups of properties plus their comments
+        else:
+            propertyList = []
+            comment = ""
+            groupLines = group.split("\n")
+            # find all the properties in a group that may include comments
+            pValue = re.finditer(propertySearchString, group)
+            if pValue:
+                for pv in pValue:
+                    propertyLineRaw = pv.group(0)
+                    propertyLine = propertyLineRaw.strip("\n")
+                    propertyName = re.sub(r"^#", "", propertyLine)
+                    propertyName = re.sub(r"\=.*?$", "", propertyName)
+                    propertyList.append(propertyLine)
+                    # add each property to the corresponding propfiles
+                    for profile in profiles:
+                        propertyDict[profile].append(propertyName)
+            # get comments without whitespace between them and their properties
+            for groupLine in groupLines:
+                if groupLine[:] not in propertyList:
+                    comment += groupLine.strip("#")
+                else:
+                    commentStore.append([groupLine, comment])
+                    comment = ""
+    return(profilesList, commentStore, propertyDict)
+
+
 def processGroups(propName):
     # METRICS = ["cpu", "cpu-mz", "cpu-time", "memory",
     #            "memory-swap", "memory-swap2", "memory-vmmemctl",
@@ -67,54 +122,15 @@ def main():
     propertiesDict = {}
     groupStore = []
     propertyDict = {}
-    profiles = []
     profilesList = []
     commentStore = []
 
-    # groups in the file are separated by spaces
-    with codecs.open(dirPropertyFile, 'r', 'utf-8') as f:
-        group = ""
-        for line in f:
-            if not re.search("^\n", line):
-                group += line
-            elif (NOTPROFILE in group or STARTCOMMENT in group):
-                group = ""
-            else:
-                groupStore.append(group)
-                group = ""
-
-    # separate by the profile section markers
-    for group in groupStore:
-        if re.search(r"#{10}", group):
-            if MOUTBOUNDAPI in group:
-                group.replace(MOUTBOUNDAPI, "MOUTBOUNDAPI")
-            profiles = re.findall(r"[A-Z,1-9]+", group)
-            for profile in profiles:
-                if profile not in propertyDict:
-                    propertyDict[profile] = []
-                if profile not in profilesList:
-                    profilesList.append(profile)
-        # separate groups into further groups of properties plus their comments
-        else:
-            propertyList = []
-            comment = ""
-            groupLines = group.split("\n")
-            # find all the properties in a group that may include comments
-            pValue = re.finditer(propertySearchString, group)
-            if pValue:
-                for pv in pValue:
-                    propertyLine = pv.group(0)
-                    propertyList.append(propertyLine.strip("\n"))
-                    # add each property to the corresponding propfiles
-                    for profile in profiles:
-                        propertyDict[profile].append(group)
-            # get comments without whitespace between them and their properties
-            for groupLine in groupLines:
-                if groupLine[:] not in propertyList:
-                    comment += groupLine.strip("#")
-                else:
-                    commentStore.append([groupLine, comment])
-                    comment = ""
+    profilesList, commentStore, propertyDict = \
+        processFile(dirPropertyFile, NOTPROFILE,
+                    STARTCOMMENT, MOUTBOUNDAPI,
+                    propertySearchString,
+                    groupStore, propertyDict,
+                    profilesList, commentStore)
 
     propDict = {}
     propComment = ""
@@ -133,22 +149,28 @@ def main():
             propDefault = ""
         propName = propName.replace("#", "")
 
-        # # Metrics group is not in the file :-p
-        # metricsGroup = [x for x in lastPropNameList if x in METRICS]
-        # if metricsGroup:
-        #     print("propName metrics: ", propName, metricsGroup)
+        propRealName = ""
+        # deal with properties with com. prefix to name
+        if re.match(r"^com.", propName):
+            propRealName = copy.deepcopy(propName)
+            propName = re.sub(r"^com.", "", propName)
+
+        propDict[propName] = {}
+        propDict[propName]["name"] = copy.deepcopy(propName)
+        propDict[propName]["default"] = copy.deepcopy(propDefault)
+        if propRealName:
+            propDict[propName]["realName"] = copy.deepcopy(propRealName)
+
+        # check for property names that are groups
         groupTag, groupPattern, groupName = processGroups(propName)
 
         if groupPattern:
             if groupPattern not in groupDict:
                 groupDict[groupPattern] = {}
             if groupName not in groupDict[groupPattern]:
-                groupDict[groupPattern][groupName] = []
-            groupDict[groupPattern][groupName].append(propName)
-
-        propDict[propName] = {}
-        propDict[propName]["name"] = copy.deepcopy(propName)
-        propDict[propName]["default"] = copy.deepcopy(propDefault)
+                groupDict[groupPattern][groupName] = {}
+            groupDict[groupPattern][groupName][propName] = \
+                copy.deepcopy(groupTag)
 
         if line[1]:
             propRange = ""
@@ -173,8 +195,9 @@ def main():
     count = 0
     groupToRemove = []
     for groupPattern, groupNameDict in groupDict.items():
-        for g, names in groupNameDict.items():
-            count += len(names)
+        for group, names in groupNameDict.items():
+            for name, tag in names.items():
+                count += 1
         if count < 2:
             groupToRemove.append(groupPattern)
         count = 0
@@ -184,6 +207,15 @@ def main():
 
     print(json.dumps(groupDict, indent=2))
 
+    for groupPattern, groupNameDict in groupDict.items():
+        for group, names in groupNameDict.items():
+            for propName, groupTag in names.items():
+                propertiesDict[propName]["groupName"] = group
+                propertiesDict[propName]["groupTag"] = groupTag
+
+    for profile, properties in propertyDict.items():
+        print ("profile: ", profile)
+        print ("--> properties", properties)
     # TO DO:
     # - Add valid group names to properties
     # - Add profiles to properties
