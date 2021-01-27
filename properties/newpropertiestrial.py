@@ -2,20 +2,42 @@
 # New attempt at processing Abiquo properties
 # Hopefully this time it is developer proof
 #
-import codecs
+# import codecs
 import re
 import json
 # from collections import Counter
 import copy
+from datetime import datetime
+import os
 
 
-def processFile(dirPropertyFile, NOTPROFILE, STARTCOMMENT,
+def getPropNameDefault(currentProp):
+    if "=" in currentProp:
+        splitProp = currentProp.split("=")
+        propDefault = splitProp[1]
+        propName = re.sub(r"^#?\s?", "", splitProp[0])
+    else:
+        propName = currentProp
+        propDefault = ""
+    propName = propName.replace("#", "")
+
+    propRealName = ""
+    # deal with properties with com. prefix to name
+    if re.match(r"^com.", propName):
+        propRealName = copy.deepcopy(propName)
+        propName = re.sub(r"^com.", "", propName)
+    return (propName, propRealName, propDefault)
+
+
+def processFile(inputDir, propertyFile, NOTPROFILE, STARTCOMMENT,
                 MOUTBOUNDAPI, propertySearchString,
-                groupStore, propertyDict,
+                groupStore, profileDict,
                 profilesList, commentStore):
     # groups in the file are separated by spaces
     profiles = []
-    with codecs.open(dirPropertyFile, 'r', 'utf-8') as f:
+
+    with open(os.path.join(inputDir, propertyFile), 'r') as f:
+        # with codecs.open(dirPropertyFile, 'r', 'utf-8') as f:
         group = ""
         for line in f:
             if not re.search("^\n", line):
@@ -30,11 +52,13 @@ def processFile(dirPropertyFile, NOTPROFILE, STARTCOMMENT,
     for group in groupStore:
         if re.search(r"#{10}", group):
             if MOUTBOUNDAPI in group:
-                group.replace(MOUTBOUNDAPI, "MOUTBOUNDAPI")
-            profiles = re.findall(r"[A-Z,1-9]+", group)
+                changedGroup = group.replace(MOUTBOUNDAPI, "MOUTBOUNDAPI")
+            else:
+                changedGroup = copy.deepcopy(group)
+            profiles = re.findall(r"[A-Z,1-9]+", changedGroup)
             for profile in profiles:
-                if profile not in propertyDict:
-                    propertyDict[profile] = []
+                # if profile not in propertyDict:
+                #     propertyDict[profile] = []
                 if profile not in profilesList:
                     profilesList.append(profile)
         # separate groups into further groups of properties plus their comments
@@ -46,14 +70,17 @@ def processFile(dirPropertyFile, NOTPROFILE, STARTCOMMENT,
             pValue = re.finditer(propertySearchString, group)
             if pValue:
                 for pv in pValue:
-                    propertyLineRaw = pv.group(0)
-                    propertyLine = propertyLineRaw.strip("\n")
-                    propertyName = re.sub(r"^#", "", propertyLine)
-                    propertyName = re.sub(r"\=.*?$", "", propertyName)
+                    propertyLine = pv.group(0)
+                    propertyLine = propertyLine.strip("\n")
+                    # print("propertyLine: ", propertyLine)
                     propertyList.append(propertyLine)
-                    # add each property to the corresponding propfiles
+
+                    propertyName, blah, blah = getPropNameDefault(propertyLine)
+                    # add each property to the corresponding profiles
                     for profile in profiles:
-                        propertyDict[profile].append(propertyName)
+                        if propertyName not in profileDict:
+                            profileDict[propertyName] = []
+                        profileDict[propertyName].append(profile)
             # get comments without whitespace between them and their properties
             for groupLine in groupLines:
                 if groupLine[:] not in propertyList:
@@ -61,7 +88,7 @@ def processFile(dirPropertyFile, NOTPROFILE, STARTCOMMENT,
                 else:
                     commentStore.append([groupLine, comment])
                     comment = ""
-    return(profilesList, commentStore, propertyDict)
+    return(profilesList, commentStore, profileDict)
 
 
 def processGroups(propName):
@@ -82,9 +109,9 @@ def processGroups(propName):
     NETWORKS = ["openstack-neutron", "dnsmasq", "omapi",
                 "nsx-ecmp", "logical",
                 "nsx-nat", "nsx-gateway"]
-    groupTypes = {"{backupPlugin}": BACKUPS,
-                  "{computePlugin}": PLUGINS,
-                  "{devicePlugin}": NETWORKS}
+    groupTypes = {"\{backupPlugin}": BACKUPS,
+                  "\{computePlugin}": PLUGINS,
+                  "\{devicePlugin}": NETWORKS}
 
     propNameList = propName.split(".")
     # plugins etc are not in first two parts of name
@@ -109,7 +136,13 @@ def main():
     propertySearchString = r"#?\s?((([\w,\-]{2,50}?\.){2,10})([\w,\-]{2,50}))(=?(.*?))\n"
     inputDir = '/Users/maryjane/platform/system-properties/src/main/resources/'
     propertyFile = 'abiquo.properties'
-    dirPropertyFile = inputDir + propertyFile
+    outputSubdir = '/Users/maryjane/abiquo-wiki-scripts/properties/'
+    outputPropertyFile = 'wiki_properties_'
+    #    inputDirPropertyFile = inputDir + propertyFile
+    todaysDate = datetime.today().strftime('%Y-%m-%d')
+    wikiPropertiesFile = outputPropertyFile + todaysDate + ".txt"
+    # inputDirPropertyFile = inputDir + propertyFile
+    # outputDirPropertyFile = outputSubdir + wikiPropertiesFile
 
     # NARSPROPERTY = r"#abiquo\.nars\.async\.pool"
     NARSCOMMENT = ("Maximum number of simultaneous operations on a single "
@@ -121,15 +154,15 @@ def main():
     groupDict = {}
     propertiesDict = {}
     groupStore = []
-    propertyDict = {}
+    profileDict = {}
     profilesList = []
     commentStore = []
 
-    profilesList, commentStore, propertyDict = \
-        processFile(dirPropertyFile, NOTPROFILE,
+    profilesList, commentStore, profileDict = \
+        processFile(inputDir, propertyFile, NOTPROFILE,
                     STARTCOMMENT, MOUTBOUNDAPI,
                     propertySearchString,
-                    groupStore, propertyDict,
+                    groupStore, profileDict,
                     profilesList, commentStore)
 
     propDict = {}
@@ -140,26 +173,15 @@ def main():
     for line in commentStore:
 
         currentProp = line[0]
-        if "=" in currentProp:
-            splitProp = currentProp.split("=")
-            propDefault = splitProp[1]
-            propName = re.sub(r"^#?\s?", "", splitProp[0])
-        else:
-            propName = currentProp
-            propDefault = ""
-        propName = propName.replace("#", "")
+        propName, propRealName, propDefault = getPropNameDefault(currentProp)
 
-        propRealName = ""
-        # deal with properties with com. prefix to name
-        if re.match(r"^com.", propName):
-            propRealName = copy.deepcopy(propName)
-            propName = re.sub(r"^com.", "", propName)
-
-        propDict[propName] = {}
-        propDict[propName]["name"] = copy.deepcopy(propName)
-        propDict[propName]["default"] = copy.deepcopy(propDefault)
+        propDict = {}
+        propDict["name"] = copy.deepcopy(propName)
+        propDict["default"] = copy.deepcopy(propDefault)
         if propRealName:
-            propDict[propName]["realName"] = copy.deepcopy(propRealName)
+            propDict["realName"] = copy.deepcopy(propRealName)
+        else:
+            propDict["realName"] = ""
 
         # check for property names that are groups
         groupTag, groupPattern, groupName = processGroups(propName)
@@ -176,7 +198,7 @@ def main():
             propRange = ""
             propComment = line[1]
             propComment = re.sub(r"^\s?", "", propComment)
-            # deal with the case of interleaving comments
+            # deal with the case of certain interleaving comments
             if propComment in NARSLIST:
                 propComment = NARSCOMMENT
             propRangeFound = re.search(
@@ -186,8 +208,11 @@ def main():
                 propRange = propRangeFound.group(2)
                 propComment = re.sub(propRangeString, "", propComment)
 
-        propDict[propName]["comment"] = copy.deepcopy(propComment)
-        propDict[propName]["range"] = copy.deepcopy(propRange)
+        propDict["comment"] = copy.deepcopy(propComment)
+        propDict["range"] = copy.deepcopy(propRange)
+        propDict["groupName"] = ""
+        propDict["groupTag"] = ""
+        propDict["profiles"] = []
 
         propertiesDict[propName] = copy.deepcopy(propDict)
 
@@ -205,21 +230,52 @@ def main():
     for groupToRemoveName in groupToRemove:
         groupDict.pop(groupToRemoveName)
 
-    print(json.dumps(groupDict, indent=2))
+    # print(json.dumps(groupDict, indent=2))
 
     for groupPattern, groupNameDict in groupDict.items():
         for group, names in groupNameDict.items():
-            for propName, groupTag in names.items():
-                propertiesDict[propName]["groupName"] = group
-                propertiesDict[propName]["groupTag"] = groupTag
+            for prName, groupTag in names.items():
+                propertiesDict[prName]["groupName"] = copy.deepcopy(group)
+                propertiesDict[prName]["groupTag"] = copy.deepcopy(groupTag)
 
-    for profile, properties in propertyDict.items():
-        print ("profile: ", profile)
-        print ("--> properties", properties)
-    # TO DO:
-    # - Add valid group names to properties
-    # - Add profiles to properties
-    # - Write properties to a file
+    for pNae, profList in profileDict.items():
+        if pNae in propertiesDict:
+            propertiesDict[pNae]["profiles"] = copy.deepcopy(profList)
+
+    PRINTORDER = ["name", "comment", "default", "range",
+                  "profiles", "groupName", "groupTag", "realName"]
+    with open(os.path.join(outputSubdir, wikiPropertiesFile), 'w') as f:
+        count = 0
+        sortedProperties = sorted(propertiesDict)
+        for pNa in sortedProperties:
+            # print ("pName: ", pNa)
+            propOutDictToSort = propertiesDict[pNa]
+            index_map = {v: i for i, v in enumerate(PRINTORDER)}
+            propOutDictValues = sorted(propOutDictToSort.items(),
+                                       key=lambda pair: index_map[pair[0]])
+            # print(json.dumps(propOutDict, indent=2))
+            if count == 0:
+                headLineText = " || ".join(str(x) for x in PRINTORDER)
+                headLine = "|| " + headLineText + " ||\n"
+                f.write(headLine)
+                count += 1
+
+            propLineText = " | ".join(str(x[1]) for
+                                      x in propOutDictValues)
+            propLine = "| " + propLineText + " |\n"
+            f.write(propLine)
+
+# TO DO
+# - Replace square brackets in property name with \{ blah }
+# - Check order of properties with odd names
+# - Add profiles as images
+# - Replace name with realName
+# - Replace keys with wiki key names (e.g. Property, Description)
+# - Check against wiki version
+# - Add metrics to file (?)
+# - Revise English of file
+# - Nicely print Default and Range values
+# - Sort weird profile names - add correspondence to RS or API or ?
 
 
 # Calls the main() function
