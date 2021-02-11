@@ -86,6 +86,7 @@ def getAndCreateMetadata(entity, metricsCreate, entType):
 
 
 def getMetricsFromVMs(vmsOn, metricsSource):
+    metricsList = []
     for virtualMachine in vmsOn:
         code, metrics = getMetadata(virtualMachine)
         check_response(200, code, metrics)
@@ -97,7 +98,6 @@ def getMetricsFromVMs(vmsOn, metricsSource):
                 print("Belongs to VApp: ", vappName)
 
         metSource = list(filter(lambda me: me.name in metricsSource, metrics))
-        metricsList = []
         for met in metSource:
             code, ame = met.metric.get(
                 headers={'Accept':
@@ -107,7 +107,9 @@ def getMetricsFromVMs(vmsOn, metricsSource):
             if ame.datapoints:
                 print("metric datapoints: ", ame.datapoints)
                 metricsList.append(ame.datapoints)
-        return metricsList
+            else:
+                print("No metrics: ", virtualMachine.name)
+    return metricsList
 
 
 def getVappByName(inputVappName, vdcsList):
@@ -148,7 +150,7 @@ def main():
     # inVapp = "vapp_mjs"
     api = Abiquo(apiUrl, auth=TokenAuth(token), verify=False)
     metricsSource = ["abq-cpu_usage", "abq-ram_usage"]
-    metricsCreate = ["a_metric_1", "a_metric_2", "a_metric_3"]
+    metricsCreate = ["app_metric_1", "app_metric_2", "app_metric_3"]
     # Get the virtual datacenters from the cloud
     code, vdcsList = api.cloud.virtualdatacenters.get(
         headers={'accept': 'application/vnd.abiquo.virtualdatacenters+json'})
