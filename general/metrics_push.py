@@ -5,10 +5,12 @@
 # ============
 # Environment: With access to internet
 # Input:
-# - Mandatory: 
+# - Mandatory:
 #   -- an API token for auth
 #   -- API url (https://abiquo.example.com/api)
-# - Optional: VApp name, source metric names, create metric names
+#   -- VApp name
+# - Optional (configure in Main function): 
+#   source metric names, create metric names
 #
 # Requires a deployed VApp with a scaling group
 #
@@ -34,12 +36,13 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-def createMetadata(entity, metName):
+def createMetadata(entity, metName, entType):
     # Create metadata for the metrics that don't have it
-    mddesc = entity + metName
+    mddesc = entType + " " + metName
     MetricMetadata = {'name': metName,
                       'description': mddesc,
-                      'unit': 'percent'
+                      'unit': 'percent',
+                      'namespace': entType
                       }
 
     code, newMd = entity.follow('metricsmetadata').post(
@@ -62,7 +65,7 @@ def getMetadata(entity):
     return (code, entitymd)
 
 
-def getAndCreateMetadata(entity, metricsCreate):
+def getAndCreateMetadata(entity, metricsCreate, entType):
     code, entityMd = getMetadata(entity)
     metNameWithMetadata = []
     # Get list of names of metrics names with metadata
@@ -75,7 +78,7 @@ def getAndCreateMetadata(entity, metricsCreate):
 
     # Create metadata for the metrics that don't have it
     for metName in metNamesNoMd:
-        ocode = createMetadata(entity, metName)
+        ocode = createMetadata(entity, metName, entType)
         print ("Created metadata for", entity, "Code: ", ocode)
 
     code, entityMd = getMetadata(entity)
@@ -121,8 +124,8 @@ def getVappByName(inputVappName, vdcsList):
                 return vapp
 
 
-def pushDatapoints(entity, metricsCreate, dpPool):
-    code, entMdList = getAndCreateMetadata(entity, metricsCreate)
+def pushDatapoints(entity, metricsCreate, dpPool, entType):
+    code, entMdList = getAndCreateMetadata(entity, metricsCreate, entType)
     print("Get metadata", entity.name, "Response code is: ", code)
     for entm in entMdList:
         if entm.name in metricsCreate:
@@ -145,7 +148,7 @@ def main():
     # inVapp = "vapp_mjs"
     api = Abiquo(apiUrl, auth=TokenAuth(token), verify=False)
     metricsSource = ["abq-cpu_usage", "abq-ram_usage"]
-    metricsCreate = ["metric_01", "metric_02", "metric_03"]
+    metricsCreate = ["a_metric_1", "a_metric_2", "a_metric_3"]
     # Get the virtual datacenters from the cloud
     code, vdcsList = api.cloud.virtualdatacenters.get(
         headers={'accept': 'application/vnd.abiquo.virtualdatacenters+json'})
@@ -158,10 +161,10 @@ def main():
     # Get the Scaling groups from the VApp
     code, scalingGroups = theVapp.follow("scalinggroups").get()
 
-    getAndCreateMetadata(theVapp, metricsCreate)
+    getAndCreateMetadata(theVapp, metricsCreate, "virtualappliance")
     for scalingGroup in scalingGroups:
         print ("sgname", scalingGroup.name)
-        getAndCreateMetadata(scalingGroup, metricsCreate)
+        getAndCreateMetadata(scalingGroup, metricsCreate, "scalinggroup")
 
     # Get the virtualmachines from the cloud to use their metrics
     # as the source of the fake metrics
@@ -187,8 +190,8 @@ def main():
         datapointsList.append(datapointData)
 
     dpPool = cycle(datapointsList)
-    pushDatapoints(theVapp, metricsCreate, dpPool)
-    pushDatapoints(scalingGroup, metricsCreate, dpPool)
+    pushDatapoints(theVapp, metricsCreate, dpPool, "virtualappliance")
+    pushDatapoints(scalingGroup, metricsCreate, dpPool, "scalinggroup")
 
 
 # Calls the main() function
