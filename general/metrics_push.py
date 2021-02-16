@@ -129,6 +129,9 @@ def getVappByName(inputVappName, vdcsList):
 def pushDatapoints(entity, metricsCreate, dpPool, entType):
     code, entMdList = getAndCreateMetadata(entity, metricsCreate, entType)
     print("Get metadata", entity.name, "Response code is: ", code)
+    print("Datapoint to push: ")
+    metricsData = next(dpPool)
+    print(json.dumps(metricsData, indent=2))
     for entm in entMdList:
         if entm.name in metricsCreate:
             code, resp = entm.follow('metric').post(
@@ -136,7 +139,7 @@ def pushDatapoints(entity, metricsCreate, dpPool, entType):
                          'application/vnd.abiquo.datapoints+json',
                          'accept':
                          'text/json,application/json'},
-                data=json.dumps(next(dpPool)))
+                data=json.dumps(metricsData))
             print("Create metric datapoints for ", entm.name,
                   " Response code is: ", code)
 
@@ -150,7 +153,7 @@ def main():
     # inVapp = "vapp_mjs"
     api = Abiquo(apiUrl, auth=TokenAuth(token), verify=False)
     metricsSource = ["abq-cpu_usage", "abq-ram_usage"]
-    metricsCreate = ["app_metric_1", "app_metric_2", "app_metric_3"]
+    metricsCreate = ["meta11", "meta22", "meta33"]
     # Get the virtual datacenters from the cloud
     code, vdcsList = api.cloud.virtualdatacenters.get(
         headers={'accept': 'application/vnd.abiquo.virtualdatacenters+json'})
