@@ -28,7 +28,7 @@
 	"Appliance manager" : "AM-",
 	"OVF package list" : "OVF-PACKAGE-LIST-",
 	"OVF package" : "OVF-PACKAGE-[0-9]",
-	"Virtual machine template" : "VIMAGE-|CONSTR-SNAPSHOT-LENGTH-NAME-MAX|CONSTR-SNAPSHOT-LENGTH-NAME-MIN",
+	"Virtual machine template" : "VIMAGE-|CONSTR-SNAPSHOT-LENGTH-NAME-MAX|CONSTR-SNAPSHOT-LENGTH-NAME-MIN|VMIMAGE-",
 	"Conversion" : "CONVERSION-",
 	"Node collector" : "NC-",
 	"Storage pool" : "SP-",
@@ -113,5 +113,16 @@
 	"Classic firewalls" : "CLASSIC-FIREWALL-[0-9]",
 	"Move VM" : "MOVE-VM-",
 	"Cost usage" : "COST-USAGE-",
-	"Async task" : "ASYNC-TASK-" 
+	"Async task" : "ASYNC-TASK-",
+	"Availability set" : "AVSET-",
+	"External scope" : "EXTERNAL_SCOPE-",
+	"Reset password" : "REC-",
+	"Address range" : "AR-",
+	"Hardware profile family" : "HPFAMILY-",
+	"Hardware profile type" : "HPTYPE-",
+	"Disaster recovery" : "DR-",
+	"Global networks" : "GLOBALNETWORK-",
+	"Subnets" : "SUBNET-",
+	"Resource groups": "RESOURCEGROUP-",
+	"Tags": "TAGGING-"
 }
