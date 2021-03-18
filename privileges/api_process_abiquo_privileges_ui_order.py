@@ -1,4 +1,5 @@
 #!/usr/bin/python2 -tt
+# -*- coding: utf-8 -*
 #
 # This script reads files from the input_files directory:
 # - UI labels file (get from /UI/app/lang/lang_en_US_labels.json from current branch in your platform/ui repo
@@ -19,248 +20,254 @@ import pystache
 import codecs
 import requests
 
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 class rolec:
-	def __init__(self,akey,aname,ainitials,aformat):
-		self.rkey = akey
-		self.rname = aname
-		self.rinitials = ainitials
-		self.rformat = aformat
+    def __init__(self,akey,aname,ainitials,aformat):
+        self.rkey = akey
+        self.rname = aname
+        self.rinitials = ainitials
+        self.rformat = aformat
 
 def open_if_not_existing(filename):
-	try:
-		fd = os.open(filename, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
-	except:
-		print ("File: %s already exists" % filename)
-		return None
-	fobj = os.fdopen(fd, "w")
-	return fobj
+    try:
+        fd = os.open(filename, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+    except:
+        print ("File: %s already exists" % filename)
+        return None
+    fobj = os.fdopen(fd, "w")
+    return fobj
 
 def get_extra_text(input_subdir,extfile):
-	extlines = (extline.rstrip() for extline in open(os.path.join(input_subdir,extfile)))
-	extratext = {}
-	for ext_orig in extlines:
-		#print (ext_orig)
-		extlist = ext_orig.split("|")
-		extkey = extlist[0]
-		extkey = extkey.strip()
-		exttext = extlist[1]
-		exttext = exttext.strip()
-		extratext[extkey] = exttext
-	return(extratext)	
+    extlines = (extline.rstrip() for extline in open(os.path.join(input_subdir,extfile)))
+    extratext = {}
+    for ext_orig in extlines:
+        # print (ext_orig)
+        extlist = ext_orig.split("|")
+        extkey = extlist[0]
+        extkey = extkey.strip()
+        exttext = extlist[1]
+        exttext = exttext.strip()
+        extratext[extkey] = exttext
+    return(extratext)   
 
-def createRoles():	
-		# This could be read in from a file
-	rollers = collections.OrderedDict()
- 	# r = role(akey,aname,ainitials,aformat)
- 	rollers["CLOUD_ADMIN"] = rolec("CLOUD_ADMIN","Cloud Admin","CA","red")
- 	rollers["ENTERPRISE_ADMIN"] = rolec("ENTERPRISE_ADMIN","Ent Admin","EA","yellow")
- 	rollers["USER"] = rolec("USER","Ent User","EU","green")
- 	rollers["OUTBOUND_API_EVENTS"] = rolec("OUTBOUND_API_EVENTS","Outbound API","OA","blue")
- 	rollers["ENTERPRISE_VIEWER"] = rolec("ENTERPRISE_VIEWER","Ent Viewer","EV","white")
- 	return rollers
+def createRoles():  
+        # This could be read in from a file
+    rollers = collections.OrderedDict()
+    # r = role(akey,aname,ainitials,aformat)
+    rollers["CLOUD_ADMIN"] = rolec("CLOUD_ADMIN","Cloud Admin","CA","red")
+    rollers["ENTERPRISE_ADMIN"] = rolec("ENTERPRISE_ADMIN","Ent Admin","EA","yellow")
+    rollers["USER"] = rolec("USER","Ent User","EU","green")
+    rollers["ENTERPRISE_VIEWER"] = rolec("ENTERPRISE_VIEWER","Ent Viewer","EV","blue")
+    return rollers
 
 def createRoleHeader(rollers):
-	roleheading = []
- 	for rrr in rollers:
- 		rhd = {}
- 		rhd["roleheadform"]=rollers[rrr].rformat 
- 		rhd["rolename"]=rollers[rrr].rname
- 		roleheading.append(rhd)
- 	return roleheading	
+    roleheading = []
+    for rrr in rollers:
+        rhd = {}
+        rhd["roleheadform"]=rollers[rrr].rformat 
+        rhd["rolename"]=rollers[rrr].rname
+        roleheading.append(rhd)
+    return roleheading  
 
 def do_api_request(apiAuth,apiIP,apiUrl,apiAccept):
-		print apiUrl
-		apiHeaders = {}
-		apiHeaders['Accept'] = apiAccept
-		apiHeaders['Authorization'] = apiAuth
-		r = requests.get(apiUrl, headers=apiHeaders, verify=False).json()
-		return r
+        print apiUrl
+        apiHeaders = {}
+        apiHeaders['Accept'] = apiAccept
+        apiHeaders['Authorization'] = apiAuth
+        r = requests.get(apiUrl, headers=apiHeaders, verify=False).json()
+        return r
 
 def get_api_privs(apiAuth,apiIP):
-# Get role data from the API of a fresh Abiquo	
+# Get role data from the API of a fresh Abiquo  
 # First get roles and IDs, then get privileges of each role
-	rol_data = {}
-	roles_data = {}
+    rol_data = {}
+    roles_data = {}
 # get all base role names and ID numbers
-	apiUrl = 'https://' + apiIP + '/api/admin/roles/'  
-	apiAccept = 'application/vnd.abiquo.roles+json'
-	default_roles_response = do_api_request(apiAuth,apiIP,apiUrl,apiAccept)
-	default_roles_list = []
-	default_roles = {}
-	default_roles_list = default_roles_response['collection']
-# create a dictionary with the roles and their IDs	
-	for dr in default_roles_list:
-		default_roles[dr['name']] = dr['id']
+    apiUrl = 'https://' + apiIP + '/api/admin/roles/'  
+    apiAccept = 'application/vnd.abiquo.roles+json'
+    default_roles_response = do_api_request(apiAuth,apiIP,apiUrl,apiAccept)
+    default_roles_list = []
+    default_roles = {}
+    default_roles_list = default_roles_response['collection']
+# create a dictionary with the roles and their IDs  
+    for dr in default_roles_list:
+        default_roles[dr['name']] = dr['id']
 # run through the dictionary and get the privileges for each role
-	for drname, drid in default_roles.iteritems():
-		apiUrl = 'https://' + apiIP + '/api/admin/roles/' + str(drid) + '/action/privileges'
-		print apiUrl
-		apiAccept = 'application/vnd.abiquo.privileges+json'
-		default_privileges_response = do_api_request(apiAuth,apiIP,apiUrl,apiAccept)		
+    for drname, drid in default_roles.iteritems():
+        apiUrl = 'https://' + apiIP + '/api/admin/roles/' + str(drid) + '/action/privileges'
+        print apiUrl
+        apiAccept = 'application/vnd.abiquo.privileges+json'
+        default_privileges_response = do_api_request(apiAuth,apiIP,apiUrl,apiAccept)        
 # create a list like the sql list, which is a privilege with a list of roles
-		default_privileges_list = []
-		default_privileges_list = default_privileges_response['collection']
-		for rp in default_privileges_list:
-			pname = rp['name']
-			if pname in roles_data:
-				roles_data[pname].append(drname)
-			else:
-				roles_data[pname] = [drname]		 	
-			for rrr in roles_data:
-				print ("rrr: %s" % rrr)		
-	return roles_data
+        default_privileges_list = []
+        default_privileges_list = default_privileges_response['collection']
+        for rp in default_privileges_list:
+            pname = rp['name']
+            if pname in roles_data:
+                roles_data[pname].append(drname)
+            else:
+                roles_data[pname] = [drname]            
+#            for rrr in roles_data:
+#                print ("rrr: %s" % rrr)     
+    return roles_data
 
 def get_gui_labels(input_gitdir,UIlabelfile):
-	privlabels = {}
-	privnames = {}
-	privdescs = {}
-	privgroups = {}
-	json_data = open(os.path.join(input_gitdir,UIlabelfile))
-	data = json.load(json_data)
-#	labelkeys = sorted(data.keys())
-#	remove sort
-	labelkeys = data.keys()
-	for labelkey_orig in labelkeys: 
-		labelkey = labelkey_orig.split(".")
-		pg = labelkey[0]
-		if pg == "privilegegroup":
-			pgk = labelkey[1]
-			if pgk != "allprivileges":
-				privgroups[pgk] = data[labelkey_orig]
-				#print ("privilege group: ", labelkey)
-		elif pg == "privilege":
-			pd = labelkey[1]
-			if pd == "description":
-				pdk = labelkey[2]
-				privdescs[pdk] = data[labelkey_orig]
-				#print("privilege description: ", labelkey)
-			elif pd != "details":
-				privlabels[pd] = pd 
-				privnames[pd] = data[labelkey_orig] 
-				#print("privilege: ", labelkey)  
-	return (privlabels,privnames,privdescs,privgroups)	
+    privlabels = {}
+    privnames = {}
+    privdescs = {}
+    privgroups = {}
+    json_data = open(os.path.join(input_gitdir,UIlabelfile))
+    data = json.load(json_data)
+#   labelkeys = sorted(data.keys())
+#   remove sort
+    labelkeys = data.keys()
+    for labelkey_orig in labelkeys: 
+        labelkey = labelkey_orig.split(".")
+        pg = labelkey[0]
+        if pg == "privilegegroup":
+            pgk = labelkey[1]
+            if pgk != "allprivileges":
+                privgroups[pgk] = data[labelkey_orig]
+                #print ("privilege group: ", labelkey)
+        elif pg == "privilege":
+            pd = labelkey[1]
+            if pd == "description":
+                pdk = labelkey[2]
+                privdescs[pdk] = data[labelkey_orig]
+                #print("privilege description: ", labelkey)
+            elif pd != "details":
+                privlabels[pd] = pd 
+                privnames[pd] = data[labelkey_orig] 
+                #print("privilege: ", labelkey)  
+    return (privlabels,privnames,privdescs,privgroups)  
 
-def newOrderByUItextFile(td):	
-	uiOrd = collections.OrderedDict()
-	uiCat = ""
-	orderFile = open('input_files/privilege_ui_order_' + td + ".txt")
-	for line in orderFile:
-		if not re.match("\s",line):
-			uiCat=line.strip()
-			if uiCat not in uiOrd:
-				uiOrd[uiCat] = []
-		else:
-			if not re.match(" All privileges",line):
-				privilege=line.strip()
-				uiOrd[uiCat].append(privilege)
-	return uiOrd
+def newOrderByUItextFile(td):   
+    uiOrd = collections.OrderedDict()
+    uiCat = ""
+    orderFile = codecs.open('input_files/privilege_ui_order_' + td + ".txt", 'r', 'utf-8')
+    for line in orderFile:
+        if not re.match("\s",line):
+            uiCat=line.strip()
+            if uiCat not in uiOrd:
+                uiOrd[uiCat] = []
+        else:
+            if not re.match(" All privileges",line):
+                privilege=line.strip()
+                uiOrd[uiCat].append(privilege)
+    return uiOrd
 
 def main():
-	td = "2019-10-31"
-	input_gitdir = '../../platform/ui/app/lang'
-	input_subdir = 'input_files'
-	output_subdir = 'output_files'
+    td = "2021-03-18"
+    input_gitdir = '../../platform/ui/app/lang'
+    input_subdir = 'input_files'
+    output_subdir = 'output_files'
 
 # From the API get a list of privileges with roles
-	api_privs = {}
-#	apiAuth = raw_input("Enter API authorization, e.g. Basic XXXX: ")
- 	apiAuth = "Basic YWRtaW46eGFiaXF1bw=="
-#	apiIP = raw_input("Enter API address, e.g. api.abiquo.com: ")
-	apiIP = "mjsabiquo.bcn.abiquo.com"
-	sqlroles = get_api_privs(apiAuth,apiIP)
+    api_privs = {}
+
+
+    sqlroles = get_api_privs(apiAuth, apiIP)
 
 # From the UI get the privilege names and descriptions, with privilege appLabel as key
-	UIlabelfile = 'lang_en_US_labels.json'
-	(privlabels,privnames,privdescs,privgroups) = get_gui_labels(input_gitdir,UIlabelfile)
+    UIlabelfile = 'lang_en_US_labels.json'
+    (privlabels,privnames,privdescs,privgroups) = get_gui_labels(input_gitdir,UIlabelfile)
 
 # From a list of roles that we set, create roles and role headers
-	rollers = createRoles()
-	rheaders = createRoleHeader(rollers)
+    rollers = createRoles()
+    rheaders = createRoleHeader(rollers)
 
 # From the extra text file, get extra text
-	extfile = 'process_privileges_extratext.txt'   
-	extratext = {}
-	extratext = get_extra_text(input_subdir,extfile)
+    extfile = 'process_privileges_extratext.txt'   
+    extratext = {}
+    extratext = get_extra_text(input_subdir,extfile)
 
 # Create a dictionary of privileges
-	ppdict = {} 
-	nameLabelDict = {}
+    ppdict = {} 
+    nameLabelDict = {}
 
 
 # From a text file grabbed from the UI screen, get the groups and the order
-	uiOrder = collections.OrderedDict()
-	uiOrder = newOrderByUItextFile(td)
+    uiOrder = collections.OrderedDict()
+    uiOrder = newOrderByUItextFile(td)
 
 
-	privFullDescs = {}
-	privFullRoles = {}			
+    privFullDescs = {}
+    privFullRoles = {}          
 # Use the roles retrieved from the API to create a privilege data object
-	for pp in sqlroles:	
-		# create a privilege data object
-		if pp in extratext:
-			privFullDescs[pp] = privdescs[pp] + ". " + extratext[pp]  
-	 	roleslist = []
-		for ro in rollers:
-			if ro in sqlroles[pp]:
-				if pp not in privFullRoles:
-		 			privFullRoles[pp]=[]
-	 			privFullRoles[pp].append(ro)	 		
-#	 	info = "" 
+    for pp in sqlroles: 
+        # create a privilege data object
+        if pp in extratext:
+            privFullDescs[pp] = privdescs[pp] + ". " + extratext[pp]  
+        roleslist = []
+        for ro in rollers:
+            if ro in sqlroles[pp]:
+                if pp not in privFullRoles:
+                    privFullRoles[pp]=[]
+                privFullRoles[pp].append(ro)            
+#       info = "" 
 
 # For each privilege from the UI files
-	for plabel in privlabels:
-		# create a privilege names key dictionary for priv labels
-		# because everything else is keyed on priv labels
-		nameLabelDict[privnames[plabel]] = plabel 
+    for plabel in privlabels:
+        # create a privilege names key dictionary for priv labels
+        # because everything else is keyed on priv labels
+        nameLabelDict[privnames[plabel]] = plabel 
 
 # Process the privileges and create a privilege json
-	for plabel in privlabels:	
-		privi = {}
-		privi["guiLabel"] = privnames[plabel]
-		privi["appTag"] = plabel
-		privi["privilege"] = privdescs[plabel]
-		privi["roles"] = []
-		for rx in rollers:
-			role = {}
-			role['role'] = {}
-			rolex = {}
-			rolex["roleformat"] = rollers[rx].rformat
-			roleMark = {}
-			if plabel in privFullRoles:
-				if rx in privFullRoles[plabel]:
-					roleMark["roleMark"] = "X"
-					rolex["rolehas"] = roleMark
-				role['role'] = rolex	
-				privi["roles"].append(role)		
-		privi["info"] = {}	
-		ppdict[plabel] = privi
+    for plabel in privlabels:   
+        privi = {}
+        privi["guiLabel"] = privnames[plabel]
+        privi["appTag"] = plabel
+        privi["privilege"] = privdescs[plabel]
+        privi["roles"] = []
+        for rx in rollers:
+            role = {}
+            role['role'] = {}
+            rolex = {}
+            rolex["roleformat"] = rollers[rx].rformat
+            roleMark = {}
+            if plabel in privFullRoles:
+                if rx in privFullRoles[plabel]:
+                    roleMark["roleMark"] = "X"
+                    rolex["rolehas"] = roleMark
+                role['role'] = rolex    
+                privi["roles"].append(role)     
+        privi["info"] = {}  
+        ppdict[plabel] = privi
 
 
 # Working in order through the groups and the privileges, get all the info together to print it out
-	categories = []
-	for group in uiOrder:
-		category = {}
-		category["category"] = group
-		category["roleheader"] = rheaders
-		category["entries"] = []
-		for priv in uiOrder[group]:
-			privlabel = nameLabelDict[priv]
-			category["entries"].append(ppdict[privlabel])
-		categories.append(category)	
+    categories = []
+    for group in uiOrder:
+        category = {}
+        category["category"] = group
+        category["roleheader"] = rheaders
+        category["entries"] = []
+        for priv in uiOrder[group]:
+            privlabel = nameLabelDict[priv]
+            category["entries"].append(ppdict[privlabel])
+        categories.append(category) 
 
 
-	privilege_out = {}		
-	privilege_out["categories"] = categories
-		
+    privilege_out = {}      
+    privilege_out["categories"] = categories
+
+    with open(os.path.join(output_subdir, "privtestout" + td + ".txt"), 'w') as ofile:
+        for cpr in privilege_out["categories"]:
+            ofile.write(json.dumps(cpr))
 # do the mustache render
-#	mustacheTemplate = codecs.open("wiki_privileges_template_" + td + ".mustache", 'r', 'utf-8').read()
-	mustacheTemplate = codecs.open("wiki_privileges_template.mustache", 'r', 'utf-8').read()
-	efo = pystache.render(mustacheTemplate, privilege_out).encode('utf8', 'xmlcharrefreplace')
+#   mustacheTemplate = codecs.open("wiki_privileges_template_" + td + ".mustache", 'r', 'utf-8').read()
+    mustacheTemplate = codecs.open("wiki_privileges_template.mustache", 'r', 'utf-8').read()
+#    mustacheTemplate = open("wiki_privileges_template.mustache", "r").read()
+#    efo = pystache.render(mustacheTemplate, privilege_out).encode('utf-8', 'xmlcharrefreplace')
+    efo = pystache.render(mustacheTemplate, privilege_out)
+#    efo = pystache.render(mustacheTemplate, privilege_out)
 
-	ef = open_if_not_existing(os.path.join(output_subdir,"privileges_out_" + td + ".txt"))
-	if ef:
-		ef.write(efo)
-		ef.close()	 
+    ef = open_if_not_existing(os.path.join(output_subdir,"privileges_out_" + td + ".txt"))
+    if ef:
+        ef.write(efo)
+        ef.close()   
 
   
 # Calls the main() function
