@@ -166,8 +166,9 @@ def main():
 
 # From the API get a list of privileges with roles
     api_privs = {}
-
-
+    apiAuth = raw_input("Enter API authorization, e.g. Basic XXXX: ")
+    apiIP = raw_input("Enter API address, e.g. api.abiquo.com: ")
+    
     sqlroles = get_api_privs(apiAuth, apiIP)
 
 # From the UI get the privilege names and descriptions, with privilege appLabel as key
