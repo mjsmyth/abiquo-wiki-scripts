@@ -22,6 +22,7 @@ import os
 from atlassian import Confluence
 from datetime import datetime
 import abqreltools as art
+import json
 
 
 def createWikiLogPage(wikiPageList):
@@ -45,7 +46,7 @@ def main():
     inpsswd = input("Password: ")
     spacekey = input("Space key: ")
     release_version = input("Release version, e.g. v463: ")
-    # print_version = input("Release print version, e.g. 4.6.3: ")
+    print_version = input("Release print version, e.g. 4.6.3: ")
 
     confluence = Confluence(
         url='https://' + site_URL,
@@ -59,6 +60,7 @@ def main():
 
     for page in versionPageList:
         releasePageId = ""
+        versionPageId = page["content"]["id"][:]
         originalPageName = art.getOrigPgName(release_version, page)
 
         pageFull = art.getPgFull(confluence, page)
@@ -71,24 +73,36 @@ def main():
         # print("parentPageId: ", parentPageId)
         # print("originalPageName: ", originalPageName)
         # print("pageContent:", pageContent)
-
+        originalPageId = ""
         originalPageExists = art.checkPgExists(
             confluence, spacekey, originalPageName)
         pageUpdated = False
         if originalPageExists:
             originalPageFull = confluence.get_page_by_title(
                 spacekey, originalPageName)
-            originalPageId = originalPageFull["id"]
+            originalPageId = originalPageFull["id"][:]
         # Compare content and check is already updated or not
             pageUpdated = confluence.is_page_content_is_already_updated(
                 originalPageId, pageContent)
             releasePageId = originalPageId[:]
 
+        versionComment = print_version + " - release "
         if not pageUpdated:
+            if originalPageExists:
+                pgVersionsResp = art.getAllPgVers(
+                    site_URL, inuname, inpsswd, spacekey, versionPageId)
+                for pgVersion in pgVersionsResp["results"]:
+                    print ("pgVersion: ", pgVersion)
+                    if print_version in pgVersion["message"]:
+                        print("pgv msg: ", pgVersion["message"])
+                        versionComment = pgVersion["message"][:]
+                        break
+
             # Update page or create page if it does not exist
             status = confluence.update_or_create(
                 parentPageId, originalPageName,
-                pageContent, representation='storage')
+                pageContent, representation='storage',
+                version_comment=versionComment)
 
             if status["id"]:
                 releasePageId = status["id"][:]
@@ -109,6 +123,7 @@ def main():
                                                releasePageId, norestrictions)
         if str(restrictionsResponse) != "<response [200]>":
             print("restrictionsResponse: ", restrictionsResponse)
+
         wikiPageList.append("| " + releasePageId + " |"
                             " " + originalPageName + " |"
                             " [" + spacekey + ":" + originalPageName + "] |\n")

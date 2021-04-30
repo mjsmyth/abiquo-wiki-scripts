@@ -1,9 +1,9 @@
 # #!/usr/bin/python3
-# Python script: release/releaseTools
+# Python script: release/abqreltools.py
 # ---------------------------------------
-# Script with common tools to use in scripts
+# Module with common tools to use in scripts
 # - create master pages for new version
-# - do documentation release
+# - publish draft pages (do release)
 #
 # Tools
 # ------------------
@@ -13,10 +13,9 @@
 # 4. Get ID of page
 # 5. Get parent ID
 # 6. Hide a page
-# 7. Create wiki log page
+# 7. Get all version of page
 
 
-from atlassian import Confluence
 import requests
 import json
 
@@ -87,76 +86,28 @@ def updPgRestns(site_URL, inuname, inpsswd,
     return restrictionsResponse
 
 
+def getAllPgVers(site_URL, inuname, inpsswd,
+                 spacekey, page_id):
+    apiUrl = 'https://' + site_URL
+    rurl = apiUrl + "/rest/experimental/content/" + page_id + "/version"
+    aAppJson = "application/json"
+    aHeaders = {}
+    aHeaders["Accept"] = aAppJson[:]
+    pgVersionsResponse = requests.get(rurl, verify=False,
+                                      params={'expand': 'content'},
+                                      headers=aHeaders,
+                                      auth=(inuname, inpsswd))
+    # print("pgVersions:", pgVersionsResponse.status_code)
+    # print("pgVJSON:", pgVersionsResponse.json())
+    return pgVersionsResponse.json()
+
+
 def main():
-    # Get user credentials and space
-    site_URL = input("Enter Confluence site URL (no protocol & final slash): ")
-    inuname = input("Username: ")
-    inpsswd = input("Password: ")
-    spacekey = input("Space key: ")
-    release_version = input("Release version, e.g. v463: ")
-    # print_version = input("Release print version, e.g. 4.6.3: ")
-
-    confluence = Confluence(
-        url='https://' + site_URL,
-        username=inuname,
-        password=inpsswd)
-
-    versionPageList = getVersionPgs(
-        spacekey, release_version, confluence)
-    draftPageList = []
-    wikiPageList = []
-
-    for page in versionPageList:
-        masterPageName = getOrigPgName(release_version, page)
-        masterPageExists = checkPgExists(
-            confluence, spacekey, masterPageName)
-        if masterPageExists is False:
-            draftPageList.append(page)
-
-    for page in draftPageList:
-        pageFull = getPgFull(confluence, page)
-        masterPageName = getOrigPgName(release_version, page)
-        ancestorsList = pageFull["ancestors"]
-        parentPage = ancestorsList.pop()
-        parentPageId = parentPage["id"]
-
-        pageContent = pageFull["body"]["storage"]["value"]
-        # print("parentPageId: ", parentPageId)
-        # print("masterPageName: ", masterPageName)
-        # print("pageContent:", pageContent)
-
-        status = confluence.create_page(spacekey,
-                                        masterPageName,
-                                        pageContent,
-                                        parent_id=parentPageId,
-                                        type='page',
-                                        representation='storage',
-                                        editor='v2')
-        if status["id"]:
-            newPageId = status["id"]
-        else:
-            print ("status", status)
-
-        restrictions = [{"operation": "update", "restrictions":
-                        {"user": [{"type": "known",
-                                   "username": "maryjane.smyth"}],
-                         "group": [{"type": "group",
-                                    "name": "abiquo-team"}]}},
-                        {"operation": "read", "restrictions":
-                        {"user": [{"type": "known",
-                                   "username": "maryjane.smyth"}],
-                         "group": [{"type": "group",
-                                    "name": "abiquo-team"}]}}]
-
-        restrictionsResponse = updPgRestns(site_URL, inuname,
-                                           inpsswd, spacekey,
-                                           newPageId, restrictions)
-        if str(restrictionsResponse) != "<response [200]>":
-            print("restrictionsResponse: ", restrictionsResponse)
-        wikiPageList.append("| " + newPageId + " |"
-                            " " + masterPageName + " |"
-                            " [" + spacekey + ":" + masterPageName + "] |\n")
-    # createWikiLogPage(wikiPageList)
+    # Print something to let user know what is going on
+    print("This module has tools to do the documentation release\n")
+    print("These common tools are used in scripts\n")
+    print("To create master pages for new version\n")
+    print("And to publish draft pages (do release)\n")
 
 
 # Calls the main() function

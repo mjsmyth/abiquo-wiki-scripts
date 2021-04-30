@@ -92,7 +92,7 @@ def main():
                                     "name": "abiquo-team"}]}},
                         {"operation": "read", "restrictions":
                         {"user": [{"type": "known",
-                                   "username": "maryjane.smyth"}],
+                                   "username": inuname}],
                          "group": [{"type": "group",
                                     "name": "abiquo-team"}]}}]
 
