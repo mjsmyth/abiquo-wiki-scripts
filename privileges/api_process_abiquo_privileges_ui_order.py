@@ -1,4 +1,4 @@
-#!/usr/bin/python2 -tt
+#!/usr/bin/python3 -tt
 # -*- coding: utf-8 -*
 #
 # This script reads files from the input_files directory:
@@ -20,8 +20,8 @@ import pystache
 import codecs
 import requests
 
-reload(sys)
-sys.setdefaultencoding('utf-8')
+# reload(sys)
+# sys.setdefaultencoding('utf-8')
 
 class rolec:
     def __init__(self,akey,aname,ainitials,aformat):
@@ -72,12 +72,13 @@ def createRoleHeader(rollers):
     return roleheading  
 
 def do_api_request(apiAuth,apiIP,apiUrl,apiAccept):
-        print apiUrl
-        apiHeaders = {}
-        apiHeaders['Accept'] = apiAccept
-        apiHeaders['Authorization'] = apiAuth
-        r = requests.get(apiUrl, headers=apiHeaders, verify=False).json()
-        return r
+    print (apiUrl)
+    apiHeaders = {}
+    apiHeaders['Accept'] = apiAccept
+    apiHeaders['Authorization'] = apiAuth
+    r = requests.get(apiUrl, headers=apiHeaders, verify=False).json()
+    print (r)
+    return r
 
 def get_api_privs(apiAuth,apiIP):
 # Get role data from the API of a fresh Abiquo  
@@ -95,9 +96,9 @@ def get_api_privs(apiAuth,apiIP):
     for dr in default_roles_list:
         default_roles[dr['name']] = dr['id']
 # run through the dictionary and get the privileges for each role
-    for drname, drid in default_roles.iteritems():
+    for drname, drid in iter(default_roles.items()):
         apiUrl = 'https://' + apiIP + '/api/admin/roles/' + str(drid) + '/action/privileges'
-        print apiUrl
+        print (apiUrl)
         apiAccept = 'application/vnd.abiquo.privileges+json'
         default_privileges_response = do_api_request(apiAuth,apiIP,apiUrl,apiAccept)        
 # create a list like the sql list, which is a privilege with a list of roles
@@ -159,16 +160,16 @@ def newOrderByUItextFile(td):
     return uiOrd
 
 def main():
-    td = "2021-03-18"
+    td = "2021-08-29"
     input_gitdir = '../../platform/ui/app/lang'
     input_subdir = 'input_files'
     output_subdir = 'output_files'
 
 # From the API get a list of privileges with roles
     api_privs = {}
-    apiAuth = raw_input("Enter API authorization, e.g. Basic XXXX: ")
-    apiIP = raw_input("Enter API address, e.g. api.abiquo.com: ")
-    
+    apiAuth = input("Enter API authorization, e.g.  XXXX: ")
+    apiIP = input("Enter API address, e.g. api.abiquo.com: ")
+
     sqlroles = get_api_privs(apiAuth, apiIP)
 
 # From the UI get the privilege names and descriptions, with privilege appLabel as key
