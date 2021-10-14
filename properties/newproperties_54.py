@@ -93,9 +93,9 @@ def writePropsToFile(propertiesDict, PRINTORDER,
                         propertiesDict[pNa][profileName] = "  "
             # use real name
             if propertiesDict[pNa]["realName"]:
-                printName = copy.deepcopy(propertiesDict[pNa]["realName"]) + " " + anchor
+                printName = anchor + " " + copy.deepcopy(propertiesDict[pNa]["realName"])
             else:
-                printName = "-*-" + copy.deepcopy(propertiesDict[pNa]["Property"]) + "-*- " + anchor
+                printName = anchor + " -*-" + copy.deepcopy(propertiesDict[pNa]["Property"]) + "-*- " 
             propOutDictValues = []
             propOutDictValues.append(copy.deepcopy(printName))
             propOutDictValues.append(copy.deepcopy(fullDesc))
@@ -121,6 +121,10 @@ def writePropsToFile(propertiesDict, PRINTORDER,
                 propLine = re.sub(r'(?<!\\){', r'\\{', propLine)
                 propLine = re.sub(r'\\{(?=anchor)|\\{(?=status)', r'{', propLine)
                 propLine = re.sub(r'\*', r'\\*', propLine)
+                propLine = re.sub(r'\[javax mail property]', r'\{javaxMailProperty}', propLine)
+                # fqdn regex problems
+                propLine = re.sub(r'\[', r'\\[', propLine)
+                # Create unescaped stars for bold text by replacing escaped stars
                 propLine = re.sub(r'\-\\\*\-', r'*', propLine)
 
                 # print("Proppline: ", propLine)
@@ -131,20 +135,21 @@ def writePropsToFile(propertiesDict, PRINTORDER,
 def getPropNameDefault(currentProp):
     if "=" in currentProp:
         splitProp = currentProp.split("=")
-        propDefault = splitProp[1].strip()
+        defaultJoined = "=".join(splitProp[1:])
+        propDefault = defaultJoined.strip()
         propName = splitProp[0].strip()
         propName = re.sub(r"^#?\s?", "", propName)
     else:
         propName = currentProp.strip()
         propDefault = ""
         propName = re.sub(r"^#?\s?", "", propName)
-
+    pDefault = getDefault(propName, propDefault)
     propRealName = ""
     # deal with properties with com. prefix to name
     if re.match(r"^com.", propName):
         propRealName = copy.deepcopy(propName)
         propName = re.sub(r"^com.", "", propName)
-    return (propName, propRealName, propDefault)
+    return (propName, propRealName, pDefault)
 
 
 def processFile(inputDir, propertyFile, NOTPROFILE, STARTCOMMENT,
@@ -244,11 +249,14 @@ def processGroups(propName):
                "azurecompute-arm", "oracle-ase-us",
                "oracle-ase-emea", "oraclevm",
                "vcd", "xenserver", "oracle_vm",
-               "digitalocean2", "google-compute-engine",
+               "digitalocean2", "openstack",
                "rackspace-cloudservers-us", "cloudoorsphere",
                "openstack-neutron", "dnsmasq", "omapi",
                "nsx-ecmp", "logical",
-               "nsx-nat", "nsx-gateway", "zerto"]
+               "nsx-nat", "nsx-gateway", "zerto",
+               "nsxt", "googlecloud",
+               "google-cloud-platform", "oci",
+               "oraclease", "netapp"]
     groupTypes = {"{plugin}": PLUGINS}
 
     propName.strip()
@@ -273,7 +281,9 @@ def main():
     STARTCOMMENT = "# Abiquo Configuration Properties"
     MOUTBOUNDAPI = "M OUTBOUND API"
     COSTUSAGE = "COST USAGE"
-    propertySearchString = r"#?\s?((([\w,\-]{1,60}?\.){2,10})([\w,\-]{2,50}))(=?(.*?))\n"
+    # propertySearchString = r"#?\s?((([\w,\-]{1,60}?\.){2,10})([\w,\-]{2,50}))(=?(.*?))\n"
+    # Note that a single property only has two parts :-p abiquo.capturedhcp :-(
+    propertySearchString = r"#?\s?((([\w,\-,{,}]{1,60}?\.){1,10})([\w,\-,{,}]{2,50}))(=?(.*?))\n"
     # rangeSearchString = r"(Range[\s]*?:?[\s]*?)(.*?)"
     inputDir = '/Users/maryjane/platform/system-properties/src/main/resources/'
     propertyFile = 'abiquo.properties'
@@ -281,7 +291,7 @@ def main():
     outputPropertyFile = 'wiki_properties_'
     #    inputDirPropertyFile = inputDir + propertyFile
     todaysDate = datetime.today().strftime('%Y-%m-%d')
-    wikiPropertiesFile = outputPropertyFile + "_format_" + todaysDate + ".txt"
+    wikiPropertiesFile = outputPropertyFile + "_format_" + todaysDate + "02" + ".txt"
     # inputDirPropertyFile = inputDir + propertyFile
     # outputDirPropertyFile = outputSubdir + wikiPropertiesFile
 
@@ -315,7 +325,9 @@ def main():
                "google-cloud-platform",
                "dnsmasq", "omapi",
                "nsx-ecmp", "logical",
-               "nsx-nat", "nsx-gateway", "zerto"]
+               "nsx-nat", "nsx-gateway",
+               "nsxt", "oci", "zerto",
+               "googlecloud"]
     PLGDEPRC = ["cloudsigma2-hnl", "cloudsigma2-zrh",
                 "cloudsigma2-sjc", "cloudsigma2-wdc",
                 "cloudsigma2-lvs", "digitalocean2",
@@ -330,7 +342,9 @@ def main():
                 "xenserver", "oracle_vm", "digitalocean2",
                 "google-compute-engine",
                 "rackspace-cloudservers-us", "cloudoorsphere",
-                "openstack-neutron", "openstack", "oraclease", "netapp"]
+                "openstack-neutron", "openstack",
+                "oraclease", "netapp", "docker",
+                ".ha.", "nexenta", "neutron"]
     profileImages = {"SERVER":
                      " {status:colour=green|title=API|subtle=false}",
                      "REMOTESERVICES":
@@ -458,7 +472,9 @@ def main():
             newProperty = True
             for prName, groupTag in propertyNamesTags.items():
                 if groupTag in PLGNVAL:
-                    groupNameWithTags += " \\\\ - " + groupTag
+                    # add an escaped star to later unescape after
+                    # escaping stars in text
+                    groupNameWithTags += " \\\\ -*- " + groupTag
                     if newProperty is True:
                         groupPropertyDict = copy.deepcopy(propertiesDict[prName])
                         newProperty = False
