@@ -1,38 +1,48 @@
 #!/usr/bin/python3 -tt
-# Process the Configuration view options and print extra text from file
-# TODO manually change the default view option from 0 to Home
-# This script works
-#
+'''
+Process the Configuration view options and print extra text from file
 
-import sys
+The Configuration view page is located at
+    https://wiki.abiquo.com/display/doc/Configuration+view
+Get Configuration view data of:
+ - options and text from the UI files (requires hardcoded platform path)
+ - values from Abiquo API (enter API URL and token auth)
+Create two wiki markup tables for Configuration table and Wiki links table
+Creates the file for today and overwrites any previous file for today
+Changes to the extra text file should be versioned in git
+Dependencies:
+ abiquo-api installed with pip3 (note: auth function has an issue)
+'''
+
+
+# import sys
 import re
 import os
 import json
-import requests
-import readline
-import copy
+# import requests
+# import readline
+# import copy
 from abiquo.client import Abiquo
 from abiquo.auth import TokenAuth
+from datetime import datetime
 
 
 def main():
-    apiHeaders = {}
-    td = "2021-11-11"
+    td = datetime.today().strftime('%Y-%m-%d')
+    # td = "2021-11-17"
 
-    # Enter path in filesystem to a file with the UI tags
-    #   for fields cloned from github
-    #   ui_path = input("Language file path: ").strip()
     input_subdir = "input_files"
-    output_subdir = "output_files" 
+    output_subdir = "output_files"
     output_file_name = "wiki_config_view_table_" + td + ".txt"
     output_wiki_file_name = "wiki_config_wiki_links_" + td + ".txt"
     #   extra_text_file_name = 'process_config_view_extratext_' + td + '.txt'
-    extra_text_file_name = 'process_config_view_extratext_2021-11-11.txt'
+    extra_text_file_name = 'process_config_view_extra_text.txt'
     ui_path = "../platform/ui/app/"
     ui_path_lang = ui_path + "lang/"
     ui_path_html = ui_path + "modules/configuration/partials/"
 
-# Get data with requests
+# Get data with requests - may require changes for python 3
+    # apiHeaders = {}
     # apiAuth = input("Enter API authorization, e.g. Basic XXXX: ")
     # apiIP = input("Enter API address, e.g. api.abiquo.com: ")
     # # Get system properties data from the API of a fresh Abiquo
@@ -46,17 +56,17 @@ def main():
     # r = requests.get(apiUrl, headers=apiHeaders, verify=False)
     # sp_data = r.json()
 
-    # Abiquo API token
+    # Abiquo API token directly with no "Token" text
     token = input("Enter token: ")
+    # API Example apiUrl = "https://abiquo.example.com/api"
     apiUrl = input("Enter API URL: ")
-    # apiUrl = "https://abiquo.example.com/api"
     api = Abiquo(apiUrl, auth=TokenAuth(token), verify=False)
     # Get the virtual datacenters from the cloud
     code, propertiesList = api.config.properties.get(
         headers={'accept': 'application/vnd.abiquo.systemproperties+json'})
     print("Get UI configuration properties. Response code is: ", code)
 
-# File format is as follows
+    # API configuration properties list has this format
     # {
     #   "id": 558,
     #   "name": "client.theme.defaultEnterpriseLogoPath",
@@ -74,37 +84,27 @@ def main():
     # get the list of properties
     configProps = []
     configProps = propertiesList.collection
-    # Eliminate the evil default dashboard which is very big and scary
-
-    configProps[:] = [d for d in configProps if d.get('id') != 159]
-    # for j in configProps:
-    #     if len(j["name"].split(".")) > 3:
-    #         print (j["name"] + " : " + j["value"])
-
+    # Eliminate the default dashboard config which is very big and scary
+    configProps[:] = [d for d in configProps
+                      if d.get('name') != "client.dashboard.default"]
+    # Create a dictionary of config properties with name:value
     configDict = {j["name"]: j["value"] for j in configProps}
-#    for b in configList:
-#        print(b[0] + " : " + b[1])
-
-    # # Get wiki links in format client.wiki.xxx.YYY
-    # wikiList = list(filter(lambda j: len(j[0].split(".")) > 3, configList))
-    # for ll in wikiList:
-    #     print (ll[0] + " : " + ll[1])
-
-    # # get UI properties list with format client.xxx.YYY
-    # uiList = list(filter(lambda k: len(k[0].split(".")) <= 3, configList))
-    # for ll in uiList:
-    #     print (ll[0] + " : " + ll[1])
 
     # Process the language file which has keys and UI labels
     ui_json = ui_path_lang + "lang_en_US_labels.json"
     ui_json_data = open(ui_json)
     ui_data = json.load(ui_json_data)
 
-    uiLabels = dict(filter(lambda elem: "configuration.systemproperties" in elem[0] and ".desc" not in elem[0], ui_data.items()))  
-    for x in uiLabels:
-        print (x + " ** " + uiLabels[x])
-    mainmenuLabels = dict(filter(lambda elem: "mainmenu.button" in elem[0], ui_data.items()))
-    # get extra text from file in input files input_files
+    # Get UI labels for properties
+    uiLabels = dict(filter(lambda elem: "configuration.systemproperties"
+                           in elem[0]
+                           and ".desc" not in elem[0], ui_data.items()))
+    # Get UI labels for wiki links and tab headers
+    mainmenuLabels = dict(filter(lambda elem: "mainmenu.button" in elem[0],
+                                 ui_data.items()))
+    configTabLabels = dict(filter(lambda elem: "configuration.tab" in elem[0],
+                           ui_data.items()))
+    # get my extra text from file in input files input_files
     extraText = {}
     with open(os.path.join(input_subdir,
                            extra_text_file_name), 'r') as extra_text_file:
@@ -112,42 +112,34 @@ def main():
         extra_text_list = extra_text_all.split("\n\n")
         for etl in extra_text_list:
             eti = etl.split("=")
+            # if there are any "=" in the extra text, join them back in
             ext = "".join(eti[1:])
-            # print ("eti: ", eti)
             extraText[eti[0].strip()] = ext.strip()
-
-    # for et in extraText:
-    #     print("| " + et + " | " + extraText[et] + " |")
-
-    # <div class="row"
-    #             data-ng-if="('SYSCONFIG_MANAGE_DEFAULT_DASHBOARDS' | isGranted) && ('SYSCONFIG_ALLOW_MODIFY' | isGranted)">
-    #            <div class="form-label pl-2">
 
     htmlTextList = []
     htmlOrder = ["generalform.html",
                  "infrastructureform.html",
                  "networkform.html",
                  "dashboardform.html",
-                 "wikilinksform.html",
-                 "passwordform.html"]
+                 "passwordform.html",
+                 "wikilinksform.html"]
     for hO in htmlOrder:
         htmlFileWithPath = ui_path_html + hO
         with open(htmlFileWithPath, 'r') as htmlFile:
             htmlTextList.append((htmlFile.read()).strip())
-#            htmlTextList.append('<div class="row">\n                <div class="form-label pl-2">')
+            # add a field separator at the end of each file
+            # yeah this is horrible but it works :-p
             htmlTextList.append('<div class="form-label pl-2">')
     allHtmlText = " ".join(htmlTextList)
     splitText = '<div class="form-label pl-2">'
-#    splitText = '<div class="row">\n                <div class="form-label pl-2">'
+
     htmlLabels = allHtmlText.split(splitText)
     tabHeaderRegex = re.compile('configuration\\.tab\\.[\\w]+')
     labelRegex = re.compile(r'configuration\.systemproperties\.[\w]+\.[\w]+\.?[\w]*')
     wikiRegex = re.compile(r'client\.wiki\.[\w]+\.[\w]+')
-    sysPropRegex = r"\{\{ (systemProperties\.([\w]+)?)\[\'(.+)?\'\]\.value \}\}"
-    # systemProperties.dashboard['client.dashboard.maintenanceEndTime'].value
     valueRegex = re.compile("'client\\.[\\w]+\\.[\\w]+\\.?[\\w]*\\.?[\\w]*'")
-    # label:  configuration.systemproperties.wiki.dashboard.managedashboards
     wikiHeaderRegex = re.compile(r'mainmenu\.button\.[\w]+')
+
     outputOrder = []
     outputWikiLik = []
 
@@ -162,52 +154,61 @@ def main():
             defaultView = True
         tabheader = re.findall(tabHeaderRegex, hL)
         if tabheader:
-            # print ("th:", tabheader)
-            headerName = re.findall("[\\w]+$", tabheader[0])
-            headerString = ("|| h6. " + headerName[0].capitalize()
+            headerName = tabheader[0].strip("'")
+            if headerName in configTabLabels:
+                headerValue = configTabLabels[headerName][:]
+            headerString = ("|| h6. " + headerValue
                             + " || Default || Notes || Info ||")
             outputOrder.append(headerString)
         else:
             label = ""
-            value = []
             outputList = []
-            value = ""
+            valueKey = ""
             labelAll = re.findall(labelRegex, hL)
             if labelAll:
                 label = labelAll[0]
-                print ("label: ", label)
                 if label in uiLabels:
                     outputList.append(uiLabels[label])
-            if label == "configuration.systemproperties.dashboard.restoredefaultdashboards":
-                value = "config.dashboard.restoredefaultdashboards.button"
+            # returntourl is deprecated
+            if label == "configuration.systemproperties.general.returntourl":
+                continue
+            elif label == "":
+                continue
+            # The restore dashboard button has a different valueKey
+            elif label == "configuration.systemproperties.dashboard.restoredefaultdashboards":
+                valueKey = "config.dashboard.restoredefaultdashboards.button"
             else:
+                # value is the name of the configuration properties key
                 valueQuoted = re.findall(valueRegex, hL)
                 if valueQuoted:
-                    value = valueQuoted[0].strip("'")
-                print("value: ", value)
-            if len(value) > 0:
-                if value in configDict:
+                    valueKey = valueQuoted[0].strip("'")
+            if len(valueKey) > 0:
+                if valueKey in configDict:
                     if defaultView is True:
-                        if configDict[value] == "0":
+                        if configDict[valueKey] == "0":
                             outputList.append(" Home ")
                     elif checkBox is True:
-                        if configDict[value] == "0":
+                        if configDict[valueKey] == "0":
                             outputList.append(" (x) ")
-                        if configDict[value] == "1":
+                        if configDict[valueKey] == "1":
                             outputList.append(" (/) ")
                     else:
-                        valueOutput = configDict[value][:]
+                        valueOutput = configDict[valueKey][:]
+                        # c.w.v is not in use and it's not valid markup
                         if r"{client.wiki.version}" in valueOutput:
                             valueOutput = valueOutput.replace(
                                 r"{client.wiki.version}", "doc")
                         outputList.append(valueOutput)
-                if value in extraText:
-                    if extraText[value] == "-":
-                        outputList.append(" ")
-                    else:
-                        outputList.append(extraText[value])
+                else:
+                    outputList.append(" ")
 
-                wikiText = re.search(wikiRegex, value)
+                if valueKey in extraText:
+                    if extraText[valueKey] != "-":
+                        outputList.append(extraText[valueKey])
+                    else:
+                        outputList.append(" ")
+
+                wikiText = re.search(wikiRegex, valueKey)
                 if wikiText:
                     wikiLinkEntry = True
 
@@ -219,17 +220,12 @@ def main():
                 outputOrder.append(outputMain)
             wikiheader = re.findall(wikiHeaderRegex, hL)
             if wikiheader:
-                # print ("wh:", wikiheader)
-                # wikiheaderName = re.findall("[\\w]+$", wikiheader[0])
-                # wikiheaderString = ("|| h6. " + wikiheaderName[0].capitalize()
-                #                     + " || Default || Info ||")
                 if wikiheader[0] in mainmenuLabels:
-                    wikiheaderName = mainmenuLabels[wikiheader[0]]
+                    wikiheaderName = mainmenuLabels[wikiheader[0]][:]
                     wikiheaderString = ("|| h6. " + wikiheaderName
                                         + " || Default || Info ||")
                 outputWikiLik.append(wikiheaderString)
 
-#
     outfile = open(os.path.join(output_subdir, output_file_name), 'w')
     for outputLine in outputOrder:
         outfile.write(outputLine + "\n")
