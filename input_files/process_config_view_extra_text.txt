@@ -10,7 +10,7 @@ client.main.billingUrl = To enable users to display this button, also assign the
 
 client.main.reportingLogoutUrl = Before the user enters *Reports* through the UI, the platform will use this URL to log out from any previous sessions in *Reports*
 
-client.main.disableChangePassword = Select this option to enable users to open a dialog to edit their personal details from the menu of the *User* icon in the bottom left corner of the screen. The user can change their password if platform authentication is used. If you disable this option, you can only edit users in Users view. See [Configure the username menu]
+client.main.disableChangePassword = Select this option to enable users to open a dialog to edit their personal details from the menu of the *User* icon in the bottom left corner of the screen. The user can change their password if platform authentication is used. If you disable this option, you can only edit users in Users view. See [Configure the user icon menu]
 
 client.main.allowLogout = Allow users to log out by selecting *Log out* from the menu of the *User* icon in the bottom left corner of the screen. Otherwise *Log out* will not display on the menu, and users will only be logged out when their browser session ends
 
