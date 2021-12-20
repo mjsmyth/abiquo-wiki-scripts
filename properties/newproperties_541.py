@@ -57,9 +57,8 @@ def getDefault(pName, default):
         newDefault = re.sub("localhost", r"127.0.0.1", default)
     if "10.60.1.4" in default:
         newDefault = re.sub("10.60.1.4", r"127.0.0.1", default)
-    # if default == "/":
-    #    print("This is the default: ", pName, " - ", default)
-    #    newDefault = "SLASH"
+    # Valid defaults are letters, numbers, and forward slash
+    # Regex, Links, and stuff :-p
     return newDefault
 
 
@@ -123,76 +122,89 @@ def writePropsToFile(propertiesDict, outputSubdir, wikiPropertiesFile,
                                 profileImages[profileName])
                     else:
                         propertiesDict[pNa][profileName] = "  "
+
             # use real name
             if propertiesDict[pNa]["realName"]:
                 printName = anchor + " " + \
                     copy.deepcopy(propertiesDict[pNa]["realName"])
                 if "defaults" in propertiesDict[pNa]:
                     print("found Group with defaults: ", pNa)
-                    if len(set(propertiesDict[pNa]["defaults"].values())) - \
-                            len(propertiesDict[pNa]["defaults"]) >= -1:
-                        if len(set(propertiesDict[pNa]["defaults"].values())) > 1:
-                            for tag, df in propertiesDict[pNa]["defaults"].items():
-                                groupDefault += "\\\\" + " - " + tag + " = " + df + " "
-                            propertiesDict[pNa]["Default"] = "Default: "
-                    else:                 
+                    if len(set(propertiesDict[pNa]["defaults"].values())) \
+                            - len(propertiesDict[pNa]["defaults"]) >= -1:
+                        if len(set(propertiesDict[pNa][
+                                "defaults"].values())) > 1:
+                            for tag, df in propertiesDict[pNa][
+                                    "defaults"].items():
+                                groupDefault += "\\\\" + " - " + tag + " = " \
+                                    + df + " "
+                            propertiesDict[pNa]["Default"] = " - "
+                    else:
                         for tag, df in propertiesDict[pNa]["defaults"].items():
                             if df != propertiesDict[pNa]["Default"]:
-                                groupDefault += "\\\\" + " - " + tag + " = " + df + " "
+                                groupDefault += "\\\\" + " - " + tag \
+                                    + " = " + df + " "
             else:
                 printName = anchor + " #*#" + \
                     copy.deepcopy(propertiesDict[pNa]["Property"]) + "#*# "
 
             # add the default and range to the description
             if "Default" in propertiesDict[pNa]:
-                if re.search(r'[\w,/]', propertiesDict[pNa]["Default"]):
+                if re.search(r'\w', propertiesDict[pNa]["Default"]):
                     if "http" not in propertiesDict[pNa]["Default"]:
                         addDefault = " \\\\ _Default: " + \
                             copy.deepcopy(propertiesDict[pNa]["Default"]) + "_"
                     else:
-                        linkFormat = re.sub(r"((http:|https:)(\S*)?)", r'[\1]',
-                                            copy.deepcopy(propertiesDict[pNa]["Default"]))
+                        linkFormat = re.sub(r"((http:|https:)(\S*)?)",
+                                            r'[\1]',
+                                            copy.deepcopy(propertiesDict[
+                                                pNa]["Default"]))
                         addDefault = " \\\\ Default: " + linkFormat + " "
-                    # this is probably a regex, give it the big escape    
-                    if "[" in addDefault and "{" in addDefault:
-                        addDefault = re.sub(r'_Default: (.*)?_',
-                                            r'_Default:_ {newcode}\1{newcode}',
-                                            addDefault)
-                if re.search(r'[\w,/]', groupDefault):
+                if re.search(r'\w', groupDefault):
                     addDefault += groupDefault
             if "Valid values" in propertiesDict[pNa]:
                 if re.search(r'\w', propertiesDict[pNa]["Valid values"]):
-                    addRange = " \\\\ _Valid values: " + copy.deepcopy(propertiesDict[pNa]["Valid values"]) + "_ "
+                    addRange = " \\\\ _Valid values: " \
+                        + copy.deepcopy(propertiesDict[pNa]["Valid values"]) \
+                        + "_ "
             descWithHttp = copy.deepcopy(propertiesDict[pNa]["Description"])
             if "http" in descWithHttp:
                 if "<" not in descWithHttp:
-                    descWithHttp = re.sub(r"((http:|https:)(\S*)?)", r'[\1]', descWithHttp)
+                    descWithHttp = re.sub(r"((http:|https:)(\S*)?)",
+                                          r'[\1]',
+                                          descWithHttp)
                 else:
-                    descWithHttp = re.sub(r"((http:|https:)//<(.*?)>(\S*)?)", r'{newcode}\1{newcode}', descWithHttp)
-            fullDesc =  descWithHttp + addDefault + addRange
+                    descWithHttp = re.sub(r"((http:|https:)//<(.*?)>(\S*)?)",
+                                          r'{newcode}\1{newcode}',
+                                          descWithHttp)
+            fullDesc = descWithHttp + addDefault + addRange
+
             propOutDictValues = []
             propOutDictValues.append(copy.deepcopy(printName))
             propOutDictValues.append(copy.deepcopy(fullDesc))
-            propOutDictValues.append(copy.deepcopy(propertiesDict[pNa]["SERVER"]))
-            propOutDictValues.append(copy.deepcopy(propertiesDict[pNa]["REMOTESERVICES"]))
-            propOutDictValues.append(copy.deepcopy(propertiesDict[pNa]["V2VSERVICES"]))
-            propOutDictValues.append(copy.deepcopy(propertiesDict[pNa]["MOUTBOUNDAPI"]))
+            propOutDictValues.append(copy.deepcopy(
+                propertiesDict[pNa]["SERVER"]))
+            propOutDictValues.append(copy.deepcopy(
+                propertiesDict[pNa]["REMOTESERVICES"]))
+            propOutDictValues.append(copy.deepcopy(
+                propertiesDict[pNa]["V2VSERVICES"]))
+            propOutDictValues.append(copy.deepcopy(
+                propertiesDict[pNa]["MOUTBOUNDAPI"]))
 
             propLineText = " | ".join(propOutDictValues)
             propLine = "| " + propLineText + " |\n"
             if "{" in propLine:
                 # if a bracket is not already escaped, escape it
-                propLine = re.sub(r'(?<!\\){', r'\\{', propLine)
-                # if we want to create a macro, unescape the escape we just did
-                propLine = re.sub(r'\\{(?=anchor)|\\{(?=status)|\\{(?=newcode)', r'{', propLine)
-                # also if the escape is in a bracket
-                # TODO we need to do something here or sort out all the escapes :-p
-                # note that it thinks square brackets are links, and you can't escape it!
-                propLine = re.sub(r'\[javax mail property]', r'\{javaxMailProperty}', propLine)
-                # Create unescaped stars for bold text by replacing escaped stars
+                if "newcode" not in propLine:
+                    propLine = re.sub(r'(?<!\\){', r'\\{', propLine)
+                # For macros, unescape the escape we just did of {
+                propLine = re.sub(r'\\{(?=anchor)|\\{(?=status)',
+                                  r'{', propLine)
+                propLine = re.sub(r'\[javax mail property]',
+                                  r'\{javaxMailProperty}',
+                                  propLine)
+                # Unescape stars for bold text by replacing escaped stars
                 propLine = re.sub(r'\*', r'\\*', propLine)
                 propLine = re.sub(r'\#\\\*\#', r'*', propLine)
-                # propLine = re.sub(r'SLASH', r'/', propLine)
                 # print("Proppline: ", propLine)
             f.write(propLine)
     return True
@@ -221,11 +233,13 @@ def getPropNameDefault(currentProp):
 def processFile(inputDir, propertyFile, STARTCOMMENT,
                 PROFILE_SPACES, propertySearchString,
                 groupStore, profileDict,
-                profilesList, commentStore):
+                profilesList, propStore, commentStore):
     # groups in the file are separated by spaces
     profiles = []
 
     with open(os.path.join(inputDir, propertyFile), 'r') as f:
+        # go through the file and store each group
+        #     which is a start comment, profile, or property
         # with codecs.open(dirPropertyFile, 'r', 'utf-8') as f:
         group = ""
         for line in f:
@@ -239,6 +253,8 @@ def processFile(inputDir, propertyFile, STARTCOMMENT,
                 group = ""
 
     # separate by the profile section markers
+    #   which are in format ########### PROFILE
+    # also replace profiles with spaces in names
     for group in groupStore:
         if re.search(r"#{10}", group):
             changedGroup = copy.deepcopy(group)
@@ -248,9 +264,6 @@ def processFile(inputDir, propertyFile, STARTCOMMENT,
                                                  profileNoSpaces)
             profiles = re.findall(r"[A-Z,1-9]+", changedGroup)
             for profile in profiles:
-                # print("profile: ", profile)
-                # if profile not in propertyDict:
-                #     propertyDict[profile] = []
                 if profile not in profilesList:
                     profilesList.append(profile)
         # separate groups into further groups of properties plus their comments
@@ -258,7 +271,10 @@ def processFile(inputDir, propertyFile, STARTCOMMENT,
             propertyList = []
             comment = ""
             # remove readability comments in format "#-- xxx"
-            group = group.replace(r'^#--.*?\n', "")
+            if "--" in group:
+                print("dumb find: ", group)
+            group = re.sub(r'\n\#\-\-.*?\n', "\n", group)
+            print("replaced group: ", group)
             groupLines = group.split("\n")
             # find all the properties in a group that may include comments
             pValue = re.finditer(propertySearchString, group)
@@ -276,6 +292,9 @@ def processFile(inputDir, propertyFile, STARTCOMMENT,
                         if propertyName not in profileDict:
                             profileDict[propertyName] = {}
                         profileDict[propertyName][profile] = profile
+                        propStore[propertyName] = {
+                            "propRealName": propRealName,
+                            "propDefault": propDefault}
             # get comments without whitespace between them and their properties
             for groupLine in groupLines:
                 if groupLine[:] not in propertyList:
@@ -283,7 +302,7 @@ def processFile(inputDir, propertyFile, STARTCOMMENT,
                 else:
                     commentStore.append([groupLine, comment])
                     comment = ""
-    return(profilesList, commentStore, profileDict)
+    return(profilesList, propStore, profileDict, commentStore)
 
 
 def processExplicitGroups(propName):
@@ -295,19 +314,8 @@ def processExplicitGroups(propName):
     return rName
 
 
-def processGroups(propName, PLUGINS):
-
-    METRICS = ["cpu",
-               "cpu-mz",
-               "cpu-time",
-               "memory",
-               "memory-swap",
-               "memory-swap2",
-               "memory-vmmemctl",
-               "memory-physical",
-               "memory-host",
-               "disk-latency",
-               "uptime"]
+def processGroups(propName, PLUGINS, METRICS):
+    print("processing propName: ", propName)
     groupTypes = {"{plugin}": PLUGINS, "{metric}": METRICS}
 
     propName.strip()
@@ -319,7 +327,7 @@ def processGroups(propName, PLUGINS):
     for group, groupList in groupTypes.items():
         groupTagList = [x for x in lastPropNameList if x in groupList]
         if groupTagList:
-            # print("propName devices: ", propName, devicesGroup)
+            print("propName groupTagList: ", propName, groupTagList)
             groupTag = groupTagList[0]
             groupPattern = propName.replace(groupTag, "XXX")
             groupName = propName.replace(groupTag, group)
@@ -341,8 +349,10 @@ def main():
         print("bpt: ", bpt)
     for dpt in draasPluginTypes:
         print("dpt: ", dpt)
-    PLUGINS = hypervisorTypes + deviceTypes + \
-        backupPluginTypes + draasPluginTypes
+    backupPluginTypes.append("veeam")
+    backupPluginTypes.append("rubrik")
+    PLUGINS = hypervisorTypes + deviceTypes \
+        + backupPluginTypes + draasPluginTypes
     STARTCOMMENT = "# Abiquo Configuration Properties"
     PROFILE_SPACES = {"MOUTBOUNDAPI": "M OUTBOUND API",
                       "COSTUSAGE": "COST USAGE"}
@@ -413,23 +423,22 @@ def main():
     groupStore = []
     profileDict = {}
     profilesList = []
+    propStore = {}
     commentStore = []
 
-    profilesList, commentStore, profileDict = \
+    profilesList, propStore, profileDict, commentStore = \
         processFile(inputDir, propertyFile,
                     STARTCOMMENT, PROFILE_SPACES,
                     propertySearchString,
                     groupStore, profileDict,
-                    profilesList, commentStore)
+                    profilesList, propStore, commentStore)
 
     propDict = {}
     propComment = ""
     propRange = ""
     groupPropDefaults = {}
 
-    # list of all properties with comments
     for line in commentStore:
-
         currentProp = line[0]
         propName, propRealName, propDefault = getPropNameDefault(currentProp)
         if "{" in propName:
@@ -443,7 +452,9 @@ def main():
             propDict["realName"] = ""
 
         # check for property names that are groups
-        groupTag, groupPattern, groupName = processGroups(propName, PLUGINS)
+        groupTag, groupPattern, groupName = processGroups(propName,
+                                                          PLUGINS,
+                                                          METRICS)
 
         if groupPattern:
             if groupPattern not in groupDict:
@@ -524,9 +535,11 @@ def main():
                     # add an escaped star to later unescape after
                     # escaping stars in text
                     groupNameWithTags += " \\\\ - " + groupTag
-                    groupPropDefaults[groupTag] = copy.deepcopy(propertiesDict[prName]["Default"])
+                    groupPropDefaults[groupTag] = copy.deepcopy(propertiesDict[
+                        prName]["Default"])
                     if newProperty is True:
-                        groupPropertyDict = copy.deepcopy(propertiesDict[prName])
+                        groupPropertyDict = copy.deepcopy(propertiesDict[
+                            prName])
                         newProperty = False
                         if prName in profileDict:
                             groupPropertyDict["profiles"] = \
@@ -537,8 +550,6 @@ def main():
             groupPropertyDict["defaults"] = copy.deepcopy(groupPropDefaults)
             # Write the new group property
             propertiesDict[groupName] = copy.deepcopy(groupPropertyDict)
-            #    propertiesDict[prName]["groupName"] = copy.deepcopy(group)
-            #    propertiesDict[prName]["groupTag"] = copy.deepcopy(groupTag)
 
     for pNae, profList in profileDict.items():
         # if "instance" in pNae:
@@ -555,8 +566,8 @@ def main():
         print("Wrote to file")
 
 # TO DO
-# - Check quitwait
-# - Add status lozenges to header
+# - Filter HA properties
+# - Fix group properties :-p
 
 
 # Calls the main() function
