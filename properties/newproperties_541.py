@@ -97,7 +97,7 @@ def writePropsToFile(propertiesDict, outputSubdir, wikiPropertiesFile,
         # remove from list properties containing
         # deprecated plugin names e.g. e1c :-p
         sortedPropsNotDep = [b for b in sortedProperties if
-                             all(a not in b for a in PLGDEPRC)]
+                             all((not re.search(a, b)) for a in PLGDEPRC)]
 
         for pNa in sortedPropsNotDep:
             fullDesc = " "
@@ -137,7 +137,7 @@ def writePropsToFile(propertiesDict, outputSubdir, wikiPropertiesFile,
                                     "defaults"].items():
                                 groupDefault += "\\\\" + " - " + tag + " = " \
                                     + df + " "
-                            propertiesDict[pNa]["Default"] = " - "
+                            propertiesDict[pNa]["Default"] = " "
                     else:
                         for tag, df in propertiesDict[pNa]["defaults"].items():
                             if df != propertiesDict[pNa]["Default"]:
@@ -149,8 +149,18 @@ def writePropsToFile(propertiesDict, outputSubdir, wikiPropertiesFile,
 
             # add the default and range to the description
             if "Default" in propertiesDict[pNa]:
-                if re.search(r'\w', propertiesDict[pNa]["Default"]):
-                    if "http" not in propertiesDict[pNa]["Default"]:
+                if re.search(r'[\w/\-]', propertiesDict[pNa]["Default"]):
+                    if "{" in propertiesDict[pNa]["Default"] \
+                            and "[" in propertiesDict[pNa]["Default"]:
+                        addDefault = " \\\\ Default: {newcode}" \
+                            + propertiesDict[pNa]["Default"] \
+                            + "{newcode}"
+                    elif "//" in propertiesDict[pNa]["Default"] \
+                            and "<" in propertiesDict[pNa]["Default"]:
+                        addDefault = " \\\\ Default: {newcode}" \
+                            + propertiesDict[pNa]["Default"] \
+                            + "{newcode}"
+                    elif "http" not in propertiesDict[pNa]["Default"]:
                         addDefault = " \\\\ _Default: " + \
                             copy.deepcopy(propertiesDict[pNa]["Default"]) + "_"
                     else:
@@ -159,10 +169,10 @@ def writePropsToFile(propertiesDict, outputSubdir, wikiPropertiesFile,
                                             copy.deepcopy(propertiesDict[
                                                 pNa]["Default"]))
                         addDefault = " \\\\ Default: " + linkFormat + " "
-                if re.search(r'\w', groupDefault):
+                if re.search(r'[\w/]', groupDefault):
                     addDefault += groupDefault
             if "Valid values" in propertiesDict[pNa]:
-                if re.search(r'\w', propertiesDict[pNa]["Valid values"]):
+                if re.search(r'[\w/]', propertiesDict[pNa]["Valid values"]):
                     addRange = " \\\\ _Valid values: " \
                         + copy.deepcopy(propertiesDict[pNa]["Valid values"]) \
                         + "_ "
@@ -173,6 +183,7 @@ def writePropsToFile(propertiesDict, outputSubdir, wikiPropertiesFile,
                                           r'[\1]',
                                           descWithHttp)
                 else:
+                    print("found a weird link in the description")
                     descWithHttp = re.sub(r"((http:|https:)//<(.*?)>(\S*)?)",
                                           r'{newcode}\1{newcode}',
                                           descWithHttp)
@@ -351,6 +362,7 @@ def main():
         print("dpt: ", dpt)
     backupPluginTypes.append("veeam")
     backupPluginTypes.append("rubrik")
+    hypervisorTypes.append("esxi")
     PLUGINS = hypervisorTypes + deviceTypes \
         + backupPluginTypes + draasPluginTypes
     STARTCOMMENT = "# Abiquo Configuration Properties"
@@ -379,7 +391,7 @@ def main():
     FMTPRINTORDER = ["Property", "Description", "API", "RS", "V2V", "OA"]
 
     # Deprecated plugins
-    PLGDEPRC = ["google-compute-engine"]
+    PLGDEPRC = [r"\.ha\.", r"\.esx\.", r"\.esx$"]
     # ESXi metrics list
     METRICS = ["cpu",
                "cpu-mz",
