@@ -178,7 +178,21 @@ def processComment(commentList, NEWLINE):
         # Format the long comment with hard newlines
         for comment in commentList:
             description += comment.strip("#") + NEWLINE
-    return(description)
+    return(description.strip())
+
+
+def processValid(description):
+    foundValid = ""
+    newDescription = description[:]
+    searchValid = r"(?<=Valid values)[\s]*?[:]?[\s]*?(.*)$"
+    foundValid = re.search(searchValid, description)
+    if foundValid:
+        print ("found valid: ", foundValid.group(1))
+    replaceValid = "Valid values" + foundValid.group(0)
+    newDescription = re.sub(replaceValid, "", description)
+    validValues = foundValid.group(1).strip()
+    print("New description: ", newDescription)
+    return(newDescription, validValues)
 
 
 def readFileGetProperties(inputDir, propertyFile,
@@ -191,7 +205,6 @@ def readFileGetProperties(inputDir, propertyFile,
     inputText = Path(os.path.join(inputDir, propertyFile)).read_text()
     textList = inputText.split("\n\n")
     currentProfiles = []
-    propertyDict = {}
     propertiesDict = {}
     for text in textList:
         # If it's a profile section header "########## REMOTESERVICES" etc
@@ -205,6 +218,7 @@ def readFileGetProperties(inputDir, propertyFile,
 
         # If it contains a property
         else:
+            propertyDict = {}
             commentList = []
             propertyList = []
             propertyLines = text.split("\n")
@@ -220,8 +234,13 @@ def readFileGetProperties(inputDir, propertyFile,
                     propertyList, propertyDict,
                     GROUPTYPES, CATEGORYDICT)
                 propertyDict["profiles"] = currentProfiles[:]
-                propertyDict["description"] = processComment(
-                    commentList, NEWLINE)
+                propertyDict["description"] = processComment(commentList,
+                                                             NEWLINE)
+                if "Valid values" in propertyDict["description"]:
+                    propertyDict["description"], propertyDict[
+                        "validValues"] = processValid(
+                        propertyDict["description"])
+
                 tempPropName = copy.deepcopy(propertyDict["property"])
                 propertiesDict[tempPropName] = copy.deepcopy(propertyDict)
             else:
