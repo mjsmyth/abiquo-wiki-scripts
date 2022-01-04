@@ -47,6 +47,16 @@ def getPlugins(api):
     return (hypervisorTypes, deviceTypes, backupPluginTypes, draasPluginTypes)
 
 
+def prepareForWiki(propDict):
+    if "{" in propDict["property"]:
+        # Process property names with text in {}
+        # Are explicit groups without list members
+        # So just escape the { characters in the name and
+        # and store it as realName
+        propDict["realName"] = re.sub(r"{", r"\{", propDict["property"])
+    return propDict
+
+
 def fixDefault(pName, default):
     # some local defaults are replaced on filesystem during install
     newDefault = default[:]
@@ -63,6 +73,7 @@ def fixDefault(pName, default):
 
 def getCategory(pName, CATEGORYDICT):
     # Anchors are generally the second part of the name
+    propSortName = ""
     prop_cat = pName.split(".")
     if prop_cat[0] == "abiquo":
         property_cat = prop_cat[1][:]
@@ -70,36 +81,19 @@ def getCategory(pName, CATEGORYDICT):
         if prop_cat[0] == "com":
             if prop_cat[1] == "abiquo":
                 property_cat = prop_cat[3][:]
+                propSortName = ".".join(prop_cat[1:])
             else:
                 property_cat = prop_cat[2][:]
         else:
             property_cat = prop_cat[0][:]
 
     if property_cat in CATEGORYDICT:
-        return copy.deepcopy(CATEGORYDICT[property_cat])
+        return (copy.deepcopy(CATEGORYDICT[property_cat]), propSortName)
     else:
-        return property_cat
+        return property_cat, propSortName
 
 
-def processGroup(propName, PLUGINS, METRICS):
-    groupTypes = {"{plugin}": PLUGINS, "{metric}": METRICS}
-    propName.strip()
-    propNameList = propName.split(".")
-    # plugins etc are not in first two parts of name
-    # filter list of plugins in each list
-    lastPropNameList = propNameList[2:]
-
-    for group, groupList in groupTypes.items():
-        groupTagList = [x for x in lastPropNameList if x in groupList]
-        if groupTagList:
-            groupTag = groupTagList[0]
-            # This will be the propName
-            groupName = propName.replace(groupTag, group)
-            return (groupTag, groupName)
-    return("", "")
-
-
-def getPropNameDefault(currentProp, propertyDict):
+def getPropNameDefault(currentProp):
     # Split property name into name and default
     # note that default can contain an equals sign
     if "=" in currentProp:
@@ -113,32 +107,92 @@ def getPropNameDefault(currentProp, propertyDict):
         propDefault = ""
         propName = re.sub(r"^#?\s?", "", propName)
     propDefault = fixDefault(propName, propDefault)
-    propRealName = ""
-    # deal with properties with com. prefix to name
-    if re.match(r"^com.", propName):
-        propRealName = copy.deepcopy(propName)
-        propName = re.sub(r"^com.", "", propName)
-    if "{" in propName:
-        # Process property names with text in {}
-        # Are explicit groups without list members
-        # So just escape the { characters in the name and
-        # and store it as realName
-        propRealName = re.sub(r"{", r"\{", propName)
-    propertyDict["propName"] = propName
-    propertyDict["propRealName"] = propRealName
-    propertyDict["propDefault"] = propDefault
-    return (propertyDict)
+    return propName, propDefault
+
+
+def processGroup(propList, GROUPTYPES):
+    groupWorkList = []
+    groupList = []
+    groupTagList = []
+    propDefDict = {}
+    propGroupDefDict = {}
+    groupName = ""
+    myGroup = ""
+
+    for prop in propList:
+        propName, propDefault = getPropNameDefault(prop)
+        propDefDict[propName] = propDefault
+
+    for propName in propDefDict:
+        propName.strip()
+        propNameList = propName.split(".")
+        # plugins etc are not in first two parts of name
+        # filter list of plugins in each list
+        # lastPropNameList = propNameList[2:]
+        groupWorkList.extend(propNameList[2:])
+    reducedSet = set(groupWorkList)
+    reducedList = list(reducedSet)
+    print("****GROUPFULLLIST: ", reducedList)
+
+    for group, groupList in GROUPTYPES.items():
+        for x in reducedList:
+            if x in groupList:
+                groupTagList.append(x)
+                myGroup = copy.deepcopy(group)
+
+    if len(groupTagList) > 0:
+        # groupTag = groupTagList[0]
+        # This will be the propName
+        print("****GROUPTAGLIST: ", groupTagList)
+        for tag in groupTagList:
+            for name, default in propDefDict.items():
+                if tag in name:
+                    propGroupDefDict[tag] = default
+                    if not groupName:
+                        groupName = name.replace(tag, myGroup)
+        print("****GROUPNAME: ", groupName)
+        return groupName, propGroupDefDict
+    return "", ""
+
+
+def getPropertyValues(propertyList, propertyDict,
+                      GROUPTYPES, CATEGORYDICT):
+    initialPropName, propDefault = getPropNameDefault(propertyList[0])
+    propertyDict["category"], propertyDict["sortName"] = getCategory(
+        initialPropName, CATEGORYDICT)
+    if len(propertyList) == 1:
+        propertyDict["property"] = initialPropName
+        propertyDict["default"] = propDefault
+    else:
+        propertyDict["property"], propertyDict["default"] = processGroup(
+            propertyList, GROUPTYPES)
+    return(propertyDict)
+
+
+def processComment(commentList, NEWLINE):
+    description = ""
+    if len(commentList) < 10:
+        for comment in commentList:
+            description += comment.strip("#")
+    else:
+        # Format the long comment with hard newlines
+        for comment in commentList:
+            description += comment.strip("#") + NEWLINE
+    return(description)
 
 
 def readFileGetProperties(inputDir, propertyFile,
                           PROFILE_SPACES,
                           propertySearchString,
                           propSearchString,
-                          propertyDict):
+                          GROUPTYPES,
+                          CATEGORYDICT,
+                          NEWLINE):
     inputText = Path(os.path.join(inputDir, propertyFile)).read_text()
     textList = inputText.split("\n\n")
     currentProfiles = []
-
+    propertyDict = {}
+    propertiesDict = {}
     for text in textList:
         # If it's a profile section header "########## REMOTESERVICES" etc
         if re.search(r"#{10}", text):
@@ -161,18 +215,18 @@ def readFileGetProperties(inputDir, propertyFile,
                     commentList.append(propertyLine)
             print("CL: ", commentList)
             print("PL: ", propertyList)
-            if len(propertyList) == 0:
+            if len(propertyList) >= 1:
+                propertyDict = getPropertyValues(
+                    propertyList, propertyDict,
+                    GROUPTYPES, CATEGORYDICT)
+                propertyDict["profiles"] = currentProfiles[:]
+                propertyDict["description"] = processComment(
+                    commentList, NEWLINE)
+                tempPropName = copy.deepcopy(propertyDict["property"])
+                propertiesDict[tempPropName] = copy.deepcopy(propertyDict)
+            else:
                 continue
-            elif len(propertyList) >= 1:
-                propertyDict = getPropNameDefault(
-                    propertyList[0], propertyDict)
-            elif len(propertyList) > 1:
-                # TODO add stuff
-                for groupProperty in propertyList:
-                    # This should add all properties to list
-                    x = processGroup(groupProperty)
-
-    return()
+    return(copy.deepcopy(propertiesDict))
 
 
 def main():
@@ -206,7 +260,7 @@ def main():
     # FMTPRINTORDER = ["Property", "Description", "API",
     #                 "RS", "OA", "DNSMASQ", "COSTUSAGE", "BILLING"]
     FMTPRINTORDER = ["Property", "Description", "API", "RS", "V2V", "OA"]
-
+    NEWLINE = "\\\\"
     # Deprecated plugins
     PLGDEPRC = [r"\.ha\."]
     # ESXi metrics list
@@ -221,6 +275,8 @@ def main():
                "memory-host",
                "disk-latency",
                "uptime"]
+
+    GROUPTYPES = {"{plugin}": PLUGINS, "{metric}": METRICS}
     # Display these lozenges in wiki markup
     profileImages = {"SERVER":
                      " {status:colour=green|title=API|subtle=false}",
@@ -247,13 +303,16 @@ def main():
                       "BILLING": "SERVER"
                       }
 
-    propertyDict = {}
-    propertyDict = readFileGetProperties(inputDir, propertyFile,
-                                         PROFILE_SPACES,
-                                         propertySearchString,
-                                         propSearchString,
-                                         propertyDict)
-    print(propertyDict)
+    propertiesDict = {}
+    propertiesDict = readFileGetProperties(inputDir, propertyFile,
+                                           PROFILE_SPACES,
+                                           propertySearchString,
+                                           propSearchString,
+                                           GROUPTYPES,
+                                           CATEGORYDICT,
+                                           NEWLINE)
+    for propertyName, propertyValue in propertiesDict.items():
+        print(propertyName, propertyValue)
 
 
 # Calls the main() function
