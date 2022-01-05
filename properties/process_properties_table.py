@@ -10,6 +10,7 @@ import copy
 from datetime import datetime
 import os
 import json
+from collections import Counter
 from abiquo.client import Abiquo
 from abiquo.auth import TokenAuth
 from pathlib import Path
@@ -54,18 +55,98 @@ def sortForOutput(propertiesDict):
             propertiesDict[pName]["sortName"] = copy.deepcopy(
                 propertiesDict[pName]["property"])
     sortedPropDict = dict(sorted(propertiesDict.items(),
-                                 key=lambda x: x[1]["sortName"]))
+                          key=lambda x: x[1]["sortName"]))
     return sortedPropDict
 
 
-def prepareForWiki(propDict, NEWLINE):
-    if "{" in propDict["property"]:
-        # Process property names with text in {}
-        # Are explicit groups without list members
-        # So just escape the { characters in the name and
-        # and store it as realName
-        propDict["realName"] = re.sub(r"{", r"\{", propDict["property"])
-    return propDict
+def prepareForWiki(pSDict, profileColumns,
+                   profileImages, NEWLINE, webrefs):
+    # Prepare a dict with the properties to print
+    pTPD = {}
+    for pname, propv in pSDict.items():
+        pTPD[pname] = {}
+        # Prepare the Property entry
+        pluginList = ""
+        anchor = " {anchor: " + copy.deepcopy(propv["category"]) + "} "
+        propName = propv["property"]
+        if "{" in propName:
+            propName = re.sub(r"\{", r"\\{", propName)
+        if "[" in propName:
+            propName = re.sub(r"\[", r"\\[", propName)
+        if "default" in propv:
+            if type(propv["default"]) is dict:
+                for plugin in propv["default"].keys():
+                    pluginList += NEWLINE + "\\- " + plugin
+        pTPD[pname]["Property"] = anchor + "*" + propName + "* " + pluginList
+
+        # Prepare the default entry
+        defaultList = ""
+        if "default" in propv:
+            if type(propv["default"]) is str:
+                if "http" in propv["default"] or ("{" and "[") \
+                        in propv["default"]:
+                    defaultList = NEWLINE + "Default: {newcode}" + \
+                        copy.deepcopy(propv["default"]) + "{newcode}"
+                else:
+                    defaultList = NEWLINE + "_Default: " + copy.deepcopy(
+                        propv["default"]) + "_"
+            if type(propv["default"]) is dict:
+                value, count = Counter(
+                    propv["default"].values()).most_common(1)[0]
+                if count > 1:
+                    defaultList = "_Default: " + value[:]
+                for plugin, defv in propv["default"].items():
+                    if defv != value:
+                        defaultList += NEWLINE + "\\- " + plugin + \
+                            " = " + defv
+                defaultList += defaultList + "_"
+
+        # Prepare values
+        valuesList = ""
+        if "validValues" in propv:
+            valuesList = NEWLINE + "_Valid values: " + \
+                propv["validValues"] + "_"
+
+        # Prepare description
+        description = ""
+        if "description" in propv:
+            description = copy.deepcopy(propv["description"])
+            if "http" in description:
+                foundWebref = re.search(webrefs, description)
+                if foundWebref:
+                    print("found webref: ", foundWebref.group(0))
+                    description = re.sub(r"((http:|https:)(\S*)?)",
+                                         r'[\1]',
+                                         description)
+                else:
+                    description = re.sub(r"((http:|https:)(\S*)?)",
+                                         r'{newcode}\1{newcode}',
+                                         description)
+            else:
+                if "*" in description:
+                    description = re.sub(r'\*', r'\\*', description)
+                if "-" in description:
+                    description = re.sub(r'\-', r'\\-', description)
+                if "[" in description:
+                    description = re.sub(r'\[', r'\\-', description)
+                if "{" in description:
+                    description = re.sub(r'\{', r'\\-', description)
+        # todo check if default has actual characters in it
+        # todo etc.
+
+        pTPD[pname]["Descripton"] = description + \
+            valuesList + defaultList
+
+        # Prepare profiles
+        if "profiles" in propv:
+            for profileName, profileImage in profileImages.items():
+                if profileName in propv["profiles"]:
+                    if profileName in profileColumns:
+                        column = profileColumns[profileName]
+                        pTPD[pname][column] = copy.deepcopy(
+                            profileImages[profileName])
+
+    return pTPD
 
 
 def fixDefault(pName, default):
@@ -273,7 +354,6 @@ def main():
         + backupPluginTypes + draasPluginTypes
     PROFILE_SPACES = {"MOUTBOUNDAPI": "M OUTBOUND API",
                       "COSTUSAGE": "COST USAGE"}
-    DONT_FORMAT = ["Template to configure guest initial"]
     propertySearchString = r"#?\s?((([\w,\-,\{,\}]{1,60}?\.){1,10})([\w,\-,\{,\}]{1,50}))(=?(.*?))\n"
     propSearchString = r"#?\s?((([\w,\-,\{,\}]{1,60}?\.){1,10})([\w,\-,\{,\}]{1,50}))(=?(.*?))"
     inputDir = '/Users/maryjane/platform/system-properties/src/main/resources/'
@@ -332,7 +412,7 @@ def main():
                       "COSTUSAGE": "SERVER",
                       "BILLING": "SERVER"
                       }
-
+    webrefs = r"cloud\.google\.com|docs\.microsoft\.com|msdn\.microsoft\.com|javaee\.github\.io"
     propertiesDict = {}
     propertiesDict = readFileGetProperties(inputDir, propertyFile,
                                            PROFILE_SPACES,
@@ -342,9 +422,12 @@ def main():
                                            CATEGORYDICT,
                                            NEWLINE)
     propertiesSortedDict = sortForOutput(propertiesDict)
-    for propertyName, propertyValue in propertiesSortedDict.items():
-        print(propertyName, propertyValue)
-    print(json.dumps(propertiesSortedDict, indent=4, sort_keys=True))
+    propertiesToPrintDict = prepareForWiki(propertiesSortedDict,
+                                           profileColumns,
+                                           profileImages,
+                                           NEWLINE,
+                                           webrefs)
+    print(json.dumps(propertiesToPrintDict, indent=4, sort_keys=True))
 
 
 # Calls the main() function
