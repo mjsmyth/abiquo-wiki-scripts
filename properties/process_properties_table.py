@@ -9,6 +9,7 @@ import re
 import copy
 from datetime import datetime
 import os
+import json
 from abiquo.client import Abiquo
 from abiquo.auth import TokenAuth
 from pathlib import Path
@@ -47,7 +48,17 @@ def getPlugins(api):
     return (hypervisorTypes, deviceTypes, backupPluginTypes, draasPluginTypes)
 
 
-def prepareForWiki(propDict):
+def sortForOutput(propertiesDict):
+    for pName, pValue in propertiesDict.items():
+        if not propertiesDict[pName]["sortName"]:
+            propertiesDict[pName]["sortName"] = copy.deepcopy(
+                propertiesDict[pName]["property"])
+    sortedPropDict = dict(sorted(propertiesDict.items(),
+                                 key=lambda x: x[1]["sortName"]))
+    return sortedPropDict
+
+
+def prepareForWiki(propDict, NEWLINE):
     if "{" in propDict["property"]:
         # Process property names with text in {}
         # Are explicit groups without list members
@@ -330,8 +341,10 @@ def main():
                                            GROUPTYPES,
                                            CATEGORYDICT,
                                            NEWLINE)
-    for propertyName, propertyValue in propertiesDict.items():
+    propertiesSortedDict = sortForOutput(propertiesDict)
+    for propertyName, propertyValue in propertiesSortedDict.items():
         print(propertyName, propertyValue)
+    print(json.dumps(propertiesSortedDict, indent=4, sort_keys=True))
 
 
 # Calls the main() function
