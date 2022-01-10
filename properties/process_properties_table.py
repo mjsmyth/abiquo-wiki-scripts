@@ -55,27 +55,39 @@ def sortForOutput(propertiesDict):
             propertiesDict[pName]["sortName"] = copy.deepcopy(
                 propertiesDict[pName]["property"])
     sortedPropDict = dict(sorted(propertiesDict.items(),
-                          key=lambda x: x[1]["sortName"]))
+                          key=lambda x: x[1]["sortName"].lower()))
     return sortedPropDict
 
 
 def prepareForWiki(pSDict, profileColumns,
-                   profileImages, NEWLINE, webrefs):
+                   profileImages, NEWLINE,
+                   webrefs, defaultProfiles):
     # Prepare a dict with the properties to print
     pTPD = {}
+    previousCategory = ""
+    anchor = ""
+    propvDefault = {}
     for pname, propv in pSDict.items():
         pTPD[pname] = {}
         # Prepare the Property entry
         pluginList = ""
-        anchor = " {anchor: " + copy.deepcopy(propv["category"]) + "} "
+        if propv["category"] != previousCategory:
+            anchor = " {anchor: " + copy.deepcopy(propv["category"]) + "} "
+        else:
+            anchor = ""
+        previousCategory = copy.deepcopy(propv["category"])
         propName = propv["property"]
         if "{" in propName:
             propName = re.sub(r"\{", r"\\{", propName)
         if "[" in propName:
-            propName = re.sub(r"\[", r"\\[", propName)
+            propName = re.sub(r"\[", r"\\{", propName)
+        if "]" in propName:
+            propName = re.sub(r"\]", r"\}", propName)
+        pluginList = ""
         if "default" in propv:
             if type(propv["default"]) is dict:
-                for plugin in propv["default"].keys():
+                propvDefault = dict(sorted(propv["default"].items()))
+                for plugin in propvDefault.keys():
                     pluginList += NEWLINE + "\\- " + plugin
         pTPD[pname]["Property"] = anchor + "*" + propName + "* " + pluginList
 
@@ -83,23 +95,36 @@ def prepareForWiki(pSDict, profileColumns,
         defaultList = ""
         if "default" in propv:
             if type(propv["default"]) is str:
-                if "http" in propv["default"] or ("{" and "[") \
+                if "http" in propv["default"] or ("{" or "[") \
                         in propv["default"]:
                     defaultList = NEWLINE + "Default: {newcode}" + \
                         copy.deepcopy(propv["default"]) + "{newcode}"
                 else:
-                    defaultList = NEWLINE + "_Default: " + copy.deepcopy(
-                        propv["default"]) + "_"
+                    if re.search(r"\S+", propv["default"]):
+                        defaultList = NEWLINE + "_Default: " + copy.deepcopy(
+                            propv["default"]) + "_"
+                        if "*" in defaultList:
+                            defaultList = re.sub(r"\*", r"\\*", defaultList)
             if type(propv["default"]) is dict:
                 value, count = Counter(
-                    propv["default"].values()).most_common(1)[0]
+                    propvDefault.values()).most_common(1)[0]
                 if count > 1:
-                    defaultList = "_Default: " + value[:]
-                for plugin, defv in propv["default"].items():
-                    if defv != value:
-                        defaultList += NEWLINE + "\\- " + plugin + \
-                            " = " + defv
-                defaultList += defaultList + "_"
+                    if re.search(r"\S+", value):
+                        defaultList = NEWLINE + "_Default: " + value[:]
+                if count == 1:
+                    defaultList = NEWLINE + "_Default: "
+                for plugin, defv in propvDefault.items():
+                    if count > 1:
+                        if defv != value:
+                            if re.search(r"\S+", defv):
+                                defaultList += NEWLINE + "\\- " + plugin + \
+                                    " = " + defv
+                    if count == 1:
+                        if re.search(r"\S+", defv) or plugin == "hyperv_301":
+                            defaultList += NEWLINE + "\\- " + plugin + \
+                                " = " + defv
+                # if "hyperv_301" not in defaultList:
+                defaultList += "_"
 
         # Prepare values
         valuesList = ""
@@ -115,9 +140,18 @@ def prepareForWiki(pSDict, profileColumns,
                 foundWebref = re.search(webrefs, description)
                 if foundWebref:
                     print("found webref: ", foundWebref.group(0))
-                    description = re.sub(r"((http:|https:)(\S*)?)",
-                                         r'[\1]',
-                                         description)
+                    webLinkFound = re.search(r"((http:|https:)(\S*)?)",
+                                             description)
+                    if webLinkFound:
+                        webLink = webLinkFound.group(1)[:]
+                        newWebLink = ""
+                        if re.search(r"\)$", webLink):
+                            if "(" not in webLink:
+                                newWebLink = webLink.replace(")", "")
+                                newWebLink = r"[" + newWebLink + "]" + " \\)"
+                        else:
+                            newWebLink = r"[" + webLink + "]"
+                        description = description.replace(webLink, newWebLink)
                 else:
                     description = re.sub(r"((http:|https:)(\S*)?)",
                                          r'{newcode}\1{newcode}',
@@ -139,6 +173,8 @@ def prepareForWiki(pSDict, profileColumns,
 
         # Prepare profiles
         if "profiles" in propv:
+            for profile in defaultProfiles:
+                pTPD[pname][profile] = " "
             for profileName, profileImage in profileImages.items():
                 if profileName in propv["profiles"]:
                     if profileName in profileColumns:
@@ -172,7 +208,7 @@ def getCategory(pName, CATEGORYDICT):
     else:
         if prop_cat[0] == "com":
             if prop_cat[1] == "abiquo":
-                property_cat = prop_cat[3][:]
+                property_cat = prop_cat[2][:]
                 propSortName = ".".join(prop_cat[1:])
             else:
                 property_cat = prop_cat[2][:]
@@ -212,8 +248,9 @@ def processGroup(propList, GROUPTYPES):
     myGroup = ""
 
     for prop in propList:
-        propName, propDefault = getPropNameDefault(prop)
-        propDefDict[propName] = propDefault
+        if "--" not in prop:
+            propName, propDefault = getPropNameDefault(prop)
+            propDefDict[propName] = propDefault
 
     for propName in propDefDict:
         propName.strip()
@@ -265,7 +302,8 @@ def processComment(commentList, NEWLINE):
     description = ""
     if len(commentList) < 10:
         for comment in commentList:
-            description += comment.strip("#")
+            if "#--" not in comment:
+                description += comment.strip("#")
     else:
         # Format the long comment with hard newlines
         for comment in commentList:
@@ -340,6 +378,26 @@ def readFileGetProperties(inputDir, propertyFile,
     return(copy.deepcopy(propertiesDict))
 
 
+def writePropsToFile(propertiesToPrintDict, outputSubdir,
+                     wikiPropertiesFile, PLGDEPRC,
+                     FMTPRINTORDER):
+
+    # Basic wiki markup file with all properties
+    with open(os.path.join(outputSubdir, wikiPropertiesFile), 'w') as f:
+        headLineText = " || ".join(str(x) for x in FMTPRINTORDER)
+        headLine = "|| " + headLineText + " ||\n"
+        f.write(headLine)
+
+        for prop, propToPrint in propertiesToPrintDict.items():
+            for pluginDeprecated in PLGDEPRC:
+                if not re.search(pluginDeprecated, prop):
+                    propLineText = " | ".join(propToPrint.values())
+                    propLine = "| " + propLineText + " |\n"
+                    f.write(propLine)
+
+    return True
+
+
 def main():
     token = input("Enter token: ")
     apiUrl = input("Enter API URL: ")
@@ -370,7 +428,7 @@ def main():
     # FMTPRINTORDER = ["Property", "Description", "API",
     #                 "RS", "OA", "DNSMASQ", "COSTUSAGE", "BILLING"]
     FMTPRINTORDER = ["Property", "Description", "API", "RS", "V2V", "OA"]
-    NEWLINE = "\\\\"
+    NEWLINE = " \\\\ "
     # Deprecated plugins
     PLGDEPRC = [r"\.ha\."]
     # ESXi metrics list
@@ -403,6 +461,10 @@ def main():
                      "BILLING":
                      " {status:colour=yellow|title=BILLING|subtle=false}"
                      }
+    defaultProfiles = ["SERVER",
+                       "REMOTESERVICES",
+                       "V2VSERVICES",
+                       "MOUTBOUNDAPI"]
     # Piggyback other profiles into the main columns
     profileColumns = {"SERVER": "SERVER",
                       "REMOTESERVICES": "REMOTESERVICES",
@@ -426,8 +488,15 @@ def main():
                                            profileColumns,
                                            profileImages,
                                            NEWLINE,
-                                           webrefs)
-    print(json.dumps(propertiesToPrintDict, indent=4, sort_keys=True))
+                                           webrefs,
+                                           defaultProfiles)
+    # print(json.dumps(propertiesToPrintDict, indent=4, sort_keys=True))
+    check = writePropsToFile(propertiesToPrintDict, outputSubdir,
+                             wikiPropertiesFile, PLGDEPRC,
+                             FMTPRINTORDER)
+
+    if check is True:
+        print("Wrote to file")
 
 
 # Calls the main() function
