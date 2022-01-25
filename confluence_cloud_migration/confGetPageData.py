@@ -44,7 +44,7 @@ def processResults(results, confluence, site_URL):
     page_file = open(page_filename, "w+")
 
     header_list = ["Page ID", "Name", "URL", "Last upd.", "Created", "Labels"]
-    header = "\t".join(header_list)
+    header = "\t".join(header_list) + "\n"
     page_file.write(header)
 
     for page in results:
