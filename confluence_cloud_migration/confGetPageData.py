@@ -7,7 +7,7 @@
 
 from datetime import datetime
 from atlassian import Confluence
-import pprint
+# import pprint
 
 
 def get_a_few_pages(confluence, start_next, spacekey):
@@ -27,7 +27,7 @@ def get_all_the_pages(confluence, start_next, spacekey):
     while returned_size > 0:
         results = confluence.get_all_pages_from_space(spacekey,
                                                       start=start_next,
-                                                      limit=5, status=None,
+                                                      limit=100, status=None,
                                                       expand=None,
                                                       content_type='page')
         returned_size = len(results)
@@ -37,11 +37,15 @@ def get_all_the_pages(confluence, start_next, spacekey):
     return results_list
 
 
-def processResults(results, confluence):
-    pp = pprint.PrettyPrinter(indent=4)
+def processResults(results, confluence, site_URL):
+    # pp = pprint.PrettyPrinter(indent=4)
     td = datetime.today().strftime('%Y-%m-%d')
     page_filename = "page_METADATA_" + td + ".tsv"
     page_file = open(page_filename, "w+")
+
+    header_list = ["Page ID", "Name", "URL", "Last upd.", "Created", "Labels"]
+    header = "\t".join(header_list)
+    page_file.write(header)
 
     for page in results:
         pg_lab_list = []
@@ -49,18 +53,20 @@ def processResults(results, confluence):
         pg_id = str(page["id"])
         pg_name = str(page["title"])
         page_links_web_ui = str(page["_links"]["webui"])
-
+        pg_url = site_URL + page_links_web_ui
         pg_history = confluence.history(pg_id)
-        pp.pprint(pg_history)
-        pg_upd = pg_history['lastUpdated']['when']
-        pg_cre = pg_history['createdDate']
+        # pp.pprint(pg_history)
+        pg_u = pg_history['lastUpdated']['when']
+        pg_upd = datetime.fromisoformat(pg_u).strftime('%Y-%m-%d')
+        pg_c = pg_history['createdDate']
+        pg_cre = datetime.fromisoformat(pg_c).strftime('%Y-%m-%d')
         pg_labels = confluence.get_page_labels(pg_id, prefix=None,
                                                start=None, limit=None)
         for lab in pg_labels['results']:
             pg_lab_list.append(lab['name'])
         pg_lab = ", ".join(pg_lab_list)
         # pp.pprint(pg_labels)
-        page_metadata = [pg_id, pg_name, page_links_web_ui, pg_upd,
+        page_metadata = [pg_id, pg_name, pg_url, pg_upd,
                          pg_cre, pg_lab]
         print(", ".join(page_metadata))
         # page_list.append(pg_id + "\t" + pg_name + "\t" + page_links_web_ui)
@@ -85,8 +91,9 @@ def main():
 
     start_next = 0
 
-    results = get_a_few_pages(confluence, start_next, spacekey)
-    processResults(results, confluence)
+    # results = get_a_few_pages(confluence, start_next, spacekey)
+    results = get_all_the_pages(confluence, start_next, spacekey)
+    processResults(results, confluence, site_URL)
 
 
 # Calls the main() function
