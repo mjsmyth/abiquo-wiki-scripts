@@ -8,6 +8,8 @@
 from datetime import datetime
 from atlassian import Confluence
 import copy
+import re
+import os
 # import dateutil.parser
 # import pprint
 # from itertools import zip_longest
@@ -51,6 +53,38 @@ def get_all_the_pages(confluence, start_next, spacekey):
         results_list.extend(results)
         start_next = start_next + len(results)
     return results_list
+
+
+def save_pages(results, confluence_cloud, cloud_site_URL, output_path):
+    for page in results["results"]:
+        page_id = str(page["id"])
+        # Get the content of the page
+        pcu = confluence_cloud.get_page_by_id(page_id, expand="body.storage",
+                                              status=None, version=None)
+        # pcu = p.json()
+        # print ("Getting page: ", page_uri)
+        if pcu["body"]["storage"]["value"]:
+            page_content_unsafe = pcu["body"]["storage"]["value"]
+
+        # File name is page name without special characters, plus page ID.
+        # Use a regex to strip non-alphanum characters from page name.
+        page_name = page["title"]
+
+        page_name_qualified = (re.sub(r'([^\s\w]|_)+',
+                                      '', page_name)) + "-" + page_id
+        #  # Open the output file for writing. Will overwrite existing file.
+        #   # File is in the required output directory.
+        page_file = open(os.path.join(output_path, page_name_qualified), "w+")
+    #   # Write a line containing the URL of the page, marked with asterisks for easy grepping
+        page_file.write("**" + apiUrl + page["_links"]["webui"] + "**\n")
+    #   
+    #     # Write the page content to the file, after removing any weird characters such as a BOM   
+        safe_content = str(page_content_unsafe.encode('ascii', 'xmlcharrefreplace'))
+    #     # Remove unwanted characters at beginning and end
+        safe_content = str.lstrip(safe_content, "b'")
+        safe_content = str.rstrip(safe_content, "'")
+        page_file.write(safe_content)
+        page_file.close()
 
 
 def processResults(results, confluence, site_URL,
@@ -123,7 +157,7 @@ def main():
     cloud_site_URL = "https://abiquo.atlassian.net/wiki"
     cloud_uname = input("Cloud username: ")
     pwd = input("Cloud token string: ")
-
+    output_path = input("Folder for storing results: ")
     confluence_cloud = Confluence(
         url=cloud_site_URL,
         username=cloud_uname,
