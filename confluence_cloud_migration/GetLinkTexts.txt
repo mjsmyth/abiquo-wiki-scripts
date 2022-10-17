@@ -1,0 +1,3 @@
+GetLinkTexts.txt
+Get link texts
+egrep -o  '<a href=".*?">.*?</a>' * > links.txt
