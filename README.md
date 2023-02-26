@@ -8,7 +8,7 @@ Here are some examples of my projects.
 I started automating my docs with shell scripts that contained AWK commands that read code.
 For example, the Java [AWK to process API Error file](https://github.com/mjsmyth/abiquo-wiki-scripts/blob/master/process_api_error/process_api_error_dev_guide.sh)
 
-I also the developers to commit to a central configuration properties file.
+I also got the developers to commit to a central configuration properties file.
 And then ran a script [AWK to process properties file](https://github.com/mjsmyth/abiquo-wiki-scripts/blob/master/properties/process_properties.sh)
 
 ## Python script for a customer use case
